@@ -1,0 +1,87 @@
+{
+    "frameId": "f-uc2-order-001",
+    "frameType": "action_staged",
+    "widgets": [
+        {
+            "widgetType": "UW-014",
+            "data": {
+                "summary": "Intent: Order Creation. Resolved 'Acme Corp' -> Customer C-4201. Pulled price list, applied VIP tier. Order staged for review.",
+                "steps": [
+                    { "step": 1, "action": "search_customers", "result": "1 match: C-4201 (Acme Corp)", "ms": 145 },
+                    { "step": 2, "action": "fetch_price_list", "result": "VIP-WEST tier loaded — 8% standard discount", "ms": 180 },
+                    { "step": 3, "action": "validate_inventory", "result": "All 3 SKUs in stock — ready to ship", "ms": 220 },
+                    { "step": 4, "action": "compute_totals", "result": "Subtotal $5,640.19 — within $75K credit limit", "ms": 35 }
+                ],
+                "mcpsAccessed": ["CRM", "Pricing", "Inventory"],
+                "totalMs": 580
+            },
+            "config": { "collapsed": true }
+        },
+        {
+            "widgetType": "UW-003",
+            "data": {
+                "entityType": "order",
+                "title": "New Order — Acme Corp",
+                "fields": [
+                    { "label": "Customer", "value": "Acme Corp (Customer C-4201)", "entityId": "C-4201" },
+                    { "label": "Items", "value": "3 line items, 24 units" },
+                    { "label": "Subtotal", "value": "$5,640.19" },
+                    { "label": "Discount", "value": "8% (VIP tier)" },
+                    { "label": "Delivery Date", "value": "May 19, 2026" },
+                    { "label": "Status", "value": "Draft" }
+                ]
+            }
+        },
+        {
+            "widgetType": "AW-004",
+            "data": {
+                "formId": "order-creation-form",
+                "steps": [
+                    {
+                        "stepTitle": "Order Details",
+                        "fields": [
+                            { "fieldId": "customer", "type": "entity_search", "label": "Customer", "value": "Acme Corp", "resolvedId": "C-4201", "required": true },
+                            { "fieldId": "items", "type": "text", "label": "Line Items", "value": "Artisan Table Lamp - Brass × 12, Linen Throw - Sand × 8, Wall Sconce - Matte Black × 4", "required": true },
+                            { "fieldId": "subtotal", "type": "text", "label": "Subtotal", "value": "$5,640.19", "required": true },
+                            { "fieldId": "discount", "type": "select", "label": "Discount", "value": "8% (VIP tier)", "options": ["None", "5%", "8% (VIP tier)", "10%", "15%"], "required": true },
+                            { "fieldId": "deliveryDate", "type": "date", "label": "Delivery Date", "value": "2026-05-19", "required": true },
+                            { "fieldId": "rep", "type": "user_search", "label": "Sales Rep", "value": "Heman Bhullar", "resolvedId": "U-0042", "required": true },
+                            { "fieldId": "status", "type": "select", "label": "Status", "value": "Draft", "options": ["Draft", "Pending Approval", "Confirmed"], "required": true },
+                            { "fieldId": "notes", "type": "text", "label": "Notes", "value": "Standard restock — Acme's Q2 catalog reorder.", "required": false }
+                        ]
+                    }
+                ]
+            },
+            "config": { "mode": "review", "editable": false }
+        },
+        {
+            "widgetType": "AW-012",
+            "data": {
+                "message": "Kai has staged this order for your review. Confirm to create it.",
+                "tier": "draft",
+                "actions": ["Confirm & Create", "Edit", "Cancel"]
+            }
+        }
+    ],
+    "closingText": {
+        "type": "description",
+        "text": "I've staged a draft order for Acme Corp — 3 line items totaling $5,640.19 with their VIP 8% discount applied. Delivery is set for May 19. All three SKUs are in stock so this can ship same-day once you confirm."
+    },
+    "actions": {
+        "onConfirm": {
+            "mcp": "Orders",
+            "method": "createOrder",
+            "payload": {
+                "customerId": "C-4201",
+                "items": "Artisan Table Lamp - Brass × 12, Linen Throw - Sand × 8, Wall Sconce - Matte Black × 4",
+                "subtotal": 5640.19,
+                "discount": "8%",
+                "deliveryDate": "2026-05-19",
+                "status": "Draft",
+                "rep": "U-0042"
+            }
+        },
+        "onCancel": { "action": "discard" },
+        "onModify": { "action": "unlock_form" }
+    }
+}

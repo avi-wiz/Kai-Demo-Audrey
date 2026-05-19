@@ -1,0 +1,40 @@
+{
+  "briefType": "page-customers",
+  "greeting": "Here's a quick pulse on your customer base.",
+  "urgentItems": [
+    {
+      "icon": "alert",
+      "text": "2 VIP accounts haven't ordered in 60+ days — Coastal Living and Summit Home",
+      "priority": "urgent",
+      "actionChip": {
+        "label": "Show dormant VIPs",
+        "query": "Show me dormant VIP customers",
+        "icon": "search",
+        "category": "page-action"
+      }
+    },
+    {
+      "icon": "star",
+      "text": "Bay Area Boutiques just hit $100K lifetime revenue — potential VIP upgrade",
+      "priority": "attention",
+      "actionChip": {
+        "label": "Review for VIP",
+        "query": "Show me Bay Area Boutiques customer profile",
+        "icon": "user",
+        "category": "page-action"
+      }
+    }
+  ],
+  "todaysSummary": [
+    {
+      "icon": "users",
+      "text": "156 active customers, 14 leads in pipeline",
+      "priority": "info"
+    },
+    {
+      "icon": "trend",
+      "text": "Customer retention: 94.2% this quarter",
+      "priority": "info"
+    }
+  ]
+}

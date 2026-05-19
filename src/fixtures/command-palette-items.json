@@ -1,0 +1,137 @@
+{
+    "items": [
+        {
+            "id": "cmd-01",
+            "label": "Customer lookup",
+            "category": "Sales",
+            "query": "Tell me about ",
+            "icon": "user"
+        },
+        {
+            "id": "cmd-02",
+            "label": "Create order",
+            "category": "Sales",
+            "query": "Create an order for ",
+            "icon": "order"
+        },
+        {
+            "id": "cmd-03",
+            "label": "Repeat last order",
+            "category": "Sales",
+            "query": "Repeat the last order for ",
+            "icon": "refresh"
+        },
+        {
+            "id": "cmd-04",
+            "label": "Meeting prep",
+            "category": "Sales",
+            "query": "Prep me for my meeting with ",
+            "icon": "brief"
+        },
+        {
+            "id": "cmd-05",
+            "label": "Draft email",
+            "category": "Sales",
+            "query": "Draft a follow-up email to ",
+            "icon": "email"
+        },
+        {
+            "id": "cmd-06",
+            "label": "Search products",
+            "category": "Sales",
+            "query": "Find products matching ",
+            "icon": "search"
+        },
+        {
+            "id": "cmd-07",
+            "label": "Check invoice",
+            "category": "Sales",
+            "query": "What's the status of invoice ",
+            "icon": "file"
+        },
+        {
+            "id": "cmd-08",
+            "label": "Create task",
+            "category": "Sales",
+            "query": "Create a task for ",
+            "icon": "task"
+        },
+        {
+            "id": "cmd-09",
+            "label": "Approval queue",
+            "category": "Admin",
+            "query": "Show me everything waiting for my approval",
+            "icon": "check"
+        },
+        {
+            "id": "cmd-10",
+            "label": "Reassign accounts",
+            "category": "Admin",
+            "query": "Reassign accounts from ",
+            "icon": "swap"
+        },
+        {
+            "id": "cmd-11",
+            "label": "Build dashboard",
+            "category": "Admin",
+            "query": "Build me a dashboard for ",
+            "icon": "dashboard"
+        },
+        {
+            "id": "cmd-13",
+            "label": "Go to Orders",
+            "category": "Navigation",
+            "route": "orders",
+            "icon": "order"
+        },
+        {
+            "id": "cmd-14",
+            "label": "Go to Customers",
+            "category": "Navigation",
+            "route": "customers",
+            "icon": "users"
+        },
+        {
+            "id": "cmd-15",
+            "label": "Go to Products",
+            "category": "Navigation",
+            "route": "products",
+            "icon": "package"
+        },
+        {
+            "id": "cmd-16",
+            "label": "Go to CRM",
+            "category": "Navigation",
+            "route": "crm",
+            "icon": "tasks"
+        },
+        {
+            "id": "cmd-17",
+            "label": "Go to Dashboard",
+            "category": "Navigation",
+            "route": "dashboard",
+            "icon": "chart"
+        },
+        {
+            "id": "cmd-18",
+            "label": "Open Settings",
+            "category": "Settings",
+            "route": "settings",
+            "icon": "gear"
+        },
+        {
+            "id": "cmd-19",
+            "label": "Open Preferences",
+            "category": "Settings",
+            "route": "admin/prefs",
+            "icon": "sliders"
+        },
+        {
+            "id": "cmd-20",
+            "label": "My Artifacts",
+            "category": "Navigation",
+            "route": "artifacts",
+            "icon": "save"
+        }
+    ]
+}

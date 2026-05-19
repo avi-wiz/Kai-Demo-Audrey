@@ -1,0 +1,37 @@
+{
+  "pageQueries": [
+    {
+      "id": "pc-prod-001",
+      "keywords": ["low stock", "running low", "reorder", "stock alert"],
+      "frameId": "f-pc-prod-001",
+      "frameType": "result",
+      "widgets": [
+        { "widgetType": "UW-014", "data": { "summary": "Filtering for low stock products (<20 units).", "steps": [{ "step": 1, "action": "filter_stock", "result": "3 SKUs below 20 units", "ms": 30 }], "totalMs": 30 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-004", "data": { "title": "Low Stock Products (<20 Units)", "columns": [{ "key": "sku", "label": "SKU", "align": "left", "mono": true }, { "key": "name", "label": "Product", "align": "left" }, { "key": "stock", "label": "Stock", "align": "right", "mono": true }, { "key": "category", "label": "Category", "align": "left" }, { "key": "price", "label": "Price", "align": "right", "format": "currency", "mono": true }], "rows": [{ "sku": "WC-PLW-015", "name": "Velvet Cushion — Emerald", "stock": 12, "category": "Textiles", "price": 38.00 }, { "sku": "WC-TBL-002", "name": "Marble Side Table — White", "stock": 18, "category": "Furniture", "price": 295.00 }, { "sku": "WC-LMP-018", "name": "Wall Sconce — Hammered Brass", "stock": 0, "category": "Lighting", "price": 52.00 }] }, "highlights": [{ "fieldPath": "rows[2].stock", "type": "urgent", "message": "Out of stock — 0 units remaining", "action": { "label": "Check pending orders", "query": "Are there any pending orders for the Wall Sconce WC-LMP-018?", "icon": "search", "category": "suggested" } }] }
+      ],
+      "closingText": { "type": "insight", "text": "Three products need attention. The Wall Sconce is completely out of stock — if there are pending orders, those customers need to be notified. The Marble Side Table and Emerald Cushion are low but not critical yet." }
+    },
+    {
+      "id": "pc-prod-002",
+      "keywords": ["out of stock", "pending orders", "backorder"],
+      "frameId": "f-pc-prod-002",
+      "frameType": "result",
+      "widgets": [
+        { "widgetType": "UW-014", "data": { "summary": "Found 1 out-of-stock product with pending orders.", "steps": [{ "step": 1, "action": "cross_reference", "result": "WC-LMP-018 has 2 pending orders", "ms": 65 }], "totalMs": 65 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-003", "data": { "entityType": "product-alert", "title": "Wall Sconce — Hammered Brass (WC-LMP-018)", "fields": [{ "label": "Current Stock", "value": "0 units" }, { "label": "Status", "value": "Out of Stock" }, { "label": "Pending Orders", "value": "2 orders (ORD-2843, ORD-2845)" }, { "label": "Total Units Needed", "value": "18 units" }, { "label": "Affected Customers", "value": "Metro Design Group, Bay Area Boutiques" }, { "label": "Estimated Restock", "value": "Unknown — no PO placed" }] } }
+      ],
+      "closingText": { "type": "description", "text": "The Wall Sconce (WC-LMP-018) is out of stock with 18 units needed across 2 pending orders for Metro Design and Bay Area Boutiques. No restock PO has been placed yet. Want me to create a task to notify the affected customers and initiate a reorder?" }
+    },
+    {
+      "id": "pc-prod-003",
+      "keywords": ["top sellers", "top selling", "best selling", "best sellers", "popular", "most sold", "best seller", "highest selling", "selling products", "top products"],
+      "frameId": "f-pc-prod-003",
+      "frameType": "result",
+      "widgets": [
+        { "widgetType": "UW-014", "data": { "summary": "Ranking products by units sold this week.", "steps": [{ "step": 1, "action": "rank_products", "result": "Top 5 by unit volume", "ms": 35 }], "totalMs": 35 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-004", "data": { "title": "Top Sellers This Week", "columns": [{ "key": "rank", "label": "#", "align": "center", "mono": true }, { "key": "name", "label": "Product", "align": "left" }, { "key": "sku", "label": "SKU", "align": "left", "mono": true }, { "key": "units", "label": "Units Sold", "align": "right", "mono": true }, { "key": "revenue", "label": "Revenue", "align": "right", "format": "currency", "mono": true }], "rows": [{ "rank": 1, "name": "Artisan Table Lamp — Brass", "sku": "WC-LMP-001", "units": 34, "revenue": 3026 }, { "rank": 2, "name": "Soy Candle Collection — 6pk", "sku": "WC-CND-008", "units": 48, "revenue": 1560 }, { "rank": 3, "name": "Linen Throw Pillow — Sand", "sku": "WC-PLW-011", "units": 28, "revenue": 1176 }, { "rank": 4, "name": "Wooden Photo Frame — Walnut", "sku": "WC-FRM-003", "units": 22, "revenue": 528 }, { "rank": 5, "name": "Ceramic Vase Set — Ocean Blue", "sku": "WC-VSE-014", "units": 14, "revenue": 2030 }] } }
+      ],
+      "closingText": { "type": "insight", "text": "The Brass Table Lamp continues to dominate at 34 units this week. Interesting data point: the Ceramic Vase Set is only 5th by units but 2nd by revenue due to its $145 price point — high-value product worth featuring more prominently." }
+    }
+  ]
+}

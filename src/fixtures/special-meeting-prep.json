@@ -1,0 +1,96 @@
+{
+  "frameId": "f-special-meeting-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Built meeting brief for Acme Corp. Pulled CRM activity, recent orders, open quotes, and outstanding tasks.",
+        "steps": [
+          { "step": 1, "action": "search_customers", "result": "1 match: C-4201 (Acme Corp)", "ms": 120 },
+          { "step": 2, "action": "fetch_meeting_context", "result": "Next meeting: Tomorrow 2:00 PM, video call", "ms": 95 },
+          { "step": 3, "action": "fetch_recent_activity", "result": "8 orders, 2 open quotes, 4 open tasks, 1 active claim", "ms": 280 },
+          { "step": 4, "action": "synthesize_talking_points", "result": "5 talking points + 3 risks", "ms": 320 }
+        ],
+        "mcpsAccessed": ["CRM", "Orders", "Quotes", "Calendar"],
+        "totalMs": 815
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "meeting",
+        "title": "Next Meeting — Acme Corp",
+        "fields": [
+          { "label": "When", "value": "Tomorrow, 2:00 PM PST" },
+          { "label": "Who", "value": "Rachel Martinez (VP Buying), Tom Chen (Ops)" },
+          { "label": "Format", "value": "Video call (Zoom)" },
+          { "label": "Owner", "value": "Heman Bhullar" },
+          { "label": "Stated Agenda", "value": "Q3 catalog review + renewal discussion" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "Lifetime Revenue", "value": "$482,350", "format": "currency" },
+          { "label": "YTD Revenue", "value": "$132,470", "format": "currency", "trend": { "direction": "up", "percent": 12, "period": "vs YTD 2025" } },
+          { "label": "Open Quotes", "value": "$84,200", "format": "currency" },
+          { "label": "Days Since Last Order", "value": "45", "format": "count" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-011",
+      "highlights": [
+        {
+          "fieldPath": "items[0].title",
+          "type": "positive",
+          "message": "Lead with this — strongest YTD growth in their segment"
+        },
+        {
+          "fieldPath": "items[3].title",
+          "type": "warning",
+          "message": "Be ready — Rachel flagged this on the last call"
+        }
+      ],
+      "data": {
+        "title": "Talking Points",
+        "items": [
+          { "id": "TP-1", "title": "YTD revenue up 12% — strongest in West Coast home decor segment", "dueDate": "Lead", "priority": "High", "assignedTo": "Open with this", "status": "Open" },
+          { "id": "TP-2", "title": "Q3 catalog drops June 1 — 23 new SKUs in their best-selling category (lighting)", "dueDate": "Hook", "priority": "High", "assignedTo": "Tie to renewal", "status": "Open" },
+          { "id": "TP-3", "title": "Two open quotes worth $84K — Q-2401 expires in 9 days", "dueDate": "Push", "priority": "Medium", "assignedTo": "Close in meeting if possible", "status": "Open" },
+          { "id": "TP-4", "title": "Claim CLM-0892 ($2,400 damaged shipment) still pending — they will ask", "dueDate": "Defuse", "priority": "High", "assignedTo": "Have resolution ready", "status": "Open" },
+          { "id": "TP-5", "title": "Renewal window opens July 1 — soft pitch the 3-year tier", "dueDate": "Plant", "priority": "Medium", "assignedTo": "Don't hard-close", "status": "Open" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-011",
+      "data": {
+        "title": "Recent Activity (last 30 days)",
+        "items": [
+          { "id": "A-1", "title": "Order ORD-90412 delivered ($24,500, 18 SKUs)", "dueDate": "Mar 15", "priority": "Info", "assignedTo": "Heman", "status": "Completed" },
+          { "id": "A-2", "title": "Quote Q-2401 sent — $52,800, expires May 17", "dueDate": "Apr 18", "priority": "Info", "assignedTo": "Heman", "status": "Open" },
+          { "id": "A-3", "title": "Quote Q-2418 sent — $31,400, expires May 28", "dueDate": "Apr 28", "priority": "Info", "assignedTo": "Heman", "status": "Open" },
+          { "id": "A-4", "title": "Email thread — Rachel asked about lighting category restock", "dueDate": "May 02", "priority": "Info", "assignedTo": "Heman", "status": "Open" },
+          { "id": "A-5", "title": "Claim CLM-0892 filed — damaged shipment from ORD-89944", "dueDate": "Apr 10", "priority": "Info", "assignedTo": "Support", "status": "Pending" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-001",
+      "data": {
+        "label": "Open Acme Corp Profile",
+        "url": "/customers/C-4201",
+        "style": "secondary"
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Here's your prep for tomorrow's 2 PM with Rachel. Lead with the 12% YTD growth — it's the strongest in their segment and sets a positive tone for the renewal conversation. Be ready for two questions: Q3 catalog timing (June 1, 23 new lighting SKUs) and the open claim CLM-0892. Two quotes worth $84K are sitting open — Q-2401 expires in 9 days, so try to close it in the meeting. Want me to draft a pre-meeting confirmation email or pull up the quote details?"
+  }
+}

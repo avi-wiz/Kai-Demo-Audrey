@@ -1,0 +1,1314 @@
+[
+  {
+    "sku": "51GR1943",
+    "upc": "840051961000",
+    "name": "Woven Willow Cloche Trellis",
+    "description": "Woven Willow Cloche Trellis Home & Garden By Product Garden. Wicker",
+    "retail_price": 187.5,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": -2,
+    "case_qty": 2,
+    "min_order_qty": 1,
+    "uom": "Set Of 03",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "Out of Stock",
+    "division": [
+      "Home & Garden",
+      "Seasonal"
+    ],
+    "sub_division": [
+      "By Product",
+      "Spring & Summer"
+    ],
+    "category": [
+      "By Collection",
+      "Garden"
+    ],
+    "group": [
+      "Outdoor Decor"
+    ],
+    "collections": [
+      "Garden Friends"
+    ],
+    "materials": [
+      "Wicker | Greens Not Included"
+    ],
+    "dimensions": [
+      "25\" H x 14\" Dia, 20\" H x 11\" Dia, 14\" H x 7\" Dia"
+    ],
+    "pack": [
+      "1 Set Of 03 - $68.00"
+    ],
+    "sold_as": [
+      "Set of 3 - $75.00 PK"
+    ],
+    "unit_price": [
+      "$75.00 SET"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1943.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1943_2.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1943.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1943_2.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1943.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1943_2.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1943.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1943_2.jpg"
+      ]
+    },
+    "bucket": "spring_summer",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1898",
+    "upc": "840051945055",
+    "name": "Two-Tiered Hanging Bird Feeder",
+    "description": "Two-Tiered Hanging Bird Feeder Home & Garden By Product Garden. Iron",
+    "retail_price": 55,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 22,
+    "case_qty": 6,
+    "min_order_qty": 1,
+    "uom": "PC",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "In Stock",
+    "division": [
+      "Home & Garden"
+    ],
+    "sub_division": [
+      "By Product",
+      "In Stock Ready to Ship"
+    ],
+    "category": [
+      "Garden"
+    ],
+    "group": [
+      "Birdhouses & Feeders"
+    ],
+    "collections": [],
+    "materials": [
+      "Iron"
+    ],
+    "dimensions": [
+      "18 H x 7 W x 6 Dia"
+    ],
+    "pack": [
+      "1 PC - $22.00"
+    ],
+    "sold_as": [
+      "$22.00 PC"
+    ],
+    "unit_price": [
+      "$22.00 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898_3.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898_4.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898_5.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1898_5.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1898.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1898_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1898_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1898_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1898_5.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1898.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1898_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1898_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1898_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1898_5.jpg"
+      ]
+    },
+    "bucket": "garden_outdoor",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1900",
+    "upc": "840051946434",
+    "name": "Galvanized Umbrella Wall Planter",
+    "description": "Galvanized Umbrella Wall Planter Home & Garden By Product Garden. Metal",
+    "retail_price": 97.5,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 52,
+    "case_qty": 4,
+    "min_order_qty": 1,
+    "uom": "Set Of 02",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "In Stock",
+    "division": [
+      "Home & Garden"
+    ],
+    "sub_division": [
+      "By Product",
+      "In Stock Ready to Ship"
+    ],
+    "category": [
+      "Garden"
+    ],
+    "group": [
+      "Planters,Pottery,Vases"
+    ],
+    "collections": [],
+    "materials": [
+      "Metal | Floral Not Included"
+    ],
+    "dimensions": [
+      "21.25\" H x 13.75\" W x 6\" D, 16\" H x 11.5\" W x 4.5\" D"
+    ],
+    "pack": [
+      "1 Set Of 02 - $39.00"
+    ],
+    "sold_as": [
+      "Set of 2 - $39.00 PK"
+    ],
+    "unit_price": [
+      "$39.00 SET"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1900.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1900_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1900_3.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1900_4.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1900.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1900_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1900_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1900_4.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1900.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1900_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1900_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1900_4.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1900.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1900_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1900_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1900_4.jpg"
+      ]
+    },
+    "bucket": "garden_outdoor",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1928",
+    "upc": "840051957454",
+    "name": "Rain Gauge Garden Stake",
+    "description": "Rain Gauge Garden Stake Home & Garden By Product Garden. Iron, Glass",
+    "retail_price": 152.5,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 49,
+    "case_qty": 4,
+    "min_order_qty": 1,
+    "uom": "Pk/04",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "In Stock",
+    "division": [
+      "Home & Garden"
+    ],
+    "sub_division": [
+      "By Product",
+      "In Stock Ready to Ship"
+    ],
+    "category": [
+      "Garden"
+    ],
+    "group": [
+      "Outdoor Decor"
+    ],
+    "collections": [],
+    "materials": [
+      "Iron, Glass | 5 Inch Rain Gauge"
+    ],
+    "dimensions": [
+      "39\" H x 6.5\" W"
+    ],
+    "pack": [
+      "4 Pk/04 - $61.00"
+    ],
+    "sold_as": [
+      "4 PC - $61.00 PK"
+    ],
+    "unit_price": [
+      "$15.25 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1928.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1928_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1928_3.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1928.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1928_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1928_3.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1928.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1928_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1928_3.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1928.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1928_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1928_3.jpg"
+      ]
+    },
+    "bucket": "garden_outdoor",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1916",
+    "upc": "840051949213",
+    "name": "Rain Gauge Garden Stake With Bird",
+    "description": "Rain Gauge Garden Stake With Bird Home & Garden By Product Garden. Iron",
+    "retail_price": 30,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": -11,
+    "case_qty": 16,
+    "min_order_qty": 1,
+    "uom": "PC",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "Out of Stock",
+    "division": [
+      "Home & Garden"
+    ],
+    "sub_division": [
+      "By Product"
+    ],
+    "category": [
+      "Garden"
+    ],
+    "group": [
+      "Outdoor-Stakes"
+    ],
+    "collections": [],
+    "materials": [
+      "Iron"
+    ],
+    "dimensions": [
+      "26.5\" H x 3\" D"
+    ],
+    "pack": [
+      "1 PC - $12.00"
+    ],
+    "sold_as": [
+      "$12.00 PC"
+    ],
+    "unit_price": [
+      "$12.00 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1916.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1916_2.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1916.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1916_2.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1916.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1916_2.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1916.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1916_2.jpg"
+      ]
+    },
+    "bucket": "garden_outdoor",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1945-S2",
+    "upc": "840051971634",
+    "name": "Garden Stake - Rustic Dk Green Leaves (Set Of 2)",
+    "description": "Garden Stake - Rustic Dk Green Leaves (Set Of 2) Home & Garden By Product Garden. Metal",
+    "retail_price": 360,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 92,
+    "case_qty": 1,
+    "min_order_qty": 1,
+    "uom": "Pk/03 Sets",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "In Stock",
+    "division": [
+      "Home & Garden",
+      "New Arrivals",
+      "PRE-BOOK",
+      "Seasonal"
+    ],
+    "sub_division": [
+      "By Product",
+      "In Stock Ready to Ship",
+      "Spring & Summer",
+      "Virtual Release July 2025"
+    ],
+    "category": [
+      "By Collection",
+      "Garden"
+    ],
+    "group": [
+      "Outdoor-Stakes"
+    ],
+    "collections": [
+      "Woodland Spring"
+    ],
+    "materials": [
+      "Metal"
+    ],
+    "dimensions": [
+      "38\" H x 6\" W, 47.5\" H x 6\" W"
+    ],
+    "pack": [
+      "3 Pk/03 Sets - $144.00"
+    ],
+    "sold_as": [
+      "3 Sets of 2 - $144.00 PK"
+    ],
+    "unit_price": [
+      "$48.00 SET"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1945-S2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1945-S2_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1945-S2_3.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1945-S2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1945-S2_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1945-S2_3.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1945-S2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1945-S2_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1945-S2_3.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1945-S2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1945-S2_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1945-S2_3.jpg"
+      ]
+    },
+    "bucket": "july_release",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1952-S3",
+    "upc": "840051980933",
+    "name": "Blossom Garden Tool Set (Set of 3)",
+    "description": "Blossom Garden Tool Set (Set of 3) Home & Garden By Product Garden. Iron, Paper, Plastic, Jute",
+    "retail_price": 97.5,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": -1,
+    "case_qty": 6,
+    "min_order_qty": 1,
+    "uom": "Pk/02 Sets",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "Pre-Book",
+    "division": [
+      "Home & Garden",
+      "PRE-BOOK",
+      "Seasonal"
+    ],
+    "sub_division": [
+      "By Product",
+      "Everyday",
+      "Spring & Summer",
+      "Virtual Release July 2026"
+    ],
+    "category": [
+      "By Collection",
+      "Garden",
+      "Gifts & Accessories"
+    ],
+    "group": [],
+    "collections": [
+      "Garden Party"
+    ],
+    "materials": [
+      "Iron, Paper, Plastic, Jute"
+    ],
+    "dimensions": [
+      "10 L x 9.5 L x 8.5 L"
+    ],
+    "pack": [],
+    "sold_as": [
+      "2 Sets of 3 - $39.00 PK"
+    ],
+    "unit_price": [
+      "$19.50 SET"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3_4.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3_5.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3_6.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3_5.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1952-S3_6.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1952-S3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1952-S3_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1952-S3_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1952-S3_5.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1952-S3_6.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1952-S3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1952-S3_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1952-S3_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1952-S3_5.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1952-S3_6.jpg"
+      ]
+    },
+    "bucket": "july_release",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1953",
+    "upc": "840051981275",
+    "name": "Flower Song Garden Stake Chime",
+    "description": "Flower Song Garden Stake Chime Home & Garden By Product Garden. Iron",
+    "retail_price": 110,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 0,
+    "case_qty": 3,
+    "min_order_qty": 1,
+    "uom": "Pk/04",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "Pre-Book",
+    "division": [
+      "Home & Garden",
+      "PRE-BOOK"
+    ],
+    "sub_division": [
+      "By Collection",
+      "By Product",
+      "Everyday",
+      "Virtual Release July 2026"
+    ],
+    "category": [
+      "Garden",
+      "Homegrown"
+    ],
+    "group": [],
+    "collections": [],
+    "materials": [
+      "Iron"
+    ],
+    "dimensions": [
+      "25\" H x 7.75\" W"
+    ],
+    "pack": [],
+    "sold_as": [
+      "4 PC - $44.00 PK"
+    ],
+    "unit_price": [
+      "$11.00 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1953.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1953_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1953_3.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1953_4.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1953.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1953_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1953_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1953_4.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1953.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1953_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1953_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1953_4.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1953.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1953_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1953_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1953_4.jpg"
+      ]
+    },
+    "bucket": "july_release",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1954",
+    "upc": "840051981282",
+    "name": "Blooming Bell-Flower Garden Stake",
+    "description": "Blooming Bell-Flower Garden Stake Home & Garden By Product Garden. Iron",
+    "retail_price": 140,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 0,
+    "case_qty": 3,
+    "min_order_qty": 1,
+    "uom": "Pk/02",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "Pre-Book",
+    "division": [
+      "Home & Garden",
+      "PRE-BOOK"
+    ],
+    "sub_division": [
+      "By Collection",
+      "By Product",
+      "Everyday",
+      "Virtual Release July 2026"
+    ],
+    "category": [
+      "Garden",
+      "Homegrown"
+    ],
+    "group": [],
+    "collections": [],
+    "materials": [
+      "Iron"
+    ],
+    "dimensions": [
+      "40.75\" H x 8.25\" W"
+    ],
+    "pack": [],
+    "sold_as": [
+      "2 PC - $56.00 PK"
+    ],
+    "unit_price": [
+      "$28.00 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1954.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1954_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1954_3.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1954_4.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1954.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1954_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1954_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1954_4.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1954.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1954_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1954_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1954_4.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1954.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1954_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1954_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1954_4.jpg"
+      ]
+    },
+    "bucket": "july_release",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1951-S8",
+    "upc": "840051980926",
+    "name": "Rustic Herb Garden Marker (Set of 8)",
+    "description": "Rustic Herb Garden Marker (Set of 8) Home & Garden By Product Garden. Iron",
+    "retail_price": 180,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 0,
+    "case_qty": 4,
+    "min_order_qty": 1,
+    "uom": "Pk/03 Sets",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "Pre-Book",
+    "division": [
+      "Home & Garden",
+      "PRE-BOOK"
+    ],
+    "sub_division": [
+      "By Collection",
+      "By Product",
+      "Everyday",
+      "Virtual Release July 2026"
+    ],
+    "category": [
+      "Garden",
+      "Homegrown"
+    ],
+    "group": [],
+    "collections": [],
+    "materials": [
+      "Iron"
+    ],
+    "dimensions": [
+      "12.5 L"
+    ],
+    "pack": [],
+    "sold_as": [
+      "3 Sets of 8 - $72.00 PK"
+    ],
+    "unit_price": [
+      "$24.00 SET"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1951-S8.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1951-S8_2.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1951-S8.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1951-S8_2.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1951-S8.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1951-S8_2.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1951-S8.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1951-S8_2.jpg"
+      ]
+    },
+    "bucket": "july_release",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1522-U",
+    "upc": "840051973416",
+    "name": "Cottage Bunny - Sitting Up",
+    "description": "Cottage Bunny - Sitting Up Home & Garden By Product Animals & Figurines. Resin",
+    "retail_price": 290,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 225,
+    "case_qty": 1,
+    "min_order_qty": 1,
+    "uom": "Pk/02",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "In Stock",
+    "division": [
+      "Home & Garden",
+      "Seasonal"
+    ],
+    "sub_division": [
+      "By Collection",
+      "By Product",
+      "In Stock Ready to Ship",
+      "Spring & Summer"
+    ],
+    "category": [
+      "Animals & Figurines",
+      "By Collection",
+      "By Product",
+      "Garden",
+      "White Cottage"
+    ],
+    "group": [
+      "Animals & Figurines-Animals"
+    ],
+    "collections": [
+      "A Blooming Porch",
+      "Bunnies"
+    ],
+    "materials": [
+      "Resin"
+    ],
+    "dimensions": [
+      "24.5 H x 8 W x 6.5 D"
+    ],
+    "pack": [
+      "2 Pk/02 - $116.00"
+    ],
+    "sold_as": [
+      "2 PC - $116.00 PK"
+    ],
+    "unit_price": [
+      "$58.00 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_3.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_4.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_5.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_6.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_5.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1522-U_6.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1522-U.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1522-U_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1522-U_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1522-U_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1522-U_5.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1522-U_6.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1522-U.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1522-U_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1522-U_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1522-U_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1522-U_5.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1522-U_6.jpg"
+      ]
+    },
+    "bucket": "featured_collections",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1905",
+    "upc": "840051945093",
+    "name": "Cement Planter - Urn",
+    "description": "Cement Planter - Urn Home & Garden By Product Garden. Cement",
+    "retail_price": 95,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 204,
+    "case_qty": 2,
+    "min_order_qty": 1,
+    "uom": "PC",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "In Stock",
+    "division": [
+      "Home & Garden",
+      "Seasonal"
+    ],
+    "sub_division": [
+      "By Collection",
+      "By Product",
+      "In Stock Ready to Ship",
+      "Spring & Summer"
+    ],
+    "category": [
+      "By Collection",
+      "English Bungalow",
+      "Garden"
+    ],
+    "group": [
+      "Planters,Pottery,Vases"
+    ],
+    "collections": [
+      "A Blooming Porch"
+    ],
+    "materials": [
+      "Cement | Floral Not Included"
+    ],
+    "dimensions": [
+      "12.5\" H x 10.5\" Dia"
+    ],
+    "pack": [
+      "1 PC - $38.00"
+    ],
+    "sold_as": [
+      "$38.00 PC"
+    ],
+    "unit_price": [
+      "$38.00 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1905.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1905_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1905_3.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1905_4.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1905.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1905_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1905_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1905_4.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1905.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1905_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1905_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1905_4.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1905.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1905_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1905_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1905_4.jpg"
+      ]
+    },
+    "bucket": "featured_collections",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1643",
+    "upc": "840250056668",
+    "name": "Window - Hello Spring, Herbs",
+    "description": "Window - Hello Spring, Herbs Seasonal Spring & Summer By Product Signs & Wall Decor. Fir Wood, Glass",
+    "retail_price": 73.75,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 76,
+    "case_qty": 5,
+    "min_order_qty": 1,
+    "uom": "PC",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "In Stock",
+    "division": [
+      "Home & Garden",
+      "Sale",
+      "Seasonal"
+    ],
+    "sub_division": [
+      "In Stock Ready to Ship",
+      "Spring & Summer"
+    ],
+    "category": [
+      "By Collection",
+      "By Product"
+    ],
+    "group": [
+      "Signs & Wall Decor-With Words"
+    ],
+    "collections": [
+      "Signs & Wall Decor",
+      "The Herb Garden"
+    ],
+    "materials": [
+      "Fir Wood, Glass"
+    ],
+    "dimensions": [
+      "14\" x 26.5\""
+    ],
+    "pack": [
+      "1 PC - $13.28"
+    ],
+    "sold_as": [
+      "$8.85 PC"
+    ],
+    "unit_price": [
+      "$8.85 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1643.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1643.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1643.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1643.jpg"
+      ]
+    },
+    "bucket": "featured_collections",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1907",
+    "upc": "840051947219",
+    "name": "Wall Planter - Le Jardin",
+    "description": "Wall Planter - Le Jardin Home & Garden By Product Garden. Metal",
+    "retail_price": 145,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 35,
+    "case_qty": 4,
+    "min_order_qty": 1,
+    "uom": "PC",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "In Stock",
+    "division": [
+      "Home & Garden",
+      "PhaseOut"
+    ],
+    "sub_division": [
+      "By Product",
+      "In Stock Ready to Ship"
+    ],
+    "category": [
+      "Garden"
+    ],
+    "group": [
+      "Planters,Pottery,Vases"
+    ],
+    "collections": [],
+    "materials": [
+      "Metal |Floral Not Included"
+    ],
+    "dimensions": [
+      "27 H x 18 W x 9 D"
+    ],
+    "pack": [
+      "1 PC - $58.00"
+    ],
+    "sold_as": [
+      "$58.00 PC"
+    ],
+    "unit_price": [
+      "$58.00 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1907.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1907_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1907_3.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1907.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1907_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1907_3.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1907.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1907_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1907_3.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1907.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1907_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1907_3.jpg"
+      ]
+    },
+    "bucket": "sale_clearance",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1919",
+    "upc": "840051949800",
+    "name": "Antiqued Bronze Bird Garden Stake",
+    "description": "Antiqued Bronze Bird Garden Stake Home & Garden By Product Garden. Iron",
+    "retail_price": 33.75,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 18,
+    "case_qty": 24,
+    "min_order_qty": 1,
+    "uom": "PC",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "Buy Now, Limited Quantity",
+    "division": [
+      "Home & Garden",
+      "Sale"
+    ],
+    "sub_division": [
+      "By Product",
+      "In Stock Ready to Ship"
+    ],
+    "category": [
+      "Garden"
+    ],
+    "group": [
+      "Outdoor-Stakes"
+    ],
+    "collections": [],
+    "materials": [
+      "Iron"
+    ],
+    "dimensions": [
+      "19.5\" H x 5\" Dia"
+    ],
+    "pack": [
+      "1 PC - $8.10"
+    ],
+    "sold_as": [
+      "$6.08 PC"
+    ],
+    "unit_price": [
+      "$6.08 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919_2.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919_3.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919_4.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919_5.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1919_5.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1919.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1919_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1919_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1919_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1919_5.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1919.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1919_2.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1919_3.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1919_4.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1919_5.jpg"
+      ]
+    },
+    "bucket": "sale_clearance",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1776-U",
+    "upc": "840051973904",
+    "name": "Cement Bird Feeder",
+    "description": "Cement Bird Feeder Home & Garden By Product Garden. Cement",
+    "retail_price": 135,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 108,
+    "case_qty": 1,
+    "min_order_qty": 1,
+    "uom": "Pk/04",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "In Stock",
+    "division": [
+      "Home & Garden",
+      "Seasonal"
+    ],
+    "sub_division": [
+      "By Collection",
+      "By Product",
+      "In Stock Ready to Ship",
+      "January 2025 Atlanta Top Sellers",
+      "Spring & Summer"
+    ],
+    "category": [
+      "By Collection",
+      "Feathered Nest",
+      "Garden"
+    ],
+    "group": [
+      "Birdhouses & Feeders"
+    ],
+    "collections": [
+      "A Blooming Porch"
+    ],
+    "materials": [
+      "Cement | Bird Seed Not Included"
+    ],
+    "dimensions": [
+      "4\" H x 10.25\" Dia"
+    ],
+    "pack": [
+      "4 Pk/04 - $52.00"
+    ],
+    "sold_as": [
+      "4 PC - $54.00 PK"
+    ],
+    "unit_price": [
+      "$13.50 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1776-U.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1776-U_2.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1776-U.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1776-U_2.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1776-U.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1776-U_2.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1776-U.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1776-U_2.jpg"
+      ]
+    },
+    "bucket": "atlanta_top_sellers",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1914",
+    "upc": "840051948803",
+    "name": "Frog Rain Gauge",
+    "description": "Frog Rain Gauge Home & Garden By Product Garden. Iron",
+    "retail_price": 40,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": -16,
+    "case_qty": 16,
+    "min_order_qty": 1,
+    "uom": "PC",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "Out of Stock",
+    "division": [
+      "Home & Garden"
+    ],
+    "sub_division": [
+      "By Product",
+      "January 2025 Atlanta Top Sellers"
+    ],
+    "category": [
+      "Animals & Figurines",
+      "Garden"
+    ],
+    "group": [
+      "Outdoor-Stakes"
+    ],
+    "collections": [],
+    "materials": [
+      "Iron"
+    ],
+    "dimensions": [
+      "9 H x 6.5 W x 3.5 D"
+    ],
+    "pack": [
+      "1 PC - $16.00"
+    ],
+    "sold_as": [
+      "$16.00 PC"
+    ],
+    "unit_price": [
+      "$16.00 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1914.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1914.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1914.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1914.jpg"
+      ]
+    },
+    "bucket": "atlanta_top_sellers",
+    "is_hero": true
+  },
+  {
+    "sku": "51GR1936",
+    "upc": "840051958727",
+    "name": "Birdfeeder With Copper Finish Roof",
+    "description": "Birdfeeder With Copper Finish Roof Home & Garden By Product Garden. Fir, Iron",
+    "retail_price": 185,
+    "wholesale_price": 0,
+    "msrp": null,
+    "available_qty": 6,
+    "case_qty": 2,
+    "min_order_qty": 1,
+    "uom": "PC",
+    "is_new": false,
+    "is_featured": false,
+    "stock_status": "Buy Now, Limited Quantity",
+    "division": [
+      "Home & Garden",
+      "Seasonal"
+    ],
+    "sub_division": [
+      "By Product",
+      "Fall",
+      "In Stock Ready to Ship"
+    ],
+    "category": [
+      "By Collection",
+      "Garden"
+    ],
+    "group": [
+      "Birdhouses & Feeders"
+    ],
+    "collections": [
+      "Pick Of The Patch"
+    ],
+    "materials": [
+      "Fir, Iron | Chain 10.5 Inches | Contents Not Included"
+    ],
+    "dimensions": [
+      "16 H x 12 W x 10.25 D"
+    ],
+    "pack": [
+      "1 PC - $74.00"
+    ],
+    "sold_as": [
+      "$74.00 PC"
+    ],
+    "unit_price": [
+      "$74.00 PC"
+    ],
+    "image_urls": [
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1936.jpg",
+      "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1936_2.jpg"
+    ],
+    "image_urls_by_size": {
+      "medium": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1936.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1936_2.jpg"
+      ],
+      "large": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1936.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1936_2.jpg"
+      ],
+      "original": [
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1936.jpg",
+        "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/original/51GR1936_2.jpg"
+      ]
+    },
+    "bucket": "fall_holdovers",
+    "is_hero": true
+  }
+]

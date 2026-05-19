@@ -1,0 +1,283 @@
+{
+    "frameId": "f-dash-004",
+    "frameType": "dashboard_staged",
+    "capability": "dashboard-builder",
+    "widgets": [
+        {
+            "widgetType": "UW-014",
+            "data": {
+                "summary": "Building order analytics dashboard.",
+                "steps": [
+                    {
+                        "step": 1,
+                        "action": "analyze_orders",
+                        "result": "67 orders this quarter, $384K total",
+                        "ms": 210
+                    },
+                    {
+                        "step": 2,
+                        "action": "compose_dashboard",
+                        "result": "Dashboard assembled",
+                        "ms": 35
+                    }
+                ],
+                "totalMs": 245
+            },
+            "config": {
+                "collapsed": true
+            }
+        },
+        {
+            "widgetType": "UW-030",
+            "data": {
+                "title": "Order Analytics Dashboard",
+                "description": "Order volume, values, fulfillment rates, and status distribution",
+                "layout": "grid-2x3",
+                "cells": [
+                    {
+                        "position": {
+                            "row": 0,
+                            "col": 0,
+                            "colSpan": 2
+                        },
+                        "widgetType": "UW-002",
+                        "data": {
+                            "cards": [
+                                {
+                                    "label": "Orders This Quarter",
+                                    "value": "67",
+                                    "format": "count",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 8.5,
+                                        "period": "vs Q1"
+                                    }
+                                },
+                                {
+                                    "label": "Total Revenue",
+                                    "value": "$384,200",
+                                    "format": "currency",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 14.2,
+                                        "period": "vs Q1"
+                                    }
+                                },
+                                {
+                                    "label": "Avg Order Value",
+                                    "value": "$5,734",
+                                    "format": "currency",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 5.3,
+                                        "period": "vs Q1"
+                                    }
+                                },
+                                {
+                                    "label": "On-Time Delivery",
+                                    "value": "78%",
+                                    "format": "percent",
+                                    "trend": {
+                                        "direction": "down",
+                                        "percent": 4,
+                                        "period": "vs Q1"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 1,
+                            "col": 0
+                        },
+                        "widgetType": "CH-001",
+                        "data": {
+                            "title": "Daily Order Volume",
+                            "series": [
+                                {
+                                    "day": "Mon",
+                                    "orders": 12
+                                },
+                                {
+                                    "day": "Tue",
+                                    "orders": 15
+                                },
+                                {
+                                    "day": "Wed",
+                                    "orders": 11
+                                },
+                                {
+                                    "day": "Thu",
+                                    "orders": 18
+                                },
+                                {
+                                    "day": "Fri",
+                                    "orders": 14
+                                },
+                                {
+                                    "day": "Sat",
+                                    "orders": 4
+                                },
+                                {
+                                    "day": "Sun",
+                                    "orders": 2
+                                }
+                            ],
+                            "yAxisLabel": "Orders",
+                            "xAxisLabel": "Day"
+                        },
+                        "config": {
+                            "chartType": "line",
+                            "showDataPoints": true
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 1,
+                            "col": 1
+                        },
+                        "widgetType": "UW-004",
+                        "data": {
+                            "title": "Orders by Status",
+                            "columns": [
+                                {
+                                    "key": "status",
+                                    "label": "Status",
+                                    "align": "left"
+                                },
+                                {
+                                    "key": "count",
+                                    "label": "Count",
+                                    "align": "right",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "value",
+                                    "label": "Value",
+                                    "align": "right",
+                                    "format": "currency",
+                                    "mono": true
+                                }
+                            ],
+                            "rows": [
+                                {
+                                    "status": "Draft",
+                                    "count": 3,
+                                    "value": 14200
+                                },
+                                {
+                                    "status": "Confirmed",
+                                    "count": 8,
+                                    "value": 42500
+                                },
+                                {
+                                    "status": "Shipped",
+                                    "count": 12,
+                                    "value": 68900
+                                },
+                                {
+                                    "status": "Delivered",
+                                    "count": 44,
+                                    "value": 258600
+                                }
+                            ],
+                            "showTotals": true,
+                            "totals": {
+                                "status": "Total",
+                                "count": 67,
+                                "value": 384200
+                            }
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 2,
+                            "col": 0,
+                            "colSpan": 2
+                        },
+                        "widgetType": "UW-004",
+                        "data": {
+                            "title": "Top Customers by Order Count",
+                            "columns": [
+                                {
+                                    "key": "customer",
+                                    "label": "Customer",
+                                    "align": "left"
+                                },
+                                {
+                                    "key": "orders",
+                                    "label": "Orders",
+                                    "align": "right",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "revenue",
+                                    "label": "Revenue",
+                                    "align": "right",
+                                    "format": "currency",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "avgValue",
+                                    "label": "Avg Value",
+                                    "align": "right",
+                                    "format": "currency",
+                                    "mono": true
+                                }
+                            ],
+                            "rows": [
+                                {
+                                    "customer": "Acme Corp",
+                                    "orders": 8,
+                                    "revenue": 48200,
+                                    "avgValue": 6025
+                                },
+                                {
+                                    "customer": "Pinnacle Retail",
+                                    "orders": 6,
+                                    "revenue": 38400,
+                                    "avgValue": 6400
+                                },
+                                {
+                                    "customer": "Beacon Home",
+                                    "orders": 5,
+                                    "revenue": 28500,
+                                    "avgValue": 5700
+                                },
+                                {
+                                    "customer": "Bay Area Boutiques",
+                                    "orders": 4,
+                                    "revenue": 18200,
+                                    "avgValue": 4550
+                                },
+                                {
+                                    "customer": "Urban Nest Co",
+                                    "orders": 3,
+                                    "revenue": 12600,
+                                    "avgValue": 4200
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "widgetType": "AW-012",
+            "data": {
+                "message": "Order analytics ready. 67 orders this quarter, $384K revenue. On-time delivery dropped 4% — may need carrier review. Confirm to save.",
+                "tier": "draft",
+                "actions": [
+                    "Save Dashboard",
+                    "Edit",
+                    "Cancel"
+                ]
+            }
+        }
+    ],
+    "closingText": {
+        "type": "insight",
+        "text": "Order volume is healthy at 67 this quarter, up 8.5%. But on-time delivery dropped to 78%, down 4 points from Q1. Thursday is consistently your busiest day — worth ensuring fulfillment capacity is staffed for it. Acme Corp leads with 8 orders and the highest average order value."
+    }
+}

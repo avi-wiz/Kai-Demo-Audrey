@@ -1,0 +1,18 @@
+{
+    "frameId": "f-uc2-002",
+    "frameType": "result",
+    "widgets": [
+        {
+            "widgetType": "AW-003",
+            "data": {
+                "status": "success",
+                "title": "Task Created",
+                "message": "Task T-1005 'Send Catalogue' created for Shaw N Solutions, assigned to Heman Bhullar, due March 27, 2026.",
+                "entityLink": {
+                    "label": "View Task",
+                    "url": "/crm/tasks/T-1005"
+                }
+            }
+        }
+    ]
+}

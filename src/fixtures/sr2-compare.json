@@ -1,0 +1,42 @@
+{
+  "frameId": "f-sr2-compare-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Built side-by-side comparison: original ORD-90412 vs staged reorder.",
+        "steps": [
+          { "step": 1, "action": "fetch_original_order", "result": "ORD-90412 loaded", "ms": 110 },
+          { "step": 2, "action": "diff_line_items", "result": "3 unchanged, 0 added, 0 removed", "ms": 65 }
+        ],
+        "totalMs": 175
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-004",
+      "data": {
+        "title": "Original vs Reorder — line item comparison",
+        "columns": [
+          { "key": "sku", "label": "SKU" },
+          { "key": "original", "label": "Original (ORD-90412)" },
+          { "key": "reorder", "label": "Reorder (Staged)" },
+          { "key": "delta", "label": "Δ" }
+        ],
+        "rows": [
+          { "sku": "Artisan Table Lamp - Brass", "original": "12 @ $185.00", "reorder": "12 @ $185.00", "delta": "—" },
+          { "sku": "Linen Throw - Sand", "original": "8 @ $89.00", "reorder": "8 @ $89.00", "delta": "—" },
+          { "sku": "Wall Sconce - Matte Black", "original": "4 @ $245.00", "reorder": "4 @ $245.00", "delta": "—" },
+          { "sku": "Subtotal", "original": "$5,640.19", "reorder": "$5,640.19", "delta": "—" },
+          { "sku": "Discount", "original": "8% (VIP)", "reorder": "8% (VIP)", "delta": "—" },
+          { "sku": "Delivery", "original": "Mar 18, 2026", "reorder": "May 19, 2026", "delta": "+62 days" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Quantities and pricing are identical — only the delivery window changed. If you'd like to bump up any line, click 'Modify quantities' on the staged reorder."
+  }
+}

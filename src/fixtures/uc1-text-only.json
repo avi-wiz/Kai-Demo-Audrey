@@ -1,0 +1,51 @@
+{
+    "frameId": "f-uc1-text-001",
+    "frameType": "result",
+    "responseMode": "text-only",
+    "widgets": [
+        {
+            "widgetType": "UW-014",
+            "data": {
+                "summary": "Resolved 'Acme Corp' as Customer C-4201. Generated text summary from CRM and Reports data.",
+                "steps": [
+                    {
+                        "step": 1,
+                        "action": "search_customers",
+                        "result": "1 match: C-4201 (Acme Corp)",
+                        "ms": 145
+                    },
+                    {
+                        "step": 2,
+                        "action": "fetch_customer_360",
+                        "result": "Complete profile loaded",
+                        "ms": 210
+                    },
+                    {
+                        "step": 3,
+                        "action": "fetch_revenue_trend",
+                        "result": "12 months of data",
+                        "ms": 180
+                    },
+                    {
+                        "step": 4,
+                        "action": "generate_text_summary",
+                        "result": "Narrative summary composed",
+                        "ms": 320
+                    }
+                ],
+                "mcpsAccessed": [
+                    "CRM",
+                    "Reports"
+                ],
+                "totalMs": 855
+            },
+            "config": {
+                "collapsed": true
+            }
+        }
+    ],
+    "closingText": {
+        "type": "insight",
+        "text": "Acme Corp (C-4201) is a VIP customer based on the West Coast, managed by Heman Bhullar. Their lifetime revenue stands at $482,350 with payment status current. Revenue has been trending upward — April's $46,350 is 12.4% above the Q1 monthly average. They have 2 open orders and a current balance of $18,200 against a $75,000 credit limit.\n\nThere are 4 open tasks, the most urgent being a Q2 catalog follow-up due April 28 and a claim review (CLM-0892) due April 30. The showroom site visit is scheduled for May 5.\n\nOverall, Acme is a healthy, growing account with no red flags — but the two near-due tasks need attention this week."
+    }
+}

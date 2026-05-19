@@ -1,0 +1,62 @@
+{
+  "briefType": "general",
+  "greeting": "Good morning, Heman. Here's what needs your attention today.",
+  "urgentItems": [
+    {
+      "icon": "alert",
+      "text": "Quote QT-1192 for Acme Corp expires tomorrow ($8,200)",
+      "priority": "urgent",
+      "actionChip": {
+        "label": "Follow up now",
+        "query": "Draft a follow-up email to Acme about quote QT-1192",
+        "icon": "email",
+        "category": "suggested"
+      }
+    },
+    {
+      "icon": "clock",
+      "text": "2 approval items pending for over 48 hours",
+      "priority": "urgent",
+      "actionChip": {
+        "label": "Show approvals",
+        "query": "Show me everything waiting for my approval",
+        "icon": "check",
+        "category": "suggested"
+      }
+    },
+    {
+      "icon": "alert",
+      "text": "Claim CLM-0892 (Acme Corp) — open 24 days, no resolution",
+      "priority": "attention",
+      "actionChip": {
+        "label": "Review claim",
+        "query": "What's the status of claim CLM-0892?",
+        "icon": "file",
+        "category": "suggested"
+      }
+    }
+  ],
+  "todaysSummary": [
+    {
+      "icon": "calendar",
+      "text": "3 meetings scheduled — first at 11 AM with Pinnacle Retail",
+      "priority": "info",
+      "actionChip": {
+        "label": "Prep for meeting",
+        "query": "Prep me for my 11am with Pinnacle Retail",
+        "icon": "brief",
+        "category": "suggested"
+      }
+    },
+    {
+      "icon": "order",
+      "text": "Yesterday: 7 orders placed ($42,800 total), 2 quotes sent",
+      "priority": "info"
+    },
+    {
+      "icon": "trend",
+      "text": "Your pipeline is $128K this week — 15% ahead of target",
+      "priority": "info"
+    }
+  ]
+}

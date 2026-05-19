@@ -1,0 +1,65 @@
+{
+  "frameId": "f-ad1-approval-001",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Pulled approval queue. 7 items pending — 5 within standard policy, 2 flagged for manual review.",
+        "steps": [
+          { "step": 1, "action": "fetch_approval_queue", "result": "7 items pending", "ms": 145 },
+          { "step": 2, "action": "evaluate_policy", "result": "5 standard, 2 flagged", "ms": 230 }
+        ],
+        "mcpsAccessed": ["Approvals", "Policy"],
+        "totalMs": 375
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "Pending", "value": "7", "format": "count" },
+          { "label": "Standard", "value": "5", "format": "count" },
+          { "label": "Flagged", "value": "2", "format": "count" },
+          { "label": "Total Value", "value": "$94,300", "format": "currency" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-004",
+      "data": {
+        "title": "Approval Queue",
+        "columns": [
+          { "key": "id", "label": "ID" },
+          { "key": "type", "label": "Type" },
+          { "key": "customer", "label": "Customer" },
+          { "key": "amount", "label": "Amount" },
+          { "key": "policy", "label": "Policy" },
+          { "key": "flag", "label": "Flag" }
+        ],
+        "rows": [
+          { "id": "AP-1041", "type": "Discount Override", "customer": "Acme Corp", "amount": "$2,400", "policy": "Standard (≤10%)", "flag": "—" },
+          { "id": "AP-1042", "type": "Order", "customer": "BlueRidge Decor", "amount": "$8,900", "policy": "Standard", "flag": "—" },
+          { "id": "AP-1043", "type": "Quote", "customer": "Hearth & Home", "amount": "$14,200", "policy": "Standard", "flag": "—" },
+          { "id": "AP-1044", "type": "Discount Override", "customer": "Pacific Goods", "amount": "$5,700", "policy": "Exceeds (18%)", "flag": "Over policy" },
+          { "id": "AP-1045", "type": "Order", "customer": "Stillwater Co", "amount": "$11,800", "policy": "Standard", "flag": "—" },
+          { "id": "AP-1046", "type": "Credit Limit Increase", "customer": "Riverstone LLC", "amount": "$25,000", "policy": "Requires Director", "flag": "Auth tier" },
+          { "id": "AP-1047", "type": "Order", "customer": "Cedar & Co", "amount": "$26,300", "policy": "Standard", "flag": "—" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "5 items are within standard policy and ready for bulk approval. 2 flagged items need manual review.",
+        "tier": "draft",
+        "actions": ["Bulk Approve Standard", "Review Flagged", "Cancel"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "7 items in your approval queue — 5 are within standard policy ($63,600 total) and ready to bulk-approve. 2 are flagged: Pacific Goods is over the 10% discount cap, and Riverstone needs director-tier authorization for a credit-limit bump."
+  }
+}

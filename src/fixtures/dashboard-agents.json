@@ -1,0 +1,65 @@
+{
+    "7days": {
+        "agentStatus": [
+            { "id": "agent-kai",  "name": "Kai",  "status": "active", "queriesHandled": 53,  "actionsExecuted": 29, "uptime": 100.0 },
+            { "id": "agent-ella", "name": "Ella", "status": "active", "queriesHandled": 28,  "actionsExecuted": 22, "uptime": 99.2  }
+        ],
+        "queriesPerAgent": [
+            { "agent": "Kai",  "queries": 53, "color": "#16885F" },
+            { "agent": "Ella", "queries": 28, "color": "#6BA6FE" }
+        ],
+        "actionsPerAgent": [
+            { "agent": "Kai",  "actions": 29, "breakdown": { "tasks": 14, "quotes": 6,  "lookups": 9  } },
+            { "agent": "Ella", "actions": 22, "breakdown": { "orders_processed": 17, "validations": 5 } }
+        ],
+        "topCapabilities": [
+            { "capability": "Customer Intelligence", "agent": "Kai",  "uses": 22 },
+            { "capability": "PO Processing",         "agent": "Ella", "uses": 17 },
+            { "capability": "Task Creation",         "agent": "Kai",  "uses": 14 },
+            { "capability": "Revenue Analytics",     "agent": "Kai",  "uses": 11 },
+            { "capability": "Data Validation",       "agent": "Ella", "uses": 5  }
+        ]
+    },
+    "30days": {
+        "agentStatus": [
+            { "id": "agent-kai",  "name": "Kai",  "status": "active", "queriesHandled": 162, "actionsExecuted": 89, "uptime": 99.8 },
+            { "id": "agent-ella", "name": "Ella", "status": "active", "queriesHandled": 85,  "actionsExecuted": 67, "uptime": 99.5 }
+        ],
+        "queriesPerAgent": [
+            { "agent": "Kai",  "queries": 162, "color": "#16885F" },
+            { "agent": "Ella", "queries": 85,  "color": "#6BA6FE" }
+        ],
+        "actionsPerAgent": [
+            { "agent": "Kai",  "actions": 89, "breakdown": { "tasks": 42, "quotes": 18, "lookups": 29 } },
+            { "agent": "Ella", "actions": 67, "breakdown": { "orders_processed": 52, "validations": 15 } }
+        ],
+        "topCapabilities": [
+            { "capability": "Customer Intelligence", "agent": "Kai",  "uses": 68 },
+            { "capability": "PO Processing",         "agent": "Ella", "uses": 52 },
+            { "capability": "Task Creation",         "agent": "Kai",  "uses": 42 },
+            { "capability": "Revenue Analytics",     "agent": "Kai",  "uses": 34 },
+            { "capability": "Data Validation",       "agent": "Ella", "uses": 15 }
+        ]
+    },
+    "90days": {
+        "agentStatus": [
+            { "id": "agent-kai",  "name": "Kai",  "status": "active", "queriesHandled": 534, "actionsExecuted": 298, "uptime": 99.6 },
+            { "id": "agent-ella", "name": "Ella", "status": "active", "queriesHandled": 280, "actionsExecuted": 221, "uptime": 98.9 }
+        ],
+        "queriesPerAgent": [
+            { "agent": "Kai",  "queries": 534, "color": "#16885F" },
+            { "agent": "Ella", "queries": 280, "color": "#6BA6FE" }
+        ],
+        "actionsPerAgent": [
+            { "agent": "Kai",  "actions": 298, "breakdown": { "tasks": 138, "quotes": 60, "lookups": 100 } },
+            { "agent": "Ella", "actions": 221, "breakdown": { "orders_processed": 172, "validations": 49 } }
+        ],
+        "topCapabilities": [
+            { "capability": "Customer Intelligence", "agent": "Kai",  "uses": 224 },
+            { "capability": "PO Processing",         "agent": "Ella", "uses": 172 },
+            { "capability": "Task Creation",         "agent": "Kai",  "uses": 138 },
+            { "capability": "Revenue Analytics",     "agent": "Kai",  "uses": 112 },
+            { "capability": "Data Validation",       "agent": "Ella", "uses": 49  }
+        ]
+    }
+}

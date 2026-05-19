@@ -1,0 +1,83 @@
+{
+  "frameId": "f-special-orders-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Resolved 'Acme Corp' as Customer C-4201. Pulled last 8 orders from Orders MCP.",
+        "steps": [
+          { "step": 1, "action": "search_customers", "result": "1 match: C-4201 (Acme Corp)", "ms": 130 },
+          { "step": 2, "action": "fetch_recent_orders", "result": "8 orders in last 6 months", "ms": 240 },
+          { "step": 3, "action": "compute_aggregates", "result": "Total $186,420 across 8 orders", "ms": 60 }
+        ],
+        "mcpsAccessed": ["Orders", "CRM"],
+        "totalMs": 430
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "Orders (6 mo)", "value": "8", "format": "count" },
+          { "label": "Total Value", "value": "$186,420", "format": "currency", "trend": { "direction": "up", "percent": 14, "period": "vs prior 6 mo" } },
+          { "label": "Avg Order Value", "value": "$23,303", "format": "currency" },
+          { "label": "Last Order", "value": "45 days ago", "format": "text" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-004",
+      "highlights": [
+        {
+          "fieldPath": "rows[0].status",
+          "type": "info",
+          "message": "Most recent order — 45 days ago, slightly above your 30-day VIP cadence",
+          "action": { "label": "Draft check-in email", "query": "Draft a check-in email to Rachel at Acme Corp", "icon": "email", "category": "suggested" }
+        },
+        {
+          "fieldPath": "rows[2].status",
+          "type": "warning",
+          "message": "Partial shipment — 3 SKUs still backordered",
+          "action": { "label": "Show backorder details", "query": "What's the backorder status on Acme's Feb order?", "icon": "search", "category": "suggested" }
+        }
+      ],
+      "data": {
+        "title": "Recent Orders — Acme Corp",
+        "columns": [
+          { "key": "orderId", "label": "Order #", "align": "left", "mono": true },
+          { "key": "date", "label": "Date", "align": "left", "mono": true },
+          { "key": "items", "label": "Items", "align": "right", "mono": true },
+          { "key": "total", "label": "Total", "align": "right", "format": "currency", "mono": true },
+          { "key": "status", "label": "Status", "align": "left", "format": "badge" },
+          { "key": "rep", "label": "Rep", "align": "left" }
+        ],
+        "rows": [
+          { "orderId": "ORD-90412", "date": "Mar 15, 2026", "items": 18, "total": 24500, "status": "Delivered", "rep": "Heman Bhullar" },
+          { "orderId": "ORD-90188", "date": "Feb 22, 2026", "items": 22, "total": 31200, "status": "Delivered", "rep": "Heman Bhullar" },
+          { "orderId": "ORD-89944", "date": "Feb 04, 2026", "items": 14, "total": 18900, "status": "Partial", "rep": "Heman Bhullar" },
+          { "orderId": "ORD-89701", "date": "Jan 19, 2026", "items": 26, "total": 39700, "status": "Delivered", "rep": "Heman Bhullar" },
+          { "orderId": "ORD-89455", "date": "Dec 28, 2025", "items": 12, "total": 16200, "status": "Delivered", "rep": "Heman Bhullar" },
+          { "orderId": "ORD-89210", "date": "Dec 11, 2025", "items": 20, "total": 28100, "status": "Delivered", "rep": "Heman Bhullar" },
+          { "orderId": "ORD-88974", "date": "Nov 22, 2025", "items": 9, "total": 11620, "status": "Delivered", "rep": "Heman Bhullar" },
+          { "orderId": "ORD-88732", "date": "Nov 04, 2025", "items": 13, "total": 16200, "status": "Delivered", "rep": "Heman Bhullar" }
+        ],
+        "totalRow": { "orderId": "Total", "items": 134, "total": 186420 }
+      },
+      "config": { "pageSize": 8, "zebra": true }
+    },
+    {
+      "widgetType": "AW-001",
+      "data": {
+        "label": "View All Orders for Acme Corp",
+        "url": "/customers/C-4201/orders",
+        "style": "secondary"
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Acme has placed 8 orders ($186K) over the last 6 months — up 14% from the prior 6 months. Their cadence has slipped slightly though: last order was 45 days ago vs your typical 30-day VIP rhythm. Want me to draft a check-in to Rachel?"
+  }
+}

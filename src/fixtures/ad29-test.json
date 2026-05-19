@@ -1,0 +1,53 @@
+{
+  "frameId": "f-ad29-test-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Replayed dormant re-engagement workflow against last 30 days. Identified records that would have triggered.",
+        "steps": [
+          { "step": 1, "action": "fetch_eligible_records", "result": "12 customers crossed dormancy threshold", "ms": 210 },
+          { "step": 2, "action": "simulate_actions", "result": "12 emails, 8 follow-up tasks, 2 exec flags", "ms": 195 }
+        ],
+        "totalMs": 405
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "Triggered", "value": "12", "format": "count" },
+          { "label": "Would Email", "value": "12", "format": "count" },
+          { "label": "Would Task", "value": "8", "format": "count" },
+          { "label": "Would Flag", "value": "2", "format": "count" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-004",
+      "data": {
+        "title": "Sample Triggered Records (last 30 days)",
+        "columns": [
+          { "key": "customer", "label": "Customer" },
+          { "key": "tier", "label": "Tier" },
+          { "key": "dormantDays", "label": "Days Dormant" },
+          { "key": "ltv", "label": "LTV" },
+          { "key": "wouldDo", "label": "Action" }
+        ],
+        "rows": [
+          { "customer": "Pacific Goods", "tier": "VIP", "dormantDays": "62", "ltv": "$312,000", "wouldDo": "Email" },
+          { "customer": "BlueRidge Decor", "tier": "Standard", "dormantDays": "67", "ltv": "$148,000", "wouldDo": "Email" },
+          { "customer": "Stillwater Co", "tier": "Standard", "dormantDays": "71", "ltv": "$96,400", "wouldDo": "Email + Task" },
+          { "customer": "Cedar & Co", "tier": "Standard", "dormantDays": "78", "ltv": "$84,200", "wouldDo": "Email + Task" },
+          { "customer": "Highland Goods", "tier": "VIP", "dormantDays": "92", "ltv": "$278,000", "wouldDo": "Email + Task + Flag" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Over the last 30 days, 12 customers would have triggered this workflow — 2 escalated to exec review. Pacific Goods and Highland Goods would be the highest-LTV touches. Workflow looks healthy; activate when ready."
+  }
+}

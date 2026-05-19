@@ -1,0 +1,14 @@
+{
+  "customers": [
+    { "id": "C-4201", "name": "Acme Corp", "contact": "Rachel Martinez", "lifetimeRevenue": 482350, "lastOrder": "2026-03-15", "tags": ["VIP", "Home Decor", "West Coast"], "rep": "Heman Bhullar", "status": "Active", "ordersYTD": 8 },
+    { "id": "C-4115", "name": "Pinnacle Retail", "contact": "James Whitfield", "lifetimeRevenue": 315000, "lastOrder": "2026-04-28", "tags": ["VIP", "Lighting"], "rep": "Heman Bhullar", "status": "Active", "ordersYTD": 6 },
+    { "id": "C-4089", "name": "Beacon Home", "contact": "Lisa Chen", "lifetimeRevenue": 198000, "lastOrder": "2026-04-20", "tags": ["Home Decor", "East Coast"], "rep": "Sarah Kim", "status": "Active", "ordersYTD": 5 },
+    { "id": "C-3990", "name": "Heritage Furniture Co", "contact": "David Park", "lifetimeRevenue": 245000, "lastOrder": "2026-01-02", "tags": ["Furniture", "West Coast"], "rep": "Mike Torres", "status": "Dormant", "ordersYTD": 1 },
+    { "id": "C-3872", "name": "Coastal Living Stores", "contact": "Maria Santos", "lifetimeRevenue": 198000, "lastOrder": "2025-12-15", "tags": ["VIP", "Lifestyle"], "rep": "Sarah Kim", "status": "Dormant", "ordersYTD": 0 },
+    { "id": "C-4022", "name": "Metro Design Group", "contact": "Alex Rivera", "lifetimeRevenue": 156000, "lastOrder": "2026-01-20", "tags": ["Design", "Urban"], "rep": "Heman Bhullar", "status": "Active", "ordersYTD": 3 },
+    { "id": "C-3945", "name": "Summit Home Décor", "contact": "Karen Young", "lifetimeRevenue": 112000, "lastOrder": "2025-11-28", "tags": ["Home Decor", "Mountain"], "rep": "Mike Torres", "status": "Dormant", "ordersYTD": 0 },
+    { "id": "C-4180", "name": "Bay Area Boutiques", "contact": "Nina Patel", "lifetimeRevenue": 104000, "lastOrder": "2026-01-30", "tags": ["Boutique", "West Coast"], "rep": "Heman Bhullar", "status": "Active", "ordersYTD": 4 },
+    { "id": "C-4210", "name": "Pacific Interiors", "contact": "Tom Harrison", "lifetimeRevenue": 134000, "lastOrder": "2026-02-08", "tags": ["Interiors", "West Coast"], "rep": "Sarah Kim", "status": "Active", "ordersYTD": 2 },
+    { "id": "C-4250", "name": "Urban Nest Co", "contact": "Priya Sharma", "lifetimeRevenue": 67000, "lastOrder": "2026-04-18", "tags": ["Urban", "New Customer"], "rep": "Alex Chen", "status": "Active", "ordersYTD": 3 }
+  ]
+}

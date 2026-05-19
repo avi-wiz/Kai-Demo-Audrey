@@ -1,0 +1,63 @@
+{
+  "frameId": "f-ad3-handoff-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Built rep handoff summary: Heman Bhullar -> Sara Patel. Pulled affected accounts, open quotes, and active tasks.",
+        "steps": [
+          { "step": 1, "action": "resolve_users", "result": "From: U-0042 Heman, To: U-0061 Sara", "ms": 95 },
+          { "step": 2, "action": "fetch_account_book", "result": "12 accounts, $1.4M LTV", "ms": 240 },
+          { "step": 3, "action": "fetch_open_pipeline", "result": "8 open quotes, 5 open tasks", "ms": 180 }
+        ],
+        "mcpsAccessed": ["Users", "CRM", "Quotes"],
+        "totalMs": 515
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "handoff",
+        "title": "Rep Handoff — Heman Bhullar → Sara Patel",
+        "fields": [
+          { "label": "From Rep", "value": "Heman Bhullar (U-0042)" },
+          { "label": "To Rep", "value": "Sara Patel (U-0061)" },
+          { "label": "Effective Date", "value": "May 15, 2026" },
+          { "label": "Reason", "value": "Territory rebalance — West Coast expansion" },
+          { "label": "Affected Accounts", "value": "12" },
+          { "label": "Combined LTV", "value": "$1,420,000" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "Accounts", "value": "12", "format": "count" },
+          { "label": "LTV Transferred", "value": "$1.42M", "format": "currency" },
+          { "label": "Open Quotes", "value": "$284K", "format": "currency" },
+          { "label": "Active Tasks", "value": "5", "format": "count" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-011",
+      "data": {
+        "title": "Affected Accounts",
+        "items": [
+          { "id": "C-4201", "title": "Acme Corp — VIP, $482K LTV, 2 open quotes", "dueDate": "VIP", "priority": "High", "assignedTo": "Top priority", "status": "Active" },
+          { "id": "C-3318", "title": "Pacific Goods — $312K LTV, discount override pending", "dueDate": "Active", "priority": "High", "assignedTo": "Watch AR", "status": "Active" },
+          { "id": "C-2944", "title": "Riverstone LLC — $186K LTV, credit limit increase pending", "dueDate": "Active", "priority": "Medium", "assignedTo": "Coordinate w/ finance", "status": "Active" },
+          { "id": "C-2811", "title": "BlueRidge Decor — $148K LTV, Q2 reorder due", "dueDate": "Active", "priority": "Medium", "assignedTo": "Reorder window", "status": "Active" },
+          { "id": "C-other", "title": "8 additional accounts — combined $292K LTV", "dueDate": "Active", "priority": "Low", "assignedTo": "Standard cadence", "status": "Active" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Handoff covers 12 accounts and $1.42M LTV. Top priority is Acme Corp — VIP status with two open quotes. Pacific Goods and Riverstone both have pending approvals worth coordinating with Sara before May 15. Want me to draft a handoff email or notify the affected customers?"
+  }
+}

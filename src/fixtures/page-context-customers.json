@@ -1,0 +1,37 @@
+{
+  "pageQueries": [
+    {
+      "id": "pc-cust-001",
+      "keywords": ["dormant", "inactive", "vip", "dormant vip"],
+      "frameId": "f-pc-cust-001",
+      "frameType": "result",
+      "widgets": [
+        { "widgetType": "UW-014", "data": { "summary": "Filtering customers page for dormant VIP accounts. Found 2.", "steps": [{ "step": 1, "action": "filter_page_data", "result": "2 VIP customers dormant >60 days", "ms": 40 }], "totalMs": 40 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-004", "data": { "title": "Dormant VIP Customers", "columns": [{ "key": "customer", "label": "Customer", "align": "left" }, { "key": "lifetime", "label": "Lifetime Rev", "align": "right", "format": "currency", "mono": true }, { "key": "lastOrder", "label": "Last Order", "align": "left", "mono": true }, { "key": "daysDormant", "label": "Days Inactive", "align": "right", "mono": true }, { "key": "rep", "label": "Rep", "align": "left" }], "rows": [{ "customer": "Coastal Living Stores", "lifetime": 198000, "lastOrder": "Dec 15, 2025", "daysDormant": 136, "rep": "Sarah Kim" }, { "customer": "Summit Home Décor", "lifetime": 112000, "lastOrder": "Nov 28, 2025", "daysDormant": 153, "rep": "Mike Torres" }] } }
+      ],
+      "closingText": { "type": "insight", "text": "Two VIP accounts have gone dark. Coastal Living (136 days, $198K lifetime) and Summit Home (153 days, $112K). Both are Mike and Sarah's accounts. Want me to draft re-engagement emails for them?" }
+    },
+    {
+      "id": "pc-cust-002",
+      "keywords": ["top buyers", "top customers", "best customers", "most revenue", "top 5", "top 10", "biggest customer", "biggest buyer", "highest revenue", "highest spending", "who buys the most", "buyers this month"],
+      "frameId": "f-pc-cust-002",
+      "frameType": "result",
+      "widgets": [
+        { "widgetType": "UW-014", "data": { "summary": "Ranking customers by revenue this month.", "steps": [{ "step": 1, "action": "sort_page_data", "result": "Top 5 by monthly revenue", "ms": 35 }], "totalMs": 35 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-004", "data": { "title": "Top Buyers This Month", "columns": [{ "key": "rank", "label": "#", "align": "center", "mono": true }, { "key": "customer", "label": "Customer", "align": "left" }, { "key": "monthlyRevenue", "label": "This Month", "align": "right", "format": "currency", "mono": true }, { "key": "orders", "label": "Orders", "align": "right", "mono": true }, { "key": "rep", "label": "Rep", "align": "left" }], "rows": [{ "rank": 1, "customer": "Acme Corp", "monthlyRevenue": 46350, "orders": 3, "rep": "Heman Bhullar" }, { "rank": 2, "customer": "Pinnacle Retail", "monthlyRevenue": 38400, "orders": 2, "rep": "Heman Bhullar" }, { "rank": 3, "customer": "Beacon Home", "monthlyRevenue": 28500, "orders": 2, "rep": "Sarah Kim" }, { "rank": 4, "customer": "Urban Nest Co", "monthlyRevenue": 12600, "orders": 1, "rep": "Alex Chen" }, { "rank": 5, "customer": "Bay Area Boutiques", "monthlyRevenue": 9200, "orders": 1, "rep": "Heman Bhullar" }] } }
+      ],
+      "closingText": { "type": "insight", "text": "Acme Corp leads this month at $46K across 3 orders. Heman owns 3 of the top 5 accounts. Urban Nest is a newer customer showing strong early signals — might be worth a personal check-in from Alex." }
+    },
+    {
+      "id": "pc-cust-003",
+      "keywords": ["new leads", "leads", "follow-up", "leads needing"],
+      "frameId": "f-pc-cust-003",
+      "frameType": "result",
+      "widgets": [
+        { "widgetType": "UW-014", "data": { "summary": "Checking leads with no recent contact.", "steps": [{ "step": 1, "action": "filter_leads", "result": "1 lead with no contact ever, 1 contacted >7 days ago", "ms": 30 }], "totalMs": 30 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-004", "data": { "title": "Leads Needing Follow-Up", "columns": [{ "key": "lead", "label": "Lead", "align": "left" }, { "key": "contact", "label": "Contact", "align": "left" }, { "key": "source", "label": "Source", "align": "left" }, { "key": "lastContact", "label": "Last Contact", "align": "left", "mono": true }, { "key": "rep", "label": "Rep", "align": "left" }], "rows": [{ "lead": "Brooklyn Craft Collective", "contact": "Amy Torres", "source": "Website", "lastContact": "Never", "rep": "Alex Chen" }, { "lead": "Sunset Décor Studio", "contact": "Ryan Lee", "source": "Referral", "lastContact": "Apr 20 (9 days ago)", "rep": "Sarah Kim" }] } }
+      ],
+      "closingText": { "type": "insight", "text": "Brooklyn Craft Collective signed up via the website but has never been contacted — Alex should reach out today. Sunset Décor was last contacted 9 days ago by Sarah. Want me to create follow-up tasks for both?" }
+    }
+  ]
+}

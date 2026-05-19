@@ -1,0 +1,207 @@
+{
+    "frameId": "f-dash-003",
+    "frameType": "dashboard_staged",
+    "capability": "dashboard-builder",
+    "widgets": [
+        {
+            "widgetType": "UW-014",
+            "data": {
+                "summary": "Building pipeline dashboard. Analyzing open quotes, conversion rates, and deal velocity.",
+                "steps": [
+                    {
+                        "step": 1,
+                        "action": "fetch_pipeline",
+                        "result": "12 open quotes, $68.5K total value",
+                        "ms": 195
+                    },
+                    {
+                        "step": 2,
+                        "action": "compose_dashboard",
+                        "result": "Dashboard assembled",
+                        "ms": 40
+                    }
+                ],
+                "totalMs": 235
+            },
+            "config": {
+                "collapsed": true
+            }
+        },
+        {
+            "widgetType": "UW-030",
+            "data": {
+                "title": "Pipeline Dashboard",
+                "description": "Open quotes, conversion metrics, and deal velocity",
+                "layout": "grid-2x2",
+                "cells": [
+                    {
+                        "position": {
+                            "row": 0,
+                            "col": 0,
+                            "colSpan": 2
+                        },
+                        "widgetType": "UW-002",
+                        "data": {
+                            "cards": [
+                                {
+                                    "label": "Pipeline Value",
+                                    "value": "$68,500",
+                                    "format": "currency",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 22,
+                                        "period": "vs last month"
+                                    }
+                                },
+                                {
+                                    "label": "Open Quotes",
+                                    "value": "12",
+                                    "format": "count",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 9,
+                                        "period": "vs last month"
+                                    }
+                                },
+                                {
+                                    "label": "Conversion Rate",
+                                    "value": "72%",
+                                    "format": "percent",
+                                    "trend": {
+                                        "direction": "down",
+                                        "percent": 3.1,
+                                        "period": "vs Q1"
+                                    }
+                                },
+                                {
+                                    "label": "Avg Close Time",
+                                    "value": "14 days",
+                                    "format": "count",
+                                    "trend": {
+                                        "direction": "down",
+                                        "percent": 8,
+                                        "period": "improving"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 1,
+                            "col": 0
+                        },
+                        "widgetType": "CH-001",
+                        "data": {
+                            "title": "Pipeline Value — Weekly",
+                            "series": [
+                                {
+                                    "week": "W1",
+                                    "value": 42000
+                                },
+                                {
+                                    "week": "W2",
+                                    "value": 48000
+                                },
+                                {
+                                    "week": "W3",
+                                    "value": 55000
+                                },
+                                {
+                                    "week": "W4",
+                                    "value": 51000
+                                },
+                                {
+                                    "week": "W5",
+                                    "value": 62000
+                                },
+                                {
+                                    "week": "W6",
+                                    "value": 68500
+                                }
+                            ],
+                            "yAxisLabel": "Pipeline ($)",
+                            "xAxisLabel": "Week"
+                        },
+                        "config": {
+                            "chartType": "line",
+                            "showArea": true
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 1,
+                            "col": 1
+                        },
+                        "widgetType": "UW-004",
+                        "data": {
+                            "title": "Quotes Expiring This Week",
+                            "columns": [
+                                {
+                                    "key": "quote",
+                                    "label": "Quote",
+                                    "align": "left",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "customer",
+                                    "label": "Customer",
+                                    "align": "left"
+                                },
+                                {
+                                    "key": "amount",
+                                    "label": "Amount",
+                                    "align": "right",
+                                    "format": "currency",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "expires",
+                                    "label": "Expires",
+                                    "align": "left",
+                                    "mono": true
+                                }
+                            ],
+                            "rows": [
+                                {
+                                    "quote": "QT-1192",
+                                    "customer": "Acme Corp",
+                                    "amount": 8200,
+                                    "expires": "Apr 30"
+                                },
+                                {
+                                    "quote": "QT-1198",
+                                    "customer": "Pinnacle Retail",
+                                    "amount": 12800,
+                                    "expires": "May 15"
+                                },
+                                {
+                                    "quote": "QT-1210",
+                                    "customer": "Metro Design",
+                                    "amount": 5600,
+                                    "expires": "May 20"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "widgetType": "AW-012",
+            "data": {
+                "message": "Pipeline dashboard shows $68.5K in open quotes, 72% conversion rate. Confirm to save.",
+                "tier": "draft",
+                "actions": [
+                    "Save Dashboard",
+                    "Edit",
+                    "Cancel"
+                ]
+            }
+        }
+    ],
+    "closingText": {
+        "type": "insight",
+        "text": "Your pipeline grew 22% this month, but conversion dropped 3.1%. The Acme Summer Collection quote ($8,200) expires tomorrow — that's your most time-sensitive deal. Pinnacle's $12,800 winter restock is in negotiation and likely to close."
+    }
+}

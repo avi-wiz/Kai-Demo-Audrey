@@ -1,0 +1,22 @@
+{
+  "frameId": "f-ad29-workflow-text-001",
+  "frameType": "result",
+  "responseMode": "text-only",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Drafted dormant-customer re-engagement workflow.",
+        "steps": [
+          { "step": 1, "action": "evaluate_segment", "result": "32 customers match", "ms": 195 }
+        ],
+        "totalMs": 195
+      },
+      "config": { "collapsed": true }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Drafted a 3-step workflow triggered by 60-day dormancy: re-engagement email -> rep follow-up task -> exec flag. 32 customers match (7 VIPs, $2.1M combined LTV). Want to test it against the last 30 days first or activate now?"
+  }
+}

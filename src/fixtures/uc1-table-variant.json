@@ -1,0 +1,183 @@
+{
+    "frameId": "f-uc1-swap-001",
+    "frameType": "result",
+    "widgets": [
+        {
+            "widgetType": "UW-014",
+            "data": {
+                "summary": "Understood. Replacing the revenue chart with a data table. Same data, different view.",
+                "steps": [
+                    {
+                        "step": 1,
+                        "action": "identify_widget_swap",
+                        "result": "CH-001 (LineChart) → UW-004 (DataTable)",
+                        "ms": 45
+                    },
+                    {
+                        "step": 2,
+                        "action": "reformat_data",
+                        "result": "12 rows + totals row",
+                        "ms": 30
+                    }
+                ],
+                "mcpsAccessed": [],
+                "totalMs": 75
+            },
+            "config": {
+                "collapsed": true
+            }
+        },
+        {
+            "widgetType": "UW-007",
+            "data": {
+                "entityType": "customer",
+                "entityId": "C-4201",
+                "displayName": "Acme Corp",
+                "contactPerson": "Rachel Martinez",
+                "email": "rachel@acmecorp.com",
+                "phone": "+1 (555) 234-5678",
+                "lifetimeRevenue": 482350,
+                "lastOrderDate": "2026-03-15",
+                "lastOrderAmount": 24500,
+                "paymentStatus": "Current",
+                "assignedRep": "Heman Bhullar",
+                "tags": [
+                    "VIP",
+                    "Home Decor",
+                    "West Coast"
+                ],
+                "customerSince": "2022-06-10",
+                "openOrderCount": 2,
+                "creditLimit": 75000,
+                "currentBalance": 18200
+            }
+        },
+        {
+            "widgetType": "UW-004",
+            "data": {
+                "title": "Revenue Breakdown — Acme Corp",
+                "columns": [
+                    {
+                        "key": "month",
+                        "label": "Month",
+                        "align": "left"
+                    },
+                    {
+                        "key": "revenue",
+                        "label": "Revenue",
+                        "align": "right",
+                        "format": "currency",
+                        "mono": true
+                    }
+                ],
+                "rows": [
+                    {
+                        "month": "May 2025",
+                        "revenue": 32400
+                    },
+                    {
+                        "month": "Jun 2025",
+                        "revenue": 28100
+                    },
+                    {
+                        "month": "Jul 2025",
+                        "revenue": 41200
+                    },
+                    {
+                        "month": "Aug 2025",
+                        "revenue": 35800
+                    },
+                    {
+                        "month": "Sep 2025",
+                        "revenue": 44600
+                    },
+                    {
+                        "month": "Oct 2025",
+                        "revenue": 38900
+                    },
+                    {
+                        "month": "Nov 2025",
+                        "revenue": 52100
+                    },
+                    {
+                        "month": "Dec 2025",
+                        "revenue": 48300
+                    },
+                    {
+                        "month": "Jan 2026",
+                        "revenue": 39700
+                    },
+                    {
+                        "month": "Feb 2026",
+                        "revenue": 43200
+                    },
+                    {
+                        "month": "Mar 2026",
+                        "revenue": 51800
+                    },
+                    {
+                        "month": "Apr 2026",
+                        "revenue": 46350
+                    }
+                ],
+                "totals": {
+                    "month": "Total",
+                    "revenue": 502450
+                },
+                "showTotals": true
+            }
+        },
+        {
+            "widgetType": "UW-011",
+            "data": {
+                "title": "Open Tasks for Acme Corp",
+                "items": [
+                    {
+                        "id": "T-1001",
+                        "title": "Follow up on Q2 catalog request",
+                        "dueDate": "2026-04-28",
+                        "priority": "High",
+                        "assignedTo": "Heman Bhullar",
+                        "status": "Open"
+                    },
+                    {
+                        "id": "T-1002",
+                        "title": "Schedule site visit for new showroom",
+                        "dueDate": "2026-05-05",
+                        "priority": "Medium",
+                        "assignedTo": "Heman Bhullar",
+                        "status": "In Progress"
+                    },
+                    {
+                        "id": "T-1003",
+                        "title": "Send updated price list (Summer 2026)",
+                        "dueDate": "2026-05-10",
+                        "priority": "Medium",
+                        "assignedTo": "Sarah Kim",
+                        "status": "Open"
+                    },
+                    {
+                        "id": "T-1004",
+                        "title": "Review claim CLM-0892",
+                        "dueDate": "2026-04-30",
+                        "priority": "Low",
+                        "assignedTo": "Heman Bhullar",
+                        "status": "Open"
+                    }
+                ]
+            }
+        },
+        {
+            "widgetType": "AW-001",
+            "data": {
+                "label": "View Full Profile",
+                "url": "/customers/C-4201",
+                "style": "secondary"
+            }
+        }
+    ],
+    "closingText": {
+        "type": "insight",
+        "text": "Here's the revenue data as a table. Total 12-month revenue for Acme Corp is $502,450. November was the strongest month at $52,100, while June was the softest at $28,100."
+    }
+}

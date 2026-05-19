@@ -1,0 +1,235 @@
+{
+    "frameId": "f-dash-002",
+    "frameType": "dashboard_staged",
+    "capability": "dashboard-builder",
+    "widgets": [
+        {
+            "widgetType": "UW-014",
+            "data": {
+                "summary": "Building customer health dashboard. Analyzing activity patterns, dormancy, and retention.",
+                "steps": [
+                    {
+                        "step": 1,
+                        "action": "analyze_customers",
+                        "result": "156 active, 8 dormant, 94.2% retention",
+                        "ms": 280
+                    },
+                    {
+                        "step": 2,
+                        "action": "compose_dashboard",
+                        "result": "2×3 grid assembled",
+                        "ms": 45
+                    }
+                ],
+                "totalMs": 325
+            },
+            "config": {
+                "collapsed": true
+            }
+        },
+        {
+            "widgetType": "UW-030",
+            "data": {
+                "title": "Customer Health Dashboard",
+                "description": "Account activity, dormancy tracking, and retention metrics",
+                "layout": "grid-2x3",
+                "cells": [
+                    {
+                        "position": {
+                            "row": 0,
+                            "col": 0,
+                            "colSpan": 2
+                        },
+                        "widgetType": "UW-002",
+                        "data": {
+                            "cards": [
+                                {
+                                    "label": "Active Customers",
+                                    "value": "156",
+                                    "format": "count",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 3.2,
+                                        "period": "vs last quarter"
+                                    }
+                                },
+                                {
+                                    "label": "Dormant (60+ days)",
+                                    "value": "8",
+                                    "format": "count",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 33,
+                                        "period": "vs last quarter"
+                                    }
+                                },
+                                {
+                                    "label": "At-Risk Revenue",
+                                    "value": "$892K",
+                                    "format": "currency",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 22,
+                                        "period": "growing"
+                                    }
+                                },
+                                {
+                                    "label": "Retention Rate",
+                                    "value": "94.2%",
+                                    "format": "percent",
+                                    "trend": {
+                                        "direction": "down",
+                                        "percent": 1.8,
+                                        "period": "vs last quarter"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 1,
+                            "col": 0
+                        },
+                        "widgetType": "CH-001",
+                        "data": {
+                            "title": "New Customers — Monthly",
+                            "series": [
+                                {
+                                    "month": "Nov",
+                                    "customers": 4
+                                },
+                                {
+                                    "month": "Dec",
+                                    "customers": 6
+                                },
+                                {
+                                    "month": "Jan",
+                                    "customers": 5
+                                },
+                                {
+                                    "month": "Feb",
+                                    "customers": 8
+                                },
+                                {
+                                    "month": "Mar",
+                                    "customers": 3
+                                },
+                                {
+                                    "month": "Apr",
+                                    "customers": 7
+                                }
+                            ],
+                            "yAxisLabel": "New Customers",
+                            "xAxisLabel": "Month"
+                        },
+                        "config": {
+                            "chartType": "line",
+                            "showDataPoints": true
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 1,
+                            "col": 1
+                        },
+                        "widgetType": "UW-004",
+                        "data": {
+                            "title": "Dormant Accounts (60+ days)",
+                            "columns": [
+                                {
+                                    "key": "customer",
+                                    "label": "Customer",
+                                    "align": "left"
+                                },
+                                {
+                                    "key": "daysDormant",
+                                    "label": "Days",
+                                    "align": "right",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "lifetime",
+                                    "label": "Lifetime Rev",
+                                    "align": "right",
+                                    "format": "currency",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "rep",
+                                    "label": "Rep",
+                                    "align": "left"
+                                }
+                            ],
+                            "rows": [
+                                {
+                                    "customer": "Coastal Living",
+                                    "daysDormant": 136,
+                                    "lifetime": 198000,
+                                    "rep": "Sarah Kim"
+                                },
+                                {
+                                    "customer": "Summit Home",
+                                    "daysDormant": 153,
+                                    "lifetime": 112000,
+                                    "rep": "Mike Torres"
+                                },
+                                {
+                                    "customer": "Heritage Furniture",
+                                    "daysDormant": 118,
+                                    "lifetime": 245000,
+                                    "rep": "Mike Torres"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 2,
+                            "col": 0,
+                            "colSpan": 2
+                        },
+                        "widgetType": "UW-011",
+                        "data": {
+                            "title": "Recently Churned (no order in 90+ days)",
+                            "items": [
+                                {
+                                    "id": "C-3872",
+                                    "title": "Coastal Living Stores — $198K lifetime, last order Dec 15",
+                                    "dueDate": "2025-12-15",
+                                    "priority": "High",
+                                    "assignedTo": "Sarah Kim",
+                                    "status": "136 days"
+                                },
+                                {
+                                    "id": "C-3945",
+                                    "title": "Summit Home Décor — $112K lifetime, last order Nov 28",
+                                    "dueDate": "2025-11-28",
+                                    "priority": "High",
+                                    "assignedTo": "Mike Torres",
+                                    "status": "153 days"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "widgetType": "AW-012",
+            "data": {
+                "message": "Customer health dashboard ready. 8 dormant accounts totaling $892K at risk. Confirm to save or request changes.",
+                "tier": "draft",
+                "actions": [
+                    "Save Dashboard",
+                    "Edit",
+                    "Cancel"
+                ]
+            }
+        }
+    ],
+    "closingText": {
+        "type": "insight",
+        "text": "The retention rate dropped 1.8% this quarter, driven by 3 accounts going dormant. Coastal Living and Heritage Furniture together represent $443K — those are your biggest recovery targets. Mike Torres owns 2 of the 3 dormant accounts, which connects to the territory reassignment discussion."
+    }
+}

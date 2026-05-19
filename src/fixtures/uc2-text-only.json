@@ -1,0 +1,56 @@
+{
+    "frameId": "f-uc2-text-001",
+    "frameType": "action_staged",
+    "responseMode": "text-only",
+    "widgets": [
+        {
+            "widgetType": "UW-014",
+            "data": {
+                "summary": "Intent: Task Creation. Resolved entities. Task staged for confirmation.",
+                "steps": [
+                    {
+                        "step": 1,
+                        "action": "search_customers",
+                        "result": "0 matches for 'Shaw N Solutions'",
+                        "ms": 180
+                    },
+                    {
+                        "step": 2,
+                        "action": "search_leads",
+                        "result": "1 match: L-5678 (Shaw N Solutions)",
+                        "ms": 210
+                    },
+                    {
+                        "step": 3,
+                        "action": "resolve_user",
+                        "result": "U-0042 (Heman Bhullar)",
+                        "ms": 140
+                    },
+                    {
+                        "step": 4,
+                        "action": "stage_task",
+                        "result": "Task staged for review",
+                        "ms": 12
+                    }
+                ],
+                "mcpsAccessed": [
+                    "CRM",
+                    "Users"
+                ],
+                "totalMs": 542
+            },
+            "config": {
+                "collapsed": true
+            }
+        }
+    ],
+    "closingText": {
+        "type": "description",
+        "text": "I've prepared a task for Shaw N Solutions (Lead L-5678). Here's what I've set up:\n\n• Title: Send Catalogue\n• Type: Other\n• Priority: High\n• Assigned to: Heman Bhullar\n• Due: March 27, 2026\n• Status: Open\n\nWould you like me to go ahead and create this task, or would you like to make any changes first?"
+    },
+    "textOnlyActions": {
+        "confirmText": "Yes, create it",
+        "editText": "I'd like to make changes",
+        "cancelText": "Cancel"
+    }
+}

@@ -1,0 +1,35 @@
+{
+  "frameId": "f-email-customer-notify-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Drafting customer notification about rep change from Heman Bhullar to Sara Patel.",
+        "steps": [
+          { "step": 1, "action": "fetch_affected_customers", "result": "12 accounts to notify", "ms": 95 },
+          { "step": 2, "action": "generate_email_draft", "result": "Draft ready — warm reassurance tone, 5 sentences", "ms": 130 }
+        ],
+        "totalMs": 225
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "email",
+        "title": "Customer Notification — New Rep Introduction",
+        "fields": [
+          { "label": "To", "value": "12 affected customers (BCC)" },
+          { "label": "Subject", "value": "A quick update on your WizCommerce contact" },
+          { "label": "Body", "value": "Hi {{first_name}},\n\nQuick note to let you know that effective May 15, Sara Patel will be your new point of contact at WizCommerce. Sara has been brought in as part of a planned territory rebalance, and she's already up to speed on your account history, open quotes, and any pending items — nothing will fall through the cracks.\n\nYou'll hear from Sara directly in the next few days to introduce herself and answer any questions. In the meantime, I'm still around through May 14 if anything urgent comes up.\n\nThanks for your continued partnership — Sara is going to be a fantastic resource for you.\n\nBest,\nHeman Bhullar\nWizCommerce Sales" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Customer notification drafted — uses {{first_name}} merge tag so each recipient gets a personalized opener. Reassures continuity and sets expectation that Sara will reach out directly. Want me to adjust the tone, add a calendar link, or queue it for send?"
+  },
+  "trace": null
+}

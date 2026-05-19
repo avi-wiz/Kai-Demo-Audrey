@@ -1,0 +1,35 @@
+{
+  "frameId": "f-email-draft-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Drafting follow-up email for Acme Corp based on recent account activity.",
+        "steps": [
+          { "step": 1, "action": "fetch_account_context", "result": "Acme Corp — open balance $18,200, last order Mar 15", "ms": 45 },
+          { "step": 2, "action": "generate_email_draft", "result": "Draft ready — 4 sentences, professional tone", "ms": 120 }
+        ],
+        "totalMs": 165
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "email",
+        "title": "Follow-Up Email — Acme Corp",
+        "fields": [
+          { "label": "To", "value": "Rachel Chen <rachel@acmecorp.com>" },
+          { "label": "Subject", "value": "Following up on your recent order — Acme Corp" },
+          { "label": "Body", "value": "Hi Rachel,\n\nI wanted to follow up on order ORD-LATEST from March 15th — let us know if everything arrived as expected or if there's anything we can help with.\n\nAlso, your current balance is $18,200. If you'd like to discuss payment terms or place your next order, I'm happy to help coordinate.\n\nLooking forward to hearing from you.\n\nBest,\nHeman Bhullar\nWizCommerce Sales" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Draft ready — professional tone, references the recent order and open balance. Want me to make it shorter, adjust the tone, or send it?"
+  },
+  "trace": null
+}

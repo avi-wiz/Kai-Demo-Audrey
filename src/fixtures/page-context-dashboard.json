@@ -1,0 +1,37 @@
+{
+  "pageQueries": [
+    {
+      "id": "pc-dash-001",
+      "keywords": ["sales this week", "weekly sales", "how are sales", "this week"],
+      "frameId": "f-pc-dash-001",
+      "frameType": "result",
+      "widgets": [
+        { "widgetType": "UW-014", "data": { "summary": "Pulling this week's sales summary.", "steps": [{ "step": 1, "action": "aggregate_weekly", "result": "7 days of data", "ms": 45 }], "totalMs": 45 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-002", "data": { "cards": [{ "label": "Revenue This Week", "value": "$42,800", "format": "currency", "trend": { "direction": "up", "percent": 15.2, "period": "vs last week" } }, { "label": "Orders", "value": "18", "format": "count", "trend": { "direction": "up", "percent": 12, "period": "vs last week" } }, { "label": "Avg Order Value", "value": "$2,378", "format": "currency", "trend": { "direction": "down", "percent": 2.8, "period": "vs last week" } }] } }
+      ],
+      "closingText": { "type": "insight", "text": "Strong week — $42,800 across 18 orders, 15% above last week. The average order value dipped slightly, suggesting more smaller orders. That's not necessarily bad — it could mean broader customer engagement." }
+    },
+    {
+      "id": "pc-dash-002",
+      "keywords": ["compare", "last month", "month over month", "versus"],
+      "frameId": "f-pc-dash-002",
+      "frameType": "result",
+      "widgets": [
+        { "widgetType": "UW-014", "data": { "summary": "Comparing this month vs last month.", "steps": [{ "step": 1, "action": "compare_months", "result": "April vs March comparison", "ms": 55 }], "totalMs": 55 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-004", "data": { "title": "Month-Over-Month Comparison", "columns": [{ "key": "metric", "label": "Metric", "align": "left" }, { "key": "thisMonth", "label": "April", "align": "right", "mono": true }, { "key": "lastMonth", "label": "March", "align": "right", "mono": true }, { "key": "change", "label": "Change", "align": "right", "mono": true }], "rows": [{ "metric": "Revenue", "thisMonth": "$148,350", "lastMonth": "$131,500", "change": "+12.8%" }, { "metric": "Orders", "thisMonth": "28", "lastMonth": "24", "change": "+16.7%" }, { "metric": "New Customers", "thisMonth": "7", "lastMonth": "3", "change": "+133%" }, { "metric": "Avg Order Value", "thisMonth": "$5,298", "lastMonth": "$5,479", "change": "-3.3%" }, { "metric": "Quote Conversion", "thisMonth": "72%", "lastMonth": "75%", "change": "-3.0pp" }] } }
+      ],
+      "closingText": { "type": "insight", "text": "April is outperforming March in revenue (+12.8%) and orders (+16.7%), with a big jump in new customer acquisition (+133%). The slight dips in AOV and quote conversion are worth monitoring but not alarming — the volume growth more than compensates." }
+    },
+    {
+      "id": "pc-dash-003",
+      "keywords": ["rep performance", "by rep", "team performance", "sales team"],
+      "frameId": "f-pc-dash-003",
+      "frameType": "result",
+      "widgets": [
+        { "widgetType": "UW-014", "data": { "summary": "Breaking down performance by sales rep.", "steps": [{ "step": 1, "action": "aggregate_by_rep", "result": "4 reps analyzed", "ms": 50 }], "totalMs": 50 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-004", "data": { "title": "Performance by Rep — This Quarter", "columns": [{ "key": "rep", "label": "Rep", "align": "left" }, { "key": "revenue", "label": "Revenue", "align": "right", "format": "currency", "mono": true }, { "key": "orders", "label": "Orders", "align": "right", "mono": true }, { "key": "avgValue", "label": "Avg Value", "align": "right", "format": "currency", "mono": true }, { "key": "conversion", "label": "Conv %", "align": "right", "mono": true }, { "key": "activeCust", "label": "Active Customers", "align": "right", "mono": true }], "rows": [{ "rep": "Heman Bhullar", "revenue": 148350, "orders": 23, "avgValue": 6450, "conversion": "78%", "activeCust": 6 }, { "rep": "Sarah Kim", "revenue": 112400, "orders": 19, "avgValue": 5916, "conversion": "71%", "activeCust": 5 }, { "rep": "Mike Torres", "revenue": 82650, "orders": 16, "avgValue": 5166, "conversion": "65%", "activeCust": 3 }, { "rep": "Alex Chen", "revenue": 40800, "orders": 9, "avgValue": 4533, "conversion": "74%", "activeCust": 2 }], "showTotals": true, "totals": { "rep": "Team Total", "revenue": 384200, "orders": 67, "avgValue": 5734, "conversion": "72%", "activeCust": 16 } } }
+      ],
+      "closingText": { "type": "insight", "text": "Heman leads in revenue and conversion rate. Mike's numbers are below average — 65% conversion and only 3 active customers, correlating with the dormant account issue we saw earlier. Alex is newest but has a solid 74% conversion rate. Consider shifting some of Mike's pipeline to Sarah or Alex." }
+    }
+  ]
+}

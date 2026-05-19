@@ -1,0 +1,893 @@
+{
+    "agents": [
+        {
+            "id": "agent-kai",
+            "name": "Kai — AI Sales Copilot",
+            "tagline": "Your conversational sales assistant",
+            "description": "A chat-based AI assistant that gives sales reps instant access to customer data, order history, pricing, and product information. Kai surfaces insights, creates tasks, builds quotes, and takes action — all through natural language.",
+            "category": "Sales",
+            "status": "included",
+            "image": "kai",
+            "color": "#16885F",
+            "capabilities": [
+                {
+                    "title": "Customer Intelligence",
+                    "description": "Instant 360° view of any customer — revenue trends, open orders, payment status, assigned rep, and activity history from a single query."
+                },
+                {
+                    "title": "Task Automation",
+                    "description": "Create, update, and manage CRM tasks through conversation. Stage tasks with pre-filled data and confirm with one click."
+                },
+                {
+                    "title": "Multi-Intent Processing",
+                    "description": "Handle complex queries with multiple requests in a single sentence. Kai splits them into parallel branches and streams results progressively."
+                },
+                {
+                    "title": "Revenue Analytics",
+                    "description": "Pull quarterly and monthly revenue data, trend analysis, and comparative metrics for any customer or segment."
+                },
+                {
+                    "title": "Knowledge Base Search",
+                    "description": "Answer product, policy, and process questions by searching your uploaded organizational documents."
+                },
+                {
+                    "title": "Conversational Follow-ups",
+                    "description": "Modify staged actions, swap widget views, and refine outputs through natural language — no re-querying needed."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-customers",
+                    "name": "Customer Data",
+                    "description": "Access to customer profiles, contact info, tags, and segmentation",
+                    "required": true
+                },
+                {
+                    "id": "dp-orders",
+                    "name": "Order History",
+                    "description": "Read access to all orders, quotes, carts, and wishlists",
+                    "required": true
+                },
+                {
+                    "id": "dp-revenue",
+                    "name": "Revenue & Analytics",
+                    "description": "Access to sales reports, revenue metrics, and trend data",
+                    "required": true
+                },
+                {
+                    "id": "dp-crm",
+                    "name": "CRM Tasks",
+                    "description": "Read and write access to tasks, follow-ups, and activity logs",
+                    "required": true
+                },
+                {
+                    "id": "dp-products",
+                    "name": "Product Catalog",
+                    "description": "Access to product data, pricing, inventory levels, and images",
+                    "required": false
+                },
+                {
+                    "id": "dp-docs",
+                    "name": "Knowledge Base",
+                    "description": "Access to uploaded organizational documents for Q&A",
+                    "required": false
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-crm",
+                    "name": "WizOrder CRM",
+                    "type": "internal",
+                    "status": "connected",
+                    "description": "Customer management, task automation, activity tracking"
+                },
+                {
+                    "id": "conn-reports",
+                    "name": "WizOrder Reports",
+                    "type": "internal",
+                    "status": "connected",
+                    "description": "Sales analytics, revenue metrics, performance dashboards"
+                },
+                {
+                    "id": "conn-wizshop",
+                    "name": "WizShop",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Online storefront data, buyer activity, cart analytics"
+                }
+            ],
+            "pricing": {
+                "monthly": 0,
+                "label": "Included with WizCommerce"
+            }
+        },
+        {
+            "id": "agent-ella",
+            "name": "Ella — AI Order Entry Assistant",
+            "tagline": "Automate inbound order processing",
+            "description": "Reads purchase orders from emails, PDFs, spreadsheets, scanned documents, and handwritten notes. Extracts line items, validates against your catalog and ERP, and creates clean, structured orders — automatically.",
+            "category": "Operations",
+            "status": "purchased",
+            "image": "ella",
+            "color": "#6BA6FE",
+            "capabilities": [
+                {
+                    "title": "Multi-Format PO Reading",
+                    "description": "Processes purchase orders from emails, PDFs, Excel files, scanned documents, voice messages, and even handwritten line sheets."
+                },
+                {
+                    "title": "Intelligent Data Extraction",
+                    "description": "Pulls SKUs, descriptions, quantities, pricing, and customer details from any format — even when buyers use their own naming conventions."
+                },
+                {
+                    "title": "Validation Engine",
+                    "description": "Cross-checks every line item against your ERP data, price lists, and real-time inventory. Flags mismatches before they become problems."
+                },
+                {
+                    "title": "Error Detection",
+                    "description": "Identifies missing fields, duplicate entries, incorrect pricing, and inconsistent quantities with clear flagging for human review."
+                },
+                {
+                    "title": "ERP-Ready Output",
+                    "description": "Generates structured sales orders formatted to match your ERP's required fields and defaults. No manual re-keying."
+                },
+                {
+                    "title": "Confirmation Workflow",
+                    "description": "Sends order confirmations to both customer and sales rep once approved by admin. Full audit trail maintained."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-email",
+                    "name": "Email Access",
+                    "description": "Read access to designated order processing inboxes",
+                    "required": true
+                },
+                {
+                    "id": "dp-erp",
+                    "name": "ERP Data",
+                    "description": "Read/write to ERP system for order creation and validation",
+                    "required": true
+                },
+                {
+                    "id": "dp-catalog",
+                    "name": "Product Catalog",
+                    "description": "Access to SKUs, pricing, pack sizes for validation",
+                    "required": true
+                },
+                {
+                    "id": "dp-customers-ella",
+                    "name": "Customer Records",
+                    "description": "Access to customer accounts for order association",
+                    "required": true
+                },
+                {
+                    "id": "dp-inventory",
+                    "name": "Inventory Levels",
+                    "description": "Real-time stock data for availability validation",
+                    "required": false
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-email",
+                    "name": "Email Gateway",
+                    "type": "external",
+                    "status": "connected",
+                    "description": "Gmail, Outlook, or custom SMTP inbox monitoring"
+                },
+                {
+                    "id": "conn-erp-ella",
+                    "name": "ERP System",
+                    "type": "external",
+                    "status": "connected",
+                    "description": "SAP, NetSuite, QuickBooks, or custom ERP integration"
+                },
+                {
+                    "id": "conn-crm-ella",
+                    "name": "WizOrder CRM",
+                    "type": "internal",
+                    "status": "connected",
+                    "description": "Customer and order management"
+                }
+            ],
+            "pricing": {
+                "monthly": 0,
+                "label": "Included with WizCommerce"
+            }
+        },
+        {
+            "id": "agent-inventory",
+            "name": "Inventory Watchdog",
+            "tagline": "Never miss a stockout again",
+            "description": "Continuously monitors inventory levels across your warehouse and fulfillment network. Alerts on low stock, predicts stockout dates based on velocity, and auto-generates reorder recommendations.",
+            "category": "Operations",
+            "status": "available",
+            "image": "inventory",
+            "color": "#F0AF30",
+            "capabilities": [
+                {
+                    "title": "Real-Time Stock Monitoring",
+                    "description": "Tracks inventory levels across all warehouses and fulfillment centers with configurable alert thresholds per SKU."
+                },
+                {
+                    "title": "Stockout Prediction",
+                    "description": "Uses historical sales velocity and seasonality patterns to predict when each SKU will run out — days or weeks in advance."
+                },
+                {
+                    "title": "Reorder Recommendations",
+                    "description": "Auto-generates purchase order suggestions based on lead times, MOQs, and predicted demand."
+                },
+                {
+                    "title": "Dead Stock Detection",
+                    "description": "Identifies slow-moving inventory that hasn't sold in configurable time windows. Suggests markdowns or bundle strategies."
+                },
+                {
+                    "title": "Customer Impact Alerts",
+                    "description": "Flags when low-stock SKUs appear in active customer wishlists, open carts, or pending quotes."
+                },
+                {
+                    "title": "Supplier Lead Time Tracking",
+                    "description": "Monitors supplier performance and adjusts reorder timing based on actual delivery patterns."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-inv-levels",
+                    "name": "Inventory Data",
+                    "description": "Real-time access to stock levels, warehouse locations, and SKU movements",
+                    "required": true
+                },
+                {
+                    "id": "dp-inv-orders",
+                    "name": "Order Pipeline",
+                    "description": "Access to open orders, pending shipments, and inbound POs for demand calculation",
+                    "required": true
+                },
+                {
+                    "id": "dp-inv-products",
+                    "name": "Product Catalog",
+                    "description": "SKU data, pack sizes, MOQs, and supplier information",
+                    "required": true
+                },
+                {
+                    "id": "dp-inv-suppliers",
+                    "name": "Supplier Data",
+                    "description": "Lead times, pricing agreements, and supplier performance history",
+                    "required": false
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-wms",
+                    "name": "Warehouse Management",
+                    "type": "external",
+                    "status": "available",
+                    "description": "ShipBob, ShipHero, or custom WMS integration"
+                },
+                {
+                    "id": "conn-erp-inv",
+                    "name": "ERP System",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Inventory module of your ERP"
+                },
+                {
+                    "id": "conn-wizorder-inv",
+                    "name": "WizOrder",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Order and product data"
+                }
+            ],
+            "pricing": {
+                "monthly": 149,
+                "label": "$149/month"
+            }
+        },
+        {
+            "id": "agent-quote",
+            "name": "Quote Optimizer",
+            "tagline": "Smarter pricing, faster closes",
+            "description": "Analyzes your quote history, win/loss patterns, and competitive landscape to suggest optimal pricing strategies. Auto-generates competitive quotes with customer-specific pricing adjustments.",
+            "category": "Sales",
+            "status": "available",
+            "image": "quote",
+            "color": "#7DA50E",
+            "capabilities": [
+                {
+                    "title": "Win/Loss Analysis",
+                    "description": "Identifies pricing patterns in won vs. lost quotes. Surfaces the pricing sweet spots per customer segment and product category."
+                },
+                {
+                    "title": "Dynamic Discount Suggestions",
+                    "description": "Recommends discount levels based on order size, customer lifetime value, and competitive pressure — without giving away margin."
+                },
+                {
+                    "title": "Auto-Quote Generation",
+                    "description": "Creates draft quotes from customer conversations or order history. Pre-fills products, quantities, and pricing based on buying patterns."
+                },
+                {
+                    "title": "Expiry Management",
+                    "description": "Tracks pending quotes, sends proactive follow-up reminders, and flags quotes approaching expiration."
+                },
+                {
+                    "title": "Margin Protection",
+                    "description": "Sets minimum margin guardrails per product or category. Alerts when a proposed discount would breach thresholds."
+                },
+                {
+                    "title": "Competitive Price Matching",
+                    "description": "Compares your pricing against market benchmarks and adjusts recommendations accordingly."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-quotes",
+                    "name": "Quote History",
+                    "description": "Full access to all quotes — won, lost, pending, expired",
+                    "required": true
+                },
+                {
+                    "id": "dp-pricing",
+                    "name": "Price Lists",
+                    "description": "Access to all price lists, volume tiers, and customer-specific pricing",
+                    "required": true
+                },
+                {
+                    "id": "dp-customers-quote",
+                    "name": "Customer Data",
+                    "description": "Customer segmentation, LTV, and purchase history for pricing optimization",
+                    "required": true
+                },
+                {
+                    "id": "dp-margins",
+                    "name": "Cost & Margin Data",
+                    "description": "Product cost, margin targets, and minimum pricing rules",
+                    "required": false
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-crm-quote",
+                    "name": "WizOrder CRM",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Quote management and customer data"
+                },
+                {
+                    "id": "conn-erp-quote",
+                    "name": "ERP Pricing",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Cost data and margin calculations"
+                }
+            ],
+            "pricing": {
+                "monthly": 199,
+                "label": "$199/month"
+            }
+        },
+        {
+            "id": "agent-churn",
+            "name": "Customer Churn Predictor",
+            "tagline": "Spot at-risk accounts before they leave",
+            "description": "Monitors buying patterns, engagement signals, and account activity to flag customers at risk of churning. Provides early warning scores and recommended retention actions.",
+            "category": "Sales",
+            "status": "available",
+            "image": "churn",
+            "color": "#D74C10",
+            "capabilities": [
+                {
+                    "title": "Churn Risk Scoring",
+                    "description": "Assigns a risk score (0-100) to every active account based on order frequency changes, declining order values, and engagement drops."
+                },
+                {
+                    "title": "Early Warning Signals",
+                    "description": "Detects leading indicators: missed reorder cycles, reduced product variety, declining average order value, support ticket spikes."
+                },
+                {
+                    "title": "Retention Playbooks",
+                    "description": "Suggests specific actions per at-risk account: personal outreach, exclusive pricing, product recommendations, or loyalty incentives."
+                },
+                {
+                    "title": "Win-Back Campaigns",
+                    "description": "Identifies lapsed customers with reactivation potential and generates personalized outreach sequences."
+                },
+                {
+                    "title": "Segment Health Monitoring",
+                    "description": "Tracks churn trends by customer segment, region, and product category for strategic planning."
+                },
+                {
+                    "title": "Revenue Impact Forecasting",
+                    "description": "Estimates potential revenue loss from at-risk accounts to help prioritize retention efforts."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-customers-churn",
+                    "name": "Customer Profiles",
+                    "description": "Account details, segmentation, and lifecycle stage",
+                    "required": true
+                },
+                {
+                    "id": "dp-orders-churn",
+                    "name": "Order History",
+                    "description": "Complete order history for pattern analysis",
+                    "required": true
+                },
+                {
+                    "id": "dp-activity",
+                    "name": "Engagement Data",
+                    "description": "Login frequency, catalog views, wishlist activity, and support interactions",
+                    "required": true
+                },
+                {
+                    "id": "dp-support-churn",
+                    "name": "Support Tickets",
+                    "description": "Ticket volume and sentiment for risk signal detection",
+                    "required": false
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-crm-churn",
+                    "name": "WizOrder CRM",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Customer and order data"
+                },
+                {
+                    "id": "conn-support-churn",
+                    "name": "Support System",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Zendesk, Freshdesk, or HubSpot ticketing"
+                },
+                {
+                    "id": "conn-email-churn",
+                    "name": "Email Platform",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Engagement tracking from email campaigns"
+                }
+            ],
+            "pricing": {
+                "monthly": 249,
+                "label": "$249/month"
+            }
+        },
+        {
+            "id": "agent-tradeshow",
+            "name": "Trade Show Prep Assistant",
+            "tagline": "Walk in prepared, walk out with deals",
+            "description": "Builds comprehensive pre-show briefs for every attending customer, schedules follow-ups automatically, tracks booth leads in real time, and generates post-show action plans.",
+            "category": "Sales",
+            "status": "available",
+            "image": "tradeshow",
+            "color": "#5B6AF0",
+            "capabilities": [
+                {
+                    "title": "Pre-Show Customer Briefs",
+                    "description": "Auto-generates one-page briefs for each attending customer: recent orders, open quotes, wishlist items, suggested upsells, and conversation starters."
+                },
+                {
+                    "title": "Booth Lead Capture",
+                    "description": "Scan badges or enter contact info on-the-fly. Automatically associates leads with your CRM and creates follow-up tasks."
+                },
+                {
+                    "title": "Real-Time Order Taking",
+                    "description": "Build carts and place orders directly from the booth using mobile-optimized workflows during live customer conversations."
+                },
+                {
+                    "title": "Post-Show Follow-Up Engine",
+                    "description": "Generates personalized follow-up sequences for every booth visitor within 24 hours of show close."
+                },
+                {
+                    "title": "Show ROI Tracking",
+                    "description": "Tracks orders, quotes, and revenue attributed to each trade show for clear ROI reporting."
+                },
+                {
+                    "title": "Schedule Management",
+                    "description": "Manages meeting slots, booth shifts, and customer appointments throughout the show."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-customers-ts",
+                    "name": "Customer Data",
+                    "description": "Customer profiles and order history for brief generation",
+                    "required": true
+                },
+                {
+                    "id": "dp-products-ts",
+                    "name": "Product Catalog",
+                    "description": "Products, pricing, and inventory for on-site ordering",
+                    "required": true
+                },
+                {
+                    "id": "dp-calendar-ts",
+                    "name": "Calendar Access",
+                    "description": "Meeting schedules and appointment slots",
+                    "required": true
+                },
+                {
+                    "id": "dp-leads-ts",
+                    "name": "Lead Database",
+                    "description": "Write access to create and update leads from booth interactions",
+                    "required": false
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-crm-ts",
+                    "name": "WizOrder CRM",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Customer data and lead management"
+                },
+                {
+                    "id": "conn-calendar-ts",
+                    "name": "Google Calendar",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Meeting scheduling and reminders"
+                },
+                {
+                    "id": "conn-badge-ts",
+                    "name": "Badge Scanner",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Lead capture from trade show badges"
+                }
+            ],
+            "pricing": {
+                "monthly": 179,
+                "label": "$179/month"
+            }
+        },
+        {
+            "id": "agent-returns",
+            "name": "Returns & Claims Processor",
+            "tagline": "Handle returns without the headache",
+            "description": "Automates the entire returns and claims lifecycle — from initial request intake and authorization to resolution tracking and pattern analysis across your customer base.",
+            "category": "Operations",
+            "status": "available",
+            "image": "returns",
+            "color": "#E27340",
+            "capabilities": [
+                {
+                    "title": "Automated Return Authorization",
+                    "description": "Processes return requests against your policy rules. Auto-approves qualifying returns, flags exceptions for human review."
+                },
+                {
+                    "title": "Claims Intake",
+                    "description": "Accepts claims via email, form, or chat. Extracts product details, damage descriptions, and supporting documentation automatically."
+                },
+                {
+                    "title": "Resolution Tracking",
+                    "description": "Manages each claim through your resolution workflow: received → under review → approved/denied → resolved. Full status visibility."
+                },
+                {
+                    "title": "Pattern Detection",
+                    "description": "Surfaces recurring return reasons by product, SKU, or supplier. Identifies quality issues before they scale."
+                },
+                {
+                    "title": "Credit & Refund Processing",
+                    "description": "Calculates refund amounts, generates credit memos, and syncs with your accounting system."
+                },
+                {
+                    "title": "Customer Communication",
+                    "description": "Sends automated status updates to customers at each stage of the return/claim process."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-orders-returns",
+                    "name": "Order History",
+                    "description": "Access to original orders for return validation",
+                    "required": true
+                },
+                {
+                    "id": "dp-returns",
+                    "name": "Returns Database",
+                    "description": "Read/write to returns and claims records",
+                    "required": true
+                },
+                {
+                    "id": "dp-policy",
+                    "name": "Return Policies",
+                    "description": "Business rules for auto-authorization decisions",
+                    "required": true
+                },
+                {
+                    "id": "dp-accounting",
+                    "name": "Accounting Data",
+                    "description": "Credit memo generation and refund processing",
+                    "required": false
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-crm-ret",
+                    "name": "WizOrder CRM",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Customer and order data"
+                },
+                {
+                    "id": "conn-erp-ret",
+                    "name": "ERP Accounting",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Credit processing and financial sync"
+                },
+                {
+                    "id": "conn-email-ret",
+                    "name": "Email Gateway",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Customer communication and claims intake"
+                }
+            ],
+            "pricing": {
+                "monthly": 129,
+                "label": "$129/month"
+            }
+        },
+        {
+            "id": "agent-catalog",
+            "name": "Catalog Curator",
+            "tagline": "Personalized catalogs, zero manual work",
+            "description": "Automatically generates custom product catalogs tailored to each buyer based on their purchase history, preferences, browsing behavior, and seasonal trends.",
+            "category": "Sales",
+            "status": "available",
+            "image": "catalog",
+            "color": "#28AA7B",
+            "capabilities": [
+                {
+                    "title": "Buyer-Specific Curation",
+                    "description": "Analyzes each buyer's order history and preferences to create catalogs featuring products they're most likely to purchase."
+                },
+                {
+                    "title": "Seasonal Recommendations",
+                    "description": "Adjusts catalog contents based on seasonal buying patterns, upcoming trade shows, and holiday calendars."
+                },
+                {
+                    "title": "New Product Spotlights",
+                    "description": "Automatically features new arrivals that match each buyer's category preferences and price points."
+                },
+                {
+                    "title": "Cross-Sell Intelligence",
+                    "description": "Identifies complementary products that pair well with each buyer's frequent purchases."
+                },
+                {
+                    "title": "Digital Catalog Generation",
+                    "description": "Creates shareable PDF or web-based catalogs branded with your company's look and feel."
+                },
+                {
+                    "title": "Performance Tracking",
+                    "description": "Tracks which curated products get viewed, added to cart, and ordered — improving recommendations over time."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-products-cat",
+                    "name": "Product Catalog",
+                    "description": "Full product data including images, descriptions, and pricing",
+                    "required": true
+                },
+                {
+                    "id": "dp-customers-cat",
+                    "name": "Buyer Profiles",
+                    "description": "Purchase history, preferences, and browsing behavior",
+                    "required": true
+                },
+                {
+                    "id": "dp-orders-cat",
+                    "name": "Order History",
+                    "description": "Historical orders for pattern analysis",
+                    "required": true
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-wizorder-cat",
+                    "name": "WizOrder",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Product and customer data"
+                },
+                {
+                    "id": "conn-wizshop-cat",
+                    "name": "WizShop",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Browsing behavior and digital storefront"
+                },
+                {
+                    "id": "conn-wizstudio-cat",
+                    "name": "WizStudio",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "AI-generated product imagery for catalogs"
+                }
+            ],
+            "pricing": {
+                "monthly": 159,
+                "label": "$159/month"
+            }
+        },
+        {
+            "id": "agent-delivery",
+            "name": "Delivery Tracker",
+            "tagline": "Real-time shipment visibility for your team",
+            "description": "Provides real-time delivery tracking across all carriers, proactively notifies reps and customers about delays, and predicts accurate ETAs based on carrier performance patterns.",
+            "category": "Operations",
+            "status": "available",
+            "image": "delivery",
+            "color": "#3B82F6",
+            "capabilities": [
+                {
+                    "title": "Multi-Carrier Tracking",
+                    "description": "Unified tracking dashboard across UPS, FedEx, USPS, DHL, and regional carriers. One view for all shipments."
+                },
+                {
+                    "title": "Proactive Delay Alerts",
+                    "description": "Detects potential delays based on carrier scan patterns and weather data. Notifies reps before customers ask."
+                },
+                {
+                    "title": "ETA Prediction",
+                    "description": "Uses historical carrier performance data to provide more accurate delivery estimates than carrier-stated ETAs."
+                },
+                {
+                    "title": "Customer Notification Engine",
+                    "description": "Sends branded shipping updates via email or SMS at each milestone: shipped, in transit, out for delivery, delivered."
+                },
+                {
+                    "title": "Exception Management",
+                    "description": "Flags failed deliveries, address issues, and customs holds. Creates resolution tasks automatically."
+                },
+                {
+                    "title": "Delivery Analytics",
+                    "description": "Carrier performance scorecards, on-time delivery rates, and cost-per-shipment analysis."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-shipments",
+                    "name": "Shipment Data",
+                    "description": "Tracking numbers, carrier info, and shipment status",
+                    "required": true
+                },
+                {
+                    "id": "dp-orders-del",
+                    "name": "Order Data",
+                    "description": "Order details linked to shipments for customer context",
+                    "required": true
+                },
+                {
+                    "id": "dp-customers-del",
+                    "name": "Customer Contacts",
+                    "description": "Email and phone for delivery notifications",
+                    "required": false
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-carriers",
+                    "name": "Carrier APIs",
+                    "type": "external",
+                    "status": "available",
+                    "description": "UPS, FedEx, USPS, DHL tracking APIs"
+                },
+                {
+                    "id": "conn-erp-del",
+                    "name": "ERP Shipping",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Shipment creation and tracking number sync"
+                },
+                {
+                    "id": "conn-wizorder-del",
+                    "name": "WizOrder",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Order data and customer info"
+                }
+            ],
+            "pricing": {
+                "monthly": 99,
+                "label": "$99/month"
+            }
+        },
+        {
+            "id": "agent-coach",
+            "name": "Rep Performance Coach",
+            "tagline": "Data-driven coaching for your sales team",
+            "description": "Analyzes individual rep performance patterns, suggests account prioritization, generates weekly digests, and identifies coaching opportunities based on selling behaviors.",
+            "category": "Management",
+            "status": "available",
+            "image": "coach",
+            "color": "#A855F7",
+            "capabilities": [
+                {
+                    "title": "Individual Performance Dashboards",
+                    "description": "Per-rep metrics: revenue generated, quote conversion rate, average deal size, activity frequency, and pipeline health."
+                },
+                {
+                    "title": "Account Prioritization",
+                    "description": "Recommends which accounts each rep should focus on today based on deal stage, inactivity risk, and revenue potential."
+                },
+                {
+                    "title": "Weekly Performance Digests",
+                    "description": "Auto-generated summaries sent to each rep and their manager: wins, misses, opportunities, and focus areas."
+                },
+                {
+                    "title": "Selling Pattern Analysis",
+                    "description": "Identifies what top performers do differently: contact frequency, product mix, pricing strategies, and follow-up timing."
+                },
+                {
+                    "title": "Goal Tracking",
+                    "description": "Tracks progress against individual and team quotas with real-time projections and pace indicators."
+                },
+                {
+                    "title": "Coaching Recommendations",
+                    "description": "Surfaces specific, actionable coaching suggestions for managers based on observed rep behaviors and outcomes."
+                }
+            ],
+            "dataPermissions": [
+                {
+                    "id": "dp-users-coach",
+                    "name": "Sales Rep Data",
+                    "description": "Rep profiles, team assignments, and role hierarchies",
+                    "required": true
+                },
+                {
+                    "id": "dp-sales-coach",
+                    "name": "Sales Activity",
+                    "description": "Orders, quotes, tasks, and customer interactions per rep",
+                    "required": true
+                },
+                {
+                    "id": "dp-targets-coach",
+                    "name": "Sales Targets",
+                    "description": "Quotas, goals, and performance benchmarks",
+                    "required": true
+                },
+                {
+                    "id": "dp-customers-coach",
+                    "name": "Customer Data",
+                    "description": "Account assignments and customer value metrics",
+                    "required": false
+                }
+            ],
+            "connectors": [
+                {
+                    "id": "conn-crm-coach",
+                    "name": "WizOrder CRM",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Sales activity and customer data"
+                },
+                {
+                    "id": "conn-reports-coach",
+                    "name": "WizOrder Reports",
+                    "type": "internal",
+                    "status": "available",
+                    "description": "Performance metrics and analytics"
+                },
+                {
+                    "id": "conn-email-coach",
+                    "name": "Email Delivery",
+                    "type": "external",
+                    "status": "available",
+                    "description": "Weekly digest distribution"
+                }
+            ],
+            "pricing": {
+                "monthly": 199,
+                "label": "$199/month"
+            }
+        }
+    ]
+}

@@ -1,0 +1,91 @@
+{
+    "7days": {
+        "metrics": {
+            "totalQueries": { "value": 78, "trend": { "direction": "up", "percent": 12.4, "period": "vs prev 7 days" } },
+            "actionsExecuted": { "value": 29, "trend": { "direction": "up", "percent": 8.7, "period": "vs prev 7 days" } },
+            "actionsStaged": { "value": 44, "trend": { "direction": "up", "percent": 5.2, "period": "vs prev 7 days" } },
+            "artifactsCreated": { "value": 7, "trend": { "direction": "down", "percent": 12.5, "period": "vs prev 7 days" } },
+            "avgResponseTime": { "value": "1.1s", "trend": { "direction": "down", "percent": 8.3, "period": "vs prev 7 days" } },
+            "intentAccuracy": { "value": "95.1%", "trend": { "direction": "up", "percent": 0.9, "period": "vs prev 7 days" } }
+        },
+        "queryVolume": [
+            { "date": "Apr 23", "queries": 21 },
+            { "date": "Apr 24", "queries": 28 },
+            { "date": "Apr 25", "queries": 16 },
+            { "date": "Apr 26", "queries": 9 },
+            { "date": "Apr 27", "queries": 7 },
+            { "date": "Apr 28", "queries": 31 },
+            { "date": "Apr 29", "queries": 11 }
+        ],
+        "actionOutcomes": { "confirmed": 29, "cancelled": 9, "edited": 6 }
+    },
+    "30days": {
+        "metrics": {
+            "totalQueries": { "value": 247, "trend": { "direction": "up", "percent": 18.2, "period": "vs prev 30 days" } },
+            "actionsExecuted": { "value": 89, "trend": { "direction": "up", "percent": 12.5, "period": "vs prev 30 days" } },
+            "actionsStaged": { "value": 134, "trend": { "direction": "up", "percent": 8.1, "period": "vs prev 30 days" } },
+            "artifactsCreated": { "value": 23, "trend": { "direction": "down", "percent": 4.3, "period": "vs prev 30 days" } },
+            "avgResponseTime": { "value": "1.2s", "trend": { "direction": "down", "percent": 15.0, "period": "vs prev 30 days" } },
+            "intentAccuracy": { "value": "94.2%", "trend": { "direction": "up", "percent": 2.1, "period": "vs prev 30 days" } }
+        },
+        "queryVolume": [
+            { "date": "Apr 1",  "queries": 8  },
+            { "date": "Apr 2",  "queries": 14 },
+            { "date": "Apr 3",  "queries": 11 },
+            { "date": "Apr 4",  "queries": 6  },
+            { "date": "Apr 5",  "queries": 4  },
+            { "date": "Apr 6",  "queries": 3  },
+            { "date": "Apr 7",  "queries": 17 },
+            { "date": "Apr 8",  "queries": 20 },
+            { "date": "Apr 9",  "queries": 13 },
+            { "date": "Apr 10", "queries": 18 },
+            { "date": "Apr 11", "queries": 10 },
+            { "date": "Apr 12", "queries": 6  },
+            { "date": "Apr 13", "queries": 5  },
+            { "date": "Apr 14", "queries": 16 },
+            { "date": "Apr 15", "queries": 12 },
+            { "date": "Apr 16", "queries": 18 },
+            { "date": "Apr 17", "queries": 15 },
+            { "date": "Apr 18", "queries": 22 },
+            { "date": "Apr 19", "queries": 8  },
+            { "date": "Apr 20", "queries": 5  },
+            { "date": "Apr 21", "queries": 19 },
+            { "date": "Apr 22", "queries": 25 },
+            { "date": "Apr 23", "queries": 21 },
+            { "date": "Apr 24", "queries": 28 },
+            { "date": "Apr 25", "queries": 16 },
+            { "date": "Apr 26", "queries": 9  },
+            { "date": "Apr 27", "queries": 7  },
+            { "date": "Apr 28", "queries": 31 },
+            { "date": "Apr 29", "queries": 11 },
+            { "date": "Apr 30", "queries": 14 }
+        ],
+        "actionOutcomes": { "confirmed": 89, "cancelled": 28, "edited": 17 }
+    },
+    "90days": {
+        "metrics": {
+            "totalQueries": { "value": 814, "trend": { "direction": "up", "percent": 31.5, "period": "vs prev 90 days" } },
+            "actionsExecuted": { "value": 298, "trend": { "direction": "up", "percent": 24.2, "period": "vs prev 90 days" } },
+            "actionsStaged": { "value": 441, "trend": { "direction": "up", "percent": 19.8, "period": "vs prev 90 days" } },
+            "artifactsCreated": { "value": 76, "trend": { "direction": "up", "percent": 6.1, "period": "vs prev 90 days" } },
+            "avgResponseTime": { "value": "1.4s", "trend": { "direction": "down", "percent": 22.0, "period": "vs prev 90 days" } },
+            "intentAccuracy": { "value": "91.8%", "trend": { "direction": "up", "percent": 4.7, "period": "vs prev 90 days" } }
+        },
+        "queryVolume": [
+            { "date": "Feb 1",  "queries": 4  },
+            { "date": "Feb 8",  "queries": 9  },
+            { "date": "Feb 15", "queries": 7  },
+            { "date": "Feb 22", "queries": 13 },
+            { "date": "Mar 1",  "queries": 11 },
+            { "date": "Mar 8",  "queries": 18 },
+            { "date": "Mar 15", "queries": 22 },
+            { "date": "Mar 22", "queries": 16 },
+            { "date": "Mar 29", "queries": 29 },
+            { "date": "Apr 5",  "queries": 24 },
+            { "date": "Apr 12", "queries": 33 },
+            { "date": "Apr 19", "queries": 28 },
+            { "date": "Apr 26", "queries": 38 }
+        ],
+        "actionOutcomes": { "confirmed": 298, "cancelled": 91, "edited": 52 }
+    }
+}

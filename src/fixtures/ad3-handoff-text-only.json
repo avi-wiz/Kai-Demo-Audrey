@@ -1,0 +1,22 @@
+{
+  "frameId": "f-ad3-handoff-text-001",
+  "frameType": "result",
+  "responseMode": "text-only",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Rep handoff summary Heman -> Sara.",
+        "steps": [
+          { "step": 1, "action": "fetch_account_book", "result": "12 accounts", "ms": 240 }
+        ],
+        "totalMs": 240
+      },
+      "config": { "collapsed": true }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Handoff Heman -> Sara covers 12 accounts and $1.42M LTV, effective May 15. Top priority: Acme (VIP, 2 open quotes), Pacific Goods (discount override pending), Riverstone (credit limit increase). Want me to draft a handoff email or customer notification?"
+  }
+}

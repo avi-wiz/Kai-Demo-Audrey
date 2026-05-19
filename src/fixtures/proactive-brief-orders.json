@@ -1,0 +1,40 @@
+{
+  "briefType": "page-orders",
+  "greeting": "Here's what I see on your Orders page.",
+  "urgentItems": [
+    {
+      "icon": "shipping",
+      "text": "3 orders awaiting shipment — oldest is 2 days pending",
+      "priority": "attention",
+      "actionChip": {
+        "label": "Show pending shipments",
+        "query": "Show me orders awaiting shipment",
+        "icon": "filter",
+        "category": "page-action"
+      }
+    },
+    {
+      "icon": "flag",
+      "text": "1 order flagged for review — ORD-2839 exceeds $10K threshold",
+      "priority": "urgent",
+      "actionChip": {
+        "label": "Review ORD-2839",
+        "query": "Show me flagged order ORD-2839",
+        "icon": "search",
+        "category": "page-action"
+      }
+    }
+  ],
+  "todaysSummary": [
+    {
+      "icon": "chart",
+      "text": "18 orders this week, avg value $5,420 — up 12% from last week",
+      "priority": "info"
+    },
+    {
+      "icon": "check",
+      "text": "14 of 18 shipped on time (77.8% on-time rate)",
+      "priority": "info"
+    }
+  ]
+}

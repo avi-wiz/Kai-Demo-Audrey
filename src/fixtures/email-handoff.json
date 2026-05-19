@@ -1,0 +1,36 @@
+{
+  "frameId": "f-email-handoff-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Drafting handoff email from Heman Bhullar to Sara Patel with key account details.",
+        "steps": [
+          { "step": 1, "action": "fetch_handoff_context", "result": "12 accounts, $1.42M LTV, 8 open quotes, 5 active tasks", "ms": 110 },
+          { "step": 2, "action": "rank_priority_accounts", "result": "Top: Acme (VIP, 2 quotes), Pacific (override pending), Riverstone (credit increase)", "ms": 85 },
+          { "step": 3, "action": "generate_email_draft", "result": "Draft ready — internal handoff tone, 6 sentences", "ms": 140 }
+        ],
+        "totalMs": 335
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "email",
+        "title": "Handoff Email — Heman → Sara",
+        "fields": [
+          { "label": "To", "value": "Sara Patel <sara.patel@wizcommerce.com>" },
+          { "label": "Subject", "value": "Account Handoff — 12 accounts, effective May 15" },
+          { "label": "Body", "value": "Hi Sara,\n\nWelcome to the West Coast book — handing over 12 accounts ($1.42M combined LTV, $284K in open quotes) effective May 15. A few flagged for early attention:\n\n• Acme Corp (C-4201) — VIP, $482K LTV, 2 open quotes. Rachel Chen is the main contact; she's responsive but expects fast turnaround.\n• Pacific Goods (C-3318) — $312K LTV, discount override pending approval. Worth a call this week before they push back on terms.\n• Riverstone LLC (C-2944) — $186K LTV, credit limit increase pending with finance.\n\nFull account book + open tasks are in the CRM under your queue. Happy to do a 30-min walkthrough before May 15 — let me know what works.\n\nThanks,\nHeman" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Handoff email drafted — covers the priority accounts and pending items Sara should know before May 15. Want me to make it shorter, add specific quote IDs, or send it?"
+  },
+  "trace": null
+}

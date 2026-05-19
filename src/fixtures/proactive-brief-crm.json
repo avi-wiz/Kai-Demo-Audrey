@@ -1,0 +1,40 @@
+{
+  "briefType": "page-crm",
+  "greeting": "Your CRM at a glance.",
+  "urgentItems": [
+    {
+      "icon": "alert",
+      "text": "5 tasks overdue — 2 are high priority (Acme follow-up, Pinnacle quote)",
+      "priority": "urgent",
+      "actionChip": {
+        "label": "Show overdue tasks",
+        "query": "Show me my overdue tasks",
+        "icon": "check",
+        "category": "page-action"
+      }
+    },
+    {
+      "icon": "clock",
+      "text": "3 leads haven't been contacted in 7+ days",
+      "priority": "attention",
+      "actionChip": {
+        "label": "Show stale leads",
+        "query": "Which leads need follow-up?",
+        "icon": "user",
+        "category": "page-action"
+      }
+    }
+  ],
+  "todaysSummary": [
+    {
+      "icon": "tasks",
+      "text": "12 open tasks, 8 due this week",
+      "priority": "info"
+    },
+    {
+      "icon": "deal",
+      "text": "4 deals in pipeline worth $68,500",
+      "priority": "info"
+    }
+  ]
+}

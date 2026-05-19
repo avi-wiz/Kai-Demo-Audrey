@@ -1,0 +1,79 @@
+{
+  "frameId": "f-ad17-report-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Built Q1 2026 sales performance report. Pulled revenue, quote conversion, top customers, and rep leaderboard.",
+        "steps": [
+          { "step": 1, "action": "fetch_revenue", "result": "Q1 revenue: $1.84M", "ms": 180 },
+          { "step": 2, "action": "fetch_quote_conversion", "result": "Conversion: 38%", "ms": 140 },
+          { "step": 3, "action": "fetch_top_customers", "result": "Top 5 by revenue", "ms": 120 },
+          { "step": 4, "action": "compute_trend", "result": "+14% vs Q4 2025", "ms": 60 }
+        ],
+        "mcpsAccessed": ["Reports", "CRM", "Quotes"],
+        "totalMs": 500
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "Q1 Revenue", "value": "$1,840,000", "format": "currency", "trend": { "direction": "up", "percent": 14, "period": "vs Q4 2025" } },
+          { "label": "Orders", "value": "412", "format": "count", "trend": { "direction": "up", "percent": 9, "period": "vs Q4" } },
+          { "label": "New Customers", "value": "27", "format": "count", "trend": { "direction": "up", "percent": 18, "period": "vs Q4" } }
+        ]
+      }
+    },
+    {
+      "widgetType": "CH-001",
+      "data": {
+        "title": "Q1 Revenue Trend (Weekly)",
+        "series": [
+          { "month": "Wk 1", "revenue": 128400 },
+          { "month": "Wk 2", "revenue": 142100 },
+          { "month": "Wk 3", "revenue": 155200 },
+          { "month": "Wk 4", "revenue": 138900 },
+          { "month": "Wk 5", "revenue": 161800 },
+          { "month": "Wk 6", "revenue": 149200 },
+          { "month": "Wk 7", "revenue": 167500 },
+          { "month": "Wk 8", "revenue": 158200 },
+          { "month": "Wk 9", "revenue": 172300 },
+          { "month": "Wk 10", "revenue": 168800 },
+          { "month": "Wk 11", "revenue": 181400 },
+          { "month": "Wk 12", "revenue": 178900 },
+          { "month": "Wk 13", "revenue": 185300 }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-004",
+      "data": {
+        "title": "Top 5 Customers — Q1",
+        "columns": [
+          { "key": "customer", "label": "Customer" },
+          { "key": "orders", "label": "Orders" },
+          { "key": "revenue", "label": "Revenue" },
+          { "key": "growth", "label": "vs Q4" }
+        ],
+        "rows": [
+          { "customer": "Acme Corp", "orders": "8", "revenue": "$132,470", "growth": "+12%" },
+          { "customer": "Pacific Goods", "orders": "6", "revenue": "$98,200", "growth": "+24%" },
+          { "customer": "BlueRidge Decor", "orders": "5", "revenue": "$84,100", "growth": "+8%" },
+          { "customer": "Hearth & Home", "orders": "4", "revenue": "$71,500", "growth": "+5%" },
+          { "customer": "Riverstone LLC", "orders": "4", "revenue": "$62,300", "growth": "+18%" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-001",
+      "data": { "label": "Save as Dashboard", "url": "#", "style": "primary", "action": "save-as-dashboard" }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Q1 closed at $1.84M, up 14% over Q4 — driven mainly by Pacific Goods (+24%) and Riverstone (+18%) growth. Quote conversion ticked up to 38%. Want me to save this as a dashboard, add more metrics, or email it to leadership?"
+  }
+}

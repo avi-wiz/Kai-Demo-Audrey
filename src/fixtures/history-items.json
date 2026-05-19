@@ -1,0 +1,44 @@
+{
+    "items": [
+        {
+            "id": "hist-001",
+            "title": "Acme Corp customer health check and revenue analysis",
+            "preview": "Pulled 360° view, revenue trend, and 4 open tasks for Acme Corp (C-4201).",
+            "timestamp": "2026-04-29T14:30:00Z",
+            "useCase": "uc1",
+            "fixtureId": "uc1-customer-intel"
+        },
+        {
+            "id": "hist-002",
+            "title": "Created catalogue task for Shaw N Solutions",
+            "preview": "Staged and confirmed task 'Send Catalogue' for Lead L-5678, assigned to Heman Bhullar.",
+            "timestamp": "2026-04-29T11:15:00Z",
+            "useCase": "uc2",
+            "fixtureId": "uc2-task-creation"
+        },
+        {
+            "id": "hist-003",
+            "title": "Acme Corp Q2 revenue with follow-up task",
+            "preview": "Multi-intent: surfaced Q2 revenue ($148,350) and staged a follow-up task due May 1.",
+            "timestamp": "2026-04-28T16:45:00Z",
+            "useCase": "uc3",
+            "fixtureId": "uc3-multi-intent"
+        },
+        {
+            "id": "hist-004",
+            "title": "Product pricing inquiry for West Coast accounts",
+            "preview": "Answered questions about volume tier pricing for the Home Decor collection.",
+            "timestamp": "2026-04-28T09:20:00Z",
+            "useCase": "docs-qa",
+            "fixtureId": null
+        },
+        {
+            "id": "hist-005",
+            "title": "Kai capabilities overview",
+            "preview": "Explained what Kai can do for sales reps — customer insights, task automation, order status.",
+            "timestamp": "2026-04-27T13:00:00Z",
+            "useCase": "docs-qa",
+            "fixtureId": null
+        }
+    ]
+}

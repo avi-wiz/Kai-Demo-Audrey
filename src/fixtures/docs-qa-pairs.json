@@ -1,0 +1,143 @@
+{
+    "documentName": "WizCommerce_Knowledge_Base.pdf",
+    "documentSize": "2.4 MB",
+    "indexedAt": "2026-04-10T09:30:00Z",
+    "totalArticles": 83,
+    "pairs": [
+        {
+            "id": "qa-001",
+            "keywords": [
+                "wizorder",
+                "what is wizorder",
+                "sales rep app"
+            ],
+            "question": "What is WizOrder?",
+            "answer": "WizOrder is WizCommerce's Sales Rep App — a mobile and web-based platform designed for wholesale sales representatives. It gives reps everything they need to manage customers, browse products with customer-specific pricing, build carts, create quotes, place orders, and track delivery status. Reps can work from the road using the mobile app or from the office using the web portal. WizOrder also integrates AI features like image-based product search, the 'View Similar' tool for finding alternatives, and Kai — the AI Sales Copilot — for natural language queries and task automation.",
+            "source": "Platform Overview",
+            "confidence": 0.96
+        },
+        {
+            "id": "qa-002",
+            "keywords": [
+                "ai co-workers",
+                "co-worker",
+                "ella",
+                "ai assistant"
+            ],
+            "question": "What are AI Co-Workers?",
+            "answer": "AI Co-Workers are standalone, agentic workflows built into WizCommerce that automate specific wholesale jobs end-to-end. There are currently two AI Co-Workers: the AI Order Entry Assistant (also known as Ella), which automates inbound purchase order processing by reading POs from emails, PDFs, spreadsheets, and scanned documents, then converting them into clean, ERP-ready orders; and the AI Sales Copilot (Kai), which provides sales reps with a chat-based interface to query customer data, surface insights, and take action in real time. No separate login or app is required — they're integrated directly into the platform.",
+            "source": "Explore AI Co-Workers",
+            "confidence": 0.97
+        },
+        {
+            "id": "qa-003",
+            "keywords": [
+                "pricing",
+                "customer-specific",
+                "price list",
+                "volume tier"
+            ],
+            "question": "How does customer-specific pricing work?",
+            "answer": "Pricing in WizCommerce is tied to the customer, not just the product. Every customer is assigned to a price list that determines what they see and what they pay. Prices can vary based on customer type (e.g., boutique retailers vs. national chains), product or collection (e.g., a premium lighting line with its own pricing tier), and volume tiers (e.g., 1-11 units at one price, 12-47 at a lower price, 48+ at the best price). When a buyer logs into WizShop or a rep selects a customer in WizOrder, the correct pricing is automatically applied — no manual switching needed.",
+            "source": "Key Buying and Pricing Concepts",
+            "confidence": 0.95
+        },
+        {
+            "id": "qa-004",
+            "keywords": [
+                "multiple carts",
+                "cart",
+                "wizshop",
+                "buyer"
+            ],
+            "question": "Can buyers have multiple carts?",
+            "answer": "Yes. Both WizShop (the online storefront) and WizOrder (the sales rep app) support multiple carts simultaneously. This is useful when ordering for different locations, departments, or occasions in a single session. Buyers and reps can name their carts, switch between them, and manage each independently. Carts can also be duplicated, and products can be moved between carts. This means a rep can prepare separate orders for different store locations without starting from scratch each time.",
+            "source": "Create & Manage Carts on WizShop",
+            "confidence": 0.94
+        },
+        {
+            "id": "qa-005",
+            "keywords": [
+                "order entry",
+                "ella",
+                "purchase order",
+                "po processing",
+                "automation"
+            ],
+            "question": "How does the AI Order Entry Assistant work?",
+            "answer": "The AI Order Entry Assistant (Ella) automates inbound order processing in five steps: First, it captures incoming POs from emails, PDFs, spreadsheets, scanned documents, voice messages, and even handwritten documents. Second, it extracts line items — pulling SKUs, descriptions, quantities, pricing, and customer details from any format. Third, it flags incomplete or inconsistent data such as missing fields, mismatched SKUs, or unclear information. Fourth, it validates data accuracy by cross-checking against your ERP data, price lists, and inventory. Finally, it creates ERP-ready orders formatted to match your required fields and sends confirmations to both the customer and sales rep. A human review step remains part of the workflow before final submission.",
+            "source": "Explore AI Co-Workers",
+            "confidence": 0.96
+        },
+        {
+            "id": "qa-006",
+            "keywords": [
+                "kai",
+                "sales copilot",
+                "sales rep",
+                "what can kai do"
+            ],
+            "question": "What can Kai do for sales reps?",
+            "answer": "Kai is the AI Sales Copilot — a chat-based assistant that helps sales reps in four key areas. First, meeting preparation: generating full customer summaries including recent orders, quotes, open carts, and activity before a meeting. Second, follow-up prioritization: identifying customers who need follow-ups based on inactivity, order gaps, or expiring quotes. Third, in-conversation action: creating quotes, building curated product catalogs, and finding in-stock alternatives during live customer conversations. Fourth, status checking: getting instant answers on delivery status, shipment updates, and delayed orders without contacting customer service. Reps can ask Kai questions in plain language and get answers or take action immediately.",
+            "source": "Key Terms for AI Co-Workers",
+            "confidence": 0.95
+        },
+        {
+            "id": "qa-007",
+            "keywords": [
+                "image search",
+                "photo",
+                "search with photo",
+                "visual search",
+                "camera"
+            ],
+            "question": "How do I search for products using a photo?",
+            "answer": "In WizOrder, you can use AI image search to find products when you don't have a name or SKU. Select the camera icon in the search bar on the Products page, then either upload a photo or capture one using your device camera. The AI analyzes the image and surfaces visually and categorically similar products from your catalog, ranked by relevance and prioritized for availability. This is useful when you have a physical sample, spot a product in a customer's store, or need to identify alternatives quickly. Each product card and Product Detail Page also includes a 'View Similar' button that uses the same AI matching.",
+            "source": "Universal Smart Search",
+            "confidence": 0.93
+        },
+        {
+            "id": "qa-008",
+            "keywords": [
+                "sales report",
+                "revenue",
+                "report",
+                "analytics",
+                "metrics"
+            ],
+            "question": "What does the Sales Report show?",
+            "answer": "The Sales Report in WizOrder provides a complete view of revenue and order activity. At the top, six summary metric cards show: Confirmed Order Amount (total revenue), Confirmed Order Count, Average Confirmed Order Value, Quote Converted Amount, Quote Converted Count, and Quote Pending Conversion. Below the metrics, you can analyze month-over-month trends, regional sales distribution, and trade show ROI. All metrics update in real time as you apply filters — changing the time range, customer, or rep filter immediately recalculates all data. The report is available to both Admins and Sales Reps under Reports > Sales.",
+            "source": "Sales Report",
+            "confidence": 0.94
+        },
+        {
+            "id": "qa-009",
+            "keywords": [
+                "filter",
+                "filtering",
+                "filter products",
+                "product filter",
+                "attribute",
+                "narrow"
+            ],
+            "question": "How do I filter products in WizOrder?",
+            "answer": "On the product list page in WizOrder, the filter panel is located just below the collection panel. You can narrow products by specific attributes such as size, color, material, and other custom attributes configured for your catalog. Select one or more attribute values to apply the filter — results update immediately. Filters work the same way on both WizOrder and WizShop, with the only difference being the visual layout of the filter panel. You can remove individual filters by deselecting them, or clear all applied filters at once to reset the view.",
+            "source": "Filtering Products",
+            "confidence": 0.92
+        },
+        {
+            "id": "qa-010",
+            "keywords": [
+                "wizstudio",
+                "lifestyle",
+                "product photography",
+                "ai image",
+                "image generation"
+            ],
+            "question": "What is WizStudio?",
+            "answer": "WizStudio is WizCommerce's AI-powered product photography platform. Its Lifestyle Generator lets you upload a product photo, describe a scene in plain text, and get studio-quality lifestyle images in minutes — no photoshoot needed. It also includes tools for background removal, image enhancement, and batch processing. WizStudio is designed for designers and admins who need to create catalog-ready imagery quickly, and the generated images can be used directly in WizShop storefronts, marketing materials, and product catalogs.",
+            "source": "Lifestyle Generator",
+            "confidence": 0.93
+        }
+    ]
+}

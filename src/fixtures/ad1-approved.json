@@ -1,0 +1,32 @@
+{
+  "frameId": "f-ad1-approved-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Bulk-approved 5 standard-policy items from the approval queue.",
+        "steps": [
+          { "step": 1, "action": "validate_policy", "result": "5 items within standard policy", "ms": 110 },
+          { "step": 2, "action": "execute_bulk_approve", "result": "5 of 5 approved", "ms": 220 }
+        ],
+        "mcpsAccessed": ["Approvals"],
+        "totalMs": 330
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "AW-003",
+      "data": {
+        "status": "success",
+        "title": "5 Items Approved",
+        "message": "Standard-policy bulk approval complete: AP-1041, AP-1042, AP-1043, AP-1045, AP-1047 — total $63,600. The 2 flagged items remain in your queue.",
+        "entityLink": { "label": "View Approval Queue", "url": "/approvals" }
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Done — 5 standard items approved totaling $63,600. The two flagged items (Pacific Goods discount, Riverstone credit limit) are still pending your review."
+  }
+}

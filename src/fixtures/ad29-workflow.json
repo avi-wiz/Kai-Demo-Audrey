@@ -1,0 +1,59 @@
+{
+  "frameId": "f-ad29-workflow-001",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Drafted dormant-customer re-engagement workflow. Defined trigger, conditions, and 3-step action sequence.",
+        "steps": [
+          { "step": 1, "action": "fetch_workflow_template", "result": "Re-engagement template loaded", "ms": 110 },
+          { "step": 2, "action": "evaluate_segment", "result": "32 customers match dormant criteria", "ms": 195 },
+          { "step": 3, "action": "validate_actions", "result": "All actions valid against current schema", "ms": 75 }
+        ],
+        "mcpsAccessed": ["Workflows", "CRM"],
+        "totalMs": 380
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "workflow",
+        "title": "Workflow — Dormant Customer Re-engagement",
+        "fields": [
+          { "label": "Workflow Name", "value": "Dormant Re-engagement (Q2)" },
+          { "label": "Trigger", "value": "Customer has no order in last 60 days" },
+          { "label": "Audience", "value": "VIP + Standard tiers, US only" },
+          { "label": "Step 1", "value": "Send re-engagement email with category highlights" },
+          { "label": "Step 2", "value": "Wait 5 days; if no order, create rep follow-up task" },
+          { "label": "Step 3", "value": "Wait 10 days; if no response, flag account for executive review" },
+          { "label": "Status", "value": "Draft — not yet active" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "Audience Match", "value": "32", "format": "count" },
+          { "label": "VIP in Audience", "value": "7", "format": "count" },
+          { "label": "Avg Days Dormant", "value": "84", "format": "count" },
+          { "label": "Combined LTV", "value": "$2.1M", "format": "currency" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Kai has staged this workflow for your review. Activating it will start running against the 32 matched customers immediately.",
+        "tier": "draft",
+        "actions": ["Activate Workflow", "Edit", "Cancel"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Workflow drafted: 3-step re-engagement sequence triggered by 60-day dormancy. 32 customers currently match — including 7 VIPs with $2.1M combined LTV. Want to test against the last 30 days first or activate now?"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "frameId": "f-email-report-summary-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Drafting Q1 sales report email to the leadership team with headline metrics and key trends.",
+        "steps": [
+          { "step": 1, "action": "extract_headline_metrics", "result": "Q1 revenue $1.84M (+14%), 412 orders, 27 new customers", "ms": 95 },
+          { "step": 2, "action": "identify_top_movers", "result": "Pacific Goods +24%, Riverstone +18%, Acme +12%", "ms": 80 },
+          { "step": 3, "action": "compose_executive_summary", "result": "Draft ready — executive tone, 5 sentences", "ms": 145 }
+        ],
+        "totalMs": 320
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "email",
+        "title": "Q1 Sales Report Summary — Leadership",
+        "fields": [
+          { "label": "To", "value": "leadership@wizcommerce.com" },
+          { "label": "Cc", "value": "Heman Bhullar <heman@wizcommerce.com>" },
+          { "label": "Subject", "value": "Q1 2026 Sales Report — $1.84M closed, +14% vs Q4" },
+          { "label": "Body", "value": "Hi team,\n\nSharing the Q1 2026 sales report — strong quarter overall, with revenue closing at $1.84M (up 14% vs Q4 2025) on 412 orders and 27 new customers. Quote conversion ticked up to 38% (+4 pts) and AOV held steady at $4,466.\n\nTop growth came from Pacific Goods (+24%), Riverstone LLC (+18%), and Acme Corp (+12%) — together those three accounts contributed roughly 16% of Q1 revenue. Weekly trend was steady through the quarter, with Wk 11–13 setting the high-water mark at $185K.\n\nFull dashboard is attached for the deep-dive. Happy to walk through it in our next leadership sync — flag anything you want me to drill into ahead of that.\n\nThanks,\nHeman" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Q1 report email drafted — leads with the headline number, calls out the top three growth accounts, and points to the dashboard for the full breakdown. Want me to make it shorter, switch to a more casual tone, or send it as-is?"
+  },
+  "trace": null
+}

@@ -1,0 +1,94 @@
+{
+  "capabilityChips": {
+    "email": [
+      { "label": "Make it shorter", "query": "Shorten this email to 3 sentences", "icon": "edit", "category": "follow-on" },
+      { "label": "Make it more casual", "query": "Rewrite the email in a more casual tone", "icon": "edit", "category": "follow-on" },
+      { "label": "Copy to clipboard", "query": "Copy this email draft", "icon": "copy", "category": "follow-on" }
+    ],
+    "sr-13": [
+      { "label": "Create follow-up task", "query": "Create a follow-up task for {customerName}", "icon": "task", "category": "suggested" },
+      { "label": "Draft an email", "query": "Draft a follow-up email to {customerName}", "icon": "email", "category": "suggested" },
+      { "label": "Show order history", "query": "Show me {customerName}'s recent orders", "icon": "orders", "category": "suggested" },
+      { "label": "Prep for meeting", "query": "Prep me for my next meeting with {customerName}", "icon": "brief", "category": "suggested" }
+    ],
+    "sr-1": [
+      { "label": "Add more items", "query": "Add more items to this order", "icon": "plus", "category": "follow-on" },
+      { "label": "Apply discount", "query": "Apply a 10% discount to this order", "icon": "tag", "category": "follow-on" },
+      { "label": "Create another order", "query": "Create an order for another customer", "icon": "orders", "category": "follow-on" }
+    ],
+    "sr-2": [
+      { "label": "Modify quantities", "query": "Change the quantities on this reorder", "icon": "edit", "category": "follow-on" },
+      { "label": "Compare with original", "query": "Show me a side-by-side with the original order", "icon": "compare", "category": "follow-on" }
+    ],
+    "sr-14": [
+      { "label": "Draft pre-meeting email", "query": "Draft an email to {contactName} confirming our meeting", "icon": "email", "category": "suggested" },
+      { "label": "Create meeting tasks", "query": "Create tasks for the action items from this brief", "icon": "task", "category": "suggested" }
+    ],
+    "sr-20": [
+      { "label": "Make it more casual", "query": "Rewrite the email in a more casual tone", "icon": "edit", "category": "follow-on" },
+      { "label": "Make it shorter", "query": "Shorten this email to 3 sentences", "icon": "edit", "category": "follow-on" },
+      { "label": "Add a discount offer", "query": "Add a mention of our 10% early-access discount", "icon": "tag", "category": "follow-on" }
+    ],
+    "sr-11": [
+      { "label": "Create task for this", "query": "Create a follow-up task about this invoice", "icon": "task", "category": "suggested" },
+      { "label": "Email the customer", "query": "Draft a payment reminder email for this invoice", "icon": "email", "category": "suggested" }
+    ],
+    "ad-1": [
+      { "label": "Approve all standard", "query": "Approve all items that are within standard policy", "icon": "check", "category": "suggested" },
+      { "label": "Show details on flagged", "query": "Give me more details on the flagged items", "icon": "search", "category": "follow-on" }
+    ],
+    "ad-3": [
+      { "label": "Draft handoff email", "query": "Draft a handoff email from {fromRep} to {toRep} with key account details", "icon": "email", "category": "suggested" },
+      { "label": "Notify affected customers", "query": "Draft a notification to affected customers about their new rep", "icon": "email", "category": "suggested" }
+    ],
+    "ad-17": [
+      { "label": "Save as dashboard", "query": "Save this as a dashboard", "icon": "save", "category": "follow-on" },
+      { "label": "Add more metrics", "query": "Add average order value and quote conversion rate to this report", "icon": "plus", "category": "follow-on" },
+      { "label": "Email this report", "query": "Draft an email with this report summary to the leadership team", "icon": "email", "category": "suggested" }
+    ],
+    "ad-29": [
+      { "label": "Test with sample data", "query": "Show me which records would have triggered this workflow in the last 30 days", "icon": "test", "category": "follow-on" },
+      { "label": "Create another workflow", "query": "Set up a workflow for dormant customer re-engagement", "icon": "workflow", "category": "follow-on" }
+    ],
+    "dashboard-edit": [
+      { "label": "Change date range", "query": "Change the dashboard to show last 90 days", "icon": "calendar", "category": "follow-on" },
+      { "label": "Add a metric card", "query": "Add average order value as a metric card", "icon": "plus", "category": "follow-on" },
+      { "label": "Replace chart type", "query": "Replace the line chart with a bar chart", "icon": "swap", "category": "follow-on" },
+      { "label": "Remove a widget", "query": "Remove the bottom-right widget from the dashboard", "icon": "trash", "category": "follow-on" },
+      { "label": "Change layout", "query": "Change the dashboard layout to a 2x2 grid", "icon": "grid", "category": "follow-on" },
+      { "label": "Export this dashboard", "query": "Export this dashboard as a report", "icon": "download", "category": "follow-on" }
+    ]
+  },
+  "pageChips": {
+    "orders": [
+      { "label": "Today's orders", "query": "Show me today's orders", "icon": "calendar", "category": "page-action" },
+      { "label": "Pending shipments", "query": "Which orders are awaiting shipment?", "icon": "shipping", "category": "page-action" },
+      { "label": "Create new order", "query": "Create a new order for", "icon": "plus", "category": "page-action" },
+      { "label": "Overdue deliveries", "query": "Are there any overdue deliveries?", "icon": "alert", "category": "page-action" }
+    ],
+    "customers": [
+      { "label": "VIP customers", "query": "Show me my VIP customers", "icon": "star", "category": "page-action" },
+      { "label": "Dormant accounts", "query": "Which customers haven't ordered in 60+ days?", "icon": "alert", "category": "page-action" },
+      { "label": "New leads", "query": "Show me recent leads that need follow-up", "icon": "user", "category": "page-action" },
+      { "label": "Top buyers this month", "query": "Who are my top 5 buyers this month?", "icon": "trend", "category": "page-action" }
+    ],
+    "products": [
+      { "label": "Low stock alerts", "query": "Which products are running low on stock?", "icon": "alert", "category": "page-action" },
+      { "label": "Top sellers", "query": "What are the top selling products this week?", "icon": "star", "category": "page-action" },
+      { "label": "Out of stock", "query": "Show me out of stock products with pending orders", "icon": "alert", "category": "page-action" },
+      { "label": "Find a product", "query": "Find products matching", "icon": "search", "category": "page-action" }
+    ],
+    "crm": [
+      { "label": "My overdue tasks", "query": "Show me my overdue tasks", "icon": "alert", "category": "page-action" },
+      { "label": "This week's tasks", "query": "What tasks are due this week?", "icon": "calendar", "category": "page-action" },
+      { "label": "Stale leads", "query": "Which leads haven't been contacted in 7+ days?", "icon": "clock", "category": "page-action" },
+      { "label": "Deals closing this week", "query": "Show me deals closing this week", "icon": "trend", "category": "page-action" }
+    ],
+    "dashboard": [
+      { "label": "Sales this week", "query": "How are sales looking this week?", "icon": "chart", "category": "page-action" },
+      { "label": "Build a dashboard", "query": "Build me a sales performance dashboard", "icon": "dashboard", "category": "page-action" },
+      { "label": "Compare to last month", "query": "Compare this month's performance to last month", "icon": "compare", "category": "page-action" },
+      { "label": "Rep performance", "query": "Show me performance by rep this quarter", "icon": "users", "category": "page-action" }
+    ]
+  }
+}

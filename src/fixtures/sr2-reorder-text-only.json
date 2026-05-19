@@ -1,0 +1,23 @@
+{
+  "frameId": "f-sr2-reorder-text-001",
+  "frameType": "result",
+  "responseMode": "text-only",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Reorder summary for Acme Corp.",
+        "steps": [
+          { "step": 1, "action": "search_customers", "result": "1 match: C-4201 (Acme Corp)", "ms": 130 },
+          { "step": 2, "action": "fetch_last_order", "result": "ORD-90412 — 3 line items", "ms": 195 }
+        ],
+        "totalMs": 325
+      },
+      "config": { "collapsed": true }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "I've drafted a reorder for Acme Corp duplicating ORD-90412: 3 line items, 24 units, subtotal $5,640.19 after VIP 8% discount. Delivery May 19, all SKUs in stock. Let me know if you want to modify quantities or compare with the original before confirming."
+  }
+}

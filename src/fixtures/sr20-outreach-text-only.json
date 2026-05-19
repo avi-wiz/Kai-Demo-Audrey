@@ -1,0 +1,22 @@
+{
+  "frameId": "f-sr20-outreach-text-001",
+  "frameType": "result",
+  "responseMode": "text-only",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Drafted Q2 re-engagement outreach email for Acme Corp.",
+        "steps": [
+          { "step": 1, "action": "generate_email_draft", "result": "5-sentence draft", "ms": 180 }
+        ],
+        "totalMs": 180
+      },
+      "config": { "collapsed": true }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Outreach draft for Rachel at Acme Corp — leads with the Q2 lighting drop (23 new SKUs in their top category) and the VIP early-access angle. Want it shorter, more casual, or with a discount mention?"
+  }
+}

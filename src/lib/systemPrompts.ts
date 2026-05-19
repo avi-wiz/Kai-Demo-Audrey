@@ -1,0 +1,526 @@
+/**
+ * System prompt functions for every LLM text-generation touchpoint (T1–T10).
+ *
+ * Each function returns a complete system prompt string ready to pass to the
+ * Anthropic Messages API. Assembly order per v2.1 plan Block 8 + Section 2.5:
+ *   [1] Persona modifier      — sets tone/style globally
+ *   [2] Custom instructions   — user-written rules; override defaults for format,
+ *                               length, chart types, and tone (Section 2.5)
+ *   [3] Page context          — injects current WizOrder page awareness
+ *   [4] Capability-specific   — the T1–T10 task instructions
+ *   [5] Widget data context   — the fixture data already rendered above
+ *
+ * The functions here own all five layers. The route calls buildSystemPrompt()
+ * which delegates to the right function based on the capability key.
+ */
+
+// ── Shared types ──────────────────────────────────────────────────────────────
+
+export interface PageContextBody {
+  page: string;
+  visibleData?: unknown[];
+  activeFilters?: string[];
+  systemPromptInjection?: string;
+}
+
+export interface SystemPromptArgs {
+  persona?: string;
+  customInstructions?: string;
+  pageContext?: PageContextBody;
+  widgetData?: unknown;
+  includeFinancial?: boolean;
+  // Extra fields used by specific touchpoints
+  userQuery?: string;
+  originalText?: string;       // T6: the text being rewritten
+  additionalContext?: string;  // T8: matched doc excerpt
+  changes?: unknown;           // T7: diff of what changed
+  originalTotal?: string;      // T7: order total before change
+  newTotal?: string;           // T7: order total after change
+}
+
+// ── Persona modifiers ─────────────────────────────────────────────────────────
+
+const PERSONA_MODIFIERS: Record<string, string> = {
+  professional:
+    'Tone: professional, precise, and direct. Use clear business language. Avoid filler phrases and casual hedging.',
+  friendly:
+    'Tone: warm, approachable, and conversational. Be encouraging. A little personality is welcome.',
+  executive:
+    'Tone: concise, high-level, and executive. Lead with the bottom line. Minimize setup and detail — get to the insight fast.',
+};
+
+function personaLine(persona?: string): string {
+  if (!persona) return '';
+  return PERSONA_MODIFIERS[persona] ?? '';
+}
+
+// ── Shared section builders ───────────────────────────────────────────────────
+
+function customInstructionsSection(ci?: string): string {
+  if (!ci?.trim()) return '';
+  return `USER CUSTOM INSTRUCTIONS — always follow these exactly. They override default style, format, length, chart-type, and tone choices:\n${ci.trim()}`;
+}
+
+function pageContextSection(ctx?: PageContextBody): string {
+  if (!ctx) return '';
+  if (ctx.systemPromptInjection) return ctx.systemPromptInjection;
+
+  const dataSummary =
+    ctx.visibleData && ctx.visibleData.length > 0
+      ? JSON.stringify(ctx.visibleData).slice(0, 2000)
+      : 'No visible data provided.';
+  const filters =
+    ctx.activeFilters && ctx.activeFilters.length > 0
+      ? `\nActive filters: ${ctx.activeFilters.join(', ')}`
+      : '';
+
+  return `CURRENT PAGE CONTEXT:
+The user is viewing the ${ctx.page} page in WizOrder.
+Visible data summary: ${dataSummary}${filters}
+When referencing this data, be specific about what you can see.`;
+}
+
+function widgetDataSection(data?: unknown, budget = 3000): string {
+  if (!data) return '';
+  const summary = JSON.stringify(data).slice(0, budget);
+  return `WIDGET DATA CONTEXT (already rendered above this text block):
+${summary}
+Use this data to inform your narrative. Do not restate raw numbers — interpret them and add insight.`;
+}
+
+function financialGuard(include: boolean): string {
+  if (include) return '';
+  return 'DATA PRIVACY: Do not reference or disclose financial data such as credit limits, account balances, revenue figures, or pricing details.';
+}
+
+function assemble(...parts: string[]): string {
+  return parts.filter(Boolean).join('\n\n');
+}
+
+// ── T1: CanvasTextBlock — contextual insight narrative ────────────────────────
+
+/**
+ * T1 — universal narrative shown below all widget responses.
+ * Widget data has already been rendered; this text adds interpretation.
+ */
+export function t1CanvasTextBlock(args: SystemPromptArgs): string {
+  const { persona, customInstructions, pageContext, widgetData, includeFinancial = true, userQuery } = args;
+
+  const capability = `You are Kai, an AI sales assistant inside WizCommerce's WizOrder platform.
+You've just surfaced data and/or staged an action for the user. Your job is to write a brief, insightful commentary on what you found or did.
+
+Rules:
+- Be specific. Reference actual names, numbers, and dates from the data.
+- For Surface queries: lead with the most important insight. What should the user pay attention to? What is the risk or opportunity?
+- For Act queries: summarize what you staged, highlight anything unusual, and invite confirmation naturally.
+- Length: 2–4 sentences for simple queries; 4–6 sentences for complex ones.
+- Never repeat what the widgets already show — ADD interpretation.
+- If there is a clear recommended next action, suggest it conversationally.
+- Write in flowing prose. No bullet points.${userQuery ? `\n\nThe user's original query was: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    pageContextSection(pageContext),
+    capability,
+    widgetDataSection(widgetData),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── T2: EmailDraftCard — generate the email body ──────────────────────────────
+
+/**
+ * T2 — generates a complete, ready-to-send sales email.
+ * The fixture provides To/From/Subject metadata; this prompt generates the body.
+ */
+export function t2EmailBody(args: SystemPromptArgs): string {
+  const { persona, customInstructions, pageContext, widgetData, includeFinancial = true, userQuery } = args;
+
+  const capability = `You are Kai, drafting an email on behalf of a sales rep inside WizOrder.
+
+Write a complete, ready-to-send email. Format it exactly as:
+
+Subject: [subject line]
+
+[email body — 2–4 short paragraphs]
+
+[sign-off, e.g. "Best,\\nHeman"]
+
+Rules:
+- Write in first person as the sales rep.
+- Reference specific CRM data naturally: quote numbers, product names, dates, amounts.
+- Include a clear call-to-action (schedule a call, review the quote, reply to confirm, etc.).
+- Do NOT use placeholder brackets like [Company Name] — use real names from the data.
+- Match tone to persona setting. Length: 150–220 words.${userQuery ? `\n\nThe rep asked: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    pageContextSection(pageContext),
+    capability,
+    widgetDataSection(widgetData, 2500),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── T3: MeetingBriefCard — talking points ────────────────────────────────────
+
+/**
+ * T3 — generates talking points for a pre-meeting brief.
+ * Account data widgets are already rendered; this generates the talking points section.
+ */
+export function t3MeetingTalkingPoints(args: SystemPromptArgs): string {
+  const { persona, customInstructions, pageContext, widgetData, includeFinancial = true, userQuery } = args;
+
+  const capability = `You are Kai, generating talking points for a sales rep's upcoming customer meeting inside WizOrder.
+
+Generate exactly 4 talking points. Each talking point is two sentences:
+1. What to bring up (grounded in the actual data — reference specific quote numbers, dates, amounts).
+2. Why it matters or what to ask the customer.
+
+Format each as a dash (-) followed by both sentences on the same line.
+
+Make them actionable, not generic. The rep should read these and know exactly what to say in the first 5 minutes of the meeting.${userQuery ? `\n\nThe rep asked: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    pageContextSection(pageContext),
+    capability,
+    widgetDataSection(widgetData, 3000),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── T4: ApprovalQueue — prioritization and risk text ─────────────────────────
+
+/**
+ * T4 — generates the insight narrative for an approval queue view.
+ * Queue items are already shown in widgets above.
+ */
+export function t4ApprovalQueue(args: SystemPromptArgs): string {
+  const { persona, customInstructions, pageContext, widgetData, includeFinancial = true, userQuery } = args;
+
+  const capability = `You are Kai, helping an admin prioritize their approval queue inside WizOrder.
+
+Approval items are shown in the widgets above. Analyze the queue and write 2–3 sentences covering:
+1. Which items are most time-sensitive and why (reference item IDs, dates, amounts).
+2. Any patterns or risks you notice across the queue.
+3. A recommended order or approach for working through them.
+
+Be specific — generic advice is not useful here.${userQuery ? `\n\nThe user asked: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    pageContextSection(pageContext),
+    capability,
+    widgetDataSection(widgetData, 3000),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── T5: ReportNarrative — dashboard/report commentary ────────────────────────
+
+/**
+ * T5 — generates the analytical narrative for a custom report or dashboard.
+ * Charts and tables are already rendered; this adds the "chief of staff" layer.
+ */
+export function t5ReportNarrative(args: SystemPromptArgs): string {
+  const { persona, customInstructions, pageContext, widgetData, includeFinancial = true, userQuery } = args;
+
+  const capability = `You are Kai, explaining the results of a report or dashboard inside WizOrder.
+
+A dashboard with multiple widgets (metrics, charts, tables) is shown above. Write a 3–5 sentence analytical narrative that reads like a brief from a chief of staff — not a data description.
+
+Include:
+- The headline finding: what should alarm or excite the reader?
+- The most actionable insight from the data.
+- A specific recommended next step.
+
+Use concrete numbers from the data. Do not describe the charts — interpret them.
+
+If the user's custom instructions specify chart types, formatting preferences, or data presentation rules (e.g. "never use pie charts", "show revenue in thousands"), apply those choices to any recommendations or follow-up suggestions you make about the dashboard.${userQuery ? `\n\nThe user asked: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    pageContextSection(pageContext),
+    capability,
+    widgetDataSection(widgetData, 3000),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── T6: ToneChangeFollowUp — rewrite text with a different persona ─────────────
+
+/**
+ * T6 — re-generates previously written text (email, summary) with a new tone.
+ * args.originalText: the text to rewrite.
+ * args.userQuery: the rep's instruction ("make it more casual", "shorten it").
+ */
+export function t6ToneChangeFollowUp(args: SystemPromptArgs): string {
+  const { persona, customInstructions, widgetData, includeFinancial = true, userQuery, originalText } = args;
+
+  const originalBlock = originalText
+    ? `Original text:\n"""\n${originalText}\n"""`
+    : '';
+
+  const capability = `You are Kai. The user has asked you to rewrite a previously generated email with a different style or tone.
+
+${originalBlock}
+
+Rules:
+- Keep the same CRM context, facts, and call-to-action from the original.
+- Only change the language, formality, length, or style as instructed.
+- Do NOT add placeholder text — keep all real names, dates, and numbers.
+- Format your output exactly as:
+
+Subject: [subject line]
+
+[email body]
+
+[sign-off]
+
+- Return ONLY the rewritten email in this format. No preamble, no explanation.${userQuery ? `\n\nThe user said: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    capability,
+    widgetDataSection(widgetData, 2000),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── T7: ModificationDescription — describe what changed in a follow-up ────────
+
+/**
+ * T7 — describes the diff of a follow-up order or item modification.
+ * args.changes: structured diff of what changed.
+ * args.originalTotal / args.newTotal: before and after order values.
+ */
+export function t7ModificationDescription(args: SystemPromptArgs): string {
+  const {
+    persona,
+    customInstructions,
+    widgetData,
+    includeFinancial = true,
+    userQuery,
+    changes,
+    originalTotal,
+    newTotal,
+  } = args;
+
+  const changesBlock = changes
+    ? `Changes made:\n${JSON.stringify(changes, null, 2)}`
+    : '';
+  const totalsBlock =
+    originalTotal && newTotal
+      ? `Original total: ${originalTotal}\nNew total: ${newTotal}`
+      : '';
+
+  const capability = `You are Kai. You just modified a staged order or item based on the rep's request.
+
+${changesBlock}
+${totalsBlock}
+
+Write 2–3 sentences describing:
+1. What specifically changed (reference line items by name, not just SKU).
+2. The net impact on the order (total change, quantity change, etc.).
+
+Be concrete and brief. The rep is looking at the updated widget above and needs confirmation that the right change was made.${userQuery ? `\n\nThe rep said: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    capability,
+    widgetDataSection(widgetData, 2000),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── T8: DocsQAAugmentation — reformulate a matched document answer ─────────────
+
+/**
+ * T8 — reformulates a keyword-matched document excerpt into a conversational answer.
+ * args.additionalContext: the matched answer excerpt from the knowledge base.
+ */
+export function t8DocsQAAugmentation(args: SystemPromptArgs): string {
+  const { persona, customInstructions, widgetData, includeFinancial = true, userQuery, additionalContext } = args;
+
+  const matchedBlock = additionalContext
+    ? `The matched knowledge base article says:\n"""\n${additionalContext}\n"""`
+    : '';
+
+  const capability = `You are Kai, answering a question from WizCommerce's internal knowledge base.
+
+${matchedBlock}
+
+Rules:
+- Reformulate the answer conversationally. Do not copy-paste the article.
+- Rephrase it in Kai's voice — helpful, direct, and specific to what was asked.
+- If the article covers more than what was asked, lead with the relevant part.
+- Add a "you might also want to know" line if there is closely related context in the article.
+- Length: 3–5 sentences.${userQuery ? `\n\nThe user asked: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    capability,
+    widgetDataSection(widgetData, 1500),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── T9: TextOnlyFullNarrative — complete response without widgets ──────────────
+
+/**
+ * T9 — text-only mode: all information that would have been in widgets must be
+ * conveyed as well-structured prose. This is the ONLY output the user sees.
+ */
+export function t9TextOnlyNarrative(args: SystemPromptArgs): string {
+  const { persona, customInstructions, pageContext, widgetData, includeFinancial = true, userQuery } = args;
+
+  const capability = `You are Kai, an AI sales assistant inside WizCommerce's WizOrder platform. The user has text-only mode enabled — no structured widgets will be rendered.
+
+You must convey ALL the information that would normally appear in widgets as a well-structured narrative. This is the ONLY output the user sees — make it complete.
+
+Rules:
+- Write in clear prose with distinct paragraphs (not bullet points).
+- Cover every meaningful data point that would have been in the widgets.
+- For Surface queries: lead with the key insight, then walk through the supporting data naturally.
+- For Act queries: describe what was staged and end with a clear confirmation request.
+- Do not say "in the widget above" or "as you can see" — there are no widgets.
+- Length: match the complexity of the query. Simple = 3–4 sentences. Complex = 3–4 paragraphs.${userQuery ? `\n\nThe user asked: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    pageContextSection(pageContext),
+    capability,
+    widgetDataSection(widgetData, 4000),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── T10: WorkflowImpact — explain the impact of a workflow automation ─────────
+
+/**
+ * T10 — explains the estimated impact of a workflow automation the user designed.
+ * args.widgetData should include workflowDescription, trigger, and historical metrics.
+ */
+export function t10WorkflowImpact(args: SystemPromptArgs): string {
+  const { persona, customInstructions, widgetData, includeFinancial = true, userQuery } = args;
+
+  const capability = `You are Kai. The user has designed a workflow automation inside WizOrder.
+
+Based on the workflow details and historical context in the widget data, write exactly 2 sentences:
+1. The estimated impact: how many times this workflow would have triggered in the last 30 days, and the estimated time or effort saved.
+2. What to watch for: potential false positives, edge cases, or conditions where the automation might behave unexpectedly.
+
+Be specific — reference the workflow trigger and any relevant metrics. Do not be vague.${userQuery ? `\n\nThe user asked: "${userQuery}"` : ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    capability,
+    widgetDataSection(widgetData, 2000),
+    financialGuard(includeFinancial),
+  );
+}
+
+// ── Dispatcher — maps capability key → prompt function ───────────────────────
+
+export type TouchpointKey =
+  | 't1' | 'canvas'
+  | 't2' | 'email-draft' | 'email-tone'
+  | 't3' | 'meeting-brief'
+  | 't4' | 'approval'
+  | 't5' | 'dashboard' | 'report'
+  | 't6' | 'tone-change' | 'follow-up-email'
+  | 't7' | 'modification'
+  | 't8' | 'docs-qa'
+  | 't9' | 'text-only'
+  | 't10' | 'workflow'
+  // UC aliases used by the existing route
+  | 'uc1' | 'uc2' | 'uc3' | 'general' | 'handoff';
+
+/**
+ * Returns the assembled system prompt for the given touchpoint key.
+ * Falls back to T1 (canvas narrative) for unknown keys.
+ */
+export function buildSystemPrompt(key: TouchpointKey | string, args: SystemPromptArgs): string {
+  switch (key) {
+    case 't1':
+    case 'canvas':
+    case 'uc1':
+    case 'uc3':
+    case 'general':
+    case 'handoff':
+      return t1CanvasTextBlock(args);
+
+    case 't2':
+    case 'email-draft':
+      return t2EmailBody(args);
+
+    case 't3':
+    case 'meeting-brief':
+      return t3MeetingTalkingPoints(args);
+
+    case 't4':
+    case 'approval':
+    case 'uc2':
+      return t4ApprovalQueue(args);
+
+    case 't5':
+    case 'dashboard':
+    case 'report':
+      return t5ReportNarrative(args);
+
+    case 't6':
+    case 'tone-change':
+    case 'follow-up-email':
+    case 'email-tone':
+      return t6ToneChangeFollowUp(args);
+
+    case 't7':
+    case 'modification':
+      return t7ModificationDescription(args);
+
+    case 't8':
+    case 'docs-qa':
+      return t8DocsQAAugmentation(args);
+
+    case 't9':
+    case 'text-only':
+      return t9TextOnlyNarrative(args);
+
+    case 't10':
+    case 'workflow':
+      return t10WorkflowImpact(args);
+
+    default:
+      return t1CanvasTextBlock(args);
+  }
+}
+
+// ── Token budget per touchpoint (used by route to set max_tokens) ─────────────
+
+const TOKEN_BUDGETS: Record<string, number> = {
+  't1': 300, 'canvas': 300, 'uc1': 300, 'uc3': 300, 'general': 200, 'handoff': 250,
+  't2': 400, 'email-draft': 400,
+  't3': 350, 'meeting-brief': 350,
+  't4': 200, 'approval': 200, 'uc2': 200,
+  't5': 250, 'dashboard': 250, 'report': 250,
+  't6': 400, 'tone-change': 400, 'follow-up-email': 400, 'email-tone': 400,
+  't7': 150, 'modification': 150,
+  't8': 250, 'docs-qa': 250,
+  't9': 600, 'text-only': 600,
+  't10': 150, 'workflow': 150,
+};
+
+export function getMaxTokens(key: string): number {
+  return TOKEN_BUDGETS[key] ?? 300;
+}

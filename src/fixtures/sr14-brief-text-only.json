@@ -1,0 +1,22 @@
+{
+  "frameId": "f-sr14-brief-text-001",
+  "frameType": "result",
+  "responseMode": "text-only",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Post-meeting brief for Acme Corp Q3 catalog review.",
+        "steps": [
+          { "step": 1, "action": "fetch_meeting_transcript", "result": "Transcript loaded", "ms": 220 }
+        ],
+        "totalMs": 220
+      },
+      "config": { "collapsed": true }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Today's Acme Q3 catalog review produced 5 action items: send catalog preview to Rachel by Friday, resolve claim CLM-0892, re-quote Q-2401 with 90-day terms, schedule May 21 follow-up, and draft a 3-year renewal proposal for July 1. Renewal is on track. Want me to create tasks or a recap email?"
+  }
+}

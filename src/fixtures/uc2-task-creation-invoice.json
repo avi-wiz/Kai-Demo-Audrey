@@ -1,0 +1,88 @@
+{
+  "frameId": "f-uc2-invoice-001",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Intent: Task Creation (invoice follow-up). Resolved 'Acme Corp' -> Customer C-4201, linked invoice INV-3382. Task staged for review.",
+        "steps": [
+          { "step": 1, "action": "fetch_invoice_context", "result": "INV-3382 — $18,200, 27 days overdue", "ms": 130 },
+          { "step": 2, "action": "search_customers", "result": "1 match: C-4201 (Acme Corp)", "ms": 110 },
+          { "step": 3, "action": "resolve_user", "result": "U-0042 (Heman Bhullar)", "ms": 95 },
+          { "step": 4, "action": "validate_org_config", "result": "Task types valid, priority valid", "ms": 12 }
+        ],
+        "mcpsAccessed": ["AR", "CRM", "Users"],
+        "totalMs": 347
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "task",
+        "title": "Follow up on overdue invoice INV-3382",
+        "fields": [
+          { "label": "Customer", "value": "Acme Corp (Customer)", "entityId": "C-4201" },
+          { "label": "Linked Invoice", "value": "INV-3382 ($18,200, 27 days overdue)" },
+          { "label": "Type", "value": "Follow Up" },
+          { "label": "Priority", "value": "High" },
+          { "label": "Status", "value": "Open" },
+          { "label": "Assigned To", "value": "Heman Bhullar" },
+          { "label": "Due Date", "value": "May 12, 2026" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-004",
+      "data": {
+        "formId": "task-creation-form",
+        "steps": [
+          {
+            "stepTitle": "Task Details",
+            "fields": [
+              { "fieldId": "customer", "type": "entity_search", "label": "Customer", "value": "Acme Corp", "resolvedId": "C-4201", "required": true },
+              { "fieldId": "type", "type": "select", "label": "Type", "value": "Follow Up", "options": ["Schedule Call", "Email", "Follow Up", "Site Visit", "Other"], "required": true },
+              { "fieldId": "title", "type": "text", "label": "Title", "value": "Follow up on overdue invoice INV-3382", "required": true },
+              { "fieldId": "assignee", "type": "user_search", "label": "Assigned To", "value": "Heman Bhullar", "resolvedId": "U-0042", "required": true },
+              { "fieldId": "dueDate", "type": "date", "label": "Due Date", "value": "2026-05-12", "required": true },
+              { "fieldId": "priority", "type": "select", "label": "Priority", "value": "High", "options": ["High", "Medium", "Low"], "required": true },
+              { "fieldId": "status", "type": "select", "label": "Status", "value": "Open", "options": ["Open", "In Progress", "Completed", "Hold"], "required": true },
+              { "fieldId": "notes", "type": "text", "label": "Notes", "value": "Two auto-reminders sent; voicemail left May 2. Aim to confirm payment timeline before escalation.", "required": false }
+            ]
+          }
+        ]
+      },
+      "config": { "mode": "review", "editable": false }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Kai has staged this invoice follow-up task. Confirm to create it.",
+        "tier": "draft",
+        "actions": ["Confirm & Create", "Edit", "Cancel"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "I've staged a high-priority follow-up task for Acme Corp tied to invoice INV-3382 ($18,200, 27 days overdue). Assigned to Heman, due May 12 — that gives a couple of days after voicemail follow-through before AR escalates."
+  },
+  "actions": {
+    "onConfirm": {
+      "mcp": "CRM",
+      "method": "createTask",
+      "payload": {
+        "customerId": "C-4201",
+        "title": "Follow up on overdue invoice INV-3382",
+        "priority": "High",
+        "type": "Follow Up",
+        "status": "Open",
+        "assignedTo": "U-0042",
+        "dueDate": "2026-05-12"
+      }
+    },
+    "onCancel": { "action": "discard" },
+    "onModify": { "action": "unlock_form" }
+  }
+}

@@ -1,0 +1,348 @@
+{
+    "frameId": "f-dash-001",
+    "frameType": "dashboard_staged",
+    "capability": "dashboard-builder",
+    "widgets": [
+        {
+            "widgetType": "UW-014",
+            "data": {
+                "summary": "Building your sales performance dashboard. Pulling revenue data, rep metrics, product performance, and pipeline status.",
+                "steps": [
+                    {
+                        "step": 1,
+                        "action": "define_layout",
+                        "result": "2×3 grid with 6 widgets",
+                        "ms": 80
+                    },
+                    {
+                        "step": 2,
+                        "action": "fetch_revenue_data",
+                        "result": "Current quarter loaded",
+                        "ms": 220
+                    },
+                    {
+                        "step": 3,
+                        "action": "fetch_rep_metrics",
+                        "result": "4 reps, performance data loaded",
+                        "ms": 165
+                    },
+                    {
+                        "step": 4,
+                        "action": "fetch_product_data",
+                        "result": "Top 10 products loaded",
+                        "ms": 140
+                    },
+                    {
+                        "step": 5,
+                        "action": "compose_dashboard",
+                        "result": "Dashboard assembled",
+                        "ms": 45
+                    }
+                ],
+                "totalMs": 650
+            },
+            "config": {
+                "collapsed": true
+            }
+        },
+        {
+            "widgetType": "UW-030",
+            "data": {
+                "title": "Sales Performance Dashboard",
+                "description": "Q2 2026 overview — revenue, rep performance, top products, pipeline health",
+                "layout": "grid-2x3",
+                "cells": [
+                    {
+                        "position": {
+                            "row": 0,
+                            "col": 0,
+                            "colSpan": 2
+                        },
+                        "widgetType": "UW-002",
+                        "data": {
+                            "cards": [
+                                {
+                                    "label": "Q2 Revenue",
+                                    "value": "$384,200",
+                                    "format": "currency",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 14.2,
+                                        "period": "vs Q1"
+                                    }
+                                },
+                                {
+                                    "label": "Orders",
+                                    "value": "67",
+                                    "format": "count",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 8.5,
+                                        "period": "vs Q1"
+                                    }
+                                },
+                                {
+                                    "label": "Avg Order Value",
+                                    "value": "$5,734",
+                                    "format": "currency",
+                                    "trend": {
+                                        "direction": "up",
+                                        "percent": 5.3,
+                                        "period": "vs Q1"
+                                    }
+                                },
+                                {
+                                    "label": "Quote Conversion",
+                                    "value": "72%",
+                                    "format": "percent",
+                                    "trend": {
+                                        "direction": "down",
+                                        "percent": 3.1,
+                                        "period": "vs Q1"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 1,
+                            "col": 0
+                        },
+                        "widgetType": "CH-001",
+                        "data": {
+                            "title": "Revenue Trend — Weekly",
+                            "series": [
+                                {
+                                    "week": "W1",
+                                    "revenue": 42800
+                                },
+                                {
+                                    "week": "W2",
+                                    "revenue": 51200
+                                },
+                                {
+                                    "week": "W3",
+                                    "revenue": 38900
+                                },
+                                {
+                                    "week": "W4",
+                                    "revenue": 55600
+                                },
+                                {
+                                    "week": "W5",
+                                    "revenue": 48300
+                                },
+                                {
+                                    "week": "W6",
+                                    "revenue": 62100
+                                },
+                                {
+                                    "week": "W7",
+                                    "revenue": 44500
+                                },
+                                {
+                                    "week": "W8",
+                                    "revenue": 40800
+                                }
+                            ],
+                            "yAxisLabel": "Revenue ($)",
+                            "xAxisLabel": "Week"
+                        },
+                        "config": {
+                            "chartType": "line",
+                            "showDataPoints": true,
+                            "showArea": true
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 1,
+                            "col": 1
+                        },
+                        "widgetType": "UW-004",
+                        "data": {
+                            "title": "Performance by Rep",
+                            "columns": [
+                                {
+                                    "key": "rep",
+                                    "label": "Rep",
+                                    "align": "left"
+                                },
+                                {
+                                    "key": "revenue",
+                                    "label": "Revenue",
+                                    "align": "right",
+                                    "format": "currency",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "orders",
+                                    "label": "Orders",
+                                    "align": "right",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "conversion",
+                                    "label": "Conv %",
+                                    "align": "right",
+                                    "mono": true
+                                }
+                            ],
+                            "rows": [
+                                {
+                                    "rep": "Heman Bhullar",
+                                    "revenue": 148350,
+                                    "orders": 23,
+                                    "conversion": "78%"
+                                },
+                                {
+                                    "rep": "Sarah Kim",
+                                    "revenue": 112400,
+                                    "orders": 19,
+                                    "conversion": "71%"
+                                },
+                                {
+                                    "rep": "Mike Torres",
+                                    "revenue": 82650,
+                                    "orders": 16,
+                                    "conversion": "65%"
+                                },
+                                {
+                                    "rep": "Alex Chen",
+                                    "revenue": 40800,
+                                    "orders": 9,
+                                    "conversion": "74%"
+                                }
+                            ],
+                            "showTotals": true,
+                            "totals": {
+                                "rep": "Total",
+                                "revenue": 384200,
+                                "orders": 67,
+                                "conversion": "72%"
+                            }
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 2,
+                            "col": 0
+                        },
+                        "widgetType": "UW-004",
+                        "data": {
+                            "title": "Top 5 Products by Revenue",
+                            "columns": [
+                                {
+                                    "key": "product",
+                                    "label": "Product",
+                                    "align": "left"
+                                },
+                                {
+                                    "key": "units",
+                                    "label": "Units Sold",
+                                    "align": "right",
+                                    "mono": true
+                                },
+                                {
+                                    "key": "revenue",
+                                    "label": "Revenue",
+                                    "align": "right",
+                                    "format": "currency",
+                                    "mono": true
+                                }
+                            ],
+                            "rows": [
+                                {
+                                    "product": "Artisan Table Lamp — Brass",
+                                    "units": 186,
+                                    "revenue": 16554
+                                },
+                                {
+                                    "product": "Ceramic Vase Set — Ocean Blue",
+                                    "units": 94,
+                                    "revenue": 13630
+                                },
+                                {
+                                    "product": "Linen Throw Pillow — Sand",
+                                    "units": 210,
+                                    "revenue": 8820
+                                },
+                                {
+                                    "product": "Soy Candle Collection — 6pk",
+                                    "units": 324,
+                                    "revenue": 10530
+                                },
+                                {
+                                    "product": "Wooden Photo Frame — Walnut",
+                                    "units": 165,
+                                    "revenue": 3960
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "position": {
+                            "row": 2,
+                            "col": 1
+                        },
+                        "widgetType": "UW-011",
+                        "data": {
+                            "title": "Pipeline — Open Quotes",
+                            "items": [
+                                {
+                                    "id": "QT-1192",
+                                    "title": "Acme Corp — Summer Collection ($8,200)",
+                                    "dueDate": "2026-04-30",
+                                    "priority": "High",
+                                    "assignedTo": "Heman Bhullar",
+                                    "status": "Expires Tomorrow"
+                                },
+                                {
+                                    "id": "QT-1205",
+                                    "title": "Acme Corp — Custom Brass Fixtures ($3,400)",
+                                    "dueDate": "2026-05-10",
+                                    "priority": "Medium",
+                                    "assignedTo": "Heman Bhullar",
+                                    "status": "Pending"
+                                },
+                                {
+                                    "id": "QT-1198",
+                                    "title": "Pinnacle Retail — Winter Restock ($12,800)",
+                                    "dueDate": "2026-05-15",
+                                    "priority": "Medium",
+                                    "assignedTo": "Sarah Kim",
+                                    "status": "Pending"
+                                },
+                                {
+                                    "id": "QT-1210",
+                                    "title": "Metro Design — Lighting Package ($5,600)",
+                                    "dueDate": "2026-05-20",
+                                    "priority": "Low",
+                                    "assignedTo": "Heman Bhullar",
+                                    "status": "Draft"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "widgetType": "AW-012",
+            "data": {
+                "message": "Here's your sales performance dashboard with revenue trends, rep metrics, top products, and pipeline status. Confirm to save, or tell me what to change.",
+                "tier": "draft",
+                "actions": [
+                    "Save Dashboard",
+                    "Edit",
+                    "Cancel"
+                ]
+            }
+        }
+    ],
+    "closingText": {
+        "type": "insight",
+        "text": "The dashboard shows Q2 is tracking 14% above Q1. Heman is leading in both revenue and conversion rate. One concern: quote conversion dropped 3.1% — might be worth reviewing the 4 open quotes in the pipeline, especially the Acme Summer Collection quote expiring tomorrow."
+    }
+}

@@ -1,0 +1,158 @@
+[
+  {
+    "name": "A Blooming Porch",
+    "sku_count": 8,
+    "sample_skus": [
+      "51GR1522-U",
+      "51GR1776-U",
+      "51GR1824",
+      "51GR1844",
+      "51GR1880"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "Gardeners Grove",
+    "sku_count": 6,
+    "sample_skus": [
+      "51GR1650",
+      "51GR1676",
+      "51GR1779-U",
+      "51GR1780",
+      "51GR1863"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "Signs & Wall Decor",
+    "sku_count": 4,
+    "sample_skus": [
+      "51GR1634",
+      "51GR1643",
+      "51GR1653",
+      "51GR1830-U"
+    ],
+    "is_featured": false
+  },
+  {
+    "name": "The Herb Garden",
+    "sku_count": 4,
+    "sample_skus": [
+      "51GR1643",
+      "51GR1650",
+      "51GR1676",
+      "51GR1864"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "Bunnies",
+    "sku_count": 3,
+    "sample_skus": [
+      "51GR1522-U",
+      "51GR1596",
+      "51GR1880"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "Shop All",
+    "sku_count": 3,
+    "sample_skus": [
+      "51GR1634",
+      "51GR1653",
+      "51GR1830-U"
+    ],
+    "is_featured": false
+  },
+  {
+    "name": "Signs",
+    "sku_count": 3,
+    "sample_skus": [
+      "51GR1634",
+      "51GR1653",
+      "51GR1830-U"
+    ],
+    "is_featured": false
+  },
+  {
+    "name": "Easter Joy",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1596"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "The Flower Shoppe",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1705"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "Bunny Meadows",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1844"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "Accents",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1863"
+    ],
+    "is_featured": false
+  },
+  {
+    "name": "Containers & Bins",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1864"
+    ],
+    "is_featured": false
+  },
+  {
+    "name": "Buttercup Meadows",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1888"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "Pick Of The Patch",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1936"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "Garden Friends",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1943"
+    ],
+    "is_featured": true
+  },
+  {
+    "name": "Woodland Spring",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1945-S2"
+    ],
+    "is_featured": false
+  },
+  {
+    "name": "Garden Party",
+    "sku_count": 1,
+    "sample_skus": [
+      "51GR1952-S3"
+    ],
+    "is_featured": false
+  }
+]

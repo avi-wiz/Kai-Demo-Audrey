@@ -1,0 +1,228 @@
+{
+    "frameId": "f-uc1-001",
+    "frameType": "result",
+    "widgets": [
+        {
+            "widgetType": "UW-014",
+            "data": {
+                "summary": "Resolved 'Acme Corp' as Customer C-4201. Pulled 360 view from CRM, revenue from Reports, open tasks from CRM.",
+                "steps": [
+                    {
+                        "step": 1,
+                        "action": "search_customers",
+                        "result": "1 match: C-4201 (Acme Corp)",
+                        "ms": 145
+                    },
+                    {
+                        "step": 2,
+                        "action": "fetch_customer_360",
+                        "result": "Complete profile loaded",
+                        "ms": 210
+                    },
+                    {
+                        "step": 3,
+                        "action": "fetch_revenue_trend",
+                        "result": "12 months of data",
+                        "ms": 180
+                    },
+                    {
+                        "step": 4,
+                        "action": "fetch_open_tasks",
+                        "result": "4 open tasks",
+                        "ms": 95
+                    }
+                ],
+                "mcpsAccessed": [
+                    "CRM",
+                    "Reports"
+                ],
+                "totalMs": 630
+            },
+            "config": {
+                "collapsed": true
+            }
+        },
+        {
+            "widgetType": "UW-007",
+            "highlights": [
+                {
+                    "fieldPath": "metrics.cards[1].value",
+                    "type": "warning",
+                    "message": "Balance is $18,200 — 24% of $75,000 credit limit",
+                    "action": { "label": "Send payment reminder", "query": "Draft a payment reminder email to Acme Corp about their outstanding balance", "icon": "email", "category": "suggested" }
+                },
+                {
+                    "fieldPath": "recentOrders[0].status",
+                    "type": "info",
+                    "message": "Last order was 45 days ago — slightly above your 30-day VIP cadence",
+                    "action": { "label": "Check in with Acme", "query": "Draft a check-in email to Rachel at Acme Corp", "icon": "email", "category": "suggested" }
+                }
+            ],
+            "data": {
+                "entityType": "customer",
+                "entityId": "C-4201",
+                "displayName": "Acme Corp",
+                "contactPerson": "Rachel Martinez",
+                "email": "rachel@acmecorp.com",
+                "phone": "+1 (555) 234-5678",
+                "lifetimeRevenue": 482350,
+                "lastOrderDate": "2026-03-15",
+                "lastOrderAmount": 24500,
+                "paymentStatus": "Current",
+                "assignedRep": "Heman Bhullar",
+                "tags": [
+                    "VIP",
+                    "Home Decor",
+                    "West Coast"
+                ],
+                "customerSince": "2022-06-10",
+                "openOrderCount": 2,
+                "creditLimit": 75000,
+                "currentBalance": 18200
+            }
+        },
+        {
+            "widgetType": "CH-001",
+            "data": {
+                "title": "Revenue Trend - Acme Corp",
+                "series": [
+                    {
+                        "month": "May 2025",
+                        "revenue": 32400
+                    },
+                    {
+                        "month": "Jun 2025",
+                        "revenue": 28100
+                    },
+                    {
+                        "month": "Jul 2025",
+                        "revenue": 41200
+                    },
+                    {
+                        "month": "Aug 2025",
+                        "revenue": 35800
+                    },
+                    {
+                        "month": "Sep 2025",
+                        "revenue": 44600
+                    },
+                    {
+                        "month": "Oct 2025",
+                        "revenue": 38900
+                    },
+                    {
+                        "month": "Nov 2025",
+                        "revenue": 52100
+                    },
+                    {
+                        "month": "Dec 2025",
+                        "revenue": 48300
+                    },
+                    {
+                        "month": "Jan 2026",
+                        "revenue": 39700
+                    },
+                    {
+                        "month": "Feb 2026",
+                        "revenue": 43200
+                    },
+                    {
+                        "month": "Mar 2026",
+                        "revenue": 51800
+                    },
+                    {
+                        "month": "Apr 2026",
+                        "revenue": 46350
+                    }
+                ],
+                "yAxisLabel": "Revenue ($)",
+                "xAxisLabel": "Month"
+            },
+            "config": {
+                "chartType": "line",
+                "showDataPoints": true
+            }
+        },
+        {
+            "widgetType": "UW-011",
+            "highlights": [
+                {
+                    "fieldPath": "items[0].dueDate",
+                    "type": "urgent",
+                    "message": "Overdue — was due April 28",
+                    "action": { "label": "Create follow-up", "query": "Create an urgent follow-up task for the Q2 catalog request for Acme Corp", "icon": "task", "category": "suggested" }
+                },
+                {
+                    "fieldPath": "items[3].dueDate",
+                    "type": "warning",
+                    "message": "Due tomorrow — claim review pending",
+                    "action": { "label": "Review claim", "query": "What's the status of claim CLM-0892 for Acme Corp?", "icon": "search", "category": "suggested" }
+                }
+            ],
+            "data": {
+                "title": "Open Tasks for Acme Corp",
+                "items": [
+                    {
+                        "id": "T-1001",
+                        "title": "Follow up on Q2 catalog request",
+                        "dueDate": "2026-04-28",
+                        "priority": "High",
+                        "assignedTo": "Heman Bhullar",
+                        "status": "Open"
+                    },
+                    {
+                        "id": "T-1002",
+                        "title": "Schedule site visit for new showroom",
+                        "dueDate": "2026-05-05",
+                        "priority": "Medium",
+                        "assignedTo": "Heman Bhullar",
+                        "status": "In Progress"
+                    },
+                    {
+                        "id": "T-1003",
+                        "title": "Send updated price list (Summer 2026)",
+                        "dueDate": "2026-05-10",
+                        "priority": "Medium",
+                        "assignedTo": "Sarah Kim",
+                        "status": "Open"
+                    },
+                    {
+                        "id": "T-1004",
+                        "title": "Review claim CLM-0892",
+                        "dueDate": "2026-04-30",
+                        "priority": "Low",
+                        "assignedTo": "Heman Bhullar",
+                        "status": "Open"
+                    }
+                ]
+            }
+        },
+        {
+            "widgetType": "AW-001",
+            "data": {
+                "label": "View Full Profile",
+                "url": "/customers/C-4201",
+                "style": "secondary"
+            }
+        }
+    ],
+    "closingText": {
+        "type": "insight",
+        "text": "Acme Corp is trending up — revenue increased 12% QoQ and all 4 open tasks are on track. Consider scheduling a check-in to discuss the renewal before Q3."
+    },
+    "trace": {
+        "traceId": "trc-uc1-demo-001",
+        "queryClassification": "surface",
+        "resolverPath": "workflow_mapping",
+        "workflowId": "W-CUST-010",
+        "fastPathHit": true,
+        "latency": {
+            "ingestionMs": 45,
+            "planningMs": 0,
+            "executionMs": 630,
+            "widgetResolveMs": 12,
+            "timeToFirstFrameMs": 320,
+            "timeToCompleteMs": 720
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+  "frameId": "f-ad1-flagged-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Drilled into the 2 flagged approval items. Pulled customer history and policy reasoning.",
+        "steps": [
+          { "step": 1, "action": "fetch_flagged_items", "result": "2 items: AP-1044, AP-1046", "ms": 130 },
+          { "step": 2, "action": "fetch_policy_context", "result": "Discount cap, auth tier rules loaded", "ms": 165 }
+        ],
+        "totalMs": 295
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "approval",
+        "title": "AP-1044 — Pacific Goods Discount Override",
+        "fields": [
+          { "label": "Customer", "value": "Pacific Goods (C-3318)" },
+          { "label": "Requested Discount", "value": "18%" },
+          { "label": "Policy Cap", "value": "10%" },
+          { "label": "Justification", "value": "Volume commitment — 4 reorders YTD totaling $42K" },
+          { "label": "Submitted By", "value": "Sara Patel (U-0061)" },
+          { "label": "Tier Required", "value": "Manager (≥15%)" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "approval",
+        "title": "AP-1046 — Riverstone Credit Limit Increase",
+        "fields": [
+          { "label": "Customer", "value": "Riverstone LLC (C-2944)" },
+          { "label": "Current Limit", "value": "$15,000" },
+          { "label": "Requested Limit", "value": "$25,000" },
+          { "label": "Justification", "value": "Q3 expansion plan — 3 new retail locations" },
+          { "label": "AR Status", "value": "Current — no overdue balances" },
+          { "label": "Tier Required", "value": "Director" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Both flagged items have reasonable justifications. AP-1044 needs manager-tier approval (you qualify) — Pacific Goods has a strong reorder pattern. AP-1046 requires director sign-off; their AR is clean and the expansion plan is documented. Want to approve one or escalate?"
+  }
+}

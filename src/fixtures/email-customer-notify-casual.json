@@ -1,0 +1,34 @@
+{
+  "frameId": "f-email-customer-notify-casual-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Rewriting customer notification in a more casual, warmer tone.",
+        "steps": [
+          { "step": 1, "action": "rewrite_tone", "result": "Casual rewrite ready — same reassurance, friendlier voice", "ms": 90 }
+        ],
+        "totalMs": 90
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "email",
+        "title": "Customer Notification — New Rep (Casual)",
+        "fields": [
+          { "label": "To", "value": "12 affected customers (BCC)" },
+          { "label": "Subject", "value": "Quick heads-up — meet your new contact" },
+          { "label": "Body", "value": "Hey {{first_name}},\n\nQuick heads-up — starting May 15, Sara Patel will be your new go-to at WizCommerce. Sara's already up to speed on your account, so nothing's going to slip.\n\nShe'll reach out in the next few days to introduce herself. Until then, I'm still around through May 14 if anything urgent pops up.\n\nThanks for sticking with us — you're in great hands with Sara.\n\nCheers,\nHeman" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Rewrote in a more casual tone — same reassurance, just friendlier. Want it shorter or fine as-is?"
+  },
+  "trace": null
+}

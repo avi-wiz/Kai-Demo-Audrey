@@ -1,0 +1,40 @@
+{
+  "briefType": "page-products",
+  "greeting": "Product catalog health check.",
+  "urgentItems": [
+    {
+      "icon": "alert",
+      "text": "4 SKUs are out of stock — including WC-LMP-018 (Wall Sconce, Brass) which has 3 pending orders",
+      "priority": "urgent",
+      "actionChip": {
+        "label": "Show out of stock",
+        "query": "Which products are out of stock with pending orders?",
+        "icon": "search",
+        "category": "page-action"
+      }
+    },
+    {
+      "icon": "warning",
+      "text": "12 SKUs have <20 units remaining — reorder review recommended",
+      "priority": "attention",
+      "actionChip": {
+        "label": "Show low stock",
+        "query": "Show me products with low stock that need reordering",
+        "icon": "filter",
+        "category": "page-action"
+      }
+    }
+  ],
+  "todaysSummary": [
+    {
+      "icon": "package",
+      "text": "842 active SKUs across 14 collections",
+      "priority": "info"
+    },
+    {
+      "icon": "star",
+      "text": "Top seller this week: Artisan Table Lamp — Brass (34 units)",
+      "priority": "info"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "frameId": "f-ad1-approval-text-001",
+  "frameType": "result",
+  "responseMode": "text-only",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Pulled approval queue.",
+        "steps": [
+          { "step": 1, "action": "fetch_approval_queue", "result": "7 items pending", "ms": 145 }
+        ],
+        "totalMs": 145
+      },
+      "config": { "collapsed": true }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "7 items in the approval queue — 5 within standard policy ($63,600) and ready to bulk-approve, 2 flagged: Pacific Goods over discount cap, Riverstone needs director sign-off for credit limit. Want me to approve standard or drill into the flagged ones?"
+  }
+}

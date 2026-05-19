@@ -1,0 +1,16 @@
+{
+  "products": [
+    { "sku": "WC-LMP-001", "name": "Artisan Table Lamp — Brass", "price": 89.00, "stock": 142, "status": "In Stock", "category": "Lighting", "image": "lamp-brass" },
+    { "sku": "WC-LMP-004", "name": "Modern Desk Lamp — Brushed Brass", "price": 67.50, "stock": 88, "status": "In Stock", "category": "Lighting", "image": "lamp-desk" },
+    { "sku": "WC-LMP-009", "name": "Vintage Pendant Lamp — Antique Brass", "price": 94.00, "stock": 34, "status": "Low Stock", "category": "Lighting", "image": "lamp-pendant" },
+    { "sku": "WC-LMP-012", "name": "Mini Accent Lamp — Polished Brass", "price": 45.00, "stock": 210, "status": "In Stock", "category": "Lighting", "image": "lamp-mini" },
+    { "sku": "WC-LMP-018", "name": "Wall Sconce — Hammered Brass", "price": 52.00, "stock": 0, "status": "Out of Stock", "category": "Lighting", "image": "sconce" },
+    { "sku": "WC-VSE-014", "name": "Ceramic Vase Set — Ocean Blue", "price": 145.00, "stock": 65, "status": "In Stock", "category": "Décor", "image": "vase-blue" },
+    { "sku": "WC-CND-008", "name": "Soy Candle Collection — 6 Pack", "price": 32.50, "stock": 320, "status": "In Stock", "category": "Fragrance", "image": "candle" },
+    { "sku": "WC-FRM-003", "name": "Wooden Photo Frame — Walnut", "price": 24.00, "stock": 180, "status": "In Stock", "category": "Décor", "image": "frame" },
+    { "sku": "WC-PLW-011", "name": "Linen Throw Pillow — Sand", "price": 42.00, "stock": 95, "status": "In Stock", "category": "Textiles", "image": "pillow" },
+    { "sku": "WC-PLW-015", "name": "Velvet Cushion — Emerald", "price": 38.00, "stock": 12, "status": "Low Stock", "category": "Textiles", "image": "cushion" },
+    { "sku": "WC-TBL-002", "name": "Marble Side Table — White", "price": 295.00, "stock": 18, "status": "Low Stock", "category": "Furniture", "image": "table" },
+    { "sku": "WC-MRR-006", "name": "Round Wall Mirror — Gold Frame", "price": 165.00, "stock": 42, "status": "In Stock", "category": "Décor", "image": "mirror" }
+  ]
+}

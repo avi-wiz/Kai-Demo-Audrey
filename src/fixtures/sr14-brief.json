@@ -1,0 +1,66 @@
+{
+  "frameId": "f-sr14-brief-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Generated post-meeting brief for Acme Corp Q3 catalog review. Extracted action items and next-step owners.",
+        "steps": [
+          { "step": 1, "action": "fetch_meeting_transcript", "result": "Transcript loaded — 42 min", "ms": 220 },
+          { "step": 2, "action": "extract_action_items", "result": "5 action items identified", "ms": 180 },
+          { "step": 3, "action": "resolve_owners", "result": "All owners mapped to users", "ms": 95 }
+        ],
+        "mcpsAccessed": ["Calendar", "Transcripts", "CRM"],
+        "totalMs": 495
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "meeting",
+        "title": "Meeting Brief — Acme Corp / Q3 Catalog Review",
+        "fields": [
+          { "label": "Date", "value": "May 7, 2026 — 2:00 PM PST" },
+          { "label": "Attendees", "value": "Rachel Martinez (Acme), Tom Chen (Acme), Heman Bhullar" },
+          { "label": "Duration", "value": "42 minutes" },
+          { "label": "Format", "value": "Video call (Zoom)" },
+          { "label": "Outcome", "value": "Aligned on Q3 catalog timing; renewal on track for July 1" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "Attendees", "value": "3", "format": "count" },
+          { "label": "Action Items", "value": "5", "format": "count" },
+          { "label": "Open Risks", "value": "1", "format": "count" },
+          { "label": "Next Review", "value": "May 21", "format": "text" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-011",
+      "data": {
+        "title": "Action Items",
+        "items": [
+          { "id": "AI-1", "title": "Send Q3 catalog preview PDF to Rachel by Friday", "dueDate": "May 09", "priority": "High", "assignedTo": "Heman", "status": "Open" },
+          { "id": "AI-2", "title": "Resolve claim CLM-0892 — Tom needs status update", "dueDate": "May 12", "priority": "High", "assignedTo": "Support", "status": "Open" },
+          { "id": "AI-3", "title": "Re-quote Q-2401 with extended terms (90-day)", "dueDate": "May 14", "priority": "Medium", "assignedTo": "Heman", "status": "Open" },
+          { "id": "AI-4", "title": "Schedule follow-up review for May 21 to confirm Q3 SKU mix", "dueDate": "May 21", "priority": "Medium", "assignedTo": "Heman", "status": "Open" },
+          { "id": "AI-5", "title": "Draft renewal proposal — 3-year tier — for July 1 window", "dueDate": "Jun 15", "priority": "Medium", "assignedTo": "Heman", "status": "Open" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-001",
+      "data": { "label": "Open Acme Corp Profile", "url": "/customers/C-4201", "style": "secondary" }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Five action items came out of today's review — two are high-priority for this week (catalog preview, claim resolution). Renewal is still tracking for July 1. Want me to create tasks for these or draft a recap email to Rachel?"
+  }
+}

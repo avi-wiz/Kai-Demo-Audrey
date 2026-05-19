@@ -1,0 +1,22 @@
+{
+  "frameId": "f-ad17-report-text-001",
+  "frameType": "result",
+  "responseMode": "text-only",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Q1 sales report.",
+        "steps": [
+          { "step": 1, "action": "fetch_revenue", "result": "Q1 $1.84M", "ms": 180 }
+        ],
+        "totalMs": 180
+      },
+      "config": { "collapsed": true }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Q1 2026 closed at $1.84M (up 14% vs Q4) on 412 orders. Quote conversion rose to 38% and 27 new customers came on board. Top growers: Pacific Goods (+24%), Riverstone (+18%), Acme (+12%). Want this saved as a dashboard or emailed to leadership?"
+  }
+}
