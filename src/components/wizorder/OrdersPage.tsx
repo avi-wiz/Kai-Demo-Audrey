@@ -313,31 +313,34 @@ export default function OrdersPage() {
           flexWrap: 'wrap',
           gap: 8,
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 5 }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 9l1 0" /><path d="M9 13l6 0" /><path d="M9 17l6 0" />
-              </svg>
-              <span style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--text2)' }}>Total Orders: <strong>{filtered.length}</strong></span>
-            </div>
+          {/* Left: Total Orders */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 9l1 0" /><path d="M9 13l6 0" /><path d="M9 17l6 0" />
+            </svg>
+            <span style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--text2)' }}>Total Orders: <strong>{filtered.length}</strong></span>
+          </div>
+
+          {/* Right: Total Value + Pagination */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 5, borderRadius: 20, background: 'rgb(242, 244, 247)', padding: '0.5rem 1.2rem' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M16.7 8a3 3 0 0 0 -2.7 -2h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a3 3 0 0 1 -2.7 -2" /><path d="M12 3v3m0 12v3" />
               </svg>
               <span style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--text2)' }}>Total Value: <strong>{fmt.format(totalValue)}</strong></span>
             </div>
-          </div>
 
-          {totalPages > 1 && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-              <PagBtn label="← Prev" disabled={page === 1} onClick={() => setCurrentPage(p => p - 1)} />
-              {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => i + 1).map(p => (
-                <PagBtn key={p} label={String(p)} active={p === page} onClick={() => setCurrentPage(p)} />
-              ))}
-              {totalPages > 7 && <span style={{ color: 'var(--text3)', fontSize: 12, padding: '0 4px' }}>…</span>}
-              <PagBtn label="Next →" disabled={page === totalPages} onClick={() => setCurrentPage(p => p + 1)} />
-            </div>
-          )}
+            {totalPages > 1 && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <PagBtn label="← Prev" disabled={page === 1} onClick={() => setCurrentPage(p => p - 1)} />
+                {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => i + 1).map(p => (
+                  <PagBtn key={p} label={String(p)} active={p === page} onClick={() => setCurrentPage(p)} />
+                ))}
+                {totalPages > 7 && <span style={{ color: 'var(--text3)', fontSize: 12, padding: '0 4px' }}>…</span>}
+                <PagBtn label="Next →" disabled={page === totalPages} onClick={() => setCurrentPage(p => p + 1)} />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </WizOrderPage>
