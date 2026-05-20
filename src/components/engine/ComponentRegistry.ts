@@ -9,6 +9,7 @@ import MetricCard from '@/components/widgets/ui/MetricCard';
 import MetricCardRow from '@/components/widgets/ui/MetricCardRow';
 import CompactList from '@/components/widgets/ui/CompactList';
 import DataTable from '@/components/widgets/ui/DataTable';
+import ProductCardGrid from '@/components/widgets/ui/ProductCardGrid';
 import DashboardCompositeWidget from '@/components/widgets/ui/DashboardCompositeWidget';
 
 // Chart widgets
@@ -31,6 +32,7 @@ export const ComponentRegistry: Record<string, WidgetComponent> = {
   'UW-002': MetricCardRow,
   'UW-011': CompactList,
   'UW-004': DataTable,
+  'UW-009': ProductCardGrid,
   'CH-001': LineChart,
   'AW-001': DeepLinkButton,
   'AW-003': ConfirmationDialog,

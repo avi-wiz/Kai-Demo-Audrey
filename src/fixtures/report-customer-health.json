@@ -1,0 +1,304 @@
+{
+  "frameId": "f-report-customer-health-001",
+  "frameType": "dashboard_staged",
+  "capability": "dashboard-builder",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Building Customer Health report. Scanning the 8 active customers, computing reorder cycles, and flagging at-risk accounts (>30 days since last order).",
+        "steps": [
+          {
+            "step": 1,
+            "action": "fetch_customers",
+            "result": "8 active accounts loaded",
+            "ms": 145
+          },
+          {
+            "step": 2,
+            "action": "compute_reorder_cycles",
+            "result": "Avg 34 days; Magnolia / Bloom & Basket cycling fastest",
+            "ms": 195
+          },
+          {
+            "step": 3,
+            "action": "flag_at_risk",
+            "result": "2 at-risk: Harbor Lane (52d), Golden Meadow (90d)",
+            "ms": 130
+          },
+          {
+            "step": 4,
+            "action": "schedule_renewals",
+            "result": "5 upcoming pricelist + payment-terms reviews",
+            "ms": 90
+          }
+        ],
+        "totalMs": 560
+      },
+      "config": {
+        "collapsed": true
+      }
+    },
+    {
+      "widgetType": "UW-030",
+      "data": {
+        "title": "Customer Health",
+        "description": "Account health, reorder cadence, at-risk flags, and upcoming reviews",
+        "layout": "grid-2x3",
+        "cells": [
+          {
+            "position": {
+              "row": 0,
+              "col": 0,
+              "colSpan": 2
+            },
+            "widgetType": "UW-002",
+            "data": {
+              "cards": [
+                {
+                  "label": "Active Accounts",
+                  "value": "6 / 8",
+                  "format": "count",
+                  "trend": {
+                    "direction": "down",
+                    "percent": 12,
+                    "period": "2 at-risk"
+                  }
+                },
+                {
+                  "label": "At-Risk Accounts",
+                  "value": "2",
+                  "format": "count",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 100,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "Avg Reorder Cycle",
+                  "value": "34 days",
+                  "format": "count",
+                  "trend": {
+                    "direction": "down",
+                    "percent": 7,
+                    "period": "improving"
+                  }
+                },
+                {
+                  "label": "Q2 Revenue",
+                  "value": "$142,800",
+                  "format": "currency",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 18,
+                    "period": "vs Q1"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 0
+            },
+            "widgetType": "CH-001",
+            "data": {
+              "title": "Customer Reorder Frequency \u2014 Days Between Orders (Trailing 8 weeks)",
+              "series": [
+                {
+                  "week": "W1",
+                  "avgDays": 38
+                },
+                {
+                  "week": "W2",
+                  "avgDays": 36
+                },
+                {
+                  "week": "W3",
+                  "avgDays": 35
+                },
+                {
+                  "week": "W4",
+                  "avgDays": 37
+                },
+                {
+                  "week": "W5",
+                  "avgDays": 34
+                },
+                {
+                  "week": "W6",
+                  "avgDays": 33
+                },
+                {
+                  "week": "W7",
+                  "avgDays": 34
+                },
+                {
+                  "week": "W8",
+                  "avgDays": 32
+                }
+              ],
+              "yAxisLabel": "Avg Days Between Orders",
+              "xAxisLabel": "Week"
+            },
+            "config": {
+              "chartType": "line",
+              "showArea": false
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "widgetType": "UW-004",
+            "data": {
+              "title": "Accounts Needing Attention (30+ days since last order)",
+              "columns": [
+                {
+                  "key": "customer",
+                  "label": "Customer",
+                  "align": "left"
+                },
+                {
+                  "key": "rep",
+                  "label": "Rep",
+                  "align": "left"
+                },
+                {
+                  "key": "daysSince",
+                  "label": "Days",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "lifetimeRev",
+                  "label": "Lifetime",
+                  "align": "right",
+                  "format": "currency",
+                  "mono": true
+                },
+                {
+                  "key": "status",
+                  "label": "Status",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "customer": "Golden Meadow Co",
+                  "rep": "Marcus Rivera",
+                  "daysSince": 90,
+                  "lifetimeRev": 28000,
+                  "status": "Dormant"
+                },
+                {
+                  "customer": "Harbor Lane Boutique",
+                  "rep": "Hannah Cho",
+                  "daysSince": 52,
+                  "lifetimeRev": 41200,
+                  "status": "Warning"
+                },
+                {
+                  "customer": "Copper Creek Trading",
+                  "rep": "Beth Calloway",
+                  "daysSince": 38,
+                  "lifetimeRev": 36400,
+                  "status": "Watch"
+                },
+                {
+                  "customer": "Bloom & Basket",
+                  "rep": "Beth Calloway",
+                  "daysSince": 33,
+                  "lifetimeRev": 52800,
+                  "status": "Watch"
+                }
+              ]
+            },
+            "highlights": [
+              {
+                "type": "urgent",
+                "fieldPath": "rows[0].daysSince"
+              },
+              {
+                "type": "warning",
+                "fieldPath": "rows[1].daysSince"
+              }
+            ]
+          },
+          {
+            "position": {
+              "row": 2,
+              "col": 0,
+              "colSpan": 2
+            },
+            "widgetType": "UW-011",
+            "data": {
+              "title": "Upcoming Renewals & Reviews",
+              "items": [
+                {
+                  "id": "REV-001",
+                  "title": "Magnolia Home & Garden \u2014 Annual pricelist review",
+                  "dueDate": "2026-06-01",
+                  "priority": "High",
+                  "assignedTo": "Beth Calloway",
+                  "status": "Open"
+                },
+                {
+                  "id": "REV-002",
+                  "title": "The Potting Shed \u2014 Payment terms review (Net 30 \u2192 Net 45?)",
+                  "dueDate": "2026-06-08",
+                  "priority": "Medium",
+                  "assignedTo": "Beth Calloway",
+                  "status": "Open"
+                },
+                {
+                  "id": "REV-003",
+                  "title": "Harbor Lane Boutique \u2014 At-risk win-back call",
+                  "dueDate": "2026-05-25",
+                  "priority": "High",
+                  "assignedTo": "Hannah Cho",
+                  "status": "Open"
+                },
+                {
+                  "id": "REV-004",
+                  "title": "Golden Meadow Co \u2014 Credit balance review (near limit)",
+                  "dueDate": "2026-05-19",
+                  "priority": "High",
+                  "assignedTo": "Marcus Rivera",
+                  "status": "Overdue"
+                },
+                {
+                  "id": "REV-005",
+                  "title": "Sunflower & Sage \u2014 Q2 business review",
+                  "dueDate": "2026-06-15",
+                  "priority": "Medium",
+                  "assignedTo": "Marcus Rivera",
+                  "status": "Open"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Here's your Customer Health report \u2014 reorder cycles, at-risk flags, and upcoming reviews. Confirm to save to My Reports, edit to tweak, or tell me what to change.",
+        "tier": "draft",
+        "actions": [
+          "Save Dashboard",
+          "Edit",
+          "Cancel"
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "6 of 8 accounts are healthy; Golden Meadow Co (90 days, $28K lifetime) needs an immediate win-back call and Harbor Lane Boutique (52 days, $41K lifetime) is trending the wrong way. Reorder cycle improved to 32 days. The credit-balance review for Golden Meadow is already overdue \u2014 escalate."
+  }
+}

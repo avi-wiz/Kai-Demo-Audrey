@@ -2,56 +2,79 @@
 
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
 import type { WizOrderCustomer, KaiCreatedItem } from '@/lib/types';
-import rawCustomers from '@/fixtures/wizorder-customers.json';
+import { CUSTOMERS as AUDREY_CUSTOMERS } from '@/data/audreys';
 
-const INITIAL_CUSTOMERS = (rawCustomers as { customers: WizOrderCustomer[] }).customers;
+const INITIAL_CUSTOMERS: WizOrderCustomer[] = AUDREY_CUSTOMERS;
 
 export interface CustomerModification extends KaiCreatedItem {
   patch: Partial<WizOrderCustomer>;
 }
 
+export interface NewCustomerInput extends WizOrderCustomer {
+  createdAt?: string;
+}
+
+type AddCustomerInput = CustomerModification | NewCustomerInput;
+
 interface SharedCustomersState {
   existingCustomers: WizOrderCustomer[];
   kaiCreatedCustomers: CustomerModification[];
-  addCustomer: (mod: CustomerModification) => void;
+  kaiNewCustomers: WizOrderCustomer[];
+  addCustomer: (input: AddCustomerInput) => void;
   allCustomers: WizOrderCustomer[];
 }
 
 const SharedCustomersContext = createContext<SharedCustomersState | null>(null);
 
+function isPatchMod(input: AddCustomerInput): input is CustomerModification {
+  return 'patch' in input && typeof (input as CustomerModification).patch === 'object';
+}
+
 export function SharedCustomersProvider({ children }: { children: ReactNode }) {
   const [existingCustomers] = useState<WizOrderCustomer[]>(INITIAL_CUSTOMERS);
   const [kaiCreatedCustomers, setKaiCreatedCustomers] = useState<CustomerModification[]>([]);
+  const [kaiNewCustomers, setKaiNewCustomers] = useState<WizOrderCustomer[]>([]);
 
-  const addCustomer = (mod: CustomerModification) =>
-    setKaiCreatedCustomers(prev => [mod, ...prev]);
+  const addCustomer = (input: AddCustomerInput) => {
+    if (isPatchMod(input)) {
+      setKaiCreatedCustomers(prev => [input, ...prev]);
+    } else {
+      setKaiNewCustomers(prev => [{ ...input, createdByKai: true }, ...prev]);
+    }
+  };
 
   const allCustomers = useMemo(() => {
-    if (kaiCreatedCustomers.length === 0) return existingCustomers;
-
-    const latestPatchById = new Map<string, CustomerModification>();
+    const patchByIdLatest = new Map<string, CustomerModification>();
     kaiCreatedCustomers
       .slice()
       .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-      .forEach(m => latestPatchById.set(m.id, m));
+      .forEach(m => patchByIdLatest.set(m.id, m));
+
+    // Build a set of new-customer ids so we can suppress the original synthetic
+    // record when a NewCustomerInput collides on id (e.g. Cap 4 merge promotes
+    // C-8050 to an active customer — we want the new record to replace, not
+    // duplicate, the inactive synthetic C-8050).
+    const newCustomerIds = new Set(kaiNewCustomers.map(c => c.id));
 
     const modified: WizOrderCustomer[] = [];
     const untouched: WizOrderCustomer[] = [];
     for (const c of existingCustomers) {
-      const m = latestPatchById.get(c.id);
+      if (newCustomerIds.has(c.id)) continue; // shadowed by a NewCustomerInput
+      const m = patchByIdLatest.get(c.id);
       if (m) modified.push({ ...c, ...m.patch, createdByKai: true });
       else untouched.push(c);
     }
     modified.sort((a, b) => {
-      const am = latestPatchById.get(a.id)!.createdAt;
-      const bm = latestPatchById.get(b.id)!.createdAt;
+      const am = patchByIdLatest.get(a.id)!.createdAt;
+      const bm = patchByIdLatest.get(b.id)!.createdAt;
       return new Date(bm).getTime() - new Date(am).getTime();
     });
-    return [...modified, ...untouched];
-  }, [kaiCreatedCustomers, existingCustomers]);
+
+    return [...kaiNewCustomers, ...modified, ...untouched];
+  }, [kaiCreatedCustomers, kaiNewCustomers, existingCustomers]);
 
   return (
-    <SharedCustomersContext.Provider value={{ existingCustomers, kaiCreatedCustomers, addCustomer, allCustomers }}>
+    <SharedCustomersContext.Provider value={{ existingCustomers, kaiCreatedCustomers, kaiNewCustomers, addCustomer, allCustomers }}>
       {children}
     </SharedCustomersContext.Provider>
   );

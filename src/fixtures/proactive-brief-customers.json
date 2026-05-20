@@ -1,40 +1,22 @@
 {
   "briefType": "page-customers",
-  "greeting": "Here's a quick pulse on your customer base.",
+  "greeting": "3 of your top accounts haven't reordered Spring inventory in 45+ days.",
   "urgentItems": [
     {
       "icon": "alert",
-      "text": "2 VIP accounts haven't ordered in 60+ days — Coastal Living and Summit Home",
+      "text": "Harbor Lane Boutique (52 days), Golden Meadow Co (90 days), and Seaside Gifts (20 days) are overdue for spring reorder outreach.",
       "priority": "urgent",
       "actionChip": {
-        "label": "Show dormant VIPs",
-        "query": "Show me dormant VIP customers",
-        "icon": "search",
-        "category": "page-action"
-      }
-    },
-    {
-      "icon": "star",
-      "text": "Bay Area Boutiques just hit $100K lifetime revenue — potential VIP upgrade",
-      "priority": "attention",
-      "actionChip": {
-        "label": "Review for VIP",
-        "query": "Show me Bay Area Boutiques customer profile",
-        "icon": "user",
+        "label": "Draft outreach for dormant accounts",
+        "query": "Draft re-engagement emails for dormant accounts",
+        "icon": "email",
         "category": "page-action"
       }
     }
   ],
   "todaysSummary": [
-    {
-      "icon": "users",
-      "text": "156 active customers, 14 leads in pipeline",
-      "priority": "info"
-    },
-    {
-      "icon": "trend",
-      "text": "Customer retention: 94.2% this quarter",
-      "priority": "info"
-    }
+    { "icon": "users",  "text": "8 converted customers · 6 leads in pipeline",         "priority": "info" },
+    { "icon": "trend",  "text": "Magnolia Home & Garden leads at $142K lifetime revenue", "priority": "info" },
+    { "icon": "flag",   "text": "1 Warning, 1 Dormant account need attention",           "priority": "info" }
   ]
 }

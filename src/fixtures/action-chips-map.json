@@ -57,7 +57,52 @@
       { "label": "Remove a widget", "query": "Remove the bottom-right widget from the dashboard", "icon": "trash", "category": "follow-on" },
       { "label": "Change layout", "query": "Change the dashboard layout to a 2x2 grid", "icon": "grid", "category": "follow-on" },
       { "label": "Export this dashboard", "query": "Export this dashboard as a report", "icon": "download", "category": "follow-on" }
+    ],
+    "cap1-task-email": [
+      { "label": "Draft the email now", "query": "Draft the email for Wildflower Market now", "icon": "email", "category": "suggested" },
+      { "label": "View in CRM", "query": "Show me overdue tasks", "icon": "task", "category": "follow-on" },
+      { "label": "Create another task", "query": "Create another task", "icon": "plus", "category": "follow-on" }
+    ],
+    "cap1-email-draft": [
+      { "label": "Make it more casual", "query": "Rewrite the email in a more casual tone", "icon": "edit", "category": "follow-on" },
+      { "label": "Add the July release preview", "query": "Add the July 2026 release preview to the email", "icon": "plus", "category": "follow-on" },
+      { "label": "Send it", "query": "Send the email", "icon": "email", "category": "suggested" }
+    ],
+    "cap2-lead-creation": [
+      { "label": "Draft intro email to Emma", "query": "Draft an intro email to Emma at Pine & Thistle", "icon": "email", "category": "suggested" },
+      { "label": "View lead in CRM", "query": "Show me my leads", "icon": "user", "category": "follow-on" },
+      { "label": "Show all new leads this week", "query": "Show me all new leads this week", "icon": "list", "category": "follow-on" }
+    ],
+    "cap3-lead-won": [
+      { "label": "Create their first order", "query": "Create a new order for {customerName}", "icon": "plus", "category": "suggested" },
+      { "label": "Set up website access", "query": "Set up website access for {customerName}", "icon": "user", "category": "suggested" },
+      { "label": "Build a welcome catalog", "query": "Build a catalog for {customerName}", "icon": "list", "category": "suggested" },
+      { "label": "View customer profile", "query": "Show {customerName} profile", "icon": "user", "category": "follow-on" }
+    ],
+    "cap4-merge-customer": [
+      { "label": "View merged record", "query": "Show me the merged customer record", "icon": "user", "category": "follow-on" },
+      { "label": "Create a re-engagement order", "query": "Create a re-engagement order for The Garden Gate Shop", "icon": "plus", "category": "suggested" },
+      { "label": "Draft 'welcome back' email", "query": "Draft a welcome-back email to David", "icon": "email", "category": "suggested" }
+    ],
+    "cap5-user-creation": [
+      { "label": "Build a catalog for Lakeside Living", "query": "Build a catalog for Lakeside Living", "icon": "list", "category": "suggested" },
+      { "label": "Create their first wishlist", "query": "Create a wishlist for Lakeside Living", "icon": "plus", "category": "suggested" },
+      { "label": "View user in manage panel", "query": "Show me website users", "icon": "user", "category": "follow-on" }
+    ],
+    "cap6-catalog-builder": [
+      { "label": "Email this catalog to Julia", "query": "Draft an email to Julia at Mountain Bloom with this catalog", "icon": "email", "category": "suggested" },
+      { "label": "Add Bunnies collection products", "query": "Add Bunnies collection products to this catalog", "icon": "plus", "category": "follow-on" },
+      { "label": "Convert to wishlist", "query": "Convert this catalog to a wishlist", "icon": "swap", "category": "follow-on" },
+      { "label": "View in My Catalogs", "query": "Show me my catalogs", "icon": "list", "category": "follow-on" }
     ]
+  },
+  "templateChips": {
+    "clearance_email": { "label": "Draft clearance email", "query": "Write a market-week clearance email for PhaseOut inventory", "icon": "email", "category": "suggested" },
+    "collection_refill": { "label": "Build refill list", "query": "Build a refill outreach list for the Gardeners Grove collection", "icon": "list", "category": "suggested" },
+    "july_pacing": { "label": "Show July 2026 pacing", "query": "Show pre-book pacing for the July 2026 Virtual Release vs January 2025", "icon": "chart", "category": "suggested" },
+    "prebook_orders": { "label": "Show Pre-Book orders", "query": "Show me all Pre-Book Confirmed orders", "icon": "orders", "category": "suggested" },
+    "dormant_outreach": { "label": "Draft outreach for dormant accounts", "query": "Draft re-engagement emails for accounts that haven't ordered in 45+ days", "icon": "email", "category": "suggested" },
+    "overdue_tasks": { "label": "Show overdue tasks", "query": "Show me all overdue tasks", "icon": "alert", "category": "suggested" }
   },
   "pageChips": {
     "orders": [

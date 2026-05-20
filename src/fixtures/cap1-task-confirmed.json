@@ -1,0 +1,18 @@
+{
+  "frameId": "f-cap1-task-002",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "AW-003",
+      "data": {
+        "status": "success",
+        "title": "Task Created",
+        "message": "Task T-2001 'Send Birdhouse collection samples' created for Wildflower Market, assigned to Beth Calloway, due May 30, 2026.",
+        "entityLink": {
+          "label": "View Task",
+          "url": "/crm/tasks/T-2001"
+        }
+      }
+    }
+  ]
+}

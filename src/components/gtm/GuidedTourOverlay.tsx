@@ -33,7 +33,7 @@ const STEPS: TourStep[] = [
   {
     target: 'chat-input',
     title: 'Ask Anything',
-    description: 'Type in plain language — "Show me overdue orders", "Draft a follow-up email for Acme Corp", or "Build a dashboard".',
+    description: 'Type in plain language — "Show me overdue orders", "Draft a follow-up email for Magnolia Home & Garden", or "Show me catalog health".',
     tooltipSide: 'top',
     padding: 8,
   },

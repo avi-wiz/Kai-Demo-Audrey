@@ -6,21 +6,25 @@
       "frameId": "f-pc-ord-001",
       "frameType": "result",
       "widgets": [
-        { "widgetType": "UW-014", "data": { "summary": "Filtering orders page for pending shipments. Found 3.", "steps": [{ "step": 1, "action": "filter_page_data", "result": "3 orders awaiting shipment", "ms": 45 }], "totalMs": 45 }, "config": { "collapsed": true } },
-        { "widgetType": "UW-004", "data": { "title": "Orders Awaiting Shipment", "columns": [{ "key": "order", "label": "Order", "align": "left", "mono": true }, { "key": "customer", "label": "Customer", "align": "left" }, { "key": "total", "label": "Total", "align": "right", "format": "currency", "mono": true }, { "key": "date", "label": "Order Date", "align": "left", "mono": true }, { "key": "daysPending", "label": "Days Pending", "align": "right", "mono": true }], "rows": [{ "order": "ORD-2838", "customer": "Pinnacle Retail", "total": 6850, "date": "Apr 28", "daysPending": 1 }, { "order": "ORD-2837", "customer": "Metro Design", "total": 4200, "date": "Apr 27", "daysPending": 2 }, { "order": "ORD-2836", "customer": "Coastal Living", "total": 8900, "date": "Apr 26", "daysPending": 3 }] } }
+        { "widgetType": "UW-014", "data": { "summary": "Filtering orders for pending shipments.", "steps": [{ "step": 1, "action": "filter_page_data", "result": "3 orders awaiting shipment", "ms": 45 }], "totalMs": 45 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-004", "data": { "title": "Orders Awaiting Shipment", "columns": [{ "key": "order", "label": "Order", "align": "left", "mono": true }, { "key": "customer", "label": "Customer", "align": "left" }, { "key": "total", "label": "Total", "align": "right", "format": "currency", "mono": true }, { "key": "date", "label": "Order Date", "align": "left", "mono": true }, { "key": "daysPending", "label": "Days Pending", "align": "right", "mono": true }], "rows": [
+          { "order": "ORD-5841", "customer": "Magnolia Home & Garden", "total": 7420, "date": "May 18", "daysPending": 2 },
+          { "order": "ORD-5838", "customer": "Bloom & Basket", "total": 3850, "date": "May 17", "daysPending": 3 },
+          { "order": "ORD-5835", "customer": "The Potting Shed", "total": 6240, "date": "May 16", "daysPending": 4 }
+        ] } }
       ],
-      "closingText": { "type": "insight", "text": "3 orders pending shipment. The Coastal Living order has been waiting 3 days — longest in the queue. Want me to flag it for expedited fulfillment?" }
+      "closingText": { "type": "insight", "text": "Three orders pending shipment. The Potting Shed order has been waiting 4 days — longest in the queue. All three are from Beth's key accounts. Want me to flag the Potting Shed order for expedited fulfillment?" }
     },
     {
       "id": "pc-ord-002",
-      "keywords": ["flagged", "review", "approval", "threshold", "ORD-2839"],
+      "keywords": ["flagged", "review", "approval", "threshold", "pre-book", "pre book"],
       "frameId": "f-pc-ord-002",
       "frameType": "result",
       "widgets": [
-        { "widgetType": "UW-014", "data": { "summary": "Found 1 flagged order on this page — ORD-2839 exceeds $10K threshold.", "steps": [{ "step": 1, "action": "identify_flagged", "result": "ORD-2839 — $12,400, Heritage Furniture Co", "ms": 30 }], "totalMs": 30 }, "config": { "collapsed": true } },
-        { "widgetType": "UW-003", "data": { "entityType": "order", "title": "ORD-2839 — Flagged for Review", "fields": [{ "label": "Customer", "value": "Heritage Furniture Co", "entityId": "C-3990" }, { "label": "Amount", "value": "$12,400" }, { "label": "Items", "value": "8 line items" }, { "label": "Rep", "value": "Sarah Kim" }, { "label": "Flag Reason", "value": "Exceeds $10,000 auto-approval threshold" }, { "label": "Status", "value": "Pending Approval" }] } }
+        { "widgetType": "UW-014", "data": { "summary": "Found 1 flagged order — Pre-Book order pending confirmation.", "steps": [{ "step": 1, "action": "identify_flagged", "result": "ORD-5844 — $12,480, Magnolia Home & Garden, Pre-Book July", "ms": 30 }], "totalMs": 30 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-003", "data": { "entityType": "order", "title": "ORD-5844 — Pre-Book Confirmation Pending", "fields": [{ "label": "Customer", "value": "Magnolia Home & Garden", "entityId": "C-8001" }, { "label": "Amount", "value": "$12,480" }, { "label": "Items", "value": "51GR1945-S2 ×2, 51GR1953 ×1, 51GR1951-S8 ×1" }, { "label": "Rep", "value": "Beth Calloway" }, { "label": "Type", "value": "Pre-Book — July 2026 Virtual Release" }, { "label": "Status", "value": "Pending Confirmation" }] } }
       ],
-      "closingText": { "type": "description", "text": "ORD-2839 from Heritage Furniture is flagged because it's $12,400 — above your $10K auto-approval limit. Sarah Kim placed it yesterday. Heritage is a $245K lifetime account that's been dormant, so this order is actually a positive signal. Want me to approve it or show the line items first?" }
+      "closingText": { "type": "description", "text": "Magnolia's July Pre-Book order at $12,480 is awaiting confirmation. Beth placed it 2 days ago. Magnolia is Audrey's top account at $48K YTD — this Pre-Book should be prioritized. Want me to send a confirmation request to Sarah at Magnolia?" }
     },
     {
       "id": "pc-ord-003",
@@ -28,10 +32,13 @@
       "frameId": "f-pc-ord-003",
       "frameType": "result",
       "widgets": [
-        { "widgetType": "UW-014", "data": { "summary": "Filtering for today's orders. Found 2.", "steps": [{ "step": 1, "action": "filter_today", "result": "2 orders placed today", "ms": 25 }], "totalMs": 25 }, "config": { "collapsed": true } },
-        { "widgetType": "UW-004", "data": { "title": "Today's Orders", "columns": [{ "key": "order", "label": "Order", "align": "left", "mono": true }, { "key": "customer", "label": "Customer", "align": "left" }, { "key": "total", "label": "Total", "align": "right", "format": "currency", "mono": true }, { "key": "status", "label": "Status", "align": "center" }, { "key": "rep", "label": "Rep", "align": "left" }], "rows": [{ "order": "ORD-2841", "customer": "Acme Corp", "total": 5640.19, "status": "Draft", "rep": "Heman Bhullar" }, { "order": "ORD-2840", "customer": "Bay Area Boutiques", "total": 3200, "status": "Pending Approval", "rep": "Heman Bhullar" }], "showTotals": true, "totals": { "order": "Total", "customer": "", "total": 8840.19, "status": "", "rep": "" } } }
+        { "widgetType": "UW-014", "data": { "summary": "Filtering for today's orders.", "steps": [{ "step": 1, "action": "filter_today", "result": "2 orders placed today", "ms": 25 }], "totalMs": 25 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-004", "data": { "title": "Today's Orders", "columns": [{ "key": "order", "label": "Order", "align": "left", "mono": true }, { "key": "customer", "label": "Customer", "align": "left" }, { "key": "total", "label": "Total", "align": "right", "format": "currency", "mono": true }, { "key": "status", "label": "Status", "align": "center" }, { "key": "rep", "label": "Rep", "align": "left" }], "rows": [
+          { "order": "ORD-5849", "customer": "Sunflower & Sage", "total": 4920, "status": "Confirmed", "rep": "Marcus Rivera" },
+          { "order": "ORD-5848", "customer": "Seaside Gifts", "total": 3600, "status": "Draft", "rep": "James Whitfield" }
+        ], "showTotals": true, "totals": { "order": "Total", "customer": "", "total": 8520, "status": "", "rep": "" } } }
       ],
-      "closingText": { "type": "insight", "text": "Two orders today totaling $8,840. The Acme order is still in draft — needs confirmation. Bay Area Boutiques is pending approval. Solid start to the day." }
+      "closingText": { "type": "insight", "text": "Two orders today totaling $8,520. Marcus's Sunflower & Sage Pre-Book order is confirmed. Seaside Gifts is still in draft — James needs to send it for review before end of day." }
     }
   ]
 }

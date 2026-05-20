@@ -1,0 +1,376 @@
+{
+  "frameId": "f-report-team-001",
+  "frameType": "dashboard_staged",
+  "capability": "dashboard-builder",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Building Team Performance report. Aggregating Q2 revenue, orders, conversion rates, and overdue tasks across the 4 reps.",
+        "steps": [
+          {
+            "step": 1,
+            "action": "fetch_reps",
+            "result": "4 reps: Beth Calloway, Marcus Rivera, Hannah Cho, James Whitfield",
+            "ms": 135
+          },
+          {
+            "step": 2,
+            "action": "aggregate_revenue",
+            "result": "Q2 team revenue: $384,200 across 67 orders",
+            "ms": 195
+          },
+          {
+            "step": 3,
+            "action": "rank_top_accounts",
+            "result": "Beth leads with $186K; Magnolia is Beth's top account at $48K",
+            "ms": 175
+          },
+          {
+            "step": 4,
+            "action": "scan_overdue_tasks",
+            "result": "5 overdue tasks across the team",
+            "ms": 90
+          }
+        ],
+        "totalMs": 595
+      },
+      "config": {
+        "collapsed": true
+      }
+    },
+    {
+      "widgetType": "UW-030",
+      "data": {
+        "title": "Team Performance \u2014 Q2 2026",
+        "description": "Revenue, orders, conversion, and pipeline by rep",
+        "layout": "grid-2x3",
+        "cells": [
+          {
+            "position": {
+              "row": 0,
+              "col": 0,
+              "colSpan": 2
+            },
+            "widgetType": "UW-002",
+            "data": {
+              "cards": [
+                {
+                  "label": "Team Revenue Q2",
+                  "value": "$384,200",
+                  "format": "currency",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 19,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "Orders Closed",
+                  "value": "67",
+                  "format": "count",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 12,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "New Customers",
+                  "value": "3",
+                  "format": "count",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 50,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "Avg Order Value",
+                  "value": "$5,734",
+                  "format": "currency",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 6,
+                    "period": "vs Q1"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 0
+            },
+            "widgetType": "UW-004",
+            "data": {
+              "title": "Performance by Rep",
+              "columns": [
+                {
+                  "key": "rep",
+                  "label": "Rep",
+                  "align": "left"
+                },
+                {
+                  "key": "revenue",
+                  "label": "Revenue",
+                  "align": "right",
+                  "format": "currency",
+                  "mono": true
+                },
+                {
+                  "key": "orders",
+                  "label": "Orders",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "conversion",
+                  "label": "Conv %",
+                  "align": "right",
+                  "format": "percent"
+                },
+                {
+                  "key": "customers",
+                  "label": "Custs",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "pipeline",
+                  "label": "Pipeline",
+                  "align": "right",
+                  "format": "currency",
+                  "mono": true
+                }
+              ],
+              "rows": [
+                {
+                  "rep": "Beth Calloway",
+                  "revenue": 186000,
+                  "orders": 28,
+                  "conversion": 74,
+                  "customers": 4,
+                  "pipeline": 84000
+                },
+                {
+                  "rep": "Marcus Rivera",
+                  "revenue": 124000,
+                  "orders": 20,
+                  "conversion": 65,
+                  "customers": 2,
+                  "pipeline": 52000
+                },
+                {
+                  "rep": "Hannah Cho",
+                  "revenue": 89000,
+                  "orders": 14,
+                  "conversion": 62,
+                  "customers": 2,
+                  "pipeline": 38000
+                },
+                {
+                  "rep": "James Whitfield",
+                  "revenue": 42000,
+                  "orders": 5,
+                  "conversion": 48,
+                  "customers": 0,
+                  "pipeline": 12000
+                }
+              ]
+            },
+            "highlights": [
+              {
+                "type": "positive",
+                "fieldPath": "rows[0].revenue"
+              },
+              {
+                "type": "warning",
+                "fieldPath": "rows[3].conversion"
+              }
+            ]
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "widgetType": "CH-001",
+            "data": {
+              "title": "Team Revenue \u2014 Weekly (Q2)",
+              "series": [
+                {
+                  "week": "W1",
+                  "revenue": 28400
+                },
+                {
+                  "week": "W2",
+                  "revenue": 31800
+                },
+                {
+                  "week": "W3",
+                  "revenue": 34200
+                },
+                {
+                  "week": "W4",
+                  "revenue": 36900
+                },
+                {
+                  "week": "W5",
+                  "revenue": 33500
+                },
+                {
+                  "week": "W6",
+                  "revenue": 38200
+                },
+                {
+                  "week": "W7",
+                  "revenue": 39800
+                },
+                {
+                  "week": "W8",
+                  "revenue": 41400
+                }
+              ],
+              "yAxisLabel": "Team Revenue ($)",
+              "xAxisLabel": "Week"
+            },
+            "config": {
+              "chartType": "line",
+              "showArea": true
+            }
+          },
+          {
+            "position": {
+              "row": 2,
+              "col": 0
+            },
+            "widgetType": "UW-004",
+            "data": {
+              "title": "Top Accounts by Rep",
+              "columns": [
+                {
+                  "key": "rep",
+                  "label": "Rep",
+                  "align": "left"
+                },
+                {
+                  "key": "account",
+                  "label": "Top Account",
+                  "align": "left"
+                },
+                {
+                  "key": "ytdRev",
+                  "label": "YTD Revenue",
+                  "align": "right",
+                  "format": "currency",
+                  "mono": true
+                },
+                {
+                  "key": "lastOrder",
+                  "label": "Last Order",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "rep": "Beth Calloway",
+                  "account": "Magnolia Home & Garden",
+                  "ytdRev": 48200,
+                  "lastOrder": "Apr 28"
+                },
+                {
+                  "rep": "Marcus Rivera",
+                  "account": "Sunflower & Sage",
+                  "ytdRev": 32100,
+                  "lastOrder": "May 12"
+                },
+                {
+                  "rep": "Hannah Cho",
+                  "account": "Bloom & Basket",
+                  "ytdRev": 28800,
+                  "lastOrder": "May 9"
+                },
+                {
+                  "rep": "James Whitfield",
+                  "account": "Seaside Gifts",
+                  "ytdRev": 18400,
+                  "lastOrder": "Apr 22"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 2,
+              "col": 1
+            },
+            "widgetType": "UW-011",
+            "data": {
+              "title": "Overdue Tasks by Rep",
+              "items": [
+                {
+                  "id": "T-9111",
+                  "title": "Marcus \u2014 Credit balance review for Golden Meadow Co",
+                  "dueDate": "2026-05-19",
+                  "priority": "High",
+                  "assignedTo": "Marcus Rivera",
+                  "status": "Overdue"
+                },
+                {
+                  "id": "T-9203",
+                  "title": "Hannah \u2014 First outreach for Rustic Charm Boutique",
+                  "dueDate": "2026-05-18",
+                  "priority": "Medium",
+                  "assignedTo": "Hannah Cho",
+                  "status": "Overdue"
+                },
+                {
+                  "id": "T-9215",
+                  "title": "Beth \u2014 Q3 Featured Collections quote for Magnolia",
+                  "dueDate": "2026-05-17",
+                  "priority": "High",
+                  "assignedTo": "Beth Calloway",
+                  "status": "Overdue"
+                },
+                {
+                  "id": "T-9229",
+                  "title": "James \u2014 Re-engage Coastal Living Stores",
+                  "dueDate": "2026-05-15",
+                  "priority": "Medium",
+                  "assignedTo": "James Whitfield",
+                  "status": "Overdue"
+                },
+                {
+                  "id": "T-9244",
+                  "title": "Marcus \u2014 Site visit follow-up for Lakeside Living",
+                  "dueDate": "2026-05-16",
+                  "priority": "Medium",
+                  "assignedTo": "Marcus Rivera",
+                  "status": "Overdue"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Here's your Q2 Team Performance report \u2014 revenue, conversion, and overdue tasks by rep. Confirm to save, edit to tweak, or tell me what to change.",
+        "tier": "draft",
+        "actions": [
+          "Save Dashboard",
+          "Edit",
+          "Cancel"
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Beth is carrying the team at $186K (74% conversion). James is lagging at 48% \u2014 flag for coaching. 5 overdue tasks across the team, including Beth's Magnolia Q3 quote \u2014 that's blocking the biggest deal in the pipeline."
+  }
+}

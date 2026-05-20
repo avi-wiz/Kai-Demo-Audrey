@@ -1,0 +1,233 @@
+{
+  "frameId": "f-report-prebook-001",
+  "frameType": "dashboard_staged",
+  "capability": "dashboard-builder",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Building July 2026 Pre-Book Pacing report. Comparing cumulative confirmed pre-book orders against the January 2025 Virtual Release benchmark.",
+        "steps": [
+          {
+            "step": 1,
+            "action": "fetch_prebook_orders",
+            "result": "18 confirmed Pre-Book orders for July 2026 Virtual Release",
+            "ms": 175
+          },
+          {
+            "step": 2,
+            "action": "fetch_benchmark",
+            "result": "January 2025 Atlanta Top Sellers benchmark loaded (T-16 days)",
+            "ms": 145
+          },
+          {
+            "step": 3,
+            "action": "rank_skus",
+            "result": "Garden Stake \u2014 Rustic Dk Green Leaves leading with 6 confirmed pre-books",
+            "ms": 110
+          }
+        ],
+        "totalMs": 430
+      },
+      "config": {
+        "collapsed": true
+      }
+    },
+    {
+      "widgetType": "UW-030",
+      "data": {
+        "title": "Pre-Book Pacing \u2014 July 2026 Virtual Release",
+        "description": "Cumulative pre-book pacing vs January 2025 benchmark, with customer-level breakdown",
+        "layout": "grid-2x2",
+        "cells": [
+          {
+            "position": {
+              "row": 0,
+              "col": 0,
+              "colSpan": 2
+            },
+            "widgetType": "UW-002",
+            "data": {
+              "cards": [
+                {
+                  "label": "July Pre-Book Orders",
+                  "value": "18",
+                  "format": "count",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 38,
+                    "period": "vs Jan '25 at T-16"
+                  }
+                },
+                {
+                  "label": "Pre-Book Revenue",
+                  "value": "$68,500",
+                  "format": "currency",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 28,
+                    "period": "vs Jan '25 at T-16"
+                  }
+                },
+                {
+                  "label": "Top Pre-Book SKU",
+                  "value": "Garden Stake \u2014 Rustic Dk Green Leaves (51GR1945-S2)",
+                  "format": "count",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 50,
+                    "period": "6 confirmed"
+                  }
+                },
+                {
+                  "label": "Days to Release",
+                  "value": "16 days",
+                  "format": "count",
+                  "trend": {
+                    "direction": "down",
+                    "percent": 0,
+                    "period": "release Jul 5"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 0
+            },
+            "widgetType": "CH-001",
+            "data": {
+              "title": "Cumulative Pre-Book Revenue (T-30 \u2192 T-16)",
+              "series": [
+                {
+                  "day": "T-30",
+                  "revenue": 4200
+                },
+                {
+                  "day": "T-26",
+                  "revenue": 11800
+                },
+                {
+                  "day": "T-22",
+                  "revenue": 22400
+                },
+                {
+                  "day": "T-19",
+                  "revenue": 38900
+                },
+                {
+                  "day": "T-18",
+                  "revenue": 51200
+                },
+                {
+                  "day": "T-17",
+                  "revenue": 60100
+                },
+                {
+                  "day": "T-16",
+                  "revenue": 68500
+                }
+              ],
+              "yAxisLabel": "Cumulative Pre-Book ($)",
+              "xAxisLabel": "Days to Release"
+            },
+            "config": {
+              "chartType": "line",
+              "showArea": true
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "widgetType": "UW-004",
+            "data": {
+              "title": "Pre-Book by Customer",
+              "columns": [
+                {
+                  "key": "customer",
+                  "label": "Customer",
+                  "align": "left"
+                },
+                {
+                  "key": "skus",
+                  "label": "SKUs Ordered",
+                  "align": "left"
+                },
+                {
+                  "key": "total",
+                  "label": "Total",
+                  "align": "right",
+                  "format": "currency",
+                  "mono": true
+                },
+                {
+                  "key": "status",
+                  "label": "Status",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "customer": "Magnolia Home & Garden",
+                  "skus": "51GR1945-S2 \u00d72, 51GR1953 \u00d71, 51GR1951-S8 \u00d71",
+                  "total": 12480,
+                  "status": "Confirmed"
+                },
+                {
+                  "customer": "The Potting Shed",
+                  "skus": "51GR1945-S2 \u00d71, 51GR1954 \u00d72",
+                  "total": 8260,
+                  "status": "Confirmed"
+                },
+                {
+                  "customer": "Bloom & Basket",
+                  "skus": "51GR1952-S3 \u00d74, 51GR1953 \u00d71",
+                  "total": 6850,
+                  "status": "Confirmed"
+                },
+                {
+                  "customer": "Sunflower & Sage",
+                  "skus": "51GR1951-S8 \u00d72, 51GR1954 \u00d71",
+                  "total": 4920,
+                  "status": "Confirmed"
+                },
+                {
+                  "customer": "Seaside Gifts",
+                  "skus": "51GR1945-S2 \u00d71",
+                  "total": 3600,
+                  "status": "Pending"
+                },
+                {
+                  "customer": "Harbor Lane Boutique",
+                  "skus": "51GR1952-S3 \u00d73, 51GR1953 \u00d72",
+                  "total": 4750,
+                  "status": "Pending"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Here's your July 2026 Pre-Book Pacing report vs the January 2025 benchmark. Confirm to save, edit to tweak, or tell me what to change.",
+        "tier": "draft",
+        "actions": [
+          "Save Dashboard",
+          "Edit",
+          "Cancel"
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Pacing is 28% ahead of January 2025 at the same T-16 mark. Garden Stake \u2014 Rustic Dk Green Leaves is the runaway pre-book leader with 6 confirmed. Two accounts (Seaside Gifts, Harbor Lane) are still on Pending status \u2014 chase those before T-10."
+  }
+}

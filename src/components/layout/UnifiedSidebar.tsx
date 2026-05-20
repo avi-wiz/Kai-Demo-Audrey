@@ -508,6 +508,7 @@ export default function UnifiedSidebar() {
           ],
         },
         { kind: 'item', icon: '📌', label: 'My Artifacts', route: 'artifacts' },
+        { kind: 'item', icon: '📊', label: 'Reports & Dashboards', route: 'reports-dashboards' },
         { kind: 'item', icon: '📄', label: 'Knowledge Store', route: 'docs' },
         // { kind: 'item', icon: '🤖', label: 'Kai add-ons', route: 'agent-store', onClick: openKaiAddons },
         {

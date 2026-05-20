@@ -1,0 +1,18 @@
+{
+  "frameId": "f-cap5-user-002",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "AW-003",
+      "data": {
+        "status": "success",
+        "title": "Website User Created",
+        "message": "Website user created. Rachel Torres can now log in at shop.audreys.com. Welcome email sent.",
+        "entityLink": {
+          "label": "View User",
+          "url": "/admin/users/rachel.torres"
+        }
+      }
+    }
+  ]
+}

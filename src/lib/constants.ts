@@ -1,9 +1,9 @@
 import type { UseCase } from './types';
 
 export const DEMO_QUERIES: Record<UseCase, string> = {
-  uc1: "How's Acme Corp doing?",
-  uc2: 'Create a task for Shaw N Solutions',
-  uc3: 'Show Acme revenue and create a follow-up',
+  uc1: "How's Magnolia Home & Garden doing?",
+  uc2: 'Create a task for Wildflower Market',
+  uc3: 'Show Magnolia revenue and create a follow-up',
   unknown: '',
 };
 

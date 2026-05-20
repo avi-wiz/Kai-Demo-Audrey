@@ -186,7 +186,7 @@ export interface LineChartConfig {
   subtitle?: string;
 }
 
-export interface CompactListItem {
+export interface CompactListTaskItem {
   id: string;
   title: string;
   dueDate: string;
@@ -195,9 +195,35 @@ export interface CompactListItem {
   status: 'Open' | 'In Progress' | 'Completed' | 'Hold' | string;
 }
 
-export interface CompactListData {
-  title: string;
-  items: CompactListItem[];
+export interface CompactListActivityItem {
+  id: string;
+  text: string;
+  timestamp: string;
+  icon?: 'order' | 'lead' | 'task' | 'deal' | 'check' | 'alert' | string;
+  actor?: string;
+}
+
+export type CompactListItem = CompactListTaskItem;
+
+export type CompactListData =
+  | { kind?: 'task'; title: string; items: CompactListTaskItem[] }
+  | { kind: 'activity'; title: string; items: CompactListActivityItem[] };
+
+export interface ProductCardItem {
+  sku: string;
+  name: string;
+  retailPrice: number;
+  caseQty: number;
+  stockStatus: string;
+  imageUrl: string;
+  isHero?: boolean;
+  bucket?: string;
+  collection?: string;
+}
+
+export interface ProductCardGridData {
+  title?: string;
+  items: ProductCardItem[];
 }
 
 export interface EntityDetailField {
@@ -343,7 +369,9 @@ export type ViewRoute =
   | 'wizorder/products'
   | 'wizorder/crm'
   // v2.1 Dashboard builder
-  | 'dashboard-view';
+  | 'dashboard-view'
+  // vDemo — pre-built dashboards browser
+  | 'reports-dashboards';
 
 // ── 2. Response Mode ─────────────────────────────────────────────────────────
 
@@ -965,6 +993,15 @@ export interface SharedTask extends KaiCreatedItem {
   customerName?: string;
 }
 
+export interface SharedLead extends KaiCreatedItem {
+  name: string;
+  contact: string;
+  email?: string;
+  source: string;
+  status: string;
+  assignedTo: string;
+}
+
 export interface SharedQuote extends KaiCreatedItem {
   quoteNumber: string;
   customer: string;
@@ -1032,6 +1069,9 @@ export interface WizOrderLead {
   assignedTo: string;
   createdDate: string;
   lastContact: string | null;
+  createdByKai?: boolean;
+  archived?: boolean;
+  archivedAt?: string;
 }
 
 export interface WizOrderDeal {

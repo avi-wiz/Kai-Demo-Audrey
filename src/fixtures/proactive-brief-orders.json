@@ -1,40 +1,32 @@
 {
   "briefType": "page-orders",
-  "greeting": "Here's what I see on your Orders page.",
+  "greeting": "Your spring catalog is moving.",
   "urgentItems": [
     {
-      "icon": "shipping",
-      "text": "3 orders awaiting shipment — oldest is 2 days pending",
+      "icon": "trend",
+      "text": "12 orders this week reference Featured Collections SKUs — A Blooming Porch and Gardeners Grove are leading.",
       "priority": "attention",
       "actionChip": {
-        "label": "Show pending shipments",
-        "query": "Show me orders awaiting shipment",
+        "label": "Show Featured Collections orders",
+        "query": "Show me orders referencing Featured Collections SKUs",
         "icon": "filter",
         "category": "page-action"
       }
     },
     {
       "icon": "flag",
-      "text": "1 order flagged for review — ORD-2839 exceeds $10K threshold",
+      "text": "2 Pre-Book Confirmed orders for July 2026 are pending quantity confirmation from Bloom & Basket.",
       "priority": "urgent",
       "actionChip": {
-        "label": "Review ORD-2839",
-        "query": "Show me flagged order ORD-2839",
+        "label": "Show Pre-Book orders",
+        "query": "Show me all pre-book orders",
         "icon": "search",
         "category": "page-action"
       }
     }
   ],
   "todaysSummary": [
-    {
-      "icon": "chart",
-      "text": "18 orders this week, avg value $5,420 — up 12% from last week",
-      "priority": "info"
-    },
-    {
-      "icon": "check",
-      "text": "14 of 18 shipped on time (77.8% on-time rate)",
-      "priority": "info"
-    }
+    { "icon": "package", "text": "35 total orders · 8 Pre-Book Confirmed, 5 Open, 8 Submitted", "priority": "info" },
+    { "icon": "check",   "text": "9 orders delivered · 5 shipped and in transit",               "priority": "info" }
   ]
 }

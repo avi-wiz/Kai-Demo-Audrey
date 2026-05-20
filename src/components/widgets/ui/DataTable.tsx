@@ -5,7 +5,8 @@ import type { WidgetProps, DataTableData, DataTableConfig, DataTableColumn } fro
 import type { WidgetHighlight } from '@/lib/types';
 
 // Parse "rows[2].stock" → { rowIndex: 2, colKey: 'stock' }
-function parseHighlightPath(path: string): { rowIndex: number; colKey: string } | null {
+function parseHighlightPath(path: string | undefined | null): { rowIndex: number; colKey: string } | null {
+  if (typeof path !== 'string') return null;
   const m = path.match(/^rows\[(\d+)\]\.(.+)$/);
   if (!m) return null;
   return { rowIndex: parseInt(m[1], 10), colKey: m[2] };

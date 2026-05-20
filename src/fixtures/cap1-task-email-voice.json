@@ -1,0 +1,133 @@
+{
+  "frameId": "f-cap1-task-001",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Resolved 'Wildflower Market' → Lead L-9001. Sarah Chen confirmed as primary contact. Pre-filling assignee from current user (Beth Calloway).",
+        "steps": [
+          { "step": 1, "action": "search_leads", "result": "1 match: L-9001 (Wildflower Market, Austin TX)", "ms": 195 },
+          { "step": 2, "action": "resolve_contact", "result": "Sarah Chen — sarah.chen@wildflowermarket.com", "ms": 130 },
+          { "step": 3, "action": "resolve_assignee", "result": "R-001 (Beth Calloway, Southeast)", "ms": 150 },
+          { "step": 4, "action": "validate_org_config", "result": "Task type 'Email' valid, priority 'High' valid", "ms": 12 }
+        ],
+        "mcpsAccessed": ["CRM", "Users"],
+        "totalMs": 487
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "lead",
+        "title": "Wildflower Market",
+        "fields": [
+          { "label": "Contact", "value": "Sarah Chen" },
+          { "label": "Stage", "value": "Qualified" },
+          { "label": "Source", "value": "Trade Show — Atlanta Market Jan '25" },
+          { "label": "Lead ID", "value": "L-9001", "entityId": "L-9001" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-004",
+      "data": {
+        "formId": "cap1-task-form",
+        "steps": [
+          {
+            "stepTitle": "Task Details",
+            "fields": [
+              {
+                "fieldId": "customer",
+                "type": "entity_search",
+                "label": "Customer / Lead",
+                "value": "Wildflower Market (Lead)",
+                "resolvedId": "L-9001",
+                "required": true,
+                "locked": true
+              },
+              {
+                "fieldId": "title",
+                "type": "text",
+                "label": "Title",
+                "value": "Send Birdhouse collection samples",
+                "required": true
+              },
+              {
+                "fieldId": "type",
+                "type": "select",
+                "label": "Type",
+                "value": "Email",
+                "options": ["Schedule Call", "Email", "Follow Up", "Site Visit", "Other"],
+                "required": true
+              },
+              {
+                "fieldId": "assignee",
+                "type": "user_search",
+                "label": "Assigned To",
+                "value": "Beth Calloway",
+                "resolvedId": "R-001",
+                "required": true,
+                "locked": true
+              },
+              {
+                "fieldId": "dueDate",
+                "type": "date",
+                "label": "Due Date",
+                "value": "2026-05-30",
+                "required": true
+              },
+              {
+                "fieldId": "priority",
+                "type": "select",
+                "label": "Priority",
+                "value": "High",
+                "options": ["High", "Medium", "Low"],
+                "required": true
+              },
+              {
+                "fieldId": "status",
+                "type": "select",
+                "label": "Status",
+                "value": "Open",
+                "options": ["Open", "In Progress", "Completed", "Hold"],
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      "config": { "mode": "review", "editable": false }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Create high-priority task 'Send Birdhouse collection samples' for Wildflower Market, due May 30, assigned to Beth?",
+        "tier": "draft",
+        "actions": ["Confirm", "Modify", "Cancel"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "I've staged a high-priority email task for Wildflower Market — sending the Birdhouse collection samples Sarah asked about at the Atlanta market. Review and confirm when ready."
+  },
+  "actions": {
+    "onConfirm": {
+      "mcp": "CRM",
+      "method": "createTask",
+      "payload": {
+        "leadId": "L-9001",
+        "title": "Send Birdhouse collection samples",
+        "type": "Email",
+        "priority": "High",
+        "status": "Open",
+        "assignedTo": "R-001",
+        "dueDate": "2026-05-30"
+      }
+    },
+    "onCancel": { "action": "discard" },
+    "onModify": { "action": "unlock_form" }
+  }
+}

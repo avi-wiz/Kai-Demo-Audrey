@@ -2,9 +2,9 @@
 
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
 import type { WizOrderOrder, SharedOrder } from '@/lib/types';
-import rawOrders from '@/fixtures/wizorder-orders.json';
+import { ORDERS as AUDREY_ORDERS } from '@/data/audreys';
 
-const INITIAL_ORDERS = (rawOrders as { orders: WizOrderOrder[] }).orders;
+const INITIAL_ORDERS: WizOrderOrder[] = AUDREY_ORDERS;
 
 interface SharedOrdersState {
   existingOrders: WizOrderOrder[];

@@ -28,8 +28,8 @@ interface PageContextFixture {
 
 import salesPerfFixture from '@/fixtures/dashboard-sales-performance.json';
 import orderAnalyticsFixture from '@/fixtures/dashboard-order-analytics.json';
-import customerHealthFixture from '@/fixtures/dashboard-customer-health.json';
-import pipelineFixture from '@/fixtures/dashboard-pipeline.json';
+// customerHealthFixture removed — keywords hijacked by report-customer-health capability route
+// pipelineFixture removed — keywords hijacked by report-pipeline capability route
 import ordersFixture from '@/fixtures/page-context-orders.json';
 import customersFixture from '@/fixtures/page-context-customers.json';
 import productsFixture from '@/fixtures/page-context-products.json';
@@ -60,18 +60,14 @@ export interface PageContextMatch {
 type DashboardFixtureRaw = { widgets: PageQueryWidget[]; closingText: ClosingText; capability: string; frameId: string };
 
 const DASHBOARD_ROUTES: { keywords: string[]; fixture: DashboardFixtureRaw }[] = [
-  {
-    keywords: ['customer health', 'customer dashboard', 'customer retention', 'dormant customer', 'churn dashboard', 'retention dashboard'],
-    fixture: customerHealthFixture as unknown as DashboardFixtureRaw,
-  },
+  // customer-health route removed — keywords moved to report-customer-health capability route
+  // { keywords: ['customer health', 'customer dashboard', 'customer retention', 'dormant customer', 'churn dashboard', 'retention dashboard'], fixture: customerHealthFixture },
   {
     keywords: ['order analytics', 'order dashboard', 'order volume', 'fulfillment dashboard', 'orders dashboard'],
     fixture: orderAnalyticsFixture as unknown as DashboardFixtureRaw,
   },
-  {
-    keywords: ['pipeline dashboard', 'pipeline health', 'open quotes', 'quote pipeline', 'deal pipeline', 'show pipeline'],
-    fixture: pipelineFixture as unknown as DashboardFixtureRaw,
-  },
+  // pipeline route removed — keywords moved to report-pipeline capability route
+  // { keywords: ['pipeline dashboard', 'pipeline health', 'open quotes', 'quote pipeline', 'deal pipeline', 'show pipeline'], fixture: pipelineFixture },
   {
     keywords: ['sales dashboard', 'sales performance', 'build me a dashboard', 'build a dashboard', 'build a sales', 'create a dashboard', 'create a sales', 'rep performance', 'revenue dashboard', 'save this as a dashboard', 'save as dashboard'],
     fixture: salesPerfFixture as unknown as DashboardFixtureRaw,
@@ -140,7 +136,7 @@ type SpecialFixtureRaw = { widgets: PageQueryWidget[]; closingText: ClosingText;
 
 const SPECIAL_ROUTES: { keywords: string[]; fixture: SpecialFixtureRaw }[] = [
   {
-    keywords: ['recent orders', 'order history', 'past orders', 'previous orders', "'s recent orders", 'show order history', 'orders for acme', 'acme orders', 'orders from acme', 'acme corp orders'],
+    keywords: ['recent orders', 'order history', 'past orders', 'previous orders', "'s recent orders", 'show order history', 'orders for magnolia', 'magnolia orders', 'orders from magnolia', 'magnolia home orders'],
     fixture: orderHistoryFixture as unknown as SpecialFixtureRaw,
   },
   {
@@ -185,11 +181,26 @@ export type CapabilityUseCase =
   | 'ad1-approval'
   | 'ad3-handoff'
   | 'ad17-report'
-  | 'ad29-workflow';
+  | 'ad29-workflow'
+  // Audrey vDemo capabilities (Caps 1–6)
+  | 'cap1-task-email'
+  | 'cap1-email-draft'
+  | 'cap2-lead-creation'
+  | 'cap3-lead-won'
+  | 'cap4-merge-customer'
+  | 'cap5-user-creation'
+  | 'cap6-catalog-builder'
+  // Audrey vDemo reports (Cap 7)
+  | 'report-collection-performance'
+  | 'report-prebook-pacing'
+  | 'report-customer-health'
+  | 'report-pipeline'
+  | 'report-team-performance'
+  | 'report-catalog-health';
 
 const CAPABILITY_ROUTES: { keywords: string[]; useCase: CapabilityUseCase }[] = [
-  { keywords: ['reorder', 'restock acme', 'amend this order'], useCase: 'sr2-reorder' },
-  { keywords: ['overdue invoice', 'payment due', 'show me overdue', "show me invoice", 'pull up invoice', 'invoice for acme'], useCase: 'sr11-invoice' },
+  { keywords: ['reorder', 'restock magnolia', 'amend this order'], useCase: 'sr2-reorder' },
+  { keywords: ['overdue invoice', 'payment due', 'show me overdue', "show me invoice", 'pull up invoice', 'invoice for magnolia'], useCase: 'sr11-invoice' },
   { keywords: ['meeting brief', 'action items from meeting', 'meeting summary', 'post-meeting'], useCase: 'sr14-brief' },
   { keywords: ['outreach', 'outreach email', 'campaign message', 'campaign email', 're-engagement email'], useCase: 'sr20-outreach' },
   { keywords: ['approval queue', 'pending approval', 'pending approvals', 'waiting for approval', 'waiting for my approval', 'waiting on my approval', 'awaiting approval', 'awaiting my approval', 'needs my approval', 'need my approval'], useCase: 'ad1-approval' },
@@ -198,6 +209,27 @@ const CAPABILITY_ROUTES: { keywords: string[]; useCase: CapabilityUseCase }[] = 
   // ad29-workflow routing intentionally lives in ChatShell (handleSend's
   // ad-29 intercept) so it can branch between direct-apply and clarify based
   // on whether the user named a specific workflow.
+
+  // ── Audrey vDemo capabilities (Caps 1–6) ─────────────────────────────────────
+  // Cap 1 email-draft chain — MUST come before the cap1-task-email route so the
+  // "Draft the email for Wildflower Market now" chip query matches here first
+  // (otherwise the looser 'wildflower' keyword on cap1-task-email re-fires the
+  // task form).
+  { keywords: ['draft the email for wildflower', 'draft email for wildflower', 'draft the email now', 'send the email', 'rewrite the email', 'add the july 2026 release preview to the email'], useCase: 'cap1-email-draft' },
+  { keywords: ['wildflower', 'birdhouse', 'samples', 'send email to wildflower', 'create a task', 'create task'], useCase: 'cap1-task-email' },
+  { keywords: ['add lead', 'new lead', 'create lead', 'pine and thistle', 'pine & thistle'], useCase: 'cap2-lead-creation' },
+  { keywords: ['move to won', 'convert lead', 'stage to won', 'verdant home', 'verdant'], useCase: 'cap3-lead-won' },
+  { keywords: ['merge', 'combine records', 'duplicate', 'garden gate'], useCase: 'cap4-merge-customer' },
+  { keywords: ['create user', 'website access', 'wizshop user', 'lakeside living', 'lakeside'], useCase: 'cap5-user-creation' },
+  { keywords: ['build catalog', 'create wishlist', 'curated catalog', 'mountain bloom'], useCase: 'cap6-catalog-builder' },
+
+  // ── Audrey vDemo reports (Cap 7) ──────────────────────────────────────────────
+  { keywords: ['collection performance', 'how are collections', 'collection report'], useCase: 'report-collection-performance' },
+  { keywords: ['pre-book pacing', 'july release', 'july 2026', 'release pacing'], useCase: 'report-prebook-pacing' },
+  { keywords: ['customer health', 'account health', 'customer dashboard', 'customer retention', 'dormant customer', 'churn dashboard', 'retention dashboard'], useCase: 'report-customer-health' },
+  { keywords: ['pipeline', 'lead conversion', 'my pipeline', 'pipeline report', 'pipeline dashboard', 'pipeline health', 'open quotes', 'quote pipeline', 'deal pipeline', 'show pipeline'], useCase: 'report-pipeline' },
+  { keywords: ['team performance', 'rep performance', 'team report'], useCase: 'report-team-performance' },
+  { keywords: ['catalog health', 'inventory status', 'stock levels', 'catalog report'], useCase: 'report-catalog-health' },
 ];
 
 export function matchSpecialCapabilityQuery(message: string): { useCase: CapabilityUseCase } | null {
@@ -205,14 +237,18 @@ export function matchSpecialCapabilityQuery(message: string): { useCase: Capabil
   // If the query is clearly an email/task/dashboard intent (typically a chip
   // click on a capability turn), let the dedicated pre-routers handle it
   // instead of re-triggering the capability fixture.
+  // Find a capability route match first — if a strong Audrey-domain keyword
+  // matches (wildflower, pine & thistle, verdant, garden gate, lakeside,
+  // mountain bloom, any report-* keyword), we route to that capability even
+  // if the query also looks like a generic email/task/dashboard intent.
+  const route = CAPABILITY_ROUTES.find((r) => r.keywords.some((kw) => m.includes(kw)));
   const isDelegated =
     m.includes('email') ||
     m.includes('draft') ||
     (m.includes('create') && m.includes('task')) ||
     m.includes('save this as a dashboard') ||
     m.includes('save as dashboard');
-  if (isDelegated) return null;
-  const route = CAPABILITY_ROUTES.find((r) => r.keywords.some((kw) => m.includes(kw)));
+  if (isDelegated && !route) return null;
   return route ? { useCase: route.useCase } : null;
 }
 
@@ -222,7 +258,7 @@ export function matchQuery(message: string): UseCase {
   // uc3 first — superset of uc1 + uc2
   // Exclude email/draft queries so "follow-up email" doesn't trigger uc3 task flow
   const isEmailQuery = m.includes('email') || m.includes('draft');
-  if (!isEmailQuery && m.includes('acme') && (m.includes('revenue') || m.includes('follow') || m.includes('task'))) {
+  if (!isEmailQuery && m.includes('magnolia') && (m.includes('revenue') || m.includes('follow') || m.includes('task'))) {
     return 'uc3';
   }
 
@@ -232,7 +268,7 @@ export function matchQuery(message: string): UseCase {
     return 'uc2';
   }
 
-  if (m.includes('acme') || m.includes("how's") || m.includes('hows') || m.includes('doing') || m.includes('tell me about')) {
+  if (m.includes('magnolia') || m.includes("how's") || m.includes('hows') || m.includes('doing') || m.includes('tell me about')) {
     return 'uc1';
   }
 

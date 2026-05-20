@@ -1,0 +1,43 @@
+{
+  "frameId": "f-cap1-email-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Drafting email for Wildflower Market. Pulling Birdhouse hero SKUs (51GR1776-U Cement Bird Feeder, 51GR1898 Two-Tiered Hanging Bird Feeder) and referencing the Atlanta market conversation context.",
+        "steps": [
+          { "step": 1, "action": "fetch_lead_context", "result": "L-9001 — Sarah Chen, notes mention Atlanta Market Jan '25 + Birdhouse interest", "ms": 95 },
+          { "step": 2, "action": "fetch_hero_skus", "result": "2 Birdhouse heroes resolved (Cement Bird Feeder $135, Two-Tiered Hanging Bird Feeder $55)", "ms": 110 },
+          { "step": 3, "action": "generate_email_draft", "result": "4-paragraph warm draft, references Atlanta meet + free sample offer", "ms": 135 }
+        ],
+        "totalMs": 340
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "email",
+        "title": "Email Draft — Wildflower Market (Birdhouse Samples)",
+        "fields": [
+          { "label": "To", "value": "Sarah Chen <sarah.chen@wildflowermarket.com>" },
+          { "label": "Subject", "value": "Audrey's Birdhouse Collection — Samples for Your Review" },
+          { "label": "Body", "value": "Hi Sarah,\n\nGreat seeing you at the Atlanta market in January — thanks again for stopping by the Audrey's booth and spending time with the Birdhouse line. As promised, I'd love to get a sample pair over to you so your team in Austin can see the finish and weight in person.\n\nThe two I'd suggest leading with: the Cement Bird Feeder (SKU 51GR1776-U, $135 retail, A Blooming Porch — one of our January 2025 Atlanta top sellers) and the Two-Tiered Hanging Bird Feeder (SKU 51GR1898, $55 retail, case qty 6). Both are in-stock and ship from our Atlanta warehouse, so you'd see them within the week.\n\nNo charge on the sample pair — just want to make sure they fit the Wildflower aesthetic before you commit to a case. If they land well, we can talk about pre-book volumes for the Featured Collections refresh in June.\n\nLet me know if Friday delivery works, or if you'd rather we hold for Monday. Either way, just say the word.\n\nBest,\nBeth Calloway\nAudrey's Home & Gift" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-001",
+      "data": {
+        "label": "Send Draft",
+        "url": "/email/send",
+        "style": "primary"
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Draft is ready — warm, references your Atlanta conversation, and highlights the two Birdhouse heroes Sarah was interested in. Want it more casual, expanded with the July release preview, or ready to send?"
+  }
+}

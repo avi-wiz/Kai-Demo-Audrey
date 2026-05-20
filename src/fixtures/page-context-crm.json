@@ -6,10 +6,14 @@
       "frameId": "f-pc-crm-001",
       "frameType": "result",
       "widgets": [
-        { "widgetType": "UW-014", "data": { "summary": "Filtering tasks page for overdue items.", "steps": [{ "step": 1, "action": "filter_overdue", "result": "3 tasks overdue", "ms": 25 }], "totalMs": 25 }, "config": { "collapsed": true } },
-        { "widgetType": "UW-011", "data": { "title": "Overdue Tasks", "items": [{ "id": "T-1001", "title": "Follow up on Q2 catalog request — Acme Corp", "dueDate": "2026-04-28", "priority": "High", "assignedTo": "Heman Bhullar", "status": "Overdue" }, { "id": "T-1004", "title": "Review claim CLM-0892 — Acme Corp", "dueDate": "2026-04-30", "priority": "High", "assignedTo": "Heman Bhullar", "status": "Overdue" }, { "id": "T-1008", "title": "Re-engagement outreach — Heritage Furniture", "dueDate": "2026-04-25", "priority": "Medium", "assignedTo": "Mike Torres", "status": "Overdue" }] }, "highlights": [{ "fieldPath": "items[2].dueDate", "type": "urgent", "message": "4 days overdue — Heritage is a dormant $245K account", "action": { "label": "Reassign to active rep", "query": "Reassign Heritage Furniture from Mike Torres to Sarah Kim", "icon": "swap", "category": "suggested" } }] }
+        { "widgetType": "UW-014", "data": { "summary": "Filtering tasks for overdue items.", "steps": [{ "step": 1, "action": "filter_overdue", "result": "3 tasks overdue across the team", "ms": 25 }], "totalMs": 25 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-011", "data": { "title": "Overdue Tasks", "items": [
+          { "id": "T-9215", "title": "Q3 Featured Collections quote for Magnolia — Beth Calloway", "dueDate": "2026-05-17", "priority": "High", "assignedTo": "Beth Calloway", "status": "Overdue" },
+          { "id": "T-9111", "title": "Credit balance review — Golden Meadow Co", "dueDate": "2026-05-19", "priority": "High", "assignedTo": "Marcus Rivera", "status": "Overdue" },
+          { "id": "T-9203", "title": "First outreach — Rustic Charm Boutique", "dueDate": "2026-05-18", "priority": "Medium", "assignedTo": "Hannah Cho", "status": "Overdue" }
+        ] }, "highlights": [{ "fieldPath": "items[1].dueDate", "type": "urgent", "message": "Golden Meadow hasn't ordered in 90 days — credit review is blocking re-engagement", "action": { "label": "Escalate to Marcus", "query": "Show me Golden Meadow Co account status", "icon": "alert", "category": "suggested" } }] }
       ],
-      "closingText": { "type": "insight", "text": "Three tasks overdue, two are Heman's and one is Mike's. The Heritage Furniture outreach is 4 days late and concerning — they're already a dormant $245K account. Mike's task backlog might be contributing to account dormancy. Want me to create a priority plan for these?" }
+      "closingText": { "type": "insight", "text": "Three overdue tasks — Beth's Magnolia Q3 quote is blocking the biggest deal in the pipeline. Marcus's Golden Meadow credit review is 1 day past due and the account is already dormant at 90 days. Hannah still needs to make first contact with Rustic Charm." }
     },
     {
       "id": "pc-crm-002",
@@ -18,9 +22,12 @@
       "frameType": "result",
       "widgets": [
         { "widgetType": "UW-014", "data": { "summary": "Checking leads with no contact in 7+ days.", "steps": [{ "step": 1, "action": "filter_stale_leads", "result": "2 leads need attention", "ms": 30 }], "totalMs": 30 }, "config": { "collapsed": true } },
-        { "widgetType": "UW-004", "data": { "title": "Stale Leads (7+ Days No Contact)", "columns": [{ "key": "lead", "label": "Lead", "align": "left" }, { "key": "contact", "label": "Contact", "align": "left" }, { "key": "source", "label": "Source", "align": "left" }, { "key": "daysSilent", "label": "Days Silent", "align": "right", "mono": true }, { "key": "rep", "label": "Rep", "align": "left" }], "rows": [{ "lead": "Brooklyn Craft Collective", "contact": "Amy Torres", "source": "Website", "daysSilent": "Never contacted", "rep": "Alex Chen" }, { "lead": "Sunset Décor Studio", "contact": "Ryan Lee", "source": "Referral", "daysSilent": 9, "rep": "Sarah Kim" }] } }
+        { "widgetType": "UW-004", "data": { "title": "Stale Leads (7+ Days No Contact)", "columns": [{ "key": "lead", "label": "Lead", "align": "left" }, { "key": "contact", "label": "Contact", "align": "left" }, { "key": "source", "label": "Source", "align": "left" }, { "key": "daysSilent", "label": "Days Silent", "align": "right", "mono": true }, { "key": "rep", "label": "Rep", "align": "left" }], "rows": [
+          { "lead": "Rustic Charm Boutique", "contact": "Emma Walsh", "source": "Referral", "daysSilent": "Never contacted", "rep": "Marcus Rivera" },
+          { "lead": "The Garden Gate Shop", "contact": "David Park", "source": "Trade Show", "daysSilent": 18, "rep": "Hannah Cho" }
+        ] } }
       ],
-      "closingText": { "type": "insight", "text": "Brooklyn Craft has never been contacted — they came through the website and Alex should reach out immediately. Sunset Décor was a referral contacted 9 days ago with no follow-up. Both are at risk of going cold." }
+      "closingText": { "type": "insight", "text": "Rustic Charm Boutique has never been contacted — they came in as a referral 6 days ago and Marcus hasn't reached out. Garden Gate Shop hasn't had contact in 18 days despite being Qualified. Both risk going cold before the July release window." }
     },
     {
       "id": "pc-crm-003",
@@ -28,10 +35,10 @@
       "frameId": "f-pc-crm-003",
       "frameType": "result",
       "widgets": [
-        { "widgetType": "UW-014", "data": { "summary": "Checking deals closing this week.", "steps": [{ "step": 1, "action": "filter_deals", "result": "1 deal closing this week", "ms": 25 }], "totalMs": 25 }, "config": { "collapsed": true } },
-        { "widgetType": "UW-003", "data": { "entityType": "deal", "title": "D-301 — Acme Corp Summer 2026 Collection", "fields": [{ "label": "Value", "value": "$8,200" }, { "label": "Stage", "value": "Proposal Sent" }, { "label": "Close Date", "value": "April 30, 2026 (tomorrow)" }, { "label": "Rep", "value": "Heman Bhullar" }, { "label": "Linked Quote", "value": "QT-1192", "entityId": "QT-1192" }, { "label": "Last Activity", "value": "Lookbook sent Apr 21 — no response" }] } }
+        { "widgetType": "UW-014", "data": { "summary": "Checking deals closing this month.", "steps": [{ "step": 1, "action": "filter_deals", "result": "3 deals closing before May 31", "ms": 25 }], "totalMs": 25 }, "config": { "collapsed": true } },
+        { "widgetType": "UW-003", "data": { "entityType": "deal", "title": "D-3201 — Magnolia Home & Garden Q3 Featured Collections Refresh", "fields": [{ "label": "Value", "value": "$24,800" }, { "label": "Stage", "value": "Proposal Sent" }, { "label": "Close Date", "value": "May 28, 2026" }, { "label": "Rep", "value": "Beth Calloway" }, { "label": "Priority", "value": "High" }, { "label": "Last Activity", "value": "Quote sent May 12 — annual review call pending" }] } }
       ],
-      "closingText": { "type": "insight", "text": "One deal closing this week: the Acme Summer Collection at $8,200. The proposal was sent April 10 and a lookbook followed on April 21, but Rachel hasn't responded. This needs a direct call today — the close date is tomorrow." }
+      "closingText": { "type": "insight", "text": "Three deals close before end-of-month totaling $51,200. Magnolia's Q3 refresh at $24,800 is the largest — but Beth's Q3 quote task is overdue, which is blocking this deal. That needs to ship today." }
     },
     {
       "id": "pc-crm-004",
@@ -40,9 +47,15 @@
       "frameType": "result",
       "widgets": [
         { "widgetType": "UW-014", "data": { "summary": "Filtering tasks due in the next 7 days.", "steps": [{ "step": 1, "action": "filter_due_this_week", "result": "5 tasks due this week", "ms": 28 }], "totalMs": 28 }, "config": { "collapsed": true } },
-        { "widgetType": "UW-011", "data": { "title": "Tasks Due This Week", "items": [{ "id": "T-1001", "title": "Follow up on Q2 catalog request — Acme Corp", "dueDate": "2026-04-28", "priority": "High", "assignedTo": "Heman Bhullar", "status": "Overdue" }, { "id": "T-1004", "title": "Review claim CLM-0892 — Acme Corp", "dueDate": "2026-04-30", "priority": "High", "assignedTo": "Heman Bhullar", "status": "Overdue" }, { "id": "T-1012", "title": "Send pricing update to Pinnacle Retail", "dueDate": "2026-05-09", "priority": "Medium", "assignedTo": "Heman Bhullar", "status": "Open" }, { "id": "T-1015", "title": "Schedule Q3 catalog walkthrough — Bay Area Boutiques", "dueDate": "2026-05-10", "priority": "Medium", "assignedTo": "Heman Bhullar", "status": "Open" }, { "id": "T-1019", "title": "Quarterly check-in call — Coastal Living", "dueDate": "2026-05-11", "priority": "Low", "assignedTo": "Heman Bhullar", "status": "Open" }] } }
+        { "widgetType": "UW-011", "data": { "title": "Tasks Due This Week", "items": [
+          { "id": "T-9215", "title": "Q3 Featured Collections quote for Magnolia — Beth Calloway", "dueDate": "2026-05-17", "priority": "High", "assignedTo": "Beth Calloway", "status": "Overdue" },
+          { "id": "T-9111", "title": "Credit balance review — Golden Meadow Co", "dueDate": "2026-05-19", "priority": "High", "assignedTo": "Marcus Rivera", "status": "Overdue" },
+          { "id": "T-9203", "title": "First outreach — Rustic Charm Boutique", "dueDate": "2026-05-18", "priority": "Medium", "assignedTo": "Hannah Cho", "status": "Overdue" },
+          { "id": "T-9229", "title": "Re-engage Coastal Living Stores — James Whitfield", "dueDate": "2026-05-22", "priority": "Medium", "assignedTo": "James Whitfield", "status": "Open" },
+          { "id": "T-9244", "title": "Site visit follow-up — Lakeside Living Co", "dueDate": "2026-05-23", "priority": "Medium", "assignedTo": "Marcus Rivera", "status": "Open" }
+        ] } }
       ],
-      "closingText": { "type": "insight", "text": "Five tasks due this week — two are already overdue (Acme Q2 catalog and the CLM-0892 claim review), both high-priority. The other three are upcoming check-ins and a pricing update for Pinnacle. Want me to draft the Pinnacle update now since it's the closest non-overdue item?" }
+      "closingText": { "type": "insight", "text": "Five tasks due this week — three are already overdue. Beth's Magnolia Q3 quote is the most urgent since it's blocking a $24,800 deal. Marcus has two tasks this week including the Golden Meadow credit review that's overdue. Want me to draft the Magnolia quote now?" }
     }
   ]
 }

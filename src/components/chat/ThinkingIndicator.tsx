@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 const MESSAGES = [
-  "Pulling up Acme's story...",
+  "Pulling up Magnolia's story...",
   "Checking the CRM...",
   "Cross-referencing data...",
   "Almost there...",

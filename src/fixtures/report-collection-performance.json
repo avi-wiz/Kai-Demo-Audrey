@@ -1,0 +1,370 @@
+{
+  "frameId": "f-report-collection-001",
+  "frameType": "dashboard_staged",
+  "capability": "dashboard-builder",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Building Collection Performance report. Aggregating revenue, units, and refill signals across the 4 active Featured Collections.",
+        "steps": [
+          {
+            "step": 1,
+            "action": "fetch_collections",
+            "result": "4 active collections: A Blooming Porch, Gardeners Grove, The Herb Garden, Bunnies",
+            "ms": 165
+          },
+          {
+            "step": 2,
+            "action": "aggregate_revenue",
+            "result": "$118,500 YTD across 4 collections",
+            "ms": 195
+          },
+          {
+            "step": 3,
+            "action": "detect_refill_opportunities",
+            "result": "5 accounts with 30+ days since last collection order",
+            "ms": 150
+          },
+          {
+            "step": 4,
+            "action": "scan_phaseout",
+            "result": "15 clearance SKUs; 4 below 50 units",
+            "ms": 110
+          }
+        ],
+        "totalMs": 620
+      },
+      "config": {
+        "collapsed": true
+      }
+    },
+    {
+      "widgetType": "UW-030",
+      "data": {
+        "title": "Collection Performance",
+        "description": "Revenue, units, refill signals, and PhaseOut clearance status by collection",
+        "layout": "grid-2x3",
+        "cells": [
+          {
+            "position": {
+              "row": 0,
+              "col": 0,
+              "colSpan": 2
+            },
+            "widgetType": "UW-002",
+            "data": {
+              "cards": [
+                {
+                  "label": "A Blooming Porch",
+                  "value": "$48,200",
+                  "format": "currency",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 22,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "Gardeners Grove",
+                  "value": "$36,800",
+                  "format": "currency",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 15,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "The Herb Garden",
+                  "value": "$21,400",
+                  "format": "currency",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 8,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "Bunnies",
+                  "value": "$12,100",
+                  "format": "currency",
+                  "trend": {
+                    "direction": "down",
+                    "percent": 5,
+                    "period": "vs Q1"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 0
+            },
+            "widgetType": "CH-001",
+            "data": {
+              "title": "Collection Revenue \u2014 Weekly Trend (8 weeks)",
+              "series": [
+                {
+                  "week": "W1",
+                  "revenue": 12400
+                },
+                {
+                  "week": "W2",
+                  "revenue": 13800
+                },
+                {
+                  "week": "W3",
+                  "revenue": 14600
+                },
+                {
+                  "week": "W4",
+                  "revenue": 15200
+                },
+                {
+                  "week": "W5",
+                  "revenue": 16100
+                },
+                {
+                  "week": "W6",
+                  "revenue": 14900
+                },
+                {
+                  "week": "W7",
+                  "revenue": 15800
+                },
+                {
+                  "week": "W8",
+                  "revenue": 16700
+                }
+              ],
+              "yAxisLabel": "Revenue ($)",
+              "xAxisLabel": "Week"
+            },
+            "config": {
+              "chartType": "line",
+              "showArea": true
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "widgetType": "UW-004",
+            "data": {
+              "title": "Top 5 SKUs by Collection Revenue",
+              "columns": [
+                {
+                  "key": "sku",
+                  "label": "SKU",
+                  "align": "left",
+                  "mono": true
+                },
+                {
+                  "key": "name",
+                  "label": "Name",
+                  "align": "left"
+                },
+                {
+                  "key": "collection",
+                  "label": "Collection",
+                  "align": "left"
+                },
+                {
+                  "key": "units",
+                  "label": "Units",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "revenue",
+                  "label": "Revenue",
+                  "align": "right",
+                  "format": "currency",
+                  "mono": true
+                }
+              ],
+              "rows": [
+                {
+                  "sku": "51GR1776-U",
+                  "name": "Cement Bird Feeder",
+                  "collection": "A Blooming Porch",
+                  "units": 84,
+                  "revenue": 11340
+                },
+                {
+                  "sku": "51GR1643",
+                  "name": "Window \u2014 Hello Spring, Herbs",
+                  "collection": "The Herb Garden",
+                  "units": 90,
+                  "revenue": 6638
+                },
+                {
+                  "sku": "51GR1779-U",
+                  "name": "Cement Planter \u2014 Bunny",
+                  "collection": "Bunnies",
+                  "units": 72,
+                  "revenue": 5400
+                },
+                {
+                  "sku": "51GR1864",
+                  "name": "Tins \u2014 Herbs",
+                  "collection": "The Herb Garden",
+                  "units": 120,
+                  "revenue": 4950
+                },
+                {
+                  "sku": "51GR1898",
+                  "name": "Two-Tiered Hanging Bird Feeder",
+                  "collection": "Gardeners Grove",
+                  "units": 78,
+                  "revenue": 4290
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 2,
+              "col": 0
+            },
+            "widgetType": "UW-004",
+            "data": {
+              "title": "Refill Opportunities (30+ days since last collection order)",
+              "columns": [
+                {
+                  "key": "customer",
+                  "label": "Customer",
+                  "align": "left"
+                },
+                {
+                  "key": "collection",
+                  "label": "Last Collection",
+                  "align": "left"
+                },
+                {
+                  "key": "daysSince",
+                  "label": "Days",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "lastValue",
+                  "label": "Last $",
+                  "align": "right",
+                  "format": "currency",
+                  "mono": true
+                }
+              ],
+              "rows": [
+                {
+                  "customer": "Magnolia Home & Garden",
+                  "collection": "A Blooming Porch",
+                  "daysSince": 38,
+                  "lastValue": 4280
+                },
+                {
+                  "customer": "Bloom & Basket",
+                  "collection": "Gardeners Grove",
+                  "daysSince": 42,
+                  "lastValue": 2150
+                },
+                {
+                  "customer": "Sunflower & Sage",
+                  "collection": "The Herb Garden",
+                  "daysSince": 35,
+                  "lastValue": 1820
+                },
+                {
+                  "customer": "Copper Creek Trading",
+                  "collection": "Bunnies",
+                  "daysSince": 51,
+                  "lastValue": 1640
+                },
+                {
+                  "customer": "The Potting Shed",
+                  "collection": "A Blooming Porch",
+                  "daysSince": 33,
+                  "lastValue": 3120
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 2,
+              "col": 1
+            },
+            "widgetType": "UW-011",
+            "data": {
+              "title": "PhaseOut Watch \u2014 Clearance SKUs Under 50 Units",
+              "items": [
+                {
+                  "id": "51GR1937",
+                  "title": "Bird Pot Feet \u2014 16 units remaining",
+                  "dueDate": "2026-06-30",
+                  "priority": "High",
+                  "assignedTo": "Clearance",
+                  "status": "16 units"
+                },
+                {
+                  "id": "51GR1919",
+                  "title": "Antiqued Bronze Bird Garden Stake \u2014 18 units",
+                  "dueDate": "2026-06-30",
+                  "priority": "High",
+                  "assignedTo": "Clearance",
+                  "status": "18 units"
+                },
+                {
+                  "id": "51GR1938",
+                  "title": "Galvanized Dog Planter \u2014 26 units",
+                  "dueDate": "2026-07-15",
+                  "priority": "Medium",
+                  "assignedTo": "Clearance",
+                  "status": "26 units"
+                },
+                {
+                  "id": "51GR1907",
+                  "title": "Wall Planter \u2014 Le Jardin \u2014 35 units",
+                  "dueDate": "2026-07-15",
+                  "priority": "Medium",
+                  "assignedTo": "Clearance",
+                  "status": "35 units"
+                }
+              ]
+            },
+            "highlights": [
+              {
+                "type": "urgent",
+                "fieldPath": "items[0].status"
+              },
+              {
+                "type": "urgent",
+                "fieldPath": "items[1].status"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Here's your Collection Performance report \u2014 sell-through by collection, with PhaseOut clearance urgency. Confirm to save to My Reports, edit to tweak the layout, or tell me what to change.",
+        "tier": "draft",
+        "actions": [
+          "Save Dashboard",
+          "Edit",
+          "Cancel"
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "A Blooming Porch is your strongest collection at $48.2K (+22% vs Q1). The Herb Garden is steady but Bunnies dropped 5% \u2014 worth a refill push to the 5 accounts in the table. PhaseOut: 4 clearance SKUs under 50 units, two under 20 \u2014 draft a market-week clearance email to move them."
+  }
+}

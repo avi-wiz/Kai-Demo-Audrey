@@ -1,62 +1,33 @@
 {
   "briefType": "general",
-  "greeting": "Good morning, Heman. Here's what needs your attention today.",
+  "greeting": "Good morning, Beth. Two things need your attention.",
   "urgentItems": [
     {
       "icon": "alert",
-      "text": "Quote QT-1192 for Acme Corp expires tomorrow ($8,200)",
+      "text": "15 SKUs are in PhaseOut. Heaviest: Wall Planter - Le Jardin, Antiqued Bronze Bird Garden Stake. Market week is your last clean window.",
       "priority": "urgent",
       "actionChip": {
-        "label": "Follow up now",
-        "query": "Draft a follow-up email to Acme about quote QT-1192",
+        "label": "Draft clearance email",
+        "query": "Draft a clearance email for the PhaseOut SKUs",
         "icon": "email",
         "category": "suggested"
       }
     },
     {
       "icon": "clock",
-      "text": "2 approval items pending for over 48 hours",
-      "priority": "urgent",
-      "actionChip": {
-        "label": "Show approvals",
-        "query": "Show me everything waiting for my approval",
-        "icon": "check",
-        "category": "suggested"
-      }
-    },
-    {
-      "icon": "alert",
-      "text": "Claim CLM-0892 (Acme Corp) — open 24 days, no resolution",
+      "text": "July 2026 Virtual Release is 16 days out. Pre-book on Pick Of The Patch Gnome is tracking +18% vs January.",
       "priority": "attention",
       "actionChip": {
-        "label": "Review claim",
-        "query": "What's the status of claim CLM-0892?",
-        "icon": "file",
+        "label": "Show pacing table",
+        "query": "Show me the July 2026 pre-book pacing",
+        "icon": "brief",
         "category": "suggested"
       }
     }
   ],
   "todaysSummary": [
-    {
-      "icon": "calendar",
-      "text": "3 meetings scheduled — first at 11 AM with Pinnacle Retail",
-      "priority": "info",
-      "actionChip": {
-        "label": "Prep for meeting",
-        "query": "Prep me for my 11am with Pinnacle Retail",
-        "icon": "brief",
-        "category": "suggested"
-      }
-    },
-    {
-      "icon": "order",
-      "text": "Yesterday: 7 orders placed ($42,800 total), 2 quotes sent",
-      "priority": "info"
-    },
-    {
-      "icon": "trend",
-      "text": "Your pipeline is $128K this week — 15% ahead of target",
-      "priority": "info"
-    }
+    { "icon": "task",     "text": "3 tasks due today",                            "priority": "info" },
+    { "icon": "tag",      "text": "1 new lead in queue (Rustic Charm Boutique)",  "priority": "info" },
+    { "icon": "calendar", "text": "Magnolia quarterly review at 2 PM",            "priority": "info" }
   ]
 }

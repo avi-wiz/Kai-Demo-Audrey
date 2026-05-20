@@ -48,6 +48,15 @@ export function extractTemplateVars(widgets: ParsedWidget[]): TemplateVars {
         if (contact && !vars.contactName) vars.contactName = contact;
       }
 
+      // Audrey vDemo — Cap 3 leaves a UW-003 with entityType:'lead' on screen.
+      // Surface its title as customerName so chip templates like
+      // "Build a catalog for {customerName}" resolve against the staged lead.
+      if (entityType === 'lead') {
+        if (!vars.customerName) vars.customerName = title;
+        const contact = fieldValue(fields, 'contact') ?? fieldValue(fields, 'contact person');
+        if (contact && !vars.contactName) vars.contactName = contact;
+      }
+
       if (entityType === 'order') {
         // title is usually "ORD-xxxx — Customer Name"
         const orderIdMatch = title.match(/^(ORD-\d+)/);

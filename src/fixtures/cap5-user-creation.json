@@ -1,0 +1,174 @@
+{
+  "frameId": "f-cap5-user-001",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Found Lead L-9005 (Lakeside Living Co). Setting up a WizShop user for Rachel Torres. Auto-suggested username from email handle, pre-filled access scoped to lead context.",
+        "steps": [
+          { "step": 1, "action": "search_leads", "result": "1 match: L-9005 (Lakeside Living Co, Indianapolis)", "ms": 165 },
+          { "step": 2, "action": "check_existing_users", "result": "0 WizShop users for L-9005 — clean creation", "ms": 110 },
+          { "step": 3, "action": "suggest_username", "result": "rachel.torres (available)", "ms": 65 },
+          { "step": 4, "action": "load_pricing_tiers", "result": "4 price lists available; defaulted to Wholesale Tier 1 (new-account standard)", "ms": 95 }
+        ],
+        "mcpsAccessed": ["CRM", "WizShop", "Pricing"],
+        "totalMs": 435
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "lead",
+        "title": "Lakeside Living Co",
+        "fields": [
+          { "label": "Contact", "value": "Rachel Torres" },
+          { "label": "Email", "value": "rachel@lakesideliving.com" },
+          { "label": "Stage", "value": "Contacted" },
+          { "label": "Lead ID", "value": "L-9005", "entityId": "L-9005" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-004",
+      "data": {
+        "formId": "cap5-user-form",
+        "steps": [
+          {
+            "stepTitle": "Account Details",
+            "fields": [
+              {
+                "fieldId": "sourceLeadId",
+                "type": "hidden",
+                "label": "",
+                "value": "L-9005",
+                "required": false
+              },
+              {
+                "fieldId": "username",
+                "type": "text",
+                "label": "Username",
+                "value": "rachel.torres",
+                "required": true
+              },
+              {
+                "fieldId": "email",
+                "type": "email",
+                "label": "Email",
+                "value": "rachel@lakesideliving.com",
+                "required": true
+              },
+              {
+                "fieldId": "role",
+                "type": "select",
+                "label": "Role",
+                "value": "Buyer",
+                "options": ["Buyer", "Browse Only", "Admin"],
+                "required": true
+              },
+              {
+                "fieldId": "userStatus",
+                "type": "select",
+                "label": "Status",
+                "value": "Active",
+                "options": ["Active", "Pending", "Suspended"],
+                "required": true
+              }
+            ]
+          },
+          {
+            "stepTitle": "Access Configuration",
+            "fields": [
+              {
+                "fieldId": "priceList",
+                "type": "select",
+                "label": "Price List",
+                "value": "Wholesale Tier 1 — 50-55% off MSRP",
+                "options": [
+                  "Wholesale Tier 1 — 50-55% off MSRP",
+                  "Wholesale Tier 2 — 55-60% off MSRP",
+                  "Retail — Full MSRP",
+                  "Custom"
+                ],
+                "required": true
+              },
+              {
+                "fieldId": "customerAccess",
+                "type": "select",
+                "label": "Customer Access",
+                "value": "Own Account Only",
+                "options": ["Own Account Only", "Assigned Accounts", "All Accounts"],
+                "required": true
+              },
+              {
+                "fieldId": "orderAccess",
+                "type": "select",
+                "label": "Order Access",
+                "value": "Own Orders Only",
+                "options": ["Own Orders Only", "All Account Orders", "Read-Only"],
+                "required": true
+              },
+              {
+                "fieldId": "canPlaceOrders",
+                "type": "checkbox",
+                "label": "Can place orders",
+                "value": true,
+                "required": false
+              }
+            ]
+          },
+          {
+            "stepTitle": "Review & Notification",
+            "fields": [
+              {
+                "fieldId": "summary",
+                "type": "summary",
+                "label": "User Summary",
+                "value": "rachel.torres @ Lakeside Living Co — Buyer role, Active. Pricing: Wholesale Tier 1 (50-55% off MSRP). Scoped to own account + own orders. Can place orders.",
+                "required": false
+              },
+              {
+                "fieldId": "sendWelcomeEmail",
+                "type": "checkbox",
+                "label": "Send welcome email with login credentials",
+                "value": true,
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "config": { "mode": "review", "editable": true }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Create WizShop user 'rachel.torres' for Lakeside Living Co with Wholesale Tier 1 pricing?",
+        "tier": "draft",
+        "actions": ["Create User", "Modify", "Cancel"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Setting up Rachel's WizShop access — Buyer role with Wholesale Tier 1 pricing (our standard for new accounts), scoped so she only sees Lakeside's account and her own orders. Welcome email is staged with login credentials. Review and confirm."
+  },
+  "actions": {
+    "onConfirm": {
+      "mcp": "WizShop",
+      "method": "createUser",
+      "payload": {
+        "sourceLeadId": "L-9005",
+        "username": "rachel.torres",
+        "email": "rachel@lakesideliving.com",
+        "role": "Buyer",
+        "priceList": "Wholesale Tier 1",
+        "canPlaceOrders": true,
+        "sendWelcomeEmail": true
+      }
+    },
+    "onCancel": { "action": "discard" },
+    "onModify": { "action": "unlock_form" }
+  }
+}

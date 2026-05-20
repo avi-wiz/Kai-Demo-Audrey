@@ -6,15 +6,15 @@ import { useSharedOrders } from '@/contexts/shared/SharedOrdersContext';
 import WizOrderPage from './WizOrderPage';
 import type { WizOrderOrder } from '@/lib/types';
 
-const STATUS_FILTERS = ['All', 'Draft', 'Pending Approval', 'Confirmed', 'Shipped', 'Delivered'] as const;
+const STATUS_FILTERS = ['All', 'Open', 'Submitted', 'Pre-Book Confirmed', 'Shipped', 'Delivered'] as const;
 type StatusFilter = typeof STATUS_FILTERS[number];
 
 const STATUS_BADGE: Record<string, { bg: string; text: string; border: string; label: string }> = {
-  'Draft':            { bg: 'var(--badge-neutral-bg)', text: 'var(--badge-neutral-text)', border: 'var(--badge-neutral-border)', label: 'Draft' },
-  'Pending Approval': { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)', label: 'Pending Approval' },
-  'Confirmed':        { bg: 'var(--badge-info-bg)',    text: 'var(--badge-info-text)',    border: 'var(--badge-info-border)',    label: 'Confirmed' },
-  'Shipped':          { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)', label: 'Shipped' },
-  'Delivered':        { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)', label: 'Delivered' },
+  'Open':                { bg: 'var(--badge-info-bg)',    text: 'var(--badge-info-text)',    border: 'var(--badge-info-border)',    label: 'Open' },
+  'Submitted':           { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)', label: 'Submitted' },
+  'Pre-Book Confirmed':  { bg: 'var(--badge-neutral-bg)', text: 'var(--badge-neutral-text)', border: 'var(--badge-neutral-border)', label: 'Pre-Book Confirmed' },
+  'Shipped':             { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)', label: 'Shipped' },
+  'Delivered':           { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)', label: 'Delivered' },
 };
 
 const PAGE_SIZE = 10;
@@ -209,6 +209,9 @@ export default function OrdersPage() {
 
 function OrderRow({ order, isLast }: { order: WizOrderOrder; isLast: boolean }) {
   const [hovered, setHovered] = useState(false);
+  const isPreBook = order.status === 'Pre-Book Confirmed';
+  // AudreyOrder carries shipWindow; access defensively since WizOrderOrder doesn't declare it
+  const shipWindow = (order as unknown as Record<string, unknown>)['shipWindow'] as string | undefined;
 
   const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
   const dateStr = order.date
@@ -235,9 +238,16 @@ function OrderRow({ order, isLast }: { order: WizOrderOrder; isLast: boolean }) 
 
       {/* Customer */}
       <td style={{ padding: '12px 16px' }}>
-        <span style={{ fontFamily: 'var(--display)', fontSize: 13, fontWeight: 500, color: 'var(--text)' }}>
-          {order.customer}
-        </span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <span style={{ fontFamily: 'var(--display)', fontSize: 13, fontWeight: 500, color: 'var(--text)' }}>
+            {order.customer}
+          </span>
+          {isPreBook && shipWindow && (
+            <span style={{ fontFamily: 'var(--mono)', fontSize: 10.5, color: 'var(--badge-info-text)', display: 'flex', alignItems: 'center', gap: 3 }}>
+              📦 Ships {shipWindow}
+            </span>
+          )}
+        </div>
       </td>
 
       {/* Total */}

@@ -1,40 +1,33 @@
 {
   "briefType": "page-crm",
-  "greeting": "Your CRM at a glance.",
+  "greeting": "4 tasks are overdue — your pipeline needs attention.",
   "urgentItems": [
     {
       "icon": "alert",
-      "text": "5 tasks overdue — 2 are high priority (Acme follow-up, Pinnacle quote)",
+      "text": "Highest priority: Follow up with Wildflower Market (Beth, 5 days late) and PhaseOut clearance call for Golden Meadow (Marcus, 10 days late).",
       "priority": "urgent",
       "actionChip": {
         "label": "Show overdue tasks",
-        "query": "Show me my overdue tasks",
+        "query": "Show me overdue tasks",
         "icon": "check",
         "category": "page-action"
       }
     },
     {
-      "icon": "clock",
-      "text": "3 leads haven't been contacted in 7+ days",
+      "icon": "star",
+      "text": "The Pick Of The Patch Gnome pre-book line has been mentioned in 6 buyer calls this month.",
       "priority": "attention",
       "actionChip": {
-        "label": "Show stale leads",
-        "query": "Which leads need follow-up?",
-        "icon": "user",
+        "label": "Show July 2026 pre-book pacing",
+        "query": "Show me the July 2026 pre-book pacing",
+        "icon": "brief",
         "category": "page-action"
       }
     }
   ],
   "todaysSummary": [
-    {
-      "icon": "tasks",
-      "text": "12 open tasks, 8 due this week",
-      "priority": "info"
-    },
-    {
-      "icon": "deal",
-      "text": "4 deals in pipeline worth $68,500",
-      "priority": "info"
-    }
+    { "icon": "tasks", "text": "12 tasks total · 4 overdue, 8 open",                    "priority": "info" },
+    { "icon": "users", "text": "6 leads in pipeline across 4 pipeline stages",           "priority": "info" },
+    { "icon": "deal",  "text": "8 deals in pipeline — $64,900 total value",              "priority": "info" }
   ]
 }

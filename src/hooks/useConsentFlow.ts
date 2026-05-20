@@ -36,13 +36,84 @@ function buildConfirmationWidget(
   deepLink?: { label: string; route: string },
 ): ParsedWidget {
   const isOrder = fields.some((f) => f.fieldId === 'subtotal');
-  const isTask = fields.some((f) => f.fieldId === 'title') && fields.some((f) => f.fieldId === 'assignee');
+  // Cap 3 — customer conversion (form has taxId, no subtotal).
+  const isCustomerConversion = fields.some((f) => f.fieldId === 'taxId') && !isOrder;
+  // Cap 4 — merge (form has mergeTarget).
+  const isMerge = fields.some((f) => f.fieldId === 'mergeTarget');
+  // Cap 5 — user creation (form has username).
+  const isUser = fields.some((f) => f.fieldId === 'username');
+  // Cap 6 — catalog (form has catalogName).
+  const isCatalog = fields.some((f) => f.fieldId === 'catalogName');
+  // Cap 2 — lead (form has company + source, no order/task markers).
+  const isLead =
+    fields.some((f) => f.fieldId === 'company') &&
+    fields.some((f) => f.fieldId === 'source') &&
+    !isOrder &&
+    !isCustomerConversion;
+  const isTask =
+    fields.some((f) => f.fieldId === 'title') &&
+    fields.some((f) => f.fieldId === 'assignee') &&
+    !isLead &&
+    !isUser &&
+    !isCatalog &&
+    !isCustomerConversion;
   const customer = fields.find((f) => f.fieldId === 'customer')?.value;
 
   let title: string;
   let message: string;
 
-  if (isOrder) {
+  if (isCustomerConversion) {
+    const company = fields.find((f) => f.fieldId === 'company')?.value
+      ?? fields.find((f) => f.fieldId === 'businessName')?.value;
+    const pricelist = fields.find((f) => f.fieldId === 'pricelist')?.value;
+    const rep = fields.find((f) => f.fieldId === 'assignedRep')?.value
+      ?? fields.find((f) => f.fieldId === 'rep')?.value;
+    const parts: string[] = ['Customer created'];
+    if (company) parts.push(`for ${company}`);
+    if (pricelist) parts.push(`pricelist ${pricelist}`);
+    if (rep) parts.push(`rep ${rep}`);
+    title = 'Customer Created';
+    message = parts.join(', ') + '.';
+  } else if (isMerge) {
+    const target = fields.find((f) => f.fieldId === 'mergeTarget')?.value;
+    const parts: string[] = ['Records merged'];
+    if (target) parts.push(`into ${target}`);
+    title = 'Merge Complete';
+    message = parts.join(', ') + '.';
+  } else if (isUser) {
+    const username = fields.find((f) => f.fieldId === 'username')?.value;
+    const company = fields.find((f) => f.fieldId === 'company')?.value
+      ?? fields.find((f) => f.fieldId === 'businessName')?.value;
+    const pricelist = fields.find((f) => f.fieldId === 'pricelist')?.value;
+    const parts: string[] = ['Website user created'];
+    if (username) parts.push(`username ${username}`);
+    if (company) parts.push(`for ${company}`);
+    if (pricelist) parts.push(`pricelist ${pricelist}`);
+    title = 'Website User Created';
+    message = parts.join(', ') + '.';
+  } else if (isCatalog) {
+    const name = fields.find((f) => f.fieldId === 'catalogName')?.value;
+    const recipient = fields.find((f) => f.fieldId === 'recipient')?.value
+      ?? fields.find((f) => f.fieldId === 'lead')?.value
+      ?? fields.find((f) => f.fieldId === 'customer')?.value;
+    const itemCount = fields.find((f) => f.fieldId === 'itemCount')?.value;
+    const parts: string[] = ['Catalog saved'];
+    if (name) parts[0] = `Catalog '${name}' saved`;
+    if (recipient) parts.push(`for ${recipient}`);
+    if (itemCount) parts.push(`${itemCount} items`);
+    title = 'Catalog Saved';
+    message = parts.join(', ') + '.';
+  } else if (isLead) {
+    const company = fields.find((f) => f.fieldId === 'company')?.value;
+    const contact = fields.find((f) => f.fieldId === 'contact')?.value;
+    const assignee = fields.find((f) => f.fieldId === 'assignee')?.value;
+    const parts: string[] = ['Lead created'];
+    if (company) parts[0] = `Lead '${company}' created`;
+    if (contact) parts.push(`contact ${contact}`);
+    if (assignee) parts.push(`assigned to ${assignee}`);
+    title = 'Lead Created';
+    message = parts.join(', ') + '.';
+  } else if (isOrder) {
     const subtotal = fields.find((f) => f.fieldId === 'subtotal')?.value ?? '';
     const items = fields.find((f) => f.fieldId === 'items')?.value ?? '';
     const itemCount = items ? items.split(',').length : 0;
@@ -76,8 +147,13 @@ function buildConfirmationWidget(
     if (customer) parts.push(`for ${customer}`);
     if (assignee) parts.push(`assigned to ${assignee}`);
     if (dueDate) {
-      const d = new Date(dueDate + 'T00:00:00');
-      parts.push(`due ${d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`);
+      // Accept both ISO ("2026-05-22") and display ("May 22, 2026") formats.
+      const isISO = /^\d{4}-\d{2}-\d{2}$/.test(dueDate);
+      const d = isISO ? new Date(dueDate + 'T00:00:00') : new Date(dueDate);
+      const formatted = isNaN(d.getTime())
+        ? dueDate
+        : d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      parts.push(`due ${formatted}`);
     }
 
     title = 'Task Created';
@@ -98,9 +174,17 @@ function buildConfirmationWidget(
     deepLink ??
     (isOrder
       ? { label: 'View in Orders', route: 'wizorder/orders' }
-      : isTask
-        ? { label: 'View in CRM', route: 'wizorder/crm' }
-        : null);
+      : isCustomerConversion || isMerge
+        ? { label: 'View in Customers', route: 'wizorder/customers' }
+        : isLead
+          ? { label: 'View in CRM', route: 'wizorder/crm' }
+          : isUser
+            ? { label: 'View Website Users', route: 'wizorder/customers' }
+            : isCatalog
+              ? { label: 'View in My Catalogs', route: 'wizorder/products' }
+              : isTask
+                ? { label: 'View in CRM', route: 'wizorder/crm' }
+                : null);
 
   return {
     key: `${turnId}:confirmed:aw003`,

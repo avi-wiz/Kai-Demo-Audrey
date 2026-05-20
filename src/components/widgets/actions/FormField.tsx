@@ -5,7 +5,7 @@ export interface FormFieldProps {
     fieldId: string;
     type: string;
     label: string;
-    value: string;
+    value: string | boolean;
     options?: string[];
     required?: boolean;
     resolvedId?: string;
@@ -43,10 +43,69 @@ const inputDisabled: React.CSSProperties = {
 };
 
 export default function FormField({ field, disabled = false, onChange }: FormFieldProps) {
+  // Hidden fields carry dispatcher metadata (e.g. sourceLeadId for Cap 3) — render nothing.
+  if (field.type === 'hidden') return null;
+
   const style = disabled ? inputDisabled : inputEnabled;
   const handleChange = (val: string) => onChange?.(field.fieldId, val);
 
   const isResolved = (field.type === 'entity_search' || field.type === 'user_search') && field.resolvedId;
+
+  // Checkbox — boolean-valued decisions (e.g. cap4 Merge Plan toggles). Renders
+  // as a styled checkbox with the label on the right; the parent form receives
+  // 'true' / 'false' strings via onChange so it round-trips through the same
+  // string-valued FormField pipeline as everything else.
+  if (field.type === 'checkbox') {
+    const checked = field.value === true || field.value === 'true';
+    return (
+      <label
+        style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: 10,
+          padding: '10px 12px',
+          background: 'var(--surface2)',
+          border: '1px solid var(--border)',
+          borderRadius: 'var(--radius-inner)',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+          opacity: disabled ? 0.75 : 1,
+          transition: 'var(--transition-fast)',
+          minHeight: 38,
+          boxSizing: 'border-box',
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={checked}
+          disabled={disabled}
+          onChange={(e) => handleChange(e.target.checked ? 'true' : 'false')}
+          style={{
+            marginTop: 1,
+            width: 16,
+            height: 16,
+            cursor: disabled ? 'not-allowed' : 'pointer',
+            accentColor: 'var(--primary-70)',
+            flexShrink: 0,
+          }}
+        />
+        <span
+          style={{
+            fontSize: 13,
+            color: 'var(--text)',
+            fontFamily: 'var(--sans)',
+            lineHeight: 1.4,
+            userSelect: 'none',
+          }}
+        >
+          {field.label}
+          {field.required && <span style={{ color: 'var(--error-80)', fontWeight: 700, marginLeft: 4 }}>*</span>}
+        </span>
+      </label>
+    );
+  }
+
+  // Coerce string|boolean → string for the remaining (text/select/textarea) branches
+  const stringValue = typeof field.value === 'boolean' ? String(field.value) : field.value;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
@@ -70,7 +129,7 @@ export default function FormField({ field, disabled = false, onChange }: FormFie
       {/* Input */}
       {field.type === 'select' ? (
         <select
-          value={field.value}
+          value={stringValue}
           disabled={disabled}
           onChange={(e) => handleChange(e.target.value)}
           style={{ ...style, height: 38 }}
@@ -81,7 +140,7 @@ export default function FormField({ field, disabled = false, onChange }: FormFie
         </select>
       ) : field.type === 'textarea' ? (
         <textarea
-          value={field.value}
+          value={stringValue}
           disabled={disabled}
           rows={3}
           onChange={(e) => handleChange(e.target.value)}
@@ -91,7 +150,7 @@ export default function FormField({ field, disabled = false, onChange }: FormFie
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <input
             type={field.type === 'date' ? 'date' : 'text'}
-            value={field.value}
+            value={stringValue}
             disabled={disabled}
             onChange={(e) => handleChange(e.target.value)}
             style={{ ...style, flex: 1 }}

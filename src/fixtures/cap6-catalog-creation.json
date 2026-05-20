@@ -1,0 +1,139 @@
+{
+  "frameId": "f-cap6-catalog-001",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Found Lead L-9006 (Mountain Bloom Studio, Julia Reed, Boulder CO). Cross-referenced stored preferred collections (Gardeners Grove, Garden Evergreen, A Blooming Porch) with her notes — broadening filter to garden_outdoor bucket + The Herb Garden collection for a curated garden-evergreens catalog. 11 SKUs matched, heroes first.",
+        "steps": [
+          { "step": 1, "action": "search_leads", "result": "1 match: L-9006 (Mountain Bloom Studio)", "ms": 165 },
+          { "step": 2, "action": "fetch_lead_preferences", "result": "preferredCollections: [Gardeners Grove, Garden Evergreen, A Blooming Porch]; notes mention garden + outdoor evergreens", "ms": 130 },
+          { "step": 3, "action": "filter_products", "result": "12 candidates from garden_outdoor + The Herb Garden; trimmed 1 high-ticket outlier", "ms": 165 },
+          { "step": 4, "action": "rank_heroes_first", "result": "5 heroes ranked above 6 non-heroes", "ms": 65 }
+        ],
+        "mcpsAccessed": ["CRM", "Catalog"],
+        "totalMs": 525
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "lead",
+        "title": "Mountain Bloom Studio",
+        "fields": [
+          { "label": "Contact", "value": "Julia Reed" },
+          { "label": "Email", "value": "julia@mountainbloom.com" },
+          { "label": "Interest", "value": "Garden décor, natural materials (curated studio retail)" },
+          { "label": "Stage", "value": "Qualified" },
+          { "label": "Lead ID", "value": "L-9006", "entityId": "L-9006" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-009",
+      "data": {
+        "title": "Curated for Mountain Bloom — 10 products",
+        "items": [
+          { "sku": "51GR1898", "name": "Two-Tiered Hanging Bird Feeder", "retailPrice": 55, "caseQty": 6, "stockStatus": "In Stock", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1898.jpg", "isHero": true, "bucket": "garden_outdoor" },
+          { "sku": "51GR1900", "name": "Galvanized Umbrella Wall Planter", "retailPrice": 97.5, "caseQty": 4, "stockStatus": "In Stock", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1900.jpg", "isHero": true, "bucket": "garden_outdoor" },
+          { "sku": "51GR1928", "name": "Rain Gauge Garden Stake", "retailPrice": 152.5, "caseQty": 4, "stockStatus": "In Stock", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1928.jpg", "isHero": true, "bucket": "garden_outdoor" },
+          { "sku": "51GR1916", "name": "Rain Gauge Garden Stake With Bird", "retailPrice": 30, "caseQty": 16, "stockStatus": "Out of Stock", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1916.jpg", "isHero": true, "bucket": "garden_outdoor" },
+          { "sku": "51GR1643", "name": "Window - Hello Spring, Herbs", "retailPrice": 73.75, "caseQty": 5, "stockStatus": "In Stock", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/large/51GR1643.jpg", "isHero": true, "bucket": "featured_collections", "collection": "The Herb Garden" },
+          { "sku": "51GR1904", "name": "Willow Obelisk Planters", "retailPrice": 170, "caseQty": 2, "stockStatus": "In Stock", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1904.jpg", "isHero": false, "bucket": "garden_outdoor" },
+          { "sku": "51GR1852", "name": "Planter - Rooster", "retailPrice": 105, "caseQty": 2, "stockStatus": "In Stock", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1852.jpg", "isHero": false, "bucket": "garden_outdoor" },
+          { "sku": "51GR1940", "name": "Mouse Rain Gauge", "retailPrice": 97.5, "caseQty": 4, "stockStatus": "In Stock", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1940.jpg", "isHero": false, "bucket": "garden_outdoor" },
+          { "sku": "51GR1944", "name": "Bucket Rain Chain", "retailPrice": 105, "caseQty": 8, "stockStatus": "Buy Now, Limited Quantity", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1944.jpg", "isHero": false, "bucket": "garden_outdoor" },
+          { "sku": "51GR1676", "name": "Greenhouse - Miniature", "retailPrice": 133.75, "caseQty": 1, "stockStatus": "Buy Now, Limited Quantity", "imageUrl": "https://s3.amazonaws.com/emuncloud-staticassets/productImages/yhd058/medium/51GR1676.jpg", "isHero": false, "bucket": "featured_collections", "collection": "The Herb Garden" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-004",
+      "data": {
+        "formId": "cap6-catalog-form",
+        "steps": [
+          {
+            "stepTitle": "Catalog Configuration",
+            "fields": [
+              {
+                "fieldId": "sourceLeadId",
+                "type": "hidden",
+                "label": "",
+                "value": "L-9006",
+                "required": false
+              },
+              {
+                "fieldId": "catalogName",
+                "type": "text",
+                "label": "Catalog Name",
+                "value": "Mountain Bloom — Garden Collection",
+                "required": true
+              },
+              {
+                "fieldId": "includePricing",
+                "type": "checkbox",
+                "label": "Include pricing (MSRP)",
+                "value": true,
+                "required": false
+              },
+              {
+                "fieldId": "includeStockLevels",
+                "type": "checkbox",
+                "label": "Include stock levels",
+                "value": false,
+                "required": false
+              },
+              {
+                "fieldId": "format",
+                "type": "select",
+                "label": "Format",
+                "value": "Shareable Link",
+                "options": ["Digital Catalog", "PDF", "Shareable Link"],
+                "required": true
+              },
+              {
+                "fieldId": "personalNote",
+                "type": "textarea",
+                "label": "Personal Note",
+                "value": "",
+                "required": false,
+                "placeholder": "Add a message from Beth before sending…"
+              }
+            ]
+          }
+        ]
+      },
+      "config": { "mode": "review", "editable": true }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Create catalog 'Mountain Bloom — Garden Collection' with 10 products?",
+        "tier": "draft",
+        "actions": ["Create Catalog", "Remove Products", "Cancel"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Here's a curated selection for Mountain Bloom — 10 products from the Garden Outdoor line and The Herb Garden collection. Hero pieces are first, and I've left a personal note field if you want to add a message from Beth before sending."
+  },
+  "actions": {
+    "onConfirm": {
+      "mcp": "Catalog",
+      "method": "createCatalog",
+      "payload": {
+        "sourceLeadId": "L-9006",
+        "name": "Mountain Bloom — Garden Collection",
+        "skus": ["51GR1898", "51GR1900", "51GR1928", "51GR1916", "51GR1643", "51GR1904", "51GR1852", "51GR1940", "51GR1944", "51GR1676"],
+        "includePricing": true,
+        "includeStockLevels": false,
+        "format": "Shareable Link"
+      }
+    },
+    "onCancel": { "action": "discard" },
+    "onModify": { "action": "unlock_form" }
+  }
+}

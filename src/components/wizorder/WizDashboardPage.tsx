@@ -5,40 +5,49 @@ import { usePageContext } from '@/contexts/PageContext';
 import WizOrderPage from './WizOrderPage';
 import MetricCard from '@/components/widgets/ui/MetricCard';
 import LineChart from '@/components/widgets/charts/LineChart';
+import CompactList from '@/components/widgets/ui/CompactList';
+import { PRODUCTS, ORDERS, SALES_HISTORY } from '@/data/audreys';
+import type { CompactListData } from '@/lib/types';
+
+const OPEN_ORDER_COUNT = ORDERS.filter(o => o.status === 'Open' || o.status === 'Submitted').length;
+const PREBOOK_PIPELINE = ORDERS
+  .filter(o => o.status === 'Pre-Book Confirmed')
+  .reduce((sum, o) => sum + o.total, 0);
 
 const METRICS = [
-  { label: 'Total Revenue (MTD)', value: '$384,200', format: 'currency', trend: { direction: 'up' as const, percent: 12, period: 'vs last month' } },
-  { label: 'Active Orders',       value: '12',       format: 'count',    trend: { direction: 'up' as const, percent: 4,  period: 'vs last week' } },
-  { label: 'Open Quotes',         value: '4',        format: 'count',    trend: { direction: 'flat' as const, percent: 0, period: 'unchanged' } },
-  { label: 'Active Customers',    value: '156',      format: 'count',    trend: { direction: 'up' as const, percent: 3,  period: 'vs last month' } },
+  { label: 'Active SKUs',       value: String(PRODUCTS.length),                                       format: 'count',    trend: { direction: 'flat' as const, percent: 0,  period: 'catalog stable' } },
+  { label: 'This Week Revenue', value: '$42,800',                                                     format: 'currency', trend: { direction: 'up' as const,   percent: 8,  period: 'vs last week' } },
+  { label: 'Open Orders',       value: String(OPEN_ORDER_COUNT),                                      format: 'count',    trend: { direction: 'up' as const,   percent: 12, period: 'vs last week' } },
+  { label: 'Pre-Book Pipeline', value: `$${Math.round(PREBOOK_PIPELINE).toLocaleString()}`,           format: 'currency', trend: { direction: 'up' as const,   percent: 18, period: 'July 2026 release' } },
 ];
 
-const REVENUE_SERIES = [
-  { month: 'Apr 1',  revenue: 9200 },
-  { month: 'Apr 4',  revenue: 11400 },
-  { month: 'Apr 7',  revenue: 10800 },
-  { month: 'Apr 10', revenue: 13600 },
-  { month: 'Apr 13', revenue: 12100 },
-  { month: 'Apr 16', revenue: 15800 },
-  { month: 'Apr 19', revenue: 14200 },
-  { month: 'Apr 22', revenue: 17600 },
-  { month: 'Apr 25', revenue: 16400 },
-  { month: 'Apr 28', revenue: 19800 },
-  { month: 'Apr 30', revenue: 21400 },
-];
+const REVENUE_SERIES = SALES_HISTORY[0].data.map((_, i) => ({
+  month: SALES_HISTORY[0].data[i].month,
+  revenue: SALES_HISTORY.reduce((sum, trace) => sum + trace.data[i].revenue, 0),
+}));
 
 const CHART_DATA = {
-  title: 'Revenue This Month',
+  title: 'Revenue — Last 12 Months',
   series: REVENUE_SERIES,
   yAxisLabel: 'Revenue',
-  xAxisLabel: 'Date',
+  xAxisLabel: 'Month',
 };
 
 const CHART_CONFIG = {
   chartType: 'line' as const,
   showArea: true,
   showDataPoints: true,
-  subtitle: 'April 2026 · Daily revenue',
+  subtitle: 'Jun 2025 – May 2026 · Monthly revenue across all buckets',
+};
+
+const ACTIVITY: CompactListData = {
+  kind: 'activity',
+  title: 'Recent Activity',
+  items: [
+    { id: 'A-1', icon: 'check', text: 'Beth closed Pre-Book for Bloom & Basket — 24 cases of Pick Of The Patch', timestamp: '1h ago' },
+    { id: 'A-2', icon: 'lead',  text: 'New lead: Rustic Charm Boutique via website signup',                       timestamp: '3h ago' },
+    { id: 'A-3', icon: 'order', text: 'Order #1047 shipped to Magnolia Home & Garden',                            timestamp: 'yesterday' },
+  ],
 };
 
 export default function WizDashboardPage() {
@@ -47,7 +56,9 @@ export default function WizDashboardPage() {
   useEffect(() => {
     setPage('dashboard', {
       metrics: METRICS,
-      revenueThisMonth: 384200,
+      activeSkus: PRODUCTS.length,
+      openOrders: OPEN_ORDER_COUNT,
+      prebookPipeline: PREBOOK_PIPELINE,
     });
   }, [setPage]);
 
@@ -70,6 +81,7 @@ export default function WizDashboardPage() {
         @media (min-width: 1024px) {
           .dashboard-grid { grid-template-columns: repeat(4, 1fr); }
         }
+        .dashboard-activity { margin-top: 16px; }
       `}</style>
 
       {/* Metric cards */}
@@ -81,6 +93,11 @@ export default function WizDashboardPage() {
 
       {/* Revenue chart */}
       <LineChart data={CHART_DATA} config={CHART_CONFIG} />
+
+      {/* Activity feed */}
+      <div className="dashboard-activity">
+        <CompactList data={ACTIVITY} />
+      </div>
     </WizOrderPage>
   );
 }

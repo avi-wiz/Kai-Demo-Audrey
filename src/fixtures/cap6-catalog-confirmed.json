@@ -1,0 +1,18 @@
+{
+  "frameId": "f-cap6-catalog-002",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "AW-003",
+      "data": {
+        "status": "success",
+        "title": "Catalog Created",
+        "message": "Catalog created with 11 products. Saved to My Catalogs.",
+        "entityLink": {
+          "label": "View in My Catalogs",
+          "url": "/artifacts/catalogs/cat-mountain-bloom"
+        }
+      }
+    }
+  ]
+}

@@ -97,6 +97,19 @@ function assemble(...parts: string[]): string {
   return parts.filter(Boolean).join('\n\n');
 }
 
+// ── Audrey context block ──────────────────────────────────────────────────────
+
+function audreyContextBlock(): string {
+  return `BRAND CONTEXT — AUDREY'S HOME & GIFT:
+You are an AI sales assistant for Audrey's Home & Gift, a wholesale home decor and gift brand. Audrey's catalog is organized into Pre-Book pre-orders, Seasonal ranges (Fall/Winter/Spring/Summer), and Home & Garden evergreen lines. Their biggest current collections are A Blooming Porch, Gardeners Grove, The Herb Garden, and Bunnies. The next major launch is the July 2026 Virtual Release.
+
+When mentioning products, prefer the actual SKUs and product names from the catalog file rather than generic terms. Audrey reps care about: case quantity, minimum order quantity, pre-book ship windows (Sep/Oct/Dec), and PhaseOut clearance. Price references use retail/MSRP.
+
+Key collections: A Blooming Porch (spring florals), Gardeners Grove (garden tools/decor), The Herb Garden (herb-themed), Bunnies (seasonal rabbit motifs), Garden Evergreen (year-round outdoor).
+
+Current sales team: Beth Calloway (Southeast), Marcus Rivera (Mid-South), Hannah Cho (Mountain/West), James Whitfield (Northeast).`;
+}
+
 // ── T1: CanvasTextBlock — contextual insight narrative ────────────────────────
 
 /**
@@ -122,6 +135,7 @@ Rules:
     personaLine(persona),
     customInstructionsSection(customInstructions),
     pageContextSection(pageContext),
+    audreyContextBlock(),
     capability,
     widgetDataSection(widgetData),
     financialGuard(includeFinancial),
@@ -139,25 +153,37 @@ export function t2EmailBody(args: SystemPromptArgs): string {
 
   const capability = `You are Kai, drafting an email on behalf of a sales rep inside WizOrder.
 
-Write a complete, ready-to-send email. Format it exactly as:
+Write a complete, ready-to-send email. Format it EXACTLY as:
 
-Subject: [subject line]
+Subject: [one-line subject — under 70 characters, specific, no emoji]
 
-[email body — 2–4 short paragraphs]
+[greeting line, e.g. "Hi Sarah,"]
 
-[sign-off, e.g. "Best,\\nHeman"]
+[opening paragraph — 1–2 sentences. Reference the relationship or recent context.]
+
+[middle paragraph — 2–3 sentences. Concrete details: product names, SKUs, prices, dates, quantities. Be specific.]
+
+[closing paragraph — 1–2 sentences with a clear call-to-action (reply to confirm, schedule a call, approve the quote, etc.).]
+
+[sign-off, e.g. "Best,"]
+[rep name on its own line]
+[company on its own line — e.g. "Audrey's Home & Gift"]
 
 Rules:
 - Write in first person as the sales rep.
-- Reference specific CRM data naturally: quote numbers, product names, dates, amounts.
-- Include a clear call-to-action (schedule a call, review the quote, reply to confirm, etc.).
-- Do NOT use placeholder brackets like [Company Name] — use real names from the data.
-- Match tone to persona setting. Length: 150–220 words.${userQuery ? `\n\nThe rep asked: "${userQuery}"` : ''}`;
+- Use REAL data from the prior widget context: lead name, contact name, SKU codes, prices, dates the user just confirmed.
+- Separate every paragraph with a BLANK LINE (\\n\\n). This is critical — the email renders as pre-formatted text, so blank lines are how paragraphs become visible.
+- Greeting, each paragraph, and sign-off are each their own block separated by blank lines.
+- Do NOT use placeholder brackets like [Company Name] or [Date] — use the actual values from the context.
+- Do NOT use markdown (no **bold**, no bullets, no headings). Plain prose only.
+- Length: 140–200 words total in the body.
+- Match tone to persona setting.${userQuery ? `\n\nThe rep asked: "${userQuery}"` : ''}`;
 
   return assemble(
     personaLine(persona),
     customInstructionsSection(customInstructions),
     pageContextSection(pageContext),
+    audreyContextBlock(),
     capability,
     widgetDataSection(widgetData, 2500),
     financialGuard(includeFinancial),
@@ -187,6 +213,7 @@ Make them actionable, not generic. The rep should read these and know exactly wh
     personaLine(persona),
     customInstructionsSection(customInstructions),
     pageContextSection(pageContext),
+    audreyContextBlock(),
     capability,
     widgetDataSection(widgetData, 3000),
     financialGuard(includeFinancial),
@@ -215,6 +242,7 @@ Be specific — generic advice is not useful here.${userQuery ? `\n\nThe user as
     personaLine(persona),
     customInstructionsSection(customInstructions),
     pageContextSection(pageContext),
+    audreyContextBlock(),
     capability,
     widgetDataSection(widgetData, 3000),
     financialGuard(includeFinancial),
@@ -247,6 +275,7 @@ If the user's custom instructions specify chart types, formatting preferences, o
     personaLine(persona),
     customInstructionsSection(customInstructions),
     pageContextSection(pageContext),
+    audreyContextBlock(),
     capability,
     widgetDataSection(widgetData, 3000),
     financialGuard(includeFinancial),
@@ -399,6 +428,7 @@ Rules:
     personaLine(persona),
     customInstructionsSection(customInstructions),
     pageContextSection(pageContext),
+    audreyContextBlock(),
     capability,
     widgetDataSection(widgetData, 4000),
     financialGuard(includeFinancial),

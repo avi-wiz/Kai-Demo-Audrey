@@ -31,7 +31,9 @@ import { useResponseMode } from '@/contexts/ResponseModeContext';
 import { usePersona } from '@/contexts/PersonaContext';
 import { usePageContext } from '@/contexts/PageContext';
 import { useSharedCRM } from '@/contexts/shared/SharedCRMContext';
+import { useSharedCatalogs, type SharedCatalog } from '@/contexts/shared/SharedCatalogsContext';
 import { useSharedOrders } from '@/contexts/shared/SharedOrdersContext';
+import { useSharedCustomers } from '@/contexts/shared/SharedCustomersContext';
 import { useDashboardBuilder } from '@/contexts/DashboardBuilderContext';
 import { useArtifacts } from '@/contexts/ArtifactContext';
 import { useUserPreferences } from '@/contexts/UserPreferencesContext';
@@ -40,7 +42,7 @@ import { useChatSession } from '@/contexts/ChatSessionContext';
 import { heuristicSummary } from '@/lib/historyHeuristics';
 import { summarizeSession, buildSummarizePayload } from '@/hooks/useSummarizeSession';
 import type { SavedSession, SerializedTurn, SerializedWidget } from '@/lib/historyTypes';
-import type { ActionChip, SharedTask, SharedOrder, ViewRoute, DashboardCompositeData } from '@/lib/types';
+import type { ActionChip, SharedTask, SharedOrder, SharedLead, ViewRoute, DashboardCompositeData } from '@/lib/types';
 import actionChipsMapRaw from '@/fixtures/action-chips-map.json';
 import SaveArtifactModal from '@/components/modals/SaveArtifactModal';
 import UsageNudge from '@/components/gtm/UsageNudge';
@@ -81,10 +83,47 @@ const USECASE_CHIP_KEY: Record<string, string> = {
   'ad29-test':     '',
   'metric-clarification': '',
   'workflow-clarification': '',
+  // Audrey vDemo — Cap 1–6 active chip groups
+  'cap1-task-email':     'cap1-task-email',
+  'cap1-email-draft':    'cap1-email-draft',
+  'cap2-lead-creation':  'cap2-lead-creation',
+  'cap3-lead-won':       'cap3-lead-won',
+  'cap4-merge-customer': 'cap4-merge-customer',
+  'cap5-user-creation':  'cap5-user-creation',
+  'cap6-catalog-builder':'cap6-catalog-builder',
+  // Audrey vDemo — chain / report useCases (terminal, no chip group)
+  'cap1-task-confirmed':       '',
+  'cap2-auto-task':            '',
+  'cap3-conversion-confirmed': '',
+  'cap4-merge-confirmed':      '',
+  'cap5-user-confirmed':       '',
+  'cap6-catalog-confirmed':    '',
+  'report-collection-performance': '',
+  'report-prebook-pacing':         '',
+  'report-customer-health':        '',
+  'report-pipeline':               '',
+  'report-team-performance':       '',
+  'report-catalog-health':         '',
   unknown:           '',
 };
 
 const MAX_CHIP_CHAIN_DEPTH = 3;
+
+// Cap 7 report fixtures — loaded on demand so they can be rerouted through
+// the V2 dashboard-builder pipeline (Edit / Save / Download).
+type ReportFixture = {
+  frameId?: string;
+  widgets: Array<{ widgetType: string; data: Record<string, unknown>; config?: Record<string, unknown>; highlights?: unknown[] }>;
+  closingText: import('@/lib/types').ClosingText;
+};
+const REPORT_FIXTURE_LOADERS: Record<string, () => Promise<ReportFixture>> = {
+  'report-collection-performance': () => import('@/fixtures/report-collection-performance.json').then((m) => m.default as unknown as ReportFixture),
+  'report-prebook-pacing':         () => import('@/fixtures/report-prebook-pacing.json').then((m) => m.default as unknown as ReportFixture),
+  'report-customer-health':        () => import('@/fixtures/report-customer-health.json').then((m) => m.default as unknown as ReportFixture),
+  'report-pipeline':               () => import('@/fixtures/report-pipeline.json').then((m) => m.default as unknown as ReportFixture),
+  'report-team-performance':       () => import('@/fixtures/report-team-performance.json').then((m) => m.default as unknown as ReportFixture),
+  'report-catalog-health':         () => import('@/fixtures/report-catalog-health.json').then((m) => m.default as unknown as ReportFixture),
+};
 
 // Module-level singleton so we don't churn Audio objects per turn.
 let notifyAudio: HTMLAudioElement | null = null;
@@ -149,7 +188,28 @@ interface KaiTurn {
     | 'ad29-workflow'
     | 'ad29-test'
     | 'metric-clarification'
-    | 'workflow-clarification';
+    | 'workflow-clarification'
+    // Audrey vDemo capabilities (Caps 1–6)
+    | 'cap1-task-email'
+    | 'cap1-email-draft'
+    | 'cap1-task-confirmed'
+    | 'cap2-lead-creation'
+    | 'cap2-auto-task'
+    | 'cap3-lead-won'
+    | 'cap3-conversion-confirmed'
+    | 'cap4-merge-customer'
+    | 'cap4-merge-confirmed'
+    | 'cap5-user-creation'
+    | 'cap5-user-confirmed'
+    | 'cap6-catalog-builder'
+    | 'cap6-catalog-confirmed'
+    // Audrey vDemo reports (Cap 7)
+    | 'report-collection-performance'
+    | 'report-prebook-pacing'
+    | 'report-customer-health'
+    | 'report-pipeline'
+    | 'report-team-performance'
+    | 'report-catalog-health';
   unknownReply?: string;
   aiClassification?: KaiClassification;
   isStale?: boolean;
@@ -193,6 +253,11 @@ interface KaiTurn {
   restoredWidgets?: SerializedWidget[];
   restoredClosingText?: { type: string; text: string };
   restoredLlmText?: string;
+  /** Snapshot of widgets from the immediately-prior turn — passed to the LLM
+   *  as additional context. Used by chip-chained turns (e.g. cap1-email-draft
+   *  fired from a cap1-task-email confirmation) so the email can reference
+   *  the exact task fields the user just confirmed. */
+  priorContextWidgets?: ParsedWidget[];
 }
 
 // ── LLM generate context ──────────────────────────────────────────────────────
@@ -277,9 +342,38 @@ function ConsentTurnRenderer({
 
   const baseFormFields = (() => {
     const formWidget = streamedWidgets.find((w) => w.widgetType === 'AW-004');
-    if (!formWidget) return undefined;
-    const steps = formWidget.data.steps as Array<{ fields: import('@/hooks/useConsentFlow').FormField[] }> | undefined;
-    return steps?.[0]?.fields;
+    if (formWidget) {
+      const steps = formWidget.data.steps as Array<{ fields: import('@/hooks/useConsentFlow').FormField[] }> | undefined;
+      return steps?.[0]?.fields;
+    }
+    // Fallback for fixtures that stage actions via a UW-003 task card + AW-012
+    // (e.g. cap2-auto-task-followup): synthesize FormField[] from the entity's
+    // labeled fields so buildConfirmationWidget renders a contextual success
+    // message ("Task '…' created for …, assigned to …, due …").
+    const entity = streamedWidgets.find(
+      (w) => w.widgetType === 'UW-003' && (w.data as { entityType?: string }).entityType === 'task',
+    );
+    if (entity) {
+      const d = entity.data as { title?: string; fields?: Array<{ label: string; value: string; entityId?: string }> };
+      const labelToFieldId: Record<string, string> = {
+        lead: 'customer',
+        customer: 'customer',
+        'assigned to': 'assignee',
+        'due date': 'dueDate',
+        priority: 'priority',
+        type: 'type',
+        status: 'status',
+      };
+      const synthesized: import('@/hooks/useConsentFlow').FormField[] = [];
+      if (d.title) synthesized.push({ fieldId: 'title', label: 'Title', value: d.title });
+      (d.fields ?? []).forEach((f) => {
+        const key = labelToFieldId[f.label.toLowerCase()];
+        if (key) synthesized.push({ fieldId: key, label: f.label, value: f.value });
+      });
+      // Need at least title + assignee for buildConfirmationWidget's isTask branch
+      if (synthesized.length > 0) return synthesized;
+    }
+    return undefined;
   })();
 
   // Merge edited values on top of base fixture fields so confirm always sees latest values
@@ -328,23 +422,80 @@ function ConsentTurnRenderer({
   // For ad29-workflow turns, additionally fire the workflow-activate hook so
   // ChatShell can persist the workflow into My Artifacts under "Scheduled".
   const wrappedOnConfirmed = (fields: import('@/hooks/useConsentFlow').FormField[]) => {
-    onConfirmed?.(fields);
+    // Cap 6 — append the live "removed SKUs" set so the catalog handler can
+    // compute surviving SKUs at confirm time. JSON-encoded so the existing
+    // string-valued FormField pipeline doesn't choke.
+    const removed = removedSkusRef.current;
+    const enriched = removed.length > 0
+      ? [
+          ...fields,
+          { fieldId: '_removedSkus', label: '_removedSkus', value: JSON.stringify(removed) } as import('@/hooks/useConsentFlow').FormField,
+        ]
+      : fields;
+    onConfirmed?.(enriched);
     if (turn.useCase === 'ad29-workflow' && turn.workflowId && onWorkflowActivated) {
       onWorkflowActivated(turn.workflowId);
     }
   };
   const consent = useConsentFlow(turn.id, liveFormFields, {
     onConfirmed: wrappedOnConfirmed,
+    // For V2 flows that need a hardcoded route, set it explicitly. For everything
+    // else (incl. Audrey caps), pass undefined so buildConfirmationWidget picks
+    // a route based on form-field discriminators (lead/customer/merge/user/catalog).
     deepLink:
       turn.useCase === 'uc2-order' || turn.useCase === 'sr2-reorder'
         ? { label: 'View in Orders', route: 'wizorder/orders' }
         : turn.useCase === 'ad29-workflow'
           ? { label: 'View in My Artifacts', route: 'artifacts' }
-          : { label: 'View in CRM', route: 'wizorder/crm' },
+          : undefined,
   });
   const didEnd = useRef(false);
   const didStream = useRef(false);
   const [widgetsDone, setWidgetsDone] = useState(false);
+
+  // Cap 6 — persist the confirmed catalog into SharedCatalogsContext exactly
+  // once per turn, on consent.consentState === 'confirmed'. Reads the live
+  // UW-009 items list, subtracts the user's removed SKUs (set via the trash
+  // badges in remove mode), and snapshots the form field values.
+  const { addCatalog } = useSharedCatalogs();
+  const catalogPersistedRef = useRef(false);
+  useEffect(() => {
+    if (turn.useCase !== 'cap6-catalog-builder') return;
+    if (consent.consentState !== 'confirmed') return;
+    if (catalogPersistedRef.current) return;
+    catalogPersistedRef.current = true;
+    const grid = streamedWidgets.find((w) => w.widgetType === 'UW-009');
+    if (!grid) return;
+    const items = ((grid.data as { items?: import('@/lib/types').ProductCardItem[] }).items ?? []);
+    const removed = new Set(removedSkusRef.current);
+    const surviving = items.filter((i) => !removed.has(i.sku));
+    const fieldVal = (id: string): string | undefined => {
+      const f = liveFormFields?.find((x) => x.fieldId === id);
+      return f?.value as string | undefined;
+    };
+    const flag = (id: string): boolean => {
+      const v = fieldVal(id);
+      return v === 'true' || (v as unknown) === true;
+    };
+    const sourceLeadId = fieldVal('sourceLeadId');
+    const catalogName = fieldVal('catalogName') ?? 'Untitled Catalog';
+    const format = fieldVal('format') ?? 'Shareable Link';
+    const personalNote = fieldVal('personalNote') ?? '';
+    const catalog: SharedCatalog = {
+      id: `CAT-${Date.now()}`,
+      name: catalogName,
+      recipient: 'Mountain Bloom Studio',
+      recipientId: sourceLeadId,
+      createdAt: new Date().toISOString(),
+      createdByKai: true,
+      items: surviving,
+      includePricing: flag('includePricing'),
+      includeStockLevels: flag('includeStockLevels'),
+      format,
+      personalNote: personalNote || undefined,
+    };
+    addCatalog(catalog);
+  }, [turn.useCase, consent.consentState, streamedWidgets, liveFormFields, addCatalog]);
 
   useEffect(() => {
     if (isStreaming) didStream.current = true;
@@ -410,6 +561,14 @@ function ConsentTurnRenderer({
     }
   }, [requireConfirmation, widgetsDone, consent]);
 
+  // Cap 6 — track SKUs the user removed via the UW-009 trash buttons (only
+  // active when consent.formMode === 'edit'). Surviving SKUs flow into
+  // handleConfirmed via a hidden `_removedSkus` field on the form snapshot.
+  const removedSkusRef = useRef<string[]>([]);
+  const handleRemovedChange = useCallback((skus: string[]) => {
+    removedSkusRef.current = skus;
+  }, []);
+
   const patchedWidgets: ParsedWidget[] = streamedWidgets
     .filter((w) => requireConfirmation || w.widgetType !== 'AW-012')
     .map((w) => {
@@ -425,6 +584,17 @@ function ConsentTurnRenderer({
         ...w,
         data: { ...w.data, ...(patchedSteps ? { steps: patchedSteps } : {}) },
         config: { ...w.config, mode: isConfirmed ? 'review' : consent.formMode, editable: !isConfirmed && consent.formMode === 'edit', onValuesChange: setEditedValues },
+      };
+    }
+    if (w.widgetType === 'UW-009') {
+      // In edit mode → show trash badges and listen for removal toggles.
+      return {
+        ...w,
+        config: {
+          ...w.config,
+          removeMode: consent.formMode === 'edit' && consent.consentState !== 'confirmed',
+          onRemovedChange: handleRemovedChange,
+        },
       };
     }
     if (w.widgetType === 'UW-014' && turn.aiClassification) {
@@ -1435,7 +1605,7 @@ function EmailTurnRenderer({
   const capability = isEmailShorter ? 'email-tone' : 'email-draft';
 
   const { widgets: streamedWidgets, isStreaming: fixtureStreaming, closingText } = useStreamSimulator(
-    turn.useCase as 'email-draft' | 'email-shorter',
+    turn.useCase as 'email-draft' | 'email-shorter' | 'cap1-email-draft',
     turn.id,
     'widgets' as ResponseMode,
     'professional',
@@ -1464,11 +1634,19 @@ function EmailTurnRenderer({
     }
   }, [fixtureStreamDone, widgetsDone, streamedWidgets, onWidgetsReady]);
 
+  // For chip-chained email turns (cap1-email-draft fired off a confirmed task),
+  // prepend the prior turn's widgets so the LLM sees the exact task fields the
+  // user confirmed (lead, title, due date, assignee, priority) and grounds the
+  // email body in that data.
+  const enrichedEmailWidgetData = turn.priorContextWidgets && turn.priorContextWidgets.length > 0
+    ? [...turn.priorContextWidgets, ...streamedWidgets]
+    : streamedWidgets;
+
   const llm = useKaiGenerate({
     enabled: generateCtx.aiMode,
     capability,
     userQuery: generateCtx.userQuery,
-    widgetData: streamedWidgets,
+    widgetData: enrichedEmailWidgetData,
     persona: generateCtx.persona,
     customInstructions: generateCtx.customInstructions,
     pageContext: generateCtx.pageContext,
@@ -1726,10 +1904,24 @@ function KaiTurnRenderer({
   if (turn.useCase === 'uc2-restage') {
     return <RestageRenderer turn={turn} onStreamEnd={onStreamEnd} onToggleTTS={onToggleTTS} isReading={isReading} onFormReady={onFormReady} />;
   }
-  if (turn.useCase === 'uc2' || turn.useCase === 'uc3' || turn.useCase === 'uc2-order' || turn.useCase === 'sr2-reorder' || turn.useCase === 'ad29-workflow') {
+  if (
+    turn.useCase === 'uc2' ||
+    turn.useCase === 'uc3' ||
+    turn.useCase === 'uc2-order' ||
+    turn.useCase === 'sr2-reorder' ||
+    turn.useCase === 'ad29-workflow' ||
+    // Audrey vDemo caps 1–6 — all have AW-004 + AW-012 staged-form flows
+    turn.useCase === 'cap1-task-email' ||
+    turn.useCase === 'cap2-lead-creation' ||
+    turn.useCase === 'cap2-auto-task' ||
+    turn.useCase === 'cap3-lead-won' ||
+    turn.useCase === 'cap4-merge-customer' ||
+    turn.useCase === 'cap5-user-creation' ||
+    turn.useCase === 'cap6-catalog-builder'
+  ) {
     return <ConsentTurnRenderer turn={turn} responseMode={responseMode} personalityId={personalityId} onStreamEnd={onStreamEnd} onFormReady={onFormReady} onToggleTTS={onToggleTTS} isReading={isReading} onStreamComplete={onStreamComplete} onConfirmed={onConfirmed} onWorkflowActivated={onWorkflowActivated} onNavigate={onNavigate} onWidgetsReady={onWidgetsReady} generateCtx={generateCtx} />;
   }
-  if (turn.useCase === 'email-draft' || turn.useCase === 'email-shorter') {
+  if (turn.useCase === 'email-draft' || turn.useCase === 'email-shorter' || turn.useCase === 'cap1-email-draft') {
     return <EmailTurnRenderer turn={turn} onStreamEnd={onStreamEnd} onToggleTTS={onToggleTTS} isReading={isReading} onStreamComplete={onStreamComplete} onWidgetsReady={onWidgetsReady} generateCtx={generateCtx} />;
   }
   return <StandardTurnRenderer turn={turn} responseMode={responseMode} personalityId={personalityId} onStreamEnd={onStreamEnd} onToggleTTS={onToggleTTS} isReading={isReading} onStreamComplete={onStreamComplete} onWidgetsReady={onWidgetsReady} onSaveAsDashboardFromAd17={onSaveAsDashboardFromAd17} generateCtx={generateCtx} />;
@@ -1952,8 +2144,9 @@ export default function ChatShell() {
   useEffect(() => { customInstructionsRef.current = customInstructions; }, [customInstructions]);
   const { addSession, updateSession } = useChatHistory();
   const { registerSaveAndReset, pendingRestore, consumePendingRestore } = useChatSession();
-  const { addTask } = useSharedCRM();
+  const { addTask, addLead, archiveLead } = useSharedCRM();
   const { addOrder } = useSharedOrders();
+  const { addCustomer } = useSharedCustomers();
   const { triggerNudge } = useNudge();
   const { tourPrefill, clearTourPrefill, notifyTourWidgetsReady, notifyTourQuerySent, notifyTourChipClicked, resumeTour } = useGuidedTour();
 
@@ -2588,7 +2781,55 @@ export default function ChatShell() {
     {
       const capHit = matchSpecialCapabilityQuery(trimmed);
       if (capHit) {
+        // Cap 7 reports — reroute through the V2 dashboard-builder pipeline so
+        // the existing Edit / Save / Download flow lights up. Reports already
+        // declare capability:"dashboard-builder" + frameType:"dashboard_staged"
+        // and carry an AW-012 consent banner, so parseFrame produces the same
+        // shape as the V2 dashboard fixtures.
+        if (capHit.useCase.startsWith('report-')) {
+          const reportFixtureLoader = REPORT_FIXTURE_LOADERS[capHit.useCase];
+          if (reportFixtureLoader) {
+            if (thinkingTimerRef.current) clearTimeout(thinkingTimerRef.current);
+            const captured = trimmed;
+            const capturedFromChip = fromChip;
+            reportFixtureLoader().then((fixture) => {
+              const parsed = parseFrame(
+                {
+                  frameId: fixture.frameId ?? 'f-report',
+                  frameType: 'result',
+                  widgets: fixture.widgets,
+                } as Parameters<typeof parseFrame>[0],
+                0,
+              );
+              const match: PageContextMatch = {
+                widgets: parsed,
+                closingText: fixture.closingText,
+              };
+              thinkingTimerRef.current = setTimeout(() => {
+                setIsThinking(false);
+                setThinkingMessage(undefined);
+                setKaiTurns((prev) => [...prev, {
+                  id: (Date.now() + 1).toString(),
+                  useCase: 'dashboard-builder' as const,
+                  pageContextMatch: match,
+                  userQuery: captured,
+                  ...(capturedFromChip ? { fromChip: true } : {}),
+                }]);
+                setActiveStreams((n) => n + 1);
+                thinkingTimerRef.current = null;
+              }, 1200);
+            });
+            return;
+          }
+        }
+
         if (thinkingTimerRef.current) clearTimeout(thinkingTimerRef.current);
+        // Snapshot prior turn's widgets so chip-chained capabilities (e.g. the
+        // cap1-task-email → cap1-email-draft email draft) can reference the
+        // task the user just confirmed in their LLM prompt.
+        const priorWidgets = lastTurnWidgetsRef.current.length > 0
+          ? [...lastTurnWidgetsRef.current]
+          : undefined;
         thinkingTimerRef.current = setTimeout(() => {
           setIsThinking(false);
           setThinkingMessage(undefined);
@@ -2597,6 +2838,7 @@ export default function ChatShell() {
             useCase: capHit.useCase,
             userQuery: trimmed,
             ...(fromChip ? { fromChip: true } : {}),
+            ...(priorWidgets && fromChip ? { priorContextWidgets: priorWidgets } : {}),
           }]);
           setActiveStreams((n) => n + 1);
           thinkingTimerRef.current = null;
@@ -2794,6 +3036,107 @@ export default function ChatShell() {
       addOrder(order);
       return;
     }
+    // Cap 3 — customer conversion. The 4-step form carries a unique `taxId` field
+    // and hidden `sourceLeadId` + `newCustomerId` metadata.
+    const isCustomerConversion = fields.some((f) => f.fieldId === 'taxId');
+    if (isCustomerConversion) {
+      const newCustomerId = fields.find((f) => f.fieldId === 'newCustomerId')?.value ?? `C-${Date.now()}`;
+      const sourceLeadId = fields.find((f) => f.fieldId === 'sourceLeadId')?.value;
+      const legalName = fields.find((f) => f.fieldId === 'legalName')?.value ?? 'New Customer';
+      const salesRep = fields.find((f) => f.fieldId === 'salesRep')?.value ?? '';
+      addCustomer({
+        id: newCustomerId,
+        name: legalName.replace(/\s+LLC$/i, '').trim(),
+        contact: fields.find((f) => f.fieldId === 'contact')?.value ?? '',
+        lifetimeRevenue: 0,
+        lastOrder: '',
+        tags: ['New'],
+        rep: salesRep,
+        status: 'Active',
+        ordersYTD: 0,
+        createdByKai: true,
+      });
+      if (sourceLeadId) archiveLead(sourceLeadId);
+      return;
+    }
+
+    // Cap 4 — merge. Form carries `mergeTarget` + `sourceLeadId` + `sourceCustomerId`
+    // plus boolean checkbox decisions. Effects: archive the source lead so it
+    // disappears from the active leads list; surviving customer record stays put
+    // (existing customer state is read-only in this demo).
+    const isMerge = fields.some((f) => f.fieldId === 'mergeTarget');
+    if (isMerge) {
+      const sourceLeadId = fields.find((f) => f.fieldId === 'sourceLeadId')?.value;
+      const sourceCustomerId = fields.find((f) => f.fieldId === 'sourceCustomerId')?.value;
+      const mergeTarget = fields.find((f) => f.fieldId === 'mergeTarget')?.value;
+      // Archive the lead in every case — the merge resolves the duplicate, so
+      // the lead should no longer appear as Qualified in the leads list.
+      if (sourceLeadId) archiveLead(sourceLeadId);
+      // If the user chose "Convert to Customer", also surface the merged record
+      // as a Kai-created customer so the Customers page reflects the new active
+      // entity. Respect the per-section checkbox toggles the user set via Modify.
+      if (mergeTarget === 'Convert to Customer') {
+        // Fixture checkboxes carry native booleans at the JSON layer but TS sees
+        // them as strings — check both 'true' and the literal true at runtime.
+        const flag = (id: string) => {
+          const v = fields.find((f) => f.fieldId === id)?.value as unknown;
+          return v === 'true' || v === true;
+        };
+        const carryRep = flag('mergeRep');
+        const carryOrders = flag('mergeOrders');
+        addCustomer({
+          id: sourceCustomerId ?? `C-${Date.now()}`,
+          name: 'The Garden Gate Shop',
+          contact: 'David Park',
+          lifetimeRevenue: carryOrders ? 8200 : 0,
+          lastOrder: carryOrders ? '2024-10-14' : '',
+          tags: ['Merged', 'Re-activated'],
+          rep: carryRep ? 'Hannah Cho' : '(unassigned)',
+          status: 'Active',
+          ordersYTD: 0,
+          createdByKai: true,
+        });
+      }
+      return;
+    }
+
+    // Cap 2 — lead creation. Lead forms carry `company` + `source` (no order/task markers).
+    const isLead =
+      fields.some((f) => f.fieldId === 'company') &&
+      fields.some((f) => f.fieldId === 'source') &&
+      !fields.some((f) => f.fieldId === 'subtotal') &&
+      !fields.some((f) => f.fieldId === 'title');
+    if (isLead) {
+      const newLeadId = fields.find((f) => f.fieldId === 'newLeadId')?.value ?? `L-${Date.now()}`;
+      const lead: SharedLead = {
+        id: newLeadId,
+        createdAt: new Date().toISOString(),
+        createdByKai: true,
+        name: fields.find((f) => f.fieldId === 'company')?.value ?? 'New Lead',
+        contact: fields.find((f) => f.fieldId === 'contact')?.value ?? '',
+        email: fields.find((f) => f.fieldId === 'email')?.value,
+        source: fields.find((f) => f.fieldId === 'source')?.value ?? 'Other',
+        status: fields.find((f) => f.fieldId === 'stage')?.value ?? 'New',
+        assignedTo: fields.find((f) => f.fieldId === 'assignee')?.value ?? '',
+      };
+      addLead(lead);
+      // Cap 2 follow-up — spawn the auto-task turn so it streams below the success dialog.
+      // The chat renderer pairs userMessages[i] ↔ kaiTurns[i] by index, so we also push
+      // a synthetic user message to keep the alignment (rendered as a soft "Kai →" note).
+      setMessages((prev) => [...prev, {
+        id: `msg-cap2-autotask-${Date.now()}`,
+        role: 'user',
+        content: `Suggested follow-up task for ${lead.name}`,
+        timestamp: Date.now(),
+      }]);
+      setKaiTurns((prev) => [...prev, {
+        id: (Date.now() + 1).toString(),
+        useCase: 'cap2-auto-task' as const,
+      }]);
+      setActiveStreams((n) => n + 1);
+      return;
+    }
+
     const isTask =
       fields.some((f) => f.fieldId === 'title') &&
       fields.some((f) => f.fieldId === 'assignee');
@@ -2811,7 +3154,7 @@ export default function ChatShell() {
       customerName: fields.find(f => f.fieldId === 'customer')?.value,
     };
     addTask(task);
-  }, [addTask, addOrder]);
+  }, [addTask, addOrder, addLead, archiveLead, addCustomer]);
 
   // Called when user clicks deep-link in ConfirmationDialog — navigates to WizOrder page
   const handleNavigate = useCallback((route: string) => {
@@ -3255,6 +3598,15 @@ export default function ChatShell() {
     notifyTourChipClicked();
     handleSend(resolved, false, true);
   }, [handleSend, triggerNudge, notifyTourChipClicked, kaiTurns, handleSaveAsDashboardFromAd17, handleAd17MetricsRequest, spawnAd29TestTurn, spawnWorkflowClarificationTurn]);
+
+  useEffect(() => {
+    function onAsk(e: Event) {
+      const ce = e as CustomEvent<{ query: string }>;
+      if (ce.detail?.query) handleChipClick(ce.detail.query);
+    }
+    window.addEventListener('kai:ask', onAsk);
+    return () => window.removeEventListener('kai:ask', onAsk);
+  }, [handleChipClick]);
 
   return (
     <div className="flex flex-col h-full">

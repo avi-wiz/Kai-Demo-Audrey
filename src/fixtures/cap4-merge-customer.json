@@ -1,0 +1,152 @@
+{
+  "frameId": "f-cap4-merge-001",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Found Lead L-9004 (The Garden Gate Shop) and Customer C-8050 (Garden Gate — inactive since 2024). Matching on contact name + phone — same business under a renamed entity. Showing both records for merge review.",
+        "steps": [
+          { "step": 1, "action": "search_leads", "result": "1 match: L-9004 (The Garden Gate Shop, Atlanta)", "ms": 175 },
+          { "step": 2, "action": "search_customers_fuzzy", "result": "1 inactive match: C-8050 (Garden Gate) — same contact + phone", "ms": 220 },
+          { "step": 3, "action": "compare_records", "result": "6 fields diff; 3 historical orders ($8,200) on C-8050", "ms": 145 },
+          { "step": 4, "action": "build_merge_plan", "result": "Lead wins on contact/address/email; customer contributes order + quote history", "ms": 95 }
+        ],
+        "mcpsAccessed": ["CRM", "Customers", "Orders"],
+        "totalMs": 635
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-004",
+      "data": {
+        "title": "Side-by-Side Comparison — Lead L-9004 vs. Customer C-8050",
+        "columns": [
+          { "key": "field", "label": "Field", "align": "left" },
+          { "key": "lead", "label": "Lead L-9004 (newer)", "align": "left" },
+          { "key": "customer", "label": "Customer C-8050 (inactive)", "align": "left" }
+        ],
+        "rows": [
+          { "field": "Name", "lead": "The Garden Gate Shop", "customer": "Garden Gate" },
+          { "field": "Contact", "lead": "David Park", "customer": "David Park" },
+          { "field": "Email", "lead": "david@gardengate.com", "customer": "dpark@gardengate.com (old)" },
+          { "field": "Phone", "lead": "(404) 555-1234", "customer": "(404) 555-1234" },
+          { "field": "Address", "lead": "142 Peach St, Atlanta GA", "customer": "140 Peach St, Atlanta GA" },
+          { "field": "Stage / Status", "lead": "Qualified", "customer": "Inactive" },
+          { "field": "Rep", "lead": "Hannah Cho (R-003)", "customer": "(unassigned)" },
+          { "field": "Orders", "lead": "0", "customer": "3 (2024, totaling $8,200)" },
+          { "field": "Open Quotes", "lead": "0", "customer": "1 expired" },
+          { "field": "Wishlist", "lead": "—", "customer": "—" }
+        ]
+      },
+      "highlights": [
+        { "type": "info", "fieldPath": "rows[3].customer", "message": "Exact phone match — strong duplicate signal" },
+        { "type": "positive", "fieldPath": "rows[7].customer", "message": "Order history transfers to surviving record on merge" }
+      ]
+    },
+    {
+      "widgetType": "AW-004",
+      "data": {
+        "formId": "cap4-merge-form",
+        "steps": [
+          {
+            "stepTitle": "Merge Plan",
+            "fields": [
+              {
+                "fieldId": "sourceLeadId",
+                "type": "hidden",
+                "label": "",
+                "value": "L-9004",
+                "required": false
+              },
+              {
+                "fieldId": "sourceCustomerId",
+                "type": "hidden",
+                "label": "",
+                "value": "C-8050",
+                "required": false
+              },
+              {
+                "fieldId": "mergeContact",
+                "type": "checkbox",
+                "label": "Contact information (keep lead's email — newer)",
+                "value": true,
+                "required": false
+              },
+              {
+                "fieldId": "mergeAddress",
+                "type": "checkbox",
+                "label": "Shipping address (keep lead's — 142 Peach St)",
+                "value": true,
+                "required": false
+              },
+              {
+                "fieldId": "mergeOrders",
+                "type": "checkbox",
+                "label": "Order history (bring 3 orders from old record)",
+                "value": true,
+                "required": false
+              },
+              {
+                "fieldId": "mergeQuotes",
+                "type": "checkbox",
+                "label": "Quotes (bring 1 expired quote)",
+                "value": true,
+                "required": false
+              },
+              {
+                "fieldId": "mergeWishlist",
+                "type": "checkbox",
+                "label": "Wishlist (old record has none — skip)",
+                "value": false,
+                "required": false
+              },
+              {
+                "fieldId": "mergeRep",
+                "type": "checkbox",
+                "label": "Assign rep: Hannah Cho (from lead)",
+                "value": true,
+                "required": false
+              },
+              {
+                "fieldId": "mergeTarget",
+                "type": "select",
+                "label": "Merge into",
+                "value": "Convert to Customer",
+                "options": ["Keep as Lead", "Convert to Customer"],
+                "required": true
+              }
+            ]
+          }
+        ]
+      },
+      "config": { "mode": "review", "editable": true }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Merge these records? The old customer record will be archived. Order history and quotes will transfer to the surviving record.",
+        "tier": "draft",
+        "actions": ["Confirm Merge", "Modify", "Cancel"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "These look like the same business — David Park, same phone, similar address. The old C-8050 record has 3 historical orders worth $8,200 from 2024. I've drafted the merge plan: keep the lead's newer contact info, pull order + quote history forward, and convert the result into a fresh customer record assigned to Hannah."
+  },
+  "actions": {
+    "onConfirm": {
+      "mcp": "Customers",
+      "method": "mergeRecords",
+      "payload": {
+        "sourceLeadId": "L-9004",
+        "sourceCustomerId": "C-8050",
+        "target": "Convert to Customer",
+        "mergeFields": ["contact", "address", "orders", "quotes", "rep"]
+      }
+    },
+    "onCancel": { "action": "discard" },
+    "onModify": { "action": "unlock_form" }
+  }
+}

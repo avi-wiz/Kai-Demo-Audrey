@@ -141,13 +141,61 @@ function FieldRow({
   );
 }
 
+// Renders an email body as a full-width, left-aligned, pre-wrapped block.
+// Used for entityType:'email' Body fields where the value is multi-paragraph
+// prose that would otherwise get cramped into a right-aligned narrow column.
+function EmailBodyBlock({ label, value }: { label: string; value: string }) {
+  return (
+    <div
+      style={{
+        padding: '14px 16px',
+        background: 'var(--surface2)',
+        borderTop: '1px solid var(--border)',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 10.5,
+          fontWeight: 600,
+          color: 'var(--text3)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.4px',
+          marginBottom: 10,
+          fontFamily: 'var(--sans)',
+        }}
+      >
+        {label}
+      </div>
+      <div
+        style={{
+          fontSize: 13.5,
+          lineHeight: 1.65,
+          color: 'var(--text)',
+          fontFamily: 'var(--sans)',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word',
+          textAlign: 'left',
+        }}
+      >
+        {value || (
+          <span style={{ color: 'var(--text3)', fontStyle: 'italic' }}>
+            Drafting…
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function EntityDetailCard({ data: rawData, highlights, onAction }: WidgetProps & { highlights?: WidgetHighlight[]; onAction?: (query: string) => void }) {
   const data = rawData as unknown as EntityDetailCardData;
+  const isEmail = data.entityType === 'email';
 
   // Build lookup by index ("fields[N]") and by label ("fields.{label}")
   const hlByIndex = new Map<number, WidgetHighlight>();
   const hlByLabel = new Map<string, WidgetHighlight>();
   for (const hl of highlights ?? []) {
+    if (typeof hl.fieldPath !== 'string') continue;
     const idxMatch = hl.fieldPath.match(/^fields\[(\d+)\]/);
     if (idxMatch) {
       hlByIndex.set(parseInt(idxMatch[1], 10), hl);
@@ -193,6 +241,11 @@ export default function EntityDetailCard({ data: rawData, highlights, onAction }
       <div style={{ borderRadius: 'var(--radius-inner)', overflow: 'hidden', border: '1px solid var(--border)' }}>
         {data.fields.map((field, i) => {
           const hl = hlByIndex.get(i) ?? hlByLabel.get(field.label.toLowerCase());
+          // Email bodies render as a full-width prose block (left-aligned,
+          // multi-paragraph). Other fields keep the standard FieldRow layout.
+          if (isEmail && field.label.toLowerCase() === 'body') {
+            return <EmailBodyBlock key={field.label} label={field.label} value={field.value} />;
+          }
           return (
             <FieldRow key={field.label} field={field} isEven={i % 2 === 1} hl={hl} onAction={onAction} />
           );

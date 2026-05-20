@@ -1,0 +1,247 @@
+{
+  "frameId": "f-report-pipeline-001",
+  "frameType": "dashboard_staged",
+  "capability": "dashboard-builder",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Building Pipeline report. Loading 6 active leads + 8 open deals, computing conversion velocity, and ranking by close probability.",
+        "steps": [
+          {
+            "step": 1,
+            "action": "fetch_leads_and_deals",
+            "result": "6 leads, 8 deals \u2014 $186K combined pipeline value",
+            "ms": 175
+          },
+          {
+            "step": 2,
+            "action": "compute_velocity",
+            "result": "Avg lead-to-customer conversion: 42 days; 68% conversion rate",
+            "ms": 140
+          },
+          {
+            "step": 3,
+            "action": "rank_close_probability",
+            "result": "3 deals closing this month, 2 at 70%+ confidence",
+            "ms": 95
+          }
+        ],
+        "totalMs": 410
+      },
+      "config": {
+        "collapsed": true
+      }
+    },
+    {
+      "widgetType": "UW-030",
+      "data": {
+        "title": "Pipeline Health",
+        "description": "Lead funnel, deal velocity, and closing-this-month watchlist",
+        "layout": "grid-2x2",
+        "cells": [
+          {
+            "position": {
+              "row": 0,
+              "col": 0,
+              "colSpan": 2
+            },
+            "widgetType": "UW-002",
+            "data": {
+              "cards": [
+                {
+                  "label": "Pipeline Value",
+                  "value": "$186,000",
+                  "format": "currency",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 14,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "Active Leads",
+                  "value": "6",
+                  "format": "count",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 20,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "Avg Convert Time",
+                  "value": "42 days",
+                  "format": "count",
+                  "trend": {
+                    "direction": "down",
+                    "percent": 9,
+                    "period": "improving"
+                  }
+                },
+                {
+                  "label": "Conversion Rate",
+                  "value": "68%",
+                  "format": "percent",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 6,
+                    "period": "vs Q1"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 0
+            },
+            "widgetType": "UW-004",
+            "data": {
+              "title": "Leads by Stage",
+              "columns": [
+                {
+                  "key": "name",
+                  "label": "Lead",
+                  "align": "left"
+                },
+                {
+                  "key": "stage",
+                  "label": "Stage",
+                  "align": "left"
+                },
+                {
+                  "key": "daysInStage",
+                  "label": "Days in Stage",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "nextAction",
+                  "label": "Next Action",
+                  "align": "left"
+                },
+                {
+                  "key": "rep",
+                  "label": "Rep",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "name": "Verdant Home Collective",
+                  "stage": "Qualified",
+                  "daysInStage": 10,
+                  "nextAction": "Convert to customer (Won)",
+                  "rep": "Beth Calloway"
+                },
+                {
+                  "name": "Wildflower Market",
+                  "stage": "Qualified",
+                  "daysInStage": 21,
+                  "nextAction": "Send Birdhouse samples",
+                  "rep": "Beth Calloway"
+                },
+                {
+                  "name": "Mountain Bloom Studio",
+                  "stage": "Qualified",
+                  "daysInStage": 14,
+                  "nextAction": "Build curated catalog",
+                  "rep": "Hannah Cho"
+                },
+                {
+                  "name": "Lakeside Living Co",
+                  "stage": "Contacted",
+                  "daysInStage": 7,
+                  "nextAction": "Set up website access",
+                  "rep": "Marcus Rivera"
+                },
+                {
+                  "name": "The Garden Gate Shop",
+                  "stage": "Qualified",
+                  "daysInStage": 18,
+                  "nextAction": "Merge with C-8050",
+                  "rep": "Hannah Cho"
+                },
+                {
+                  "name": "Rustic Charm Boutique",
+                  "stage": "New",
+                  "daysInStage": 6,
+                  "nextAction": "First outreach",
+                  "rep": "Marcus Rivera"
+                }
+              ]
+            },
+            "highlights": [
+              {
+                "type": "positive",
+                "fieldPath": "rows[0].nextAction"
+              }
+            ]
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "widgetType": "UW-011",
+            "data": {
+              "title": "Deals Closing This Month",
+              "items": [
+                {
+                  "id": "D-3201",
+                  "title": "Magnolia Home & Garden \u2014 Q3 Featured Collections refresh ($24,800)",
+                  "dueDate": "2026-05-28",
+                  "priority": "High",
+                  "assignedTo": "Beth Calloway",
+                  "status": "Open"
+                },
+                {
+                  "id": "D-3202",
+                  "title": "The Potting Shed \u2014 Spring restock ($18,400)",
+                  "dueDate": "2026-05-31",
+                  "priority": "High",
+                  "assignedTo": "Beth Calloway",
+                  "status": "Open"
+                },
+                {
+                  "id": "D-3203",
+                  "title": "Verdant Home Collective \u2014 Initial order on conversion ($12,000)",
+                  "dueDate": "2026-05-22",
+                  "priority": "Medium",
+                  "assignedTo": "Beth Calloway",
+                  "status": "Open"
+                },
+                {
+                  "id": "D-3204",
+                  "title": "Sunflower & Sage \u2014 Pre-Book July ($8,920)",
+                  "dueDate": "2026-05-30",
+                  "priority": "Medium",
+                  "assignedTo": "Marcus Rivera",
+                  "status": "Open"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Here's your Pipeline Health report \u2014 lead funnel, deal velocity, and closing-this-month watchlist. Confirm to save, edit to tweak, or tell me what to change.",
+        "tier": "draft",
+        "actions": [
+          "Save Dashboard",
+          "Edit",
+          "Cancel"
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Pipeline is at $186K (+14% vs Q1) with 68% conversion. Three deals close before end-of-month, two of them Beth's. Verdant Home is the easy win \u2014 Qualified for 10 days with conversion already staged. Rustic Charm has been New for 6 days without first outreach \u2014 flag to Marcus."
+  }
+}

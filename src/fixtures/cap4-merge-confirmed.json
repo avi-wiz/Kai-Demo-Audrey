@@ -1,0 +1,18 @@
+{
+  "frameId": "f-cap4-merge-002",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "AW-003",
+      "data": {
+        "status": "success",
+        "title": "Records Merged",
+        "message": "Records merged. The Garden Gate Shop now has $8,200 in historical orders. Old record C-8050 archived.",
+        "entityLink": {
+          "label": "View Merged Record",
+          "url": "/customers/C-8051"
+        }
+      }
+    }
+  ]
+}

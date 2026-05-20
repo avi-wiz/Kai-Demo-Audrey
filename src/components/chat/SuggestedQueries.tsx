@@ -13,18 +13,18 @@ interface Chip {
 
 const CHIPS: Chip[] = [
   {
-    label: "How's Acme Corp doing?",
-    query: "How's Acme Corp doing?",
+    label: "How's Magnolia Home & Garden doing?",
+    query: "How's Magnolia Home & Garden doing?",
     variant: 'indigo',
   },
   {
-    label: 'Create a task for Shaw N Solutions',
-    query: 'Create a task for Shaw N Solutions',
+    label: 'Create a task for Wildflower Market',
+    query: 'Create a task for Wildflower Market',
     variant: 'amber',
   },
   {
     label: 'Show revenue and create a follow-up',
-    query: 'Show Acme revenue and create a follow-up',
+    query: 'Show Magnolia revenue and create a follow-up',
     variant: 'emerald',
   },
   {

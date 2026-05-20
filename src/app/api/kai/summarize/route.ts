@@ -19,7 +19,7 @@ CRITICAL OUTPUT FORMAT:
 - Your entire response must start with { and end with }.
 
 Shape:
-{ "title": "<= 60 chars, action-oriented (e.g. 'Restock order for Acme Corp')",
+{ "title": "<= 60 chars, action-oriented (e.g. 'Pre-Book order for Magnolia Home & Garden')",
   "subtext": "<= 110 chars, one-line factual recap of what happened",
   "tag": "<one of the allowed tag values>" }
 

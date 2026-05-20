@@ -1,0 +1,353 @@
+{
+  "frameId": "f-report-catalog-001",
+  "frameType": "dashboard_staged",
+  "capability": "dashboard-builder",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Building Catalog Health report. Scanning all 50 active SKUs across 7 buckets, computing sell-through by collection, and ranking PhaseOut clearance priority.",
+        "steps": [
+          {
+            "step": 1,
+            "action": "fetch_skus",
+            "result": "50 active SKUs across 7 buckets",
+            "ms": 175
+          },
+          {
+            "step": 2,
+            "action": "compute_inventory_state",
+            "result": "35 In Stock, 8 Limited Quantity, 3 Out of Stock, 5 Pre-Book; 15 in sale_clearance bucket",
+            "ms": 195
+          },
+          {
+            "step": 3,
+            "action": "rank_phaseout_priority",
+            "result": "4 PhaseOut SKUs under 50 units; 2 under 20 \u2014 urgent",
+            "ms": 135
+          }
+        ],
+        "totalMs": 505
+      },
+      "config": {
+        "collapsed": true
+      }
+    },
+    {
+      "widgetType": "UW-030",
+      "data": {
+        "title": "Catalog Health",
+        "description": "Active SKU mix, stock levels, sell-through by collection, and PhaseOut clearance priority",
+        "layout": "grid-2x3",
+        "cells": [
+          {
+            "position": {
+              "row": 0,
+              "col": 0,
+              "colSpan": 2
+            },
+            "widgetType": "UW-002",
+            "data": {
+              "cards": [
+                {
+                  "label": "Active SKUs",
+                  "value": "50",
+                  "format": "count",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 4,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "In Stock",
+                  "value": "35",
+                  "format": "count",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 6,
+                    "period": "vs Q1"
+                  }
+                },
+                {
+                  "label": "Low Stock",
+                  "value": "8",
+                  "format": "count",
+                  "trend": {
+                    "direction": "up",
+                    "percent": 14,
+                    "period": "Limited Qty"
+                  }
+                },
+                {
+                  "label": "PhaseOut",
+                  "value": "15",
+                  "format": "count",
+                  "trend": {
+                    "direction": "down",
+                    "percent": 12,
+                    "period": "clearance"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 0
+            },
+            "widgetType": "UW-004",
+            "data": {
+              "title": "Inventory by Collection",
+              "columns": [
+                {
+                  "key": "collection",
+                  "label": "Collection",
+                  "align": "left"
+                },
+                {
+                  "key": "skus",
+                  "label": "SKUs",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "units",
+                  "label": "Total Units",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "sellThrough",
+                  "label": "Sell-Through",
+                  "align": "right",
+                  "format": "percent"
+                }
+              ],
+              "rows": [
+                {
+                  "collection": "A Blooming Porch",
+                  "skus": 8,
+                  "units": 1840,
+                  "sellThrough": 68
+                },
+                {
+                  "collection": "Gardeners Grove",
+                  "skus": 6,
+                  "units": 1320,
+                  "sellThrough": 62
+                },
+                {
+                  "collection": "The Herb Garden",
+                  "skus": 4,
+                  "units": 840,
+                  "sellThrough": 55
+                },
+                {
+                  "collection": "Bunnies",
+                  "skus": 3,
+                  "units": 510,
+                  "sellThrough": 41
+                },
+                {
+                  "collection": "Garden Outdoor",
+                  "skus": 8,
+                  "units": 1480,
+                  "sellThrough": 59
+                },
+                {
+                  "collection": "July 2026 Release",
+                  "skus": 6,
+                  "units": 420,
+                  "sellThrough": 18
+                },
+                {
+                  "collection": "PhaseOut",
+                  "skus": 15,
+                  "units": 1245,
+                  "sellThrough": 38
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "widgetType": "CH-001",
+            "data": {
+              "title": "Stock Depletion Trend \u2014 Weekly Units Sold",
+              "series": [
+                {
+                  "week": "W1",
+                  "units": 285
+                },
+                {
+                  "week": "W2",
+                  "units": 312
+                },
+                {
+                  "week": "W3",
+                  "units": 298
+                },
+                {
+                  "week": "W4",
+                  "units": 340
+                },
+                {
+                  "week": "W5",
+                  "units": 326
+                },
+                {
+                  "week": "W6",
+                  "units": 354
+                },
+                {
+                  "week": "W7",
+                  "units": 368
+                },
+                {
+                  "week": "W8",
+                  "units": 392
+                }
+              ],
+              "yAxisLabel": "Units Sold",
+              "xAxisLabel": "Week"
+            },
+            "config": {
+              "chartType": "line",
+              "showArea": true
+            }
+          },
+          {
+            "position": {
+              "row": 2,
+              "col": 0,
+              "colSpan": 2
+            },
+            "widgetType": "UW-004",
+            "data": {
+              "title": "PhaseOut Clearance Priority",
+              "columns": [
+                {
+                  "key": "sku",
+                  "label": "SKU",
+                  "align": "left",
+                  "mono": true
+                },
+                {
+                  "key": "name",
+                  "label": "Name",
+                  "align": "left"
+                },
+                {
+                  "key": "units",
+                  "label": "Units Remaining",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "days",
+                  "label": "Days in PhaseOut",
+                  "align": "right",
+                  "format": "number"
+                },
+                {
+                  "key": "action",
+                  "label": "Suggested Action",
+                  "align": "left"
+                }
+              ],
+              "rows": [
+                {
+                  "sku": "51GR1937",
+                  "name": "Bird Pot Feet",
+                  "units": 16,
+                  "days": 84,
+                  "action": "Market-week clearance email"
+                },
+                {
+                  "sku": "51GR1919",
+                  "name": "Antiqued Bronze Bird Garden Stake",
+                  "units": 18,
+                  "days": 72,
+                  "action": "Market-week clearance email"
+                },
+                {
+                  "sku": "51GR1938",
+                  "name": "Galvanized Dog Planter",
+                  "units": 26,
+                  "days": 58,
+                  "action": "Bundle with planters offer"
+                },
+                {
+                  "sku": "51GR1907",
+                  "name": "Wall Planter \u2014 Le Jardin",
+                  "units": 35,
+                  "days": 49,
+                  "action": "Bundle with planters offer"
+                },
+                {
+                  "sku": "51GR1830-U",
+                  "name": "Sign \u2014 The She Shed",
+                  "units": 26,
+                  "days": 62,
+                  "action": "Add to clearance digital catalog"
+                },
+                {
+                  "sku": "51GR1634",
+                  "name": "Sign \u2014 I Love My Garden",
+                  "units": 65,
+                  "days": 41,
+                  "action": "Add to clearance digital catalog"
+                },
+                {
+                  "sku": "3B1181",
+                  "name": "Nesting Boxes \u2014 Country Bath",
+                  "units": 105,
+                  "days": 35,
+                  "action": "Monitor \u2014 sell-through 22%/wk"
+                },
+                {
+                  "sku": "51GR1895",
+                  "name": "Cement Mushrooms",
+                  "units": 493,
+                  "days": 28,
+                  "action": "Monitor \u2014 sell-through 14%/wk"
+                }
+              ]
+            },
+            "highlights": [
+              {
+                "type": "urgent",
+                "fieldPath": "rows[0].units"
+              },
+              {
+                "type": "urgent",
+                "fieldPath": "rows[1].units"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Here's your Catalog Health report \u2014 active SKU mix, sell-through by collection, and PhaseOut clearance priority. Confirm to save, edit to tweak, or tell me what to change.",
+        "tier": "draft",
+        "actions": [
+          "Save Dashboard",
+          "Edit",
+          "Cancel"
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "Catalog is in good shape \u2014 35 of 50 SKUs in stock, weekly velocity climbing. The Herb Garden's 55% sell-through is the strongest collection ratio. PhaseOut backlog needs action: Bird Pot Feet (16 units, 84 days) and Antiqued Bronze Bird Garden Stake (18 units, 72 days) should be the first hits of a market-week clearance email."
+  }
+}

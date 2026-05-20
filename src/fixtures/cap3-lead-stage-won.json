@@ -1,0 +1,224 @@
+{
+  "frameId": "f-cap3-conversion-001",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Found Lead L-9003 (Verdant Home Collective, stage: Qualified). Moving to Won triggers customer conversion. Collecting required fields for account setup.",
+        "steps": [
+          { "step": 1, "action": "search_leads", "result": "1 match: L-9003 (Verdant Home Collective, Franklin TN)", "ms": 175 },
+          { "step": 2, "action": "fetch_lead_history", "result": "3 calls completed, pricing agreed, referred by Magnolia (C-8001)", "ms": 145 },
+          { "step": 3, "action": "evaluate_stage_transition", "result": "Qualified → Won → triggers customer conversion workflow", "ms": 80 },
+          { "step": 4, "action": "load_conversion_template", "result": "4-step customer account form prepared", "ms": 60 }
+        ],
+        "mcpsAccessed": ["CRM", "Customers", "Pricing"],
+        "totalMs": 460
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "lead",
+        "title": "Verdant Home Collective",
+        "fields": [
+          { "label": "Contact", "value": "Amy Brooks" },
+          { "label": "Stage", "value": "Qualified → Won ✅" },
+          { "label": "Source", "value": "Referral from Magnolia Home & Garden" },
+          { "label": "Rep", "value": "Beth Calloway" },
+          { "label": "Lead ID", "value": "L-9003", "entityId": "L-9003" }
+        ]
+      },
+      "highlights": [
+        { "type": "positive", "fieldPath": "fields.stage", "message": "Stage transition to Won — customer conversion triggered" }
+      ]
+    },
+    {
+      "widgetType": "AW-004",
+      "data": {
+        "formId": "cap3-customer-conversion",
+        "steps": [
+          {
+            "stepTitle": "Business Details",
+            "fields": [
+              {
+                "fieldId": "sourceLeadId",
+                "type": "hidden",
+                "label": "",
+                "value": "L-9003",
+                "required": false
+              },
+              {
+                "fieldId": "newCustomerId",
+                "type": "hidden",
+                "label": "",
+                "value": "C-8009",
+                "required": false
+              },
+              {
+                "fieldId": "legalName",
+                "type": "text",
+                "label": "Legal Name",
+                "value": "Verdant Home Collective LLC",
+                "required": true
+              },
+              {
+                "fieldId": "taxId",
+                "type": "text",
+                "label": "Tax ID / EIN",
+                "value": "",
+                "required": true,
+                "placeholder": "XX-XXXXXXX"
+              },
+              {
+                "fieldId": "businessType",
+                "type": "select",
+                "label": "Business Type",
+                "value": "",
+                "options": ["Retailer", "Wholesaler", "Designer", "Other"],
+                "required": true
+              },
+              {
+                "fieldId": "website",
+                "type": "url",
+                "label": "Website",
+                "value": "",
+                "required": false,
+                "placeholder": "https://"
+              }
+            ]
+          },
+          {
+            "stepTitle": "Billing & Shipping",
+            "fields": [
+              {
+                "fieldId": "billingStreet",
+                "type": "text",
+                "label": "Billing Street",
+                "value": "",
+                "required": true
+              },
+              {
+                "fieldId": "billingCity",
+                "type": "text",
+                "label": "Billing City",
+                "value": "Franklin",
+                "required": true
+              },
+              {
+                "fieldId": "billingState",
+                "type": "text",
+                "label": "Billing State",
+                "value": "TN",
+                "required": true
+              },
+              {
+                "fieldId": "billingZip",
+                "type": "text",
+                "label": "Billing ZIP",
+                "value": "",
+                "required": true
+              },
+              {
+                "fieldId": "shippingSameAsBilling",
+                "type": "checkbox",
+                "label": "Shipping address same as billing",
+                "value": true,
+                "required": false
+              },
+              {
+                "fieldId": "shippingNotes",
+                "type": "textarea",
+                "label": "Shipping Notes",
+                "value": "",
+                "required": false,
+                "placeholder": "Loading dock instructions, delivery windows, etc."
+              }
+            ]
+          },
+          {
+            "stepTitle": "Account Setup",
+            "fields": [
+              {
+                "fieldId": "paymentTerms",
+                "type": "select",
+                "label": "Payment Terms",
+                "value": "Net 30",
+                "options": ["Net 30", "Net 60", "COD", "Prepaid"],
+                "required": true
+              },
+              {
+                "fieldId": "creditLimit",
+                "type": "currency",
+                "label": "Credit Limit",
+                "value": 25000,
+                "suggested": 25000,
+                "required": true
+              },
+              {
+                "fieldId": "priceList",
+                "type": "select",
+                "label": "Price List",
+                "value": "Wholesale Tier 1",
+                "options": ["Wholesale Tier 1", "Wholesale Tier 2", "Retail"],
+                "required": true
+              },
+              {
+                "fieldId": "salesRep",
+                "type": "user_search",
+                "label": "Sales Rep",
+                "value": "Beth Calloway",
+                "resolvedId": "R-001",
+                "required": true,
+                "locked": true
+              }
+            ]
+          },
+          {
+            "stepTitle": "Review",
+            "fields": [
+              {
+                "fieldId": "summary",
+                "type": "summary",
+                "label": "Customer Account Summary",
+                "value": "Verdant Home Collective LLC — Franklin, TN. Wholesale Tier 1 pricing, Net 30 terms, $25,000 credit limit. Sales rep: Beth Calloway. Lead L-9003 archived on conversion.",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "config": { "mode": "review", "editable": true }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Convert Verdant Home Collective from lead to customer account with these details?",
+        "tier": "draft",
+        "actions": ["Confirm", "Modify", "Cancel"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "Moving Verdant Home to Won — great news. To convert them to a full customer account, I need a few details: business info, billing/shipping, and account setup. Most fields are pre-filled from the lead record; the tax ID and business type are the only required gaps."
+  },
+  "actions": {
+    "onConfirm": {
+      "mcp": "Customers",
+      "method": "convertLeadToCustomer",
+      "payload": {
+        "leadId": "L-9003",
+        "legalName": "Verdant Home Collective LLC",
+        "paymentTerms": "Net 30",
+        "creditLimit": 25000,
+        "priceList": "Wholesale Tier 1",
+        "salesRep": "R-001",
+        "archiveLead": true
+      }
+    },
+    "onCancel": { "action": "discard" },
+    "onModify": { "action": "unlock_form" }
+  }
+}

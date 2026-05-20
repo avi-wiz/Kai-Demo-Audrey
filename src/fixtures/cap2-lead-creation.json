@@ -1,0 +1,153 @@
+{
+  "frameId": "f-cap2-lead-001",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "No existing lead or customer found for 'Pine & Thistle'. Creating new lead. Pre-filling assignee from website-lead routing rule → Hannah Cho (Mountain/West).",
+        "steps": [
+          { "step": 1, "action": "search_customers", "result": "0 matches for 'Pine & Thistle'", "ms": 165 },
+          { "step": 2, "action": "search_leads", "result": "0 matches for 'Pine & Thistle'", "ms": 140 },
+          { "step": 3, "action": "resolve_assignee_routing", "result": "Website source → R-003 (Hannah Cho)", "ms": 90 },
+          { "step": 4, "action": "validate_org_config", "result": "Stage 'New' valid, source 'Website' valid", "ms": 14 }
+        ],
+        "mcpsAccessed": ["CRM", "Users"],
+        "totalMs": 409
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "AW-004",
+      "data": {
+        "formId": "cap2-lead-form",
+        "steps": [
+          {
+            "stepTitle": "Basic Info",
+            "fields": [
+              {
+                "fieldId": "newLeadId",
+                "type": "hidden",
+                "label": "",
+                "value": "L-9007",
+                "required": false
+              },
+              {
+                "fieldId": "company",
+                "type": "text",
+                "label": "Company",
+                "value": "Pine & Thistle Gift Shop",
+                "required": true
+              },
+              {
+                "fieldId": "contact",
+                "type": "text",
+                "label": "Contact",
+                "value": "Emma Walsh",
+                "required": true
+              },
+              {
+                "fieldId": "email",
+                "type": "email",
+                "label": "Email",
+                "value": "emma@pineandthistle.com",
+                "required": true
+              },
+              {
+                "fieldId": "phone",
+                "type": "tel",
+                "label": "Phone",
+                "value": "",
+                "required": false
+              },
+              {
+                "fieldId": "source",
+                "type": "select",
+                "label": "Source",
+                "value": "Website",
+                "options": ["Website", "Trade Show", "Referral", "Cold Outreach", "Other"],
+                "required": true
+              }
+            ]
+          },
+          {
+            "stepTitle": "Details",
+            "fields": [
+              {
+                "fieldId": "stage",
+                "type": "select",
+                "label": "Stage",
+                "value": "New",
+                "options": ["New", "Qualified", "Proposal", "Won", "Lost"],
+                "required": true
+              },
+              {
+                "fieldId": "assignee",
+                "type": "user_search",
+                "label": "Assigned To",
+                "value": "Hannah Cho",
+                "resolvedId": "R-003",
+                "required": true
+              },
+              {
+                "fieldId": "region",
+                "type": "text",
+                "label": "Region",
+                "value": "",
+                "required": false
+              },
+              {
+                "fieldId": "notes",
+                "type": "textarea",
+                "label": "Notes",
+                "value": "",
+                "required": false
+              }
+            ]
+          },
+          {
+            "stepTitle": "Review",
+            "fields": [
+              {
+                "fieldId": "summary",
+                "type": "summary",
+                "label": "Lead Summary",
+                "value": "Pine & Thistle Gift Shop — Emma Walsh (emma@pineandthistle.com). Source: Website. Stage: New. Assigned to Hannah Cho (R-003).",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "config": { "mode": "review", "editable": false }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Create lead 'Pine & Thistle Gift Shop' assigned to Hannah Cho?",
+        "tier": "draft",
+        "actions": ["Confirm", "Modify", "Cancel"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "No existing record for Pine & Thistle — I've staged a new lead with Emma Walsh as the primary contact and routed it to Hannah on the Mountain/West desk based on the website-source rule. Review and confirm."
+  },
+  "actions": {
+    "onConfirm": {
+      "mcp": "CRM",
+      "method": "createLead",
+      "payload": {
+        "company": "Pine & Thistle Gift Shop",
+        "contact": "Emma Walsh",
+        "email": "emma@pineandthistle.com",
+        "source": "Website",
+        "stage": "New",
+        "assignedTo": "R-003"
+      }
+    },
+    "onCancel": { "action": "discard" },
+    "onModify": { "action": "unlock_form" }
+  }
+}

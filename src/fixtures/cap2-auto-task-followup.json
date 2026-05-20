@@ -1,0 +1,50 @@
+{
+  "frameId": "f-cap2-lead-002",
+  "frameType": "action_staged",
+  "widgets": [
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "task",
+        "title": "First outreach — Pine & Thistle Gift Shop",
+        "fields": [
+          { "label": "Lead", "value": "Pine & Thistle Gift Shop", "entityId": "L-9007" },
+          { "label": "Assigned To", "value": "Hannah Cho" },
+          { "label": "Due Date", "value": "May 22, 2026" },
+          { "label": "Priority", "value": "Medium" },
+          { "label": "Type", "value": "Email" },
+          { "label": "Status", "value": "Open" }
+        ]
+      }
+    },
+    {
+      "widgetType": "AW-012",
+      "data": {
+        "message": "Auto-create this follow-up task?",
+        "tier": "suggestion",
+        "actions": ["Confirm", "Skip", "Modify"]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "I've also drafted an initial outreach task for Hannah — first contact should happen within 48 hours for website leads. Confirm to create it, skip if you'd rather Hannah set her own cadence."
+  },
+  "actions": {
+    "onConfirm": {
+      "mcp": "CRM",
+      "method": "createTask",
+      "payload": {
+        "leadId": "L-9007",
+        "title": "First outreach — Pine & Thistle Gift Shop",
+        "type": "Email",
+        "priority": "Medium",
+        "status": "Open",
+        "assignedTo": "R-003",
+        "dueDate": "2026-05-22"
+      }
+    },
+    "onCancel": { "action": "discard" },
+    "onModify": { "action": "unlock_form" }
+  }
+}

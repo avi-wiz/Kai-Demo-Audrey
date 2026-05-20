@@ -1,7 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import type { WidgetProps, CompactListData, CompactListItem, WidgetHighlight } from '@/lib/types';
+import type { WidgetProps, CompactListData, CompactListTaskItem, CompactListActivityItem, WidgetHighlight } from '@/lib/types';
+
+const ACTIVITY_ICON: Record<string, string> = {
+  order: '📦', lead: '🆕', task: '✅', deal: '💼', check: '✅', alert: '⚠️',
+};
 
 function formatDate(iso: string): string {
   const d = new Date(iso + 'T00:00:00');
@@ -48,7 +52,7 @@ function TaskRow({
   rowHighlights,
   onAction,
 }: {
-  item: CompactListItem;
+  item: CompactListTaskItem;
   isLast: boolean;
   rowHighlights: Map<string, WidgetHighlight>;
   onAction?: (query: string) => void;
@@ -182,6 +186,65 @@ function TaskRow({
   );
 }
 
+function ActivityRow({
+  item,
+  isLast,
+  rowHighlights,
+}: {
+  item: CompactListActivityItem;
+  isLast: boolean;
+  rowHighlights: Map<string, WidgetHighlight>;
+}) {
+  const rowHl = rowHighlights.get('text') ?? rowHighlights.get('timestamp');
+  const glyph = ACTIVITY_ICON[item.icon ?? ''] ?? '•';
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        padding: '10px 0',
+        borderBottom: isLast ? 'none' : '1px solid var(--border)',
+        ...(rowHl ? {
+          boxShadow: `inset 3px 0 0 0 ${HL_BORDER[rowHl.type]}`,
+          background: HL_BG[rowHl.type],
+          paddingLeft: 12,
+          marginLeft: -12,
+          borderRadius: '4px',
+        } : {}),
+      }}
+    >
+      <span style={{
+        flexShrink: 0,
+        width: 24, height: 24,
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 14,
+        background: 'var(--surface2)',
+        border: '1px solid var(--border)',
+        borderRadius: 6,
+      }}>
+        {glyph}
+      </span>
+      <div style={{
+        flex: 1, minWidth: 0,
+        fontSize: 12.5, color: 'var(--text)',
+        fontFamily: 'var(--sans)',
+        whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+      }}>
+        {item.text}
+      </div>
+      <span style={{
+        flexShrink: 0,
+        fontSize: 10.5, color: 'var(--text3)',
+        fontFamily: 'var(--mono)',
+        textAlign: 'right',
+      }}>
+        {item.timestamp}
+      </span>
+    </div>
+  );
+}
+
 export default function CompactList({ data: rawData, highlights, onAction }: WidgetProps & { highlights?: WidgetHighlight[]; onAction?: (query: string) => void }) {
   const data = rawData as unknown as CompactListData;
 
@@ -217,15 +280,24 @@ export default function CompactList({ data: rawData, highlights, onAction }: Wid
         {data.title}
       </div>
       <div style={{ marginLeft: 16 }}>
-        {data.items.map((item, i) => (
-          <TaskRow
-            key={item.id}
-            item={item}
-            isLast={i === data.items.length - 1}
-            rowHighlights={rowHighlightMaps[i]}
-            onAction={onAction}
-          />
-        ))}
+        {data.kind === 'activity'
+          ? data.items.map((item, i) => (
+              <ActivityRow
+                key={item.id}
+                item={item}
+                isLast={i === data.items.length - 1}
+                rowHighlights={rowHighlightMaps[i]}
+              />
+            ))
+          : data.items.map((item, i) => (
+              <TaskRow
+                key={item.id}
+                item={item}
+                isLast={i === data.items.length - 1}
+                rowHighlights={rowHighlightMaps[i]}
+                onAction={onAction}
+              />
+            ))}
       </div>
     </div>
   );

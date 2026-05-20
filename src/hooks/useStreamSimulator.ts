@@ -43,6 +43,27 @@ const fixtureMap: Record<string, () => Promise<FrameBundle>> = {
   'ad17-report':   () => import('@/fixtures/ad17-report.json').then((m) => m.default as unknown as FrameBundle),
   'ad29-workflow': () => import('@/fixtures/ad29-workflow.json').then((m) => m.default as unknown as FrameBundle),
   'ad29-test':     () => import('@/fixtures/ad29-test.json').then((m) => m.default as unknown as FrameBundle),
+  // Audrey vDemo — 7 capabilities + chain follow-ups
+  'cap1-task-email':           () => import('@/fixtures/cap1-task-email-voice.json').then((m) => m.default as unknown as FrameBundle),
+  'cap1-email-draft':          () => import('@/fixtures/cap1-email-draft.json').then((m) => m.default as unknown as FrameBundle),
+  'cap1-task-confirmed':       () => import('@/fixtures/cap1-task-confirmed.json').then((m) => m.default as unknown as FrameBundle),
+  'cap2-lead-creation':        () => import('@/fixtures/cap2-lead-creation.json').then((m) => m.default as unknown as FrameBundle),
+  'cap2-auto-task':            () => import('@/fixtures/cap2-auto-task-followup.json').then((m) => m.default as unknown as FrameBundle),
+  'cap3-lead-won':             () => import('@/fixtures/cap3-lead-stage-won.json').then((m) => m.default as unknown as FrameBundle),
+  'cap3-conversion-confirmed': () => import('@/fixtures/cap3-conversion-confirmed.json').then((m) => m.default as unknown as FrameBundle),
+  'cap4-merge-customer':       () => import('@/fixtures/cap4-merge-customer.json').then((m) => m.default as unknown as FrameBundle),
+  'cap4-merge-confirmed':      () => import('@/fixtures/cap4-merge-confirmed.json').then((m) => m.default as unknown as FrameBundle),
+  'cap5-user-creation':        () => import('@/fixtures/cap5-user-creation.json').then((m) => m.default as unknown as FrameBundle),
+  'cap5-user-confirmed':       () => import('@/fixtures/cap5-user-confirmed.json').then((m) => m.default as unknown as FrameBundle),
+  'cap6-catalog-builder':      () => import('@/fixtures/cap6-catalog-creation.json').then((m) => m.default as unknown as FrameBundle),
+  'cap6-catalog-confirmed':    () => import('@/fixtures/cap6-catalog-confirmed.json').then((m) => m.default as unknown as FrameBundle),
+  // Cap 7 — reports
+  'report-collection-performance': () => import('@/fixtures/report-collection-performance.json').then((m) => m.default as unknown as FrameBundle),
+  'report-prebook-pacing':         () => import('@/fixtures/report-prebook-pacing.json').then((m) => m.default as unknown as FrameBundle),
+  'report-customer-health':        () => import('@/fixtures/report-customer-health.json').then((m) => m.default as unknown as FrameBundle),
+  'report-pipeline':               () => import('@/fixtures/report-pipeline.json').then((m) => m.default as unknown as FrameBundle),
+  'report-team-performance':       () => import('@/fixtures/report-team-performance.json').then((m) => m.default as unknown as FrameBundle),
+  'report-catalog-health':         () => import('@/fixtures/report-catalog-health.json').then((m) => m.default as unknown as FrameBundle),
 };
 
 const textOnlyFixtureMap: Record<string, () => Promise<FrameBundle>> = {
@@ -114,6 +135,25 @@ export function useStreamSimulator(
     | 'ad17-report'
     | 'ad29-workflow'
     | 'ad29-test'
+    | 'cap1-task-email'
+    | 'cap1-email-draft'
+    | 'cap1-task-confirmed'
+    | 'cap2-lead-creation'
+    | 'cap2-auto-task'
+    | 'cap3-lead-won'
+    | 'cap3-conversion-confirmed'
+    | 'cap4-merge-customer'
+    | 'cap4-merge-confirmed'
+    | 'cap5-user-creation'
+    | 'cap5-user-confirmed'
+    | 'cap6-catalog-builder'
+    | 'cap6-catalog-confirmed'
+    | 'report-collection-performance'
+    | 'report-prebook-pacing'
+    | 'report-customer-health'
+    | 'report-pipeline'
+    | 'report-team-performance'
+    | 'report-catalog-health'
     | null,
   turnId: string,
   responseMode: ResponseMode = 'text-widget',

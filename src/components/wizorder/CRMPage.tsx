@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { usePageContext } from '@/contexts/PageContext';
 import { useSharedCRM } from '@/contexts/shared/SharedCRMContext';
 import WizOrderPage from './WizOrderPage';
@@ -82,10 +82,12 @@ function KaiBadge() {
       `}</style>
       <span style={{
         display: 'inline-flex', alignItems: 'center', gap: 3,
-        padding: '2px 6px', borderRadius: 10,
+        padding: '2px 7px', borderRadius: 10,
         fontSize: 10, fontWeight: 700, fontFamily: 'var(--display)',
-        background: 'var(--ai-accent-bg)', color: 'var(--ai-accent-text)',
-        marginLeft: 6, letterSpacing: '0.1px',
+        background: 'rgba(91, 106, 240, 0.14)',
+        color: 'rgba(91, 106, 240, 1)',
+        border: '1px solid rgba(91, 106, 240, 0.28)',
+        marginLeft: 8, letterSpacing: '0.2px',
         animation: 'kaiBadgePulse 600ms ease-out forwards',
         animationIterationCount: 1,
       }}>
@@ -217,6 +219,7 @@ function LeadsTable({ leads }: { leads: WizOrderLead[] }) {
               <span style={{ fontFamily: 'var(--display)', fontSize: 13, fontWeight: 500, color: 'var(--text)' }}>
                 {lead.name}
               </span>
+              {lead.createdByKai && <KaiBadge />}
             </td>
             <Td>{lead.contact}</Td>
             <Td>{lead.source}</Td>
@@ -273,13 +276,18 @@ export default function CRMPage() {
   const { allTasks, allLeads, allDeals } = useSharedCRM();
   const [activeTab, setActiveTab] = useState<CRMTab>('tasks');
 
+  // Hide archived leads (e.g. Cap 4 merge archives the source lead).
+  // Memoize so the array identity is stable across renders — otherwise setPage's
+  // useEffect dependency triggers an infinite update loop.
+  const visibleLeads = useMemo(() => allLeads.filter(l => !l.archived), [allLeads]);
+
   useEffect(() => {
-    setPage('crm', { tasks: allTasks, leads: allLeads, deals: allDeals });
-  }, [setPage, allTasks, allLeads, allDeals]);
+    setPage('crm', { tasks: allTasks, leads: visibleLeads, deals: allDeals });
+  }, [setPage, allTasks, visibleLeads, allDeals]);
 
   const TABS: { id: CRMTab; label: string; count: number }[] = [
     { id: 'tasks',  label: 'Tasks',  count: allTasks.length },
-    { id: 'leads',  label: 'Leads',  count: allLeads.length },
+    { id: 'leads',  label: 'Leads',  count: visibleLeads.length },
     { id: 'deals',  label: 'Deals',  count: allDeals.length },
   ];
 
@@ -335,7 +343,7 @@ export default function CRMPage() {
       </div>
 
       {activeTab === 'tasks' && <TasksTable tasks={allTasks} />}
-      {activeTab === 'leads' && <LeadsTable leads={allLeads} />}
+      {activeTab === 'leads' && <LeadsTable leads={visibleLeads} />}
       {activeTab === 'deals' && <DealsTable deals={allDeals} />}
     </WizOrderPage>
   );

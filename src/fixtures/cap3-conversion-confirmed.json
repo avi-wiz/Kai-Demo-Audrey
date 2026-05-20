@@ -1,0 +1,18 @@
+{
+  "frameId": "f-cap3-conversion-002",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "AW-003",
+      "data": {
+        "status": "success",
+        "title": "Customer Account Created",
+        "message": "Customer account created: Verdant Home Collective (C-8009). Lead L-9003 has been archived.",
+        "entityLink": {
+          "label": "View Customer",
+          "url": "/customers/C-8009"
+        }
+      }
+    }
+  ]
+}

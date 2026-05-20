@@ -25,7 +25,7 @@ interface GuidedTourContextValue {
 
 const GuidedTourContext = createContext<GuidedTourContextValue | null>(null);
 
-export const TOUR_PREFILL_QUERY = "How's Acme Corp doing?";
+export const TOUR_PREFILL_QUERY = "How's Magnolia Home & Garden doing?";
 
 export function GuidedTourProvider({ children }: { children: ReactNode }) {
   const [active, setActive] = useState(false);
