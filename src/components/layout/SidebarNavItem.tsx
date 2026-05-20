@@ -150,7 +150,7 @@ export default function SidebarNavItem({
                 e.currentTarget.style.color = 'var(--text2)';
               }}
             >
-              <span style={{ fontSize: 13, lineHeight: 1, flexShrink: 0 }}>{sub.icon}</span>
+              <span style={{ fontSize: 13, lineHeight: 1, flexShrink: 0 }}></span>
               <span>{sub.label}</span>
             </button>
           ))}

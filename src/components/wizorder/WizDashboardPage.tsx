@@ -15,10 +15,10 @@ const PREBOOK_PIPELINE = ORDERS
   .reduce((sum, o) => sum + o.total, 0);
 
 const METRICS = [
-  { label: 'Active SKUs',       value: String(PRODUCTS.length),                                       format: 'count',    trend: { direction: 'flat' as const, percent: 0,  period: 'catalog stable' } },
-  { label: 'This Week Revenue', value: '$42,800',                                                     format: 'currency', trend: { direction: 'up' as const,   percent: 8,  period: 'vs last week' } },
-  { label: 'Open Orders',       value: String(OPEN_ORDER_COUNT),                                      format: 'count',    trend: { direction: 'up' as const,   percent: 12, period: 'vs last week' } },
-  { label: 'Pre-Book Pipeline', value: `$${Math.round(PREBOOK_PIPELINE).toLocaleString()}`,           format: 'currency', trend: { direction: 'up' as const,   percent: 18, period: 'July 2026 release' } },
+  { label: 'Active SKUs', value: String(PRODUCTS.length), format: 'count', trend: { direction: 'flat' as const, percent: 0, period: 'catalog stable' } },
+  { label: 'This Week Revenue', value: '$42,800', format: 'currency', trend: { direction: 'up' as const, percent: 8, period: 'vs last week' } },
+  { label: 'Open Orders', value: String(OPEN_ORDER_COUNT), format: 'count', trend: { direction: 'up' as const, percent: 12, period: 'vs last week' } },
+  { label: 'Pre-Book Pipeline', value: `$${Math.round(PREBOOK_PIPELINE).toLocaleString()}`, format: 'currency', trend: { direction: 'up' as const, percent: 18, period: 'July 2026 release' } },
 ];
 
 const REVENUE_SERIES = SALES_HISTORY[0].data.map((_, i) => ({
@@ -45,8 +45,8 @@ const ACTIVITY: CompactListData = {
   title: 'Recent Activity',
   items: [
     { id: 'A-1', icon: 'check', text: 'Beth closed Pre-Book for Bloom & Basket — 24 cases of Pick Of The Patch', timestamp: '1h ago' },
-    { id: 'A-2', icon: 'lead',  text: 'New lead: Rustic Charm Boutique via website signup',                       timestamp: '3h ago' },
-    { id: 'A-3', icon: 'order', text: 'Order #1047 shipped to Magnolia Home & Garden',                            timestamp: 'yesterday' },
+    { id: 'A-2', icon: 'lead', text: 'New lead: Rustic Charm Boutique via website signup', timestamp: '3h ago' },
+    { id: 'A-3', icon: 'order', text: 'Order #1047 shipped to Magnolia Home & Garden', timestamp: 'yesterday' },
   ],
 };
 
@@ -65,7 +65,6 @@ export default function WizDashboardPage() {
   return (
     <WizOrderPage
       title="Dashboard"
-      icon="📊"
       subtitle="Overview of your sales performance and activity."
     >
       <style>{`
