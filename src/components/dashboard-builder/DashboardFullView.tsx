@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useDashboardBuilder } from '@/contexts/DashboardBuilderContext';
 import { useLayout } from '@/contexts/LayoutContext';
 import { useArtifacts } from '@/contexts/ArtifactContext';
@@ -57,13 +58,35 @@ interface ExportMenuProps {
 function ExportMenu({ dashboard, getStageNode }: ExportMenuProps) {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState<'pdf' | 'csv' | null>(null);
+  const [menuPos, setMenuPos] = useState<{ top: number; left: number } | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  // Close on outside click.
+  // Position the portal-rendered menu under the trigger button.
+  useEffect(() => {
+    if (!open || !wrapperRef.current) return;
+    const update = () => {
+      const r = wrapperRef.current!.getBoundingClientRect();
+      const menuWidth = 220;
+      setMenuPos({ top: r.bottom + 6, left: r.right - menuWidth });
+    };
+    update();
+    window.addEventListener('resize', update);
+    window.addEventListener('scroll', update, true);
+    return () => {
+      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', update, true);
+    };
+  }, [open]);
+
+  // Close on outside click — check both the wrapper (trigger) and the portal menu.
   useEffect(() => {
     if (!open) return;
     const onDoc = (e: MouseEvent) => {
-      if (!wrapperRef.current?.contains(e.target as Node)) setOpen(false);
+      const t = e.target as Node;
+      if (wrapperRef.current?.contains(t)) return;
+      if (menuRef.current?.contains(t)) return;
+      setOpen(false);
     };
     document.addEventListener('mousedown', onDoc);
     return () => document.removeEventListener('mousedown', onDoc);
@@ -120,17 +143,17 @@ function ExportMenu({ dashboard, getStageNode }: ExportMenuProps) {
         <ChevronDownIcon />
       </button>
 
-      {open && (
-        <div style={{
-          position: 'absolute',
-          top: 'calc(100% + 6px)',
-          right: 0,
-          minWidth: 200,
+      {open && menuPos && typeof window !== 'undefined' && createPortal(
+        <div ref={menuRef} style={{
+          position: 'fixed',
+          top: menuPos.top,
+          left: menuPos.left,
+          width: 220,
           background: 'var(--surface)',
           border: '1px solid var(--border)',
           borderRadius: 8,
-          boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
-          zIndex: 30,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+          zIndex: 9999,
           overflow: 'hidden',
         }}>
           <button
@@ -166,7 +189,8 @@ function ExportMenu({ dashboard, getStageNode }: ExportMenuProps) {
             <span style={{ fontWeight: 600 }}>Download as CSV</span>
             <span style={{ fontSize: 11, color: 'var(--text3)' }}>Metric cards + tables flattened</span>
           </button>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
