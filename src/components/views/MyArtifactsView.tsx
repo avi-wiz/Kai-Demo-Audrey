@@ -5,6 +5,7 @@ import { useArtifacts } from '@/contexts/ArtifactContext';
 import { useDashboardBuilder } from '@/contexts/DashboardBuilderContext';
 import { useLayout } from '@/contexts/LayoutContext';
 import type { SavedArtifact, SavedDashboard, SavedWorkflow } from '@/lib/types';
+import { resolveWidget } from '@/components/engine/ComponentRegistry';
 
 // ── Thumbnail renderers ───────────────────────────────────────────────────────
 
@@ -75,7 +76,63 @@ function DashboardGridThumbnail() {
   );
 }
 
-function ArtifactThumbnail({ thumbnail }: { thumbnail?: string }) {
+function LiveWidgetThumbnail({ artifact }: { artifact: SavedArtifact }) {
+  const Widget = resolveWidget(artifact.sourceWidget.widgetType);
+  // Render the real widget at full size inside a clipped, scaled container.
+  // scale 0.42 + width 240% means the mini fills the 160px card top while
+  // the underlying widget still gets its natural layout width.
+  const SCALE = 0.42;
+  return (
+    <div
+      style={{
+        height: 160,
+        background: 'var(--surface)',
+        borderBottom: '1px solid var(--border)',
+        borderRadius: '10px 10px 0 0',
+        overflow: 'hidden',
+        position: 'relative',
+        pointerEvents: 'none',
+        userSelect: 'none',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: `${100 / SCALE}%`,
+          transform: `scale(${SCALE})`,
+          transformOrigin: 'top left',
+          padding: 12,
+        }}
+      >
+        <Widget
+          data={artifact.sourceWidget.data as never}
+          config={artifact.sourceWidget.config as never}
+        />
+      </div>
+      {/* Soft bottom fade so clipped content doesn't feel abrupt */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 'auto 0 0 0',
+          height: 40,
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0), var(--surface))',
+          pointerEvents: 'none',
+        }}
+      />
+    </div>
+  );
+}
+
+function ArtifactThumbnail({ artifact }: { artifact: SavedArtifact }) {
+  const hasData = artifact.sourceWidget.data
+    && Object.keys(artifact.sourceWidget.data as Record<string, unknown>).length > 0;
+
+  if (hasData) return <LiveWidgetThumbnail artifact={artifact} />;
+
+  // Fallback: legacy SVG placeholders when the artifact has no real payload
+  const thumbnail = artifact.thumbnail;
   return (
     <div
       style={{
@@ -99,27 +156,73 @@ function ArtifactThumbnail({ thumbnail }: { thumbnail?: string }) {
   );
 }
 
-function DashboardThumbnail() {
+function DashboardThumbnail({ artifact }: { artifact: SavedArtifact }) {
+  const dashboardData = (artifact as SavedDashboard).dashboardData;
+
+  if (!dashboardData) {
+    return (
+      <div
+        style={{
+          height: 160,
+          background: 'linear-gradient(135deg, rgba(91,106,240,0.06) 0%, rgba(40,170,123,0.04) 100%)',
+          borderBottom: '1px solid var(--border)',
+          borderRadius: '10px 10px 0 0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <DashboardGridThumbnail />
+      </div>
+    );
+  }
+
+  // Live mini-render of the composite dashboard via UW-030. Same scale trick
+  // as LiveWidgetThumbnail — wider stretch since dashboards have multi-column grids.
+  const Widget = resolveWidget('UW-030');
+  const SCALE = 0.28;
   return (
     <div
       style={{
         height: 160,
-        background: 'linear-gradient(135deg, rgba(91,106,240,0.06) 0%, rgba(40,170,123,0.04) 100%)',
+        background: 'var(--surface)',
         borderBottom: '1px solid var(--border)',
         borderRadius: '10px 10px 0 0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        overflow: 'hidden',
+        position: 'relative',
+        pointerEvents: 'none',
+        userSelect: 'none',
       }}
     >
-      <DashboardGridThumbnail />
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: `${100 / SCALE}%`,
+          transform: `scale(${SCALE})`,
+          transformOrigin: 'top left',
+          padding: 12,
+        }}
+      >
+        <Widget data={dashboardData as never} config={undefined as never} />
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 'auto 0 0 0',
+          height: 40,
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0), var(--surface))',
+          pointerEvents: 'none',
+        }}
+      />
     </div>
   );
 }
 
 // ── Artifact card ─────────────────────────────────────────────────────────────
 
-function ArtifactCard({ artifact, onDelete }: { artifact: SavedArtifact; onDelete: () => void }) {
+function ArtifactCard({ artifact, onOpen, onDelete }: { artifact: SavedArtifact; onOpen: () => void; onDelete: () => void }) {
   const [hovered, setHovered] = useState(false);
   const [confirming, setConfirming] = useState(false);
 
@@ -129,20 +232,21 @@ function ArtifactCard({ artifact, onDelete }: { artifact: SavedArtifact; onDelet
 
   return (
     <div
+      onClick={() => !confirming && onOpen()}
       style={{
         background: 'var(--surface)',
-        border: `1px solid ${confirming ? 'var(--error-80, #dc2626)' : 'var(--border)'}`,
+        border: `1px solid ${hovered && !confirming ? 'rgba(91,106,240,0.4)' : confirming ? 'var(--error-80, #dc2626)' : 'var(--border)'}`,
         borderRadius: 10,
-        cursor: 'default',
+        cursor: confirming ? 'default' : 'pointer',
         overflow: 'hidden',
-        transform: hovered && !confirming ? 'translateY(-2px)' : 'translateY(0)',
-        boxShadow: hovered && !confirming ? '0 4px 12px rgba(0,0,0,0.1)' : 'none',
-        transition: 'transform 200ms ease, box-shadow 200ms ease, border-color 150ms ease',
+        transform: hovered && !confirming ? 'translateY(-4px)' : 'translateY(0)',
+        boxShadow: hovered && !confirming ? '0 8px 24px rgba(91,106,240,0.16)' : '0 2px 8px rgba(0,0,0,0.04)',
+        transition: 'transform 250ms cubic-bezier(0.2, 0, 0, 1), box-shadow 250ms cubic-bezier(0.2, 0, 0, 1), border-color 150ms ease',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { setHovered(false); setConfirming(false); }}
     >
-      <ArtifactThumbnail thumbnail={artifact.thumbnail} />
+      <ArtifactThumbnail artifact={artifact} />
 
       <div style={{ padding: '12px 14px 14px', position: 'relative' }}>
         <p style={{
@@ -240,7 +344,7 @@ function DashboardCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { setHovered(false); setConfirming(false); }}
     >
-      <DashboardThumbnail />
+      <DashboardThumbnail artifact={artifact} />
 
       <div style={{ padding: '12px 14px 14px', position: 'relative' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 5 }}>
@@ -552,10 +656,15 @@ function EmptyState({ label }: { label: string }) {
 // ── Main view ─────────────────────────────────────────────────────────────────
 
 export default function MyArtifactsView() {
-  const { artifacts, removeArtifact } = useArtifacts();
+  const { artifacts, removeArtifact, setActiveArtifactId } = useArtifacts();
   const { setActive } = useDashboardBuilder();
   const { setView } = useLayout();
   const [activeTab, setActiveTab] = useState<FilterTab>('all');
+
+  const handleArtifactOpen = (a: SavedArtifact) => {
+    setActiveArtifactId(a.id);
+    setView('view-artifact');
+  };
 
   const dashboards = artifacts.filter((a) => a.category === 'Dashboards and Reports');
   const chartsAndReports = artifacts.filter((a) => a.type === 'chart' || a.type === 'table');
@@ -616,6 +725,7 @@ export default function MyArtifactsView() {
                 <ArtifactCard
                   key={a.id}
                   artifact={a}
+                  onOpen={() => handleArtifactOpen(a)}
                   onDelete={() => removeArtifact(a.id)}
                 />
               ))}

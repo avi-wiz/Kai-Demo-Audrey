@@ -4,31 +4,86 @@
             "id": "art-001",
             "type": "chart",
             "category": "Charts and Reports",
-            "title": "Acme Corp 12-Month Revenue Trend",
-            "description": "Monthly revenue from May 2025 to April 2026 showing consistent growth trajectory.",
-            "savedAt": "2026-04-28T15:00:00Z",
+            "title": "Magnolia Home & Garden — 12-Month Revenue",
+            "description": "Monthly revenue trend for C-8001 from May 2025 to April 2026. Strongest YTD account at $186K.",
+            "savedAt": "2026-05-12T15:00:00Z",
             "sourceWidget": "CH-001",
-            "thumbnail": "line-chart"
+            "thumbnail": "line-chart",
+            "data": {
+                "title": "Revenue Trend — Magnolia Home & Garden",
+                "series": [
+                    { "month": "May 2025", "revenue": 11200 },
+                    { "month": "Jun 2025", "revenue": 9800 },
+                    { "month": "Jul 2025", "revenue": 15400 },
+                    { "month": "Aug 2025", "revenue": 13600 },
+                    { "month": "Sep 2025", "revenue": 18200 },
+                    { "month": "Oct 2025", "revenue": 16400 },
+                    { "month": "Nov 2025", "revenue": 21000 },
+                    { "month": "Dec 2025", "revenue": 19800 },
+                    { "month": "Jan 2026", "revenue": 14600 },
+                    { "month": "Feb 2026", "revenue": 16200 },
+                    { "month": "Mar 2026", "revenue": 20400 },
+                    { "month": "Apr 2026", "revenue": 14200 }
+                ],
+                "yAxisLabel": "Revenue ($)",
+                "xAxisLabel": "Month"
+            },
+            "config": { "chartType": "line", "showDataPoints": true }
         },
         {
             "id": "art-002",
             "type": "chart",
             "category": "Charts and Reports",
-            "title": "Q2 2026 Weekly Revenue — Acme Corp",
-            "description": "Weekly revenue breakdown for the current quarter.",
-            "savedAt": "2026-04-27T10:30:00Z",
+            "title": "Featured Collections — Sell-Through (Q1 2026)",
+            "description": "Weekly sell-through across A Blooming Porch, Gardeners Grove, and Herb Garden.",
+            "savedAt": "2026-05-08T10:30:00Z",
             "sourceWidget": "CH-001",
-            "thumbnail": "line-chart"
+            "thumbnail": "line-chart",
+            "data": {
+                "title": "Featured Collections Sell-Through",
+                "series": [
+                    { "month": "W1", "revenue": 18400 },
+                    { "month": "W2", "revenue": 22100 },
+                    { "month": "W3", "revenue": 25600 },
+                    { "month": "W4", "revenue": 24200 },
+                    { "month": "W5", "revenue": 28900 },
+                    { "month": "W6", "revenue": 31400 },
+                    { "month": "W7", "revenue": 27800 },
+                    { "month": "W8", "revenue": 32600 }
+                ],
+                "yAxisLabel": "Revenue ($)",
+                "xAxisLabel": "Week"
+            },
+            "config": { "chartType": "line", "showDataPoints": true }
         },
         {
             "id": "art-003",
             "type": "table",
             "category": "Charts and Reports",
-            "title": "Revenue Breakdown Table — Acme Corp",
-            "description": "12-month revenue in tabular format with totals. Total: $502,450.",
-            "savedAt": "2026-04-26T14:20:00Z",
+            "title": "Top 8 Customers — YTD Revenue",
+            "description": "Lifetime revenue ranking across active customers. Magnolia leads at $186K.",
+            "savedAt": "2026-05-04T14:20:00Z",
             "sourceWidget": "UW-004",
-            "thumbnail": "data-table"
+            "thumbnail": "data-table",
+            "data": {
+                "title": "Top Customers YTD",
+                "columns": [
+                    { "key": "id", "label": "Customer ID" },
+                    { "key": "name", "label": "Customer" },
+                    { "key": "rep", "label": "Rep" },
+                    { "key": "revenue", "label": "YTD Revenue" }
+                ],
+                "rows": [
+                    { "id": "C-8001", "name": "Magnolia Home & Garden", "rep": "Beth Calloway", "revenue": "$186,400" },
+                    { "id": "C-8002", "name": "The Potting Shed", "rep": "Beth Calloway", "revenue": "$124,200" },
+                    { "id": "C-8003", "name": "Bloom & Basket", "rep": "Marcus Rivera", "revenue": "$98,600" },
+                    { "id": "C-8004", "name": "Seaside Gifts", "rep": "Hannah Cho", "revenue": "$76,400" },
+                    { "id": "C-8005", "name": "Copper Creek Trading", "rep": "Marcus Rivera", "revenue": "$62,800" },
+                    { "id": "C-8006", "name": "Harbor Lane Boutique", "rep": "James Whitfield", "revenue": "$54,100" },
+                    { "id": "C-8007", "name": "Sunflower & Sage", "rep": "Hannah Cho", "revenue": "$48,200" },
+                    { "id": "C-8008", "name": "Golden Meadow Co", "rep": "Beth Calloway", "revenue": "$21,400" }
+                ]
+            }
         }
     ]
 }

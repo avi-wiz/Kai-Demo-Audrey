@@ -19,6 +19,7 @@ const VIEW_TITLES: Record<string, string> = {
   'admin/api-key': 'Add Your Models',
   'admin/prefs': 'User Preferences',
   'reports-dashboards': 'Reports & Dashboards',
+  'view-artifact': 'My Artifacts',
   'wizorder/dashboard': 'Dashboard',
   'wizorder/orders': 'Orders',
   'wizorder/customers': 'Customers',

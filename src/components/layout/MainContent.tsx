@@ -19,6 +19,7 @@ import CRMPage from '@/components/wizorder/CRMPage';
 import WizDashboardPage from '@/components/wizorder/WizDashboardPage';
 import DashboardFullView from '@/components/dashboard-builder/DashboardFullView';
 import PrebuiltDashboardsView from '@/components/views/PrebuiltDashboardsView';
+import ViewArtifactView from '@/components/views/ViewArtifactView';
 
 
 function ViewContent() {
@@ -48,6 +49,7 @@ function ViewContent() {
     case 'wizorder/dashboard':  return <WizDashboardPage />;
     case 'dashboard-view':      return <DashboardFullView />;
     case 'reports-dashboards':  return <PrebuiltDashboardsView />;
+    case 'view-artifact':       return <ViewArtifactView />;
     default:               return null;
   }
 }

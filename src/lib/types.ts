@@ -371,7 +371,9 @@ export type ViewRoute =
   // v2.1 Dashboard builder
   | 'dashboard-view'
   // vDemo — pre-built dashboards browser
-  | 'reports-dashboards';
+  | 'reports-dashboards'
+  // vDemo — single-artifact viewer (My Artifacts → click chart/report)
+  | 'view-artifact';
 
 // ── 2. Response Mode ─────────────────────────────────────────────────────────
 
