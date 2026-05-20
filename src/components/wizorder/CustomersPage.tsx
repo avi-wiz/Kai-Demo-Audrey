@@ -28,9 +28,9 @@ function riskLevel(customer: WizOrderCustomer): RiskLevel {
 }
 
 const RISK_BADGE: Record<RiskLevel, { bg: string; text: string; border: string }> = {
-  Active:  { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
+  Active: { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
   Warning: { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
-  Dormant: { bg: 'var(--badge-danger-bg)',  text: 'var(--badge-danger-text)',  border: 'var(--badge-danger-border)' },
+  Dormant: { bg: 'var(--badge-danger-bg)', text: 'var(--badge-danger-text)', border: 'var(--badge-danger-border)' },
 };
 
 function StatusBadge({ level }: { level: RiskLevel }) {
@@ -51,11 +51,11 @@ function StatusBadge({ level }: { level: RiskLevel }) {
 // ── Lead stage badge ──────────────────────────────────────────────────────────
 
 const STAGE_BADGE: Record<string, { bg: string; text: string; border: string }> = {
-  New:       { bg: 'var(--badge-neutral-bg)', text: 'var(--badge-neutral-text)', border: 'var(--badge-neutral-border)' },
-  Contacted: { bg: 'var(--badge-info-bg)',    text: 'var(--badge-info-text)',    border: 'var(--badge-info-border)' },
+  New: { bg: 'var(--badge-neutral-bg)', text: 'var(--badge-neutral-text)', border: 'var(--badge-neutral-border)' },
+  Contacted: { bg: 'var(--badge-info-bg)', text: 'var(--badge-info-text)', border: 'var(--badge-info-border)' },
   Qualified: { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
-  Proposal:  { bg: 'var(--badge-info-bg)',    text: 'var(--badge-info-text)',    border: 'var(--badge-info-border)' },
-  Won:       { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
+  Proposal: { bg: 'var(--badge-info-bg)', text: 'var(--badge-info-text)', border: 'var(--badge-info-border)' },
+  Won: { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
 };
 
 function StageBadge({ stage }: { stage: string }) {
@@ -76,12 +76,12 @@ function StageBadge({ stage }: { stage: string }) {
 // ── Tag/collection pill ────────────────────────────────────────────────────────
 
 const COLLECTION_COLORS: Record<string, { bg: string; color: string }> = {
-  'A Blooming Porch':  { bg: 'rgba(249,115,22,0.10)', color: '#C2410C' },
-  'Gardeners Grove':   { bg: 'rgba(22,163,74,0.10)',  color: '#15803D' },
-  'The Herb Garden':   { bg: 'rgba(20,184,166,0.10)', color: '#0F766E' },
-  'Bunnies':           { bg: 'rgba(236,72,153,0.10)', color: '#BE185D' },
-  'Garden Evergreen':  { bg: 'rgba(59,130,246,0.10)', color: '#1D4ED8' },
-  'Spring & Summer':   { bg: 'rgba(234,179,8,0.10)',  color: '#B45309' },
+  'A Blooming Porch': { bg: 'rgba(249,115,22,0.10)', color: '#C2410C' },
+  'Gardeners Grove': { bg: 'rgba(22,163,74,0.10)', color: '#15803D' },
+  'The Herb Garden': { bg: 'rgba(20,184,166,0.10)', color: '#0F766E' },
+  'Bunnies': { bg: 'rgba(236,72,153,0.10)', color: '#BE185D' },
+  'Garden Evergreen': { bg: 'rgba(59,130,246,0.10)', color: '#1D4ED8' },
+  'Spring & Summer': { bg: 'rgba(234,179,8,0.10)', color: '#B45309' },
 };
 
 function CollectionPill({ name }: { name: string }) {
@@ -358,7 +358,6 @@ export default function CustomersPage() {
   return (
     <WizOrderPage
       title="Customers"
-      icon="👥"
       subtitle="View and manage your customer accounts and pipeline leads."
     >
       {/* Tab row */}

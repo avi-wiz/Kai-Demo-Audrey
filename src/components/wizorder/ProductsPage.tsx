@@ -11,108 +11,29 @@ const FEATURED_FIRST: AudreyProduct[] = [...HEROES, ...PRODUCTS.filter(p => !p.i
 const FEATURED_INDEX = new Map(FEATURED_FIRST.map((p, i) => [p.sku, i]));
 
 const FILTERS: { label: string; resolve: () => AudreyProduct[] }[] = [
-  { label: 'All',              resolve: () => FEATURED_FIRST },
+  { label: 'All', resolve: () => FEATURED_FIRST },
   { label: 'A Blooming Porch', resolve: () => byCollection('A Blooming Porch') },
-  { label: 'Gardeners Grove',  resolve: () => byCollection('Gardeners Grove') },
-  { label: 'The Herb Garden',  resolve: () => byCollection('The Herb Garden') },
-  { label: 'Bunnies',          resolve: () => byCollection('Bunnies') },
+  { label: 'Gardeners Grove', resolve: () => byCollection('Gardeners Grove') },
+  { label: 'The Herb Garden', resolve: () => byCollection('The Herb Garden') },
+  { label: 'Bunnies', resolve: () => byCollection('Bunnies') },
   { label: 'Garden Evergreen', resolve: () => byBucket('garden_outdoor') },
-  { label: 'PhaseOut',         resolve: () => byBucket('sale_clearance') },
+  { label: 'PhaseOut', resolve: () => byBucket('sale_clearance') },
 ];
 type FilterLabel = typeof FILTERS[number]['label'];
 
-type StockKind = 'in-stock' | 'pre-book' | 'limited' | 'phaseout';
 
-function stockKind(p: AudreyProduct): StockKind {
-  if (p.bucket === 'sale_clearance') return 'phaseout';
-  if (p.stock_status === 'Pre-Book') return 'pre-book';
-  if (p.stock_status === 'Buy Now, Limited Quantity') return 'limited';
-  return 'in-stock';
-}
+function ProductCard({ product }: { product: AudreyProduct }) {
+  const [wishlisted, setWishlisted] = useState(false);
+  const [cartHovered, setCartHovered] = useState(false);
+  const price = getDisplayPrice(product);
 
-const STOCK_BADGE: Record<StockKind, { label: string; bg: string; text: string; border: string }> = {
-  'in-stock': { label: 'In Stock',         bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
-  'pre-book': { label: 'Pre-Book',         bg: 'var(--badge-info-bg)',    text: 'var(--badge-info-text)',    border: 'var(--badge-info-border)' },
-  'limited':  { label: 'Limited Quantity', bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
-  'phaseout': { label: 'PhaseOut',         bg: 'var(--badge-danger-bg)',  text: 'var(--badge-danger-text)',  border: 'var(--badge-danger-border)' },
-};
-
-function StockBadge({ kind }: { kind: StockKind }) {
-  const s = STOCK_BADGE[kind];
-  return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center',
-      padding: '3px 8px',
-      borderRadius: 20,
-      fontSize: 11, fontWeight: 600,
-      fontFamily: 'var(--display)',
-      background: s.bg, color: s.text,
-      border: `1px solid ${s.border}`,
-      whiteSpace: 'nowrap',
-    }}>
-      {s.label}
-    </span>
-  );
-}
-
-function Ribbon({ product }: { product: AudreyProduct }) {
-  if (!product.is_hero) return null;
-  const isNew = product.is_new;
-  return (
-    <span style={{
-      position: 'absolute',
-      top: 8, left: 8,
-      padding: '3px 8px',
-      borderRadius: 4,
-      fontSize: 10, fontWeight: 700,
-      fontFamily: 'var(--display)',
-      letterSpacing: '0.4px',
-      textTransform: 'uppercase',
-      color: '#fff',
-      background: isNew ? 'rgba(91,106,240,0.95)' : 'rgba(217,138,22,0.95)',
-      boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
-    }}>
-      {isNew ? 'New Launch' : 'Featured'}
-    </span>
-  );
-}
-
-function ProductImage({ product }: { product: AudreyProduct }) {
   const src =
     product.image_urls_by_size?.large?.[0] ??
     product.image_urls_by_size?.original?.[0] ??
     product.image_urls[0];
-  const [failed, setFailed] = useState(false);
-  return (
-    <div style={{
-      position: 'relative',
-      width: '100%', height: 160,
-      background: 'var(--surface2)',
-      borderTopLeftRadius: 10, borderTopRightRadius: 10,
-      overflow: 'hidden',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      borderBottom: '1px solid var(--border)',
-    }}>
-      {!failed && src ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={src}
-          alt={product.name}
-          onError={() => setFailed(true)}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-      ) : (
-        <span style={{ fontSize: 32 }}>📦</span>
-      )}
-      <Ribbon product={product} />
-    </div>
-  );
-}
+  const [imgFailed, setImgFailed] = useState(false);
 
-function ProductCard({ product }: { product: AudreyProduct }) {
-  const [hovered, setHovered] = useState(false);
-  const price = getDisplayPrice(product);
-  const kind = stockKind(product);
+  const availableQty = product.available_qty ?? product.case_qty ?? 0;
 
   const ask = () => {
     window.dispatchEvent(new CustomEvent('kai:ask', { detail: { query: `Tell me about ${product.sku}` } }));
@@ -120,92 +41,151 @@ function ProductCard({ product }: { product: AudreyProduct }) {
 
   return (
     <div
-      role="button"
-      tabIndex={0}
-      onClick={ask}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ask(); }
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
-        background: 'var(--surface)',
-        border: '1px solid var(--border)',
-        borderRadius: 10,
+        position: 'relative',
+        height: '100%',
+        borderRadius: '1.3rem',
+        backgroundColor: '#fff',
+        border: '1px solid rgba(0,0,0,0.12)',
+        overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden',
-        transition: 'box-shadow 150ms ease, transform 150ms ease',
-        boxShadow: hovered ? '0 4px 16px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.04)',
-        transform: hovered ? 'translateY(-1px)' : 'none',
         cursor: 'pointer',
       }}
+      onClick={ask}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ask(); } }}
     >
-      <ProductImage product={product} />
+      {/* Image area */}
+      <div style={{ position: 'relative', width: '100%', aspectRatio: '1 / 1', background: '#f5f5f5', overflow: 'hidden' }}>
+        {!imgFailed && src ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={src}
+            alt={product.name}
+            onError={() => setImgFailed(true)}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        ) : (
+          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 48 }}>📦</div>
+        )}
 
-      <div style={{ padding: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+        {/* Featured / New Launch ribbon */}
+        {product.is_hero && (
           <span style={{
+            position: 'absolute', top: 10, left: 10,
+            padding: '3px 8px', borderRadius: 4,
+            fontSize: 10, fontWeight: 700,
             fontFamily: 'var(--display)',
-            fontSize: 13,
-            fontWeight: 700,
-            color: 'var(--text)',
-            lineHeight: 1.3,
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
+            letterSpacing: '0.4px', textTransform: 'uppercase',
+            color: '#fff',
+            background: product.is_new ? 'rgba(91,106,240,0.95)' : 'rgba(217,138,22,0.95)',
+            boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
+            zIndex: 1,
           }}>
-            {product.name}
+            {product.is_new ? 'New Launch' : 'Featured'}
           </span>
-          <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--text3)', fontWeight: 500 }}>
-            {product.sku}
-          </span>
-        </div>
+        )}
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingTop: 8,
-          borderTop: '1px solid var(--border)',
-          gap: 8,
+        {/* Heart button */}
+        <button
+          onClick={(e) => { e.stopPropagation(); setWishlisted(v => !v); }}
+          style={{
+            position: 'absolute', top: 10, right: 10,
+            width: 34, height: 34,
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.9)',
+            border: 'none',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'pointer',
+            boxShadow: '0 1px 4px rgba(0,0,0,0.12)',
+          }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill={wishlisted ? '#e53e3e' : 'none'} stroke={wishlisted ? '#e53e3e' : '#666'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+        </button>
+
+        {/* View similar — right-aligned */}
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            position: 'absolute', bottom: 10, right: 10,
+            background: 'rgba(255,255,255,0.92)',
+            border: '1px solid rgba(0,0,0,0.10)',
+            borderRadius: 20,
+            padding: '4px 10px',
+            whiteSpace: 'nowrap',
+            display: 'flex', alignItems: 'center', gap: 5,
+            boxShadow: '0 1px 4px rgba(0,0,0,0.10)',
+            cursor: 'pointer',
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3.604 7.197l7.138 -3.109a.96 .96 0 0 1 1.27 .527l4.924 11.902a1 1 0 0 1 -.514 1.304l-7.137 3.109a.96 .96 0 0 1 -1.271 -.527l-4.924 -11.903a1 1 0 0 1 .514 -1.304z" />
+            <path d="M15 4h1a1 1 0 0 1 1 1v3.5" />
+            <path d="M20 6c.264 .112 .52 .217 .768 .315a1 1 0 0 1 .53 1.311l-2.298 5.374" />
+          </svg>
+          <span style={{ color: '#000', fontSize: 12, fontWeight: 700, fontFamily: 'var(--sans)' }}>View similar</span>
+        </div>
+      </div>
+
+      {/* Available count */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        background: 'rgb(247, 248, 250)',
+        padding: '5px 14px',
+      }}>
+        <span style={{ color: '#000', fontSize: 10, fontWeight: 400, fontFamily: 'var(--sans)' }}>Available</span>
+        <span style={{ color: '#000', fontSize: 10, fontWeight: 400, fontFamily: 'var(--sans)' }}>:{availableQty}</span>
+      </div>
+
+      {/* Info */}
+      <div style={{ padding: '6px 14px 14px', display: 'flex', flexDirection: 'column', gap: 4, flex: 1 }}>
+        <span style={{
+          fontFamily: 'var(--sans)',
+          fontSize: 13,
+          fontWeight: 500,
+          color: 'var(--text)',
+          lineHeight: 1.35,
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
         }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <span style={{
-              fontFamily: 'var(--display)',
-              fontSize: 10,
-              color: 'var(--text3)',
-              fontWeight: 600,
-              letterSpacing: '0.4px',
-              textTransform: 'uppercase',
-            }}>
-              {price.label}
-            </span>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: 14, fontWeight: 700, color: 'var(--text)' }}>
-              {price.value}
-            </span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'flex-end' }}>
-            <span style={{
-              fontFamily: 'var(--display)',
-              fontSize: 10,
-              color: 'var(--text3)',
-              fontWeight: 600,
-              letterSpacing: '0.4px',
-              textTransform: 'uppercase',
-            }}>
-              Case
-            </span>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 600, color: 'var(--text2)' }}>
-              {product.case_qty}
-            </span>
-          </div>
-        </div>
+          {product.name}
+        </span>
+        <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--text3)' }}>
+          {product.sku}
+        </span>
+        <span style={{ fontFamily: 'var(--sans)', fontSize: 14, fontWeight: 600, color: 'var(--text)', marginTop: 2 }}>
+          {price.value}
+        </span>
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <StockBadge kind={kind} />
-        </div>
+        {/* Add to Cart */}
+        <button
+          onClick={(e) => { e.stopPropagation(); }}
+          onMouseEnter={() => setCartHovered(true)}
+          onMouseLeave={() => setCartHovered(false)}
+          style={{
+            marginTop: 8,
+            width: '100%',
+            padding: '10px 0',
+            borderRadius: 8,
+            border: 'none',
+            background: cartHovered ? '#0b7a52' : '#096645',
+            color: '#fff',
+            fontFamily: 'var(--sans)',
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: 'pointer',
+            transition: 'background 150ms ease',
+          }}
+        >
+          Add to cart
+        </button>
       </div>
     </div>
   );
@@ -248,7 +228,6 @@ export default function ProductsPage() {
   return (
     <WizOrderPage
       title="Products"
-      icon="📦"
       subtitle="Browse and manage your product catalog."
       filterChips={activeTab === 'products' ? filterChips : undefined}
     >
@@ -310,7 +289,7 @@ export default function ProductsPage() {
             </span>
           </div>
           <div className="products-grid">
-            {filtered.map(product => (
+            {filtered.map((product) => (
               <ProductCard key={product.sku} product={product} />
             ))}
             {filtered.length === 0 && (
@@ -565,9 +544,9 @@ function downloadCatalogPdf(catalog: SharedCatalog) {
 function escapeHtml(s: string): string {
   return s.replace(/[&<>"']/g, (c) =>
     c === '&' ? '&amp;' :
-    c === '<' ? '&lt;' :
-    c === '>' ? '&gt;' :
-    c === '"' ? '&quot;' :
-    '&#39;'
+      c === '<' ? '&lt;' :
+        c === '>' ? '&gt;' :
+          c === '"' ? '&quot;' :
+            '&#39;'
   );
 }

@@ -11,7 +11,6 @@ interface FilterChip {
 
 interface WizOrderPageProps {
   title: string;
-  icon: string;
   subtitle?: string;
   filterChips?: FilterChip[];
   /** Contextual action chips shown as quick-start buttons in the header */
@@ -22,7 +21,6 @@ interface WizOrderPageProps {
 
 export default function WizOrderPage({
   title,
-  icon,
   subtitle,
   filterChips,
   children,
@@ -63,7 +61,6 @@ export default function WizOrderPage({
             marginBottom: subtitle ? 6 : 16,
           }}
         >
-          <span style={{ fontSize: 20, lineHeight: 1, flexShrink: 0 }}>{icon}</span>
           <h1
             style={{
               fontFamily: 'var(--display)',

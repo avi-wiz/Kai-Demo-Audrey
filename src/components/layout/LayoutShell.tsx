@@ -150,7 +150,7 @@ export default function LayoutShell() {
       <UnifiedSidebar />
 
       <main
-        className="flex-1 flex flex-col min-h-screen bg-[var(--bg)] transition-all duration-300"
+        className="flex-1 flex flex-col h-screen bg-[var(--bg)] transition-all duration-300 overflow-hidden"
         style={{ paddingLeft: sidebarWidth }}
       >
         <header
@@ -167,9 +167,9 @@ export default function LayoutShell() {
                 alignItems: 'center',
                 gap: 6,
                 padding: '6px 14px',
-                background: 'var(--surface2)',
-                color: 'var(--text)',
-                border: '1px solid var(--border)',
+                background: '#096645',
+                color: '#FFFFFF',
+                border: '1px solid #096645',
                 borderRadius: 999,
                 fontFamily: 'var(--display)',
                 fontWeight: 600,
@@ -178,18 +178,18 @@ export default function LayoutShell() {
                 transition: 'background 150ms ease, border-color 150ms ease',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--surface)';
-                e.currentTarget.style.borderColor = 'var(--border2)';
+                e.currentTarget.style.background = '#0b7a52';
+                e.currentTarget.style.borderColor = '#0b7a52';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'var(--surface2)';
-                e.currentTarget.style.borderColor = 'var(--border)';
+                e.currentTarget.style.background = '#096645';
+                e.currentTarget.style.borderColor = '#096645';
               }}
             >
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path
                   d="M7 1.5L8.2 5.3H12.2L9 7.7L10.2 11.5L7 9.1L3.8 11.5L5 7.7L1.8 5.3H5.8L7 1.5Z"
-                  fill="var(--primary-80)"
+                  fill="#FFFFFF"
                 />
               </svg>
               Ask Kai

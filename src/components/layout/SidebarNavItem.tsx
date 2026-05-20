@@ -4,14 +4,12 @@ import { useState } from 'react';
 import type { ViewRoute } from '@/lib/types';
 
 export interface SubMenuItem {
-  icon: string;
   label: string;
   viewRoute: ViewRoute;
   onClick: () => void;
 }
 
 interface SidebarNavItemProps {
-  icon: string;
   label: string;
   viewRoute: ViewRoute;
   isActive: boolean;
@@ -40,7 +38,6 @@ function ChevronIcon({ open }: { open: boolean }) {
 }
 
 export default function SidebarNavItem({
-  icon,
   label,
   isActive,
   hasSubmenu = false,
@@ -83,7 +80,6 @@ export default function SidebarNavItem({
             }
           }}
         >
-          <span style={{ lineHeight: 1 }}>{icon}</span>
         </button>
       </div>
     );
@@ -118,7 +114,6 @@ export default function SidebarNavItem({
           }
         }}
       >
-        <span style={{ fontSize: 15, lineHeight: 1, flexShrink: 0 }}>{icon}</span>
         <span className="flex-1 truncate">{label}</span>
         {hasSubmenu && <ChevronIcon open={submenuOpen} />}
       </button>

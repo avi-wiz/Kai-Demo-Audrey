@@ -9,67 +9,201 @@ import type { WizOrderOrder } from '@/lib/types';
 const STATUS_FILTERS = ['All', 'Open', 'Submitted', 'Pre-Book Confirmed', 'Shipped', 'Delivered'] as const;
 type StatusFilter = typeof STATUS_FILTERS[number];
 
-const STATUS_BADGE: Record<string, { bg: string; text: string; border: string; label: string }> = {
-  'Open':                { bg: 'var(--badge-info-bg)',    text: 'var(--badge-info-text)',    border: 'var(--badge-info-border)',    label: 'Open' },
-  'Submitted':           { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)', label: 'Submitted' },
-  'Pre-Book Confirmed':  { bg: 'var(--badge-neutral-bg)', text: 'var(--badge-neutral-text)', border: 'var(--badge-neutral-border)', label: 'Pre-Book Confirmed' },
-  'Shipped':             { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)', label: 'Shipped' },
-  'Delivered':           { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)', label: 'Delivered' },
+const PAGE_SIZE = 20;
+
+// Alternating header colors from reference
+const COL_HEADERS = [
+  { label: '#', align: 'center' as const, color: '#F2F6E8' },
+  { label: 'Reference ID', align: 'left' as const, color: '#EBF3EF' },
+  { label: 'Type', align: 'left' as const, color: '#F2F6E8' },
+  { label: 'Status', align: 'left' as const, color: '#EBF3EF' },
+  { label: 'Customer ID', align: 'left' as const, color: '#F2F6E8' },
+  { label: 'Total', align: 'right' as const, color: '#EBF3EF' },
+  { label: 'Date', align: 'left' as const, color: '#F2F6E8' },
+  { label: 'Rep', align: 'left' as const, color: '#EBF3EF' },
+  { label: 'Items', align: 'right' as const, color: '#F2F6E8' },
+];
+
+const STATUS_DOT: Record<string, string> = {
+  'Open': '#f59e0b',
+  'Submitted': '#f59e0b',
+  'Pre-Book Confirmed': '#16a34a',
+  'Shipped': '#f59e0b',
+  'Delivered': '#16a34a',
 };
 
-const PAGE_SIZE = 10;
+function StatusCell({ status }: { status: string }) {
+  const dot = STATUS_DOT[status] ?? '#94a3b8';
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: 'var(--sans)', fontSize: 13, color: 'var(--text)' }}>
+      <span style={{ width: 7, height: 7, borderRadius: '50%', background: dot, flexShrink: 0, display: 'inline-block' }} />
+      {status}
+    </span>
+  );
+}
 
-function StatusBadge({ status }: { status: string }) {
-  const style = STATUS_BADGE[status] ?? { bg: 'var(--badge-neutral-bg)', text: 'var(--badge-neutral-text)', border: 'var(--badge-neutral-border)', label: status };
+function TypePill() {
   return (
     <span style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      padding: '3px 8px',
-      borderRadius: 20,
-      fontSize: 11,
+      display: 'inline-flex', alignItems: 'center',
+      padding: '3px 12px',
+      borderRadius: 999,
+      background: 'rgb(151, 183, 62)',
+      color: '#fff',
+      fontFamily: 'var(--sans)',
+      fontSize: 12,
       fontWeight: 600,
-      fontFamily: 'var(--display)',
-      letterSpacing: '0.2px',
-      background: style.bg,
-      color: style.text,
-      border: `1px solid ${style.border}`,
       whiteSpace: 'nowrap',
     }}>
-      {style.label}
+      Order
     </span>
+  );
+}
+
+function EditIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+    </svg>
+  );
+}
+
+function EyeIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+function PagBtn({ label, onClick, disabled, active }: {
+  label: string; onClick: () => void; disabled?: boolean; active?: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        padding: '4px 10px', borderRadius: 6,
+        border: active ? '1px solid rgb(9,102,69)' : '1px solid var(--border2)',
+        background: active ? 'rgb(9,102,69)' : hovered && !disabled ? 'var(--surface2)' : 'var(--surface)',
+        color: active ? '#fff' : disabled ? 'var(--text3)' : 'var(--text2)',
+        fontFamily: 'var(--display)', fontSize: 12,
+        fontWeight: active ? 600 : 400,
+        cursor: disabled ? 'default' : 'pointer',
+        opacity: disabled ? 0.4 : 1,
+        transition: 'all 150ms ease',
+      }}
+    >
+      {label}
+    </button>
   );
 }
 
 function KaiBadge() {
   return (
-    <>
-      <style>{`
-        @keyframes kaiBadgePulse {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.1); box-shadow: 0 0 10px var(--ai-accent-border); }
-          100% { transform: scale(1); }
-        }
-      `}</style>
-      <span style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 3,
-        padding: '2px 6px',
-        borderRadius: 10,
-        fontSize: 10,
-        fontWeight: 700,
-        fontFamily: 'var(--display)',
-        background: 'var(--ai-accent-bg)',
-        color: 'var(--ai-accent-text)',
-        marginLeft: 6,
-        letterSpacing: '0.1px',
-        animation: 'kaiBadgePulse 600ms ease-out forwards',
-        animationIterationCount: 1,
-      }}>
-        ✦ Kai
-      </span>
-    </>
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 3,
+      padding: '2px 6px', borderRadius: 10,
+      fontSize: 10, fontWeight: 700, fontFamily: 'var(--display)',
+      background: 'var(--ai-accent-bg)', color: 'var(--ai-accent-text)',
+      marginLeft: 6,
+    }}>
+      ✦ Kai
+    </span>
+  );
+}
+
+function OrderRow({ order, rowNum, isEven }: { order: WizOrderOrder; rowNum: number; isEven: boolean }) {
+  const [hovered, setHovered] = useState(false);
+  const isDelivered = order.status === 'Delivered' || order.status === 'Pre-Book Confirmed';
+  const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+  const dateStr = order.date
+    ? new Date(order.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    : '—';
+
+  const rowBg = hovered ? 'rgba(9,102,69,0.04)' : isEven ? '#F2F4F7' : '#FFFFFF';
+
+  const cell: React.CSSProperties = {
+    padding: '11px 14px',
+    borderBottom: '1px solid #f0f0f0',
+    verticalAlign: 'middle',
+  };
+
+  return (
+    <tr
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ background: rowBg, transition: 'background 100ms ease' }}
+    >
+      {/* # */}
+      <td style={{ ...cell, textAlign: 'center', fontFamily: 'var(--sans)', fontSize: 13, color: 'var(--text2)' }}>
+        {rowNum}
+      </td>
+
+      {/* Reference ID */}
+      <td style={{ ...cell }}>
+        <span style={{ fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 600, color: 'var(--text)' }}>
+          {order.id}
+        </span>
+        {order.createdByKai && <KaiBadge />}
+      </td>
+
+      {/* Type */}
+      <td style={{ ...cell }}>
+        <TypePill />
+      </td>
+
+      {/* Status */}
+      <td style={{ ...cell, whiteSpace: 'nowrap' }}>
+        <StatusCell status={order.status} />
+      </td>
+
+      {/* Customer ID */}
+      <td style={{ ...cell }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          <span style={{ fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 500, color: 'var(--text)' }}>
+            {order.customer}
+          </span>
+          <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--text3)' }}>
+            {order.customerId ?? '—'}
+          </span>
+        </div>
+      </td>
+
+      {/* Total */}
+      <td style={{ ...cell, textAlign: 'right', whiteSpace: 'nowrap' }}>
+        <span style={{ fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 500, color: 'var(--text)' }}>
+          {fmt.format(order.total)}
+        </span>
+      </td>
+
+      {/* Date */}
+      <td style={{ ...cell, whiteSpace: 'nowrap' }}>
+        <span style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--text2)' }}>
+          {dateStr}
+        </span>
+      </td>
+
+      {/* Rep */}
+      <td style={{ ...cell }}>
+        <span style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--text2)' }}>
+          {order.rep ?? '—'}
+        </span>
+      </td>
+
+      {/* Items */}
+      <td style={{ ...cell, textAlign: 'right' }}>
+        <span style={{ fontFamily: 'var(--mono)', fontSize: 12, color: 'var(--text2)' }}>
+          {order.items ?? '—'}
+        </span>
+      </td>
+    </tr>
   );
 }
 
@@ -89,6 +223,7 @@ export default function OrdersPage() {
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageOrders = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const startRow = (page - 1) * PAGE_SIZE + 1;
 
   const handleFilterChange = (f: StatusFilter) => {
     setActiveFilter(f);
@@ -101,219 +236,110 @@ export default function OrdersPage() {
     onClick: () => handleFilterChange(f),
   }));
 
+  const totalValue = filtered.reduce((s, o) => s + o.total, 0);
+  const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+
   return (
     <WizOrderPage
       title="Orders"
-      icon="📋"
       subtitle="Manage and track all customer orders across your team."
       filterChips={filterChips}
     >
-      {/* Count badge */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-        <span style={{
-          fontFamily: 'var(--display)',
-          fontSize: 13,
-          fontWeight: 500,
-          color: 'var(--text2)',
-        }}>
-          {filtered.length} order{filtered.length !== 1 ? 's' : ''}
-          {activeFilter !== 'All' && (
-            <span style={{ color: 'var(--text3)', marginLeft: 4 }}>· filtered by {activeFilter}</span>
-          )}
-        </span>
-      </div>
-
       {/* Table */}
       <div style={{
-        background: 'var(--surface)',
+        background: '#fff',
         borderRadius: 12,
         border: '1px solid var(--border)',
         overflow: 'hidden',
         boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
       }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ background: 'var(--surface2)' }}>
-              {['Order #', 'Customer', 'Total', 'Status', 'Date', 'Rep', 'Items'].map((col, i) => (
-                <th
-                  key={col}
-                  style={{
-                    padding: '10px 16px',
-                    textAlign: i === 2 || i === 6 ? 'right' : 'left',
-                    fontFamily: 'var(--display)',
-                    fontSize: 10.5,
-                    fontWeight: 600,
-                    color: 'var(--text3)',
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase',
-                    borderBottom: '1px solid var(--border)',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {col}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {pageOrders.length === 0 ? (
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 900 }}>
+            <thead>
               <tr>
-                <td colSpan={7} style={{
-                  padding: '40px 16px',
-                  textAlign: 'center',
-                  fontFamily: 'var(--display)',
-                  fontSize: 13,
-                  color: 'var(--text3)',
-                }}>
-                  No orders found
-                </td>
+                {COL_HEADERS.map((col) => (
+                  <th
+                    key={col.label}
+                    style={{
+                      padding: '11px 14px',
+                      textAlign: col.align,
+                      fontFamily: 'var(--sans)',
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: '#1a1a1a',
+                      background: col.color,
+                      borderBottom: '1px solid #e0e0e0',
+                      whiteSpace: 'nowrap',
+                      letterSpacing: '0.01em',
+                    }}
+                  >
+                    {col.label}
+                  </th>
+                ))}
               </tr>
-            ) : (
-              pageOrders.map((order: WizOrderOrder, idx) => (
-                <OrderRow key={order.id} order={order} isLast={idx === pageOrders.length - 1} />
-              ))
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {pageOrders.length === 0 ? (
+                <tr>
+                  <td colSpan={COL_HEADERS.length} style={{
+                    padding: '40px 16px', textAlign: 'center',
+                    fontFamily: 'var(--sans)', fontSize: 13, color: 'var(--text3)',
+                  }}>
+                    No orders found
+                  </td>
+                </tr>
+              ) : (
+                pageOrders.map((order, idx) => (
+                  <OrderRow
+                    key={order.id}
+                    order={order}
+                    rowNum={startRow + idx}
+                    isEven={idx % 2 === 1}
+                  />
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '12px 16px',
-            borderTop: '1px solid var(--border)',
-            background: 'var(--surface)',
-          }}>
-            <span style={{
-              fontFamily: 'var(--display)',
-              fontSize: 12,
-              color: 'var(--text3)',
-            }}>
-              Showing {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length}
-            </span>
-            <div style={{ display: 'flex', gap: 4 }}>
-              <PagBtn label="← Prev" disabled={page === 1} onClick={() => setCurrentPage(p => p - 1)} />
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-                <PagBtn key={p} label={String(p)} active={p === page} onClick={() => setCurrentPage(p)} />
-              ))}
-              <PagBtn label="Next →" disabled={page === totalPages} onClick={() => setCurrentPage(p => p + 1)} />
+        {/* Footer — totals + pagination */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '10px 16px',
+          borderTop: '1px solid var(--border)',
+          background: 'var(--surface)',
+          flexWrap: 'wrap',
+          gap: 8,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 5 }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 9l1 0" /><path d="M9 13l6 0" /><path d="M9 17l6 0" />
+              </svg>
+              <span style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--text2)' }}>Total Orders: <strong>{filtered.length}</strong></span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5, borderRadius: 20, background: 'rgb(242, 244, 247)', padding: '0.5rem 1.2rem' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M16.7 8a3 3 0 0 0 -2.7 -2h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a3 3 0 0 1 -2.7 -2" /><path d="M12 3v3m0 12v3" />
+              </svg>
+              <span style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--text2)' }}>Total Value: <strong>{fmt.format(totalValue)}</strong></span>
             </div>
           </div>
-        )}
-      </div>
-    </WizOrderPage>
-  );
-}
 
-function OrderRow({ order, isLast }: { order: WizOrderOrder; isLast: boolean }) {
-  const [hovered, setHovered] = useState(false);
-  const isPreBook = order.status === 'Pre-Book Confirmed';
-  // AudreyOrder carries shipWindow; access defensively since WizOrderOrder doesn't declare it
-  const shipWindow = (order as unknown as Record<string, unknown>)['shipWindow'] as string | undefined;
-
-  const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
-  const dateStr = order.date
-    ? new Date(order.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-    : '—';
-
-  return (
-    <tr
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        background: hovered ? 'rgba(0,0,0,0.02)' : 'transparent',
-        transition: 'background 100ms ease',
-        borderBottom: isLast ? 'none' : '1px solid var(--border)',
-      }}
-    >
-      {/* Order # */}
-      <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
-        <span style={{ fontFamily: 'var(--mono)', fontSize: 12, fontWeight: 500, color: 'var(--primary-80)' }}>
-          {order.id}
-        </span>
-        {order.createdByKai && <KaiBadge />}
-      </td>
-
-      {/* Customer */}
-      <td style={{ padding: '12px 16px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <span style={{ fontFamily: 'var(--display)', fontSize: 13, fontWeight: 500, color: 'var(--text)' }}>
-            {order.customer}
-          </span>
-          {isPreBook && shipWindow && (
-            <span style={{ fontFamily: 'var(--mono)', fontSize: 10.5, color: 'var(--badge-info-text)', display: 'flex', alignItems: 'center', gap: 3 }}>
-              📦 Ships {shipWindow}
-            </span>
+          {totalPages > 1 && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <PagBtn label="← Prev" disabled={page === 1} onClick={() => setCurrentPage(p => p - 1)} />
+              {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => i + 1).map(p => (
+                <PagBtn key={p} label={String(p)} active={p === page} onClick={() => setCurrentPage(p)} />
+              ))}
+              {totalPages > 7 && <span style={{ color: 'var(--text3)', fontSize: 12, padding: '0 4px' }}>…</span>}
+              <PagBtn label="Next →" disabled={page === totalPages} onClick={() => setCurrentPage(p => p + 1)} />
+            </div>
           )}
         </div>
-      </td>
-
-      {/* Total */}
-      <td style={{ padding: '12px 16px', textAlign: 'right', whiteSpace: 'nowrap' }}>
-        <span style={{ fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 500, color: 'var(--text)' }}>
-          {fmt.format(order.total)}
-        </span>
-      </td>
-
-      {/* Status */}
-      <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
-        <StatusBadge status={order.status} />
-      </td>
-
-      {/* Date */}
-      <td style={{ padding: '12px 16px', whiteSpace: 'nowrap' }}>
-        <span style={{ fontFamily: 'var(--display)', fontSize: 12, color: 'var(--text2)' }}>
-          {dateStr}
-        </span>
-      </td>
-
-      {/* Rep */}
-      <td style={{ padding: '12px 16px' }}>
-        <span style={{ fontFamily: 'var(--display)', fontSize: 12, color: 'var(--text2)' }}>
-          {order.rep}
-        </span>
-      </td>
-
-      {/* Items */}
-      <td style={{ padding: '12px 16px', textAlign: 'right' }}>
-        <span style={{ fontFamily: 'var(--mono)', fontSize: 12, color: 'var(--text2)' }}>
-          {order.items ?? '—'}
-        </span>
-      </td>
-    </tr>
-  );
-}
-
-function PagBtn({ label, onClick, disabled, active }: {
-  label: string;
-  onClick: () => void;
-  disabled?: boolean;
-  active?: boolean;
-}) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        padding: '4px 10px',
-        borderRadius: 6,
-        border: active ? '1px solid var(--primary-80)' : '1px solid var(--border2)',
-        background: active ? 'var(--primary-80)' : hovered && !disabled ? 'var(--surface2)' : 'var(--surface)',
-        color: active ? '#fff' : disabled ? 'var(--text3)' : 'var(--text2)',
-        fontFamily: 'var(--display)',
-        fontSize: 12,
-        fontWeight: active ? 600 : 400,
-        cursor: disabled ? 'default' : 'pointer',
-        opacity: disabled ? 0.4 : 1,
-        transition: 'all 200ms ease',
-      }}
-    >
-      {label}
-    </button>
+      </div>
+    </WizOrderPage>
   );
 }

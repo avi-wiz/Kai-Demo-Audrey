@@ -25,29 +25,29 @@ function badge(bg: string, color: string, label: string, border?: string) {
 }
 
 const PRIORITY_BADGE: Record<string, { bg: string; text: string; border: string }> = {
-  High:   { bg: 'var(--badge-danger-bg)',  text: 'var(--badge-danger-text)',  border: 'var(--badge-danger-border)' },
+  High: { bg: 'var(--badge-danger-bg)', text: 'var(--badge-danger-text)', border: 'var(--badge-danger-border)' },
   Medium: { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
-  Low:    { bg: 'var(--badge-neutral-bg)', text: 'var(--badge-neutral-text)', border: 'var(--badge-neutral-border)' },
+  Low: { bg: 'var(--badge-neutral-bg)', text: 'var(--badge-neutral-text)', border: 'var(--badge-neutral-border)' },
 };
 
 const TASK_STATUS_BADGE: Record<string, { bg: string; text: string; border: string }> = {
-  Open:        { bg: 'var(--badge-info-bg)',    text: 'var(--badge-info-text)',    border: 'var(--badge-info-border)' },
-  'In Progress':{ bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
-  Overdue:     { bg: 'var(--badge-danger-bg)',  text: 'var(--badge-danger-text)',  border: 'var(--badge-danger-border)' },
-  Completed:   { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
+  Open: { bg: 'var(--badge-info-bg)', text: 'var(--badge-info-text)', border: 'var(--badge-info-border)' },
+  'In Progress': { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
+  Overdue: { bg: 'var(--badge-danger-bg)', text: 'var(--badge-danger-text)', border: 'var(--badge-danger-border)' },
+  Completed: { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
 };
 
 const LEAD_STATUS_BADGE: Record<string, { bg: string; text: string; border: string }> = {
-  New:       { bg: 'var(--badge-info-bg)',    text: 'var(--badge-info-text)',    border: 'var(--badge-info-border)' },
+  New: { bg: 'var(--badge-info-bg)', text: 'var(--badge-info-text)', border: 'var(--badge-info-border)' },
   Contacted: { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
   Qualified: { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
 };
 
 const DEAL_STAGE_BADGE: Record<string, { bg: string; text: string; border: string }> = {
-  Qualified:       { bg: 'var(--badge-info-bg)',    text: 'var(--badge-info-text)',    border: 'var(--badge-info-border)' },
+  Qualified: { bg: 'var(--badge-info-bg)', text: 'var(--badge-info-text)', border: 'var(--badge-info-border)' },
   'Proposal Sent': { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
-  Negotiation:     { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
-  'Closed Won':    { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
+  Negotiation: { bg: 'var(--badge-warning-bg)', text: 'var(--badge-warning-text)', border: 'var(--badge-warning-border)' },
+  'Closed Won': { bg: 'var(--badge-success-bg)', text: 'var(--badge-success-text)', border: 'var(--badge-success-border)' },
 };
 
 function PriorityBadge({ priority }: { priority: string }) {
@@ -286,15 +286,14 @@ export default function CRMPage() {
   }, [setPage, allTasks, visibleLeads, allDeals]);
 
   const TABS: { id: CRMTab; label: string; count: number }[] = [
-    { id: 'tasks',  label: 'Tasks',  count: allTasks.length },
-    { id: 'leads',  label: 'Leads',  count: visibleLeads.length },
-    { id: 'deals',  label: 'Deals',  count: allDeals.length },
+    { id: 'tasks', label: 'Tasks', count: allTasks.length },
+    { id: 'leads', label: 'Leads', count: visibleLeads.length },
+    { id: 'deals', label: 'Deals', count: allDeals.length },
   ];
 
   return (
     <WizOrderPage
       title="CRM"
-      icon="✅"
       subtitle="Track tasks, leads, and deals across your team."
     >
       {/* Tab nav */}

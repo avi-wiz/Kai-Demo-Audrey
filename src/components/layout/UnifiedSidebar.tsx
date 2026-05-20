@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useLayout } from '@/contexts/LayoutContext';
 import { useConversation } from '@/contexts/ConversationContext';
 import { useChatSession } from '@/contexts/ChatSessionContext';
@@ -85,16 +86,6 @@ function CustomersGlyph({ active }: { active: boolean }) {
   );
 }
 
-function LogoutGlyph({ active }: { active: boolean }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={glyphColor(active)} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-      <path d="M9 12h12l-3 -3" />
-      <path d="M18 15l3 -3" />
-    </svg>
-  );
-}
-
 function CrmGlyph({ active }: { active: boolean }) {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={glyphColor(active)} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -102,6 +93,16 @@ function CrmGlyph({ active }: { active: boolean }) {
       <path d="M12 6l-3.293 3.293a1 1 0 0 0 0 1.414l.543 .543c.69 .69 1.81 .69 2.5 0l1 -1a3.182 3.182 0 0 1 4.5 0l2.25 2.25" />
       <path d="M12.5 15.5l2 2" />
       <path d="M15 13l2 2" />
+    </svg>
+  );
+}
+
+function LogoutGlyph({ active }: { active: boolean }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={glyphColor(active)} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+      <path d="M9 12h12l-3 -3" />
+      <path d="M18 15l3 -3" />
     </svg>
   );
 }
@@ -119,11 +120,7 @@ function KaiSparkleIcon({ active }: { active: boolean }) {
         fontWeight: 800,
         fontSize: 16,
         lineHeight: 1,
-        background: active
-          ? 'var(--primary-80)'
-          : 'linear-gradient(135deg, var(--primary-70), var(--ai-accent))',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
+        color: active ? '#FFFFFF' : 'var(--primary-70)',
       }}
     >
       ✦
@@ -185,21 +182,37 @@ function RailRow({
   onMouseLeave?: () => void;
 }) {
   const [hovered, setHovered] = useState(false);
+  const [pillPos, setPillPos] = useState<{ top: number; left: number } | null>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   const background = isActive
     ? 'rgb(9, 102, 69)'
     : hovered
-    ? '#F2F6E8'
-    : 'transparent';
+      ? '#F2F6E8'
+      : 'transparent';
   const labelColor = isActive ? '#FFFFFF' : 'var(--text2)';
 
+  function handleMouseEnter() {
+    setHovered(true);
+    onMouseEnter?.();
+    if (sidebarCollapsed && !isActive && btnRef.current) {
+      const r = btnRef.current.getBoundingClientRect();
+      setPillPos({ top: r.top + r.height / 2, left: r.right + 8 });
+    }
+  }
+
+  function handleMouseLeave() {
+    setHovered(false);
+    setPillPos(null);
+    onMouseLeave?.();
+  }
+
+  const showPill = sidebarCollapsed && hovered && !isActive && pillPos;
+
   return (
-    <div
-      style={{ position: 'relative' }}
-      onMouseEnter={() => { setHovered(true); onMouseEnter?.(); }}
-      onMouseLeave={() => { setHovered(false); onMouseLeave?.(); }}
-    >
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <button
+        ref={btnRef}
         onClick={onClick}
         style={{
           display: 'flex',
@@ -233,13 +246,13 @@ function RailRow({
         )}
       </button>
 
-      {/* Hover label pill — collapsed rail only, inactive items */}
-      {sidebarCollapsed && hovered && !isActive && (
+      {/* Hover label pill — rendered in a portal so nothing clips it */}
+      {showPill && typeof window !== 'undefined' && createPortal(
         <div
           style={{
-            position: 'absolute',
-            top: '50%',
-            left: 'calc(100% + 8px)',
+            position: 'fixed',
+            top: pillPos!.top,
+            left: pillPos!.left,
             transform: 'translateY(-50%)',
             background: '#2E3643',
             color: '#FFFFFF',
@@ -251,11 +264,12 @@ function RailRow({
             whiteSpace: 'nowrap',
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.12)',
             pointerEvents: 'none',
-            zIndex: 100,
+            zIndex: 9999,
           }}
         >
           {label}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
@@ -711,10 +725,10 @@ export default function UnifiedSidebar() {
         </div>
       </nav>
 
-      {/* Logout footer — visible in both expanded and collapsed states */}
+      {/* Logout footer — always visible */}
       <div className="shrink-0 mt-auto">
-        <div className={sidebarCollapsed ? 'mx-2 border-t border-[var(--border)]' : 'mx-4 border-t border-[var(--border)]'} />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: sidebarCollapsed ? '8px 8px' : '8px' }}>
+        <div className="mx-2 border-t border-[var(--border)]" />
+        <div className="flex flex-col gap-0.5 p-2">
           <RailRow
             icon="svg:logout"
             label="Logout"

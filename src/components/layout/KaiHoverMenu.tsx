@@ -8,7 +8,6 @@ import SidebarNavItem, { type SubMenuItem } from './SidebarNavItem';
 import type { ViewRoute } from '@/lib/types';
 
 interface NavEntry {
-  icon: string;
   label: string;
   viewRoute: ViewRoute;
   submenuItems?: SubMenuItem[];
@@ -44,51 +43,26 @@ export default function KaiHoverMenu({ onNavigate, collapsed = false }: KaiHover
 
   const NAV: NavEntry[] = [
     {
-      icon: '✦',
       label: 'New Chat',
       viewRoute: 'chat',
     },
     {
-      icon: '🕐',
       label: 'History',
       viewRoute: 'history',
     },
     {
-      icon: '📌',
       label: 'My Artifacts',
       viewRoute: 'artifacts',
     },
     {
-      icon: '📖',
       label: 'Docs',
       viewRoute: 'docs',
     },
     {
-      icon: '🤖',
-      label: 'Agent Store',
-      viewRoute: 'agent-store',
-      submenuItems: [
-        {
-          icon: '🏪',
-          label: 'Agent Library',
-          viewRoute: 'agent-store',
-          onClick: () => goAgentStore('library'),
-        },
-        {
-          icon: '⚡',
-          label: 'My Agents',
-          viewRoute: 'agent-store',
-          onClick: () => goAgentStore('my-agents'),
-        },
-      ],
-    },
-    {
-      icon: '⚙️',
       label: 'Settings',
       viewRoute: 'settings',
       submenuItems: [
         {
-          icon: '🎭',
           label: 'Personas',
           viewRoute: 'settings',
           onClick: () => navigate('settings'),
@@ -96,24 +70,20 @@ export default function KaiHoverMenu({ onNavigate, collapsed = false }: KaiHover
       ],
     },
     {
-      icon: '🛠',
       label: 'Admin',
       viewRoute: 'admin/dashboard',
       submenuItems: [
         {
-          icon: '📊',
           label: 'Dashboard',
           viewRoute: 'admin/dashboard',
           onClick: () => navigate('admin/dashboard'),
         },
         {
-          icon: '🔮',
           label: 'Add Your Models',
           viewRoute: 'admin/models',
           onClick: () => navigate('admin/models'),
         },
         {
-          icon: '👤',
           label: 'User Preferences',
           viewRoute: 'admin/prefs',
           onClick: () => navigate('admin/prefs'),
@@ -132,7 +102,6 @@ export default function KaiHoverMenu({ onNavigate, collapsed = false }: KaiHover
         return (
           <SidebarNavItem
             key={entry.label}
-            icon={entry.icon}
             label={entry.label}
             viewRoute={entry.viewRoute}
             isActive={isActive}
