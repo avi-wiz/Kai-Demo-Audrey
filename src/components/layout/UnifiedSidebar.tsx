@@ -118,8 +118,9 @@ function KaiSparkleIcon({ active }: { active: boolean }) {
         height: 20,
         fontFamily: 'var(--display)',
         fontWeight: 800,
-        fontSize: 16,
+        fontSize: 28,
         lineHeight: 1,
+        overflow: 'visible',
         color: active ? '#FFFFFF' : 'var(--primary-70)',
       }}
     >
@@ -429,9 +430,6 @@ function FlyoutRow({
           }
         }}
       >
-        <span style={{ fontSize: 14, lineHeight: 1, flexShrink: 0, color: active || anyChildActive ? 'var(--primary-80)' : 'var(--text3)' }}>
-          {entry.icon}
-        </span>
         <span style={{ flex: 1 }}>{entry.label}</span>
         {isGroup && (
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style={{ opacity: 0.5, flexShrink: 0 }}>
@@ -558,6 +556,18 @@ export default function UnifiedSidebar() {
   const { clearMessages } = useConversation();
   const { requestSaveAndReset } = useChatSession();
   const { setAgentStoreView } = useAgentStore();
+  const sidebarRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (sidebarCollapsed) return;
+    function handleOutsideClick(e: MouseEvent) {
+      if (sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
+        setSidebarCollapsed(true);
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [sidebarCollapsed, setSidebarCollapsed]);
 
   function nav(route: ViewRoute) {
     setView(route);
@@ -633,6 +643,7 @@ export default function UnifiedSidebar() {
 
   return (
     <aside
+      ref={sidebarRef}
       data-tour="sidebar"
       style={{
         width: sidebarCollapsed ? 56 : 240,
