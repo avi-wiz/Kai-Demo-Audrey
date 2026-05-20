@@ -1,0 +1,39 @@
+{
+  "frameId": "f-special-inventory-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Scanned all 50 active SKUs in the catalog. Bucketed by stock state and cross-checked the in-transit queue from open POs.",
+        "steps": [
+          { "step": 1, "action": "fetch_skus", "result": "50 active SKUs across 7 buckets", "ms": 145 },
+          { "step": 2, "action": "bucket_by_state", "result": "35 In Stock, 7 Back-order, 8 Limited Quantity", "ms": 180 },
+          { "step": 3, "action": "compute_in_transit", "result": "5 SKUs on the water — July pre-book pacing", "ms": 110 }
+        ],
+        "mcpsAccessed": ["Inventory", "Purchase Orders"],
+        "totalMs": 435
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-004",
+      "data": {
+        "title": "Inventory Status — SKU Counts",
+        "columns": [
+          { "key": "total",     "label": "Total SKUs",       "align": "center" },
+          { "key": "inStock",   "label": "In-Stock SKUs",    "align": "center" },
+          { "key": "backOrder", "label": "Back-order SKUs",  "align": "center" },
+          { "key": "inTransit", "label": "In-Transit SKUs",  "align": "center" }
+        ],
+        "rows": [
+          { "total": 50, "inStock": 35, "backOrder": 7, "inTransit": 5 }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "35 of 50 SKUs are in stock and ready to ship. 7 SKUs are on back-order — 4 of those are PhaseOut clearance items that won't be replenished. 5 SKUs are in transit ahead of the July 2026 release. Want me to pull the back-order list or flag the at-risk PhaseOut SKUs?"
+  }
+}

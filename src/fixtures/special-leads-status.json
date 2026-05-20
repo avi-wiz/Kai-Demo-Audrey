@@ -1,0 +1,59 @@
+{
+  "frameId": "f-special-leads-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Pulled all 6 leads from CRM and bucketed by pipeline stage. Verdant Home Collective is Qualified and pricing-locked — ready to convert.",
+        "steps": [
+          { "step": 1, "action": "fetch_leads", "result": "6 leads across 4 reps", "ms": 110 },
+          { "step": 2, "action": "bucket_by_stage", "result": "1 New · 1 Contacted · 4 Qualified", "ms": 65 }
+        ],
+        "mcpsAccessed": ["CRM"],
+        "totalMs": 175
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "New",       "value": "1", "format": "count" },
+          { "label": "Contacted", "value": "1", "format": "count" },
+          { "label": "Qualified", "value": "4", "format": "count" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-004",
+      "highlights": [
+        { "fieldPath": "rows[2].status", "type": "positive", "message": "Verdant Home is Qualified and pricing-locked — ready to convert to a customer" },
+        { "fieldPath": "rows[0].status", "type": "warning",  "message": "Rustic Charm submitted via WizShop 5 days ago and still has no outreach" }
+      ],
+      "data": {
+        "title": "All Leads",
+        "columns": [
+          { "key": "id",          "label": "Lead ID",     "align": "left" },
+          { "key": "name",        "label": "Lead",        "align": "left" },
+          { "key": "region",      "label": "Region",      "align": "left" },
+          { "key": "status",      "label": "Stage",       "align": "left", "format": "badge" },
+          { "key": "assignedTo",  "label": "Rep",         "align": "left" },
+          { "key": "lastContact", "label": "Last Contact","align": "left" }
+        ],
+        "rows": [
+          { "id": "L-9002", "name": "Rustic Charm Boutique",   "region": "Chattanooga, TN",  "status": "New",       "assignedTo": "Marcus Rivera",  "lastContact": "—" },
+          { "id": "L-9005", "name": "Lakeside Living Co",      "region": "Indianapolis, IN", "status": "Contacted", "assignedTo": "Marcus Rivera",  "lastContact": "May 02, 2026" },
+          { "id": "L-9003", "name": "Verdant Home Collective", "region": "Franklin, TN",     "status": "Qualified", "assignedTo": "Beth Calloway",  "lastContact": "May 10, 2026" },
+          { "id": "L-9001", "name": "Wildflower Market",       "region": "Austin, TX",       "status": "Qualified", "assignedTo": "Beth Calloway",  "lastContact": "Apr 30, 2026" },
+          { "id": "L-9006", "name": "Mountain Bloom Studio",   "region": "Boulder, CO",      "status": "Qualified", "assignedTo": "Hannah Cho",     "lastContact": "May 08, 2026" },
+          { "id": "L-9004", "name": "The Garden Gate Shop",    "region": "Greenville, SC",   "status": "Qualified", "assignedTo": "Hannah Cho",     "lastContact": "Mar 15, 2026" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "4 of 6 leads are Qualified — Verdant Home Collective is the closest to closing (pricing agreed, just needs account setup). Rustic Charm Boutique came in via WizShop 5 days ago with no rep outreach yet — that's the urgent one. Want me to draft an intro email for Marcus to send to Rustic Charm or move Verdant to Won?"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "frameId": "f-special-order-status-clarify-001",
+  "frameType": "clarification",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Multiple recent orders found — confirming which one you'd like to look at.",
+        "steps": [
+          { "step": 1, "action": "search_recent_orders", "result": "5 open / in-flight orders in the last 30 days", "ms": 125 }
+        ],
+        "mcpsAccessed": ["Orders"],
+        "totalMs": 125
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "AW-006",
+      "data": {
+        "prompt": "Which order do you want details on?",
+        "context": "These are the 5 most recent in-flight orders. Pick one and I'll pull up the live status.",
+        "mode": "single",
+        "options": [
+          { "value": "O-50034", "label": "O-50034 — The Potting Shed",       "description": "$2,840 · May 19, 2026 · Open" },
+          { "value": "O-50027", "label": "O-50027 — Magnolia Home & Garden", "description": "$3,120 · May 18, 2026 · Open" },
+          { "value": "O-50007", "label": "O-50007 — Copper Creek Trading",   "description": "$5,680 · May 15, 2026 · Submitted" },
+          { "value": "O-50013", "label": "O-50013 — Magnolia Home & Garden", "description": "$6,840 · May 10, 2026 · Pre-Book Confirmed (Sep 2026)" },
+          { "value": "O-50001", "label": "O-50001 — Magnolia Home & Garden", "description": "$8,940 · May 04, 2026 · Shipped" }
+        ],
+        "confirmLabel": "Check this order",
+        "cancelLabel": "Cancel"
+      }
+    }
+  ],
+  "closingText": {
+    "type": "question",
+    "text": "Which order do you want details on? Pick one above and I'll pull the live status."
+  }
+}

@@ -37,6 +37,14 @@ import crmFixture from '@/fixtures/page-context-crm.json';
 import dashboardFixture from '@/fixtures/page-context-dashboard.json';
 import orderHistoryFixture from '@/fixtures/special-order-history.json';
 import meetingPrepFixture from '@/fixtures/special-meeting-prep.json';
+import inventoryStatusFixture from '@/fixtures/special-inventory-status.json';
+import ordersRecentStatusFixture from '@/fixtures/special-orders-recent-status.json';
+import leadsStatusFixture from '@/fixtures/special-leads-status.json';
+import openOrdersFixture from '@/fixtures/special-open-orders.json';
+import skuBirdPotFeetFixture from '@/fixtures/special-customers-by-sku-bird-pot-feet.json';
+import skuCementBirdFeederFixture from '@/fixtures/special-customers-by-sku-cement-bird-feeder.json';
+import skuBloomingPorchFixture from '@/fixtures/special-customers-by-sku-blooming-porch.json';
+import orderStatusClarifyFixture from '@/fixtures/special-order-status-clarify.json';
 
 const PAGE_FIXTURES: Record<WizOrderPageName, PageContextFixture> = {
   orders:    ordersFixture as unknown as PageContextFixture,
@@ -55,6 +63,10 @@ export interface DashboardMatch {
 export interface PageContextMatch {
   widgets: ParsedWidget[];
   closingText: ClosingText;
+  /** When 'clarification', the calling code should wrap rendered widgets in a
+   *  WidgetActionContext so the embedded AW-006 can fire its confirm/cancel
+   *  callbacks back to ChatShell. */
+  frameType?: string;
 }
 
 type DashboardFixtureRaw = { widgets: PageQueryWidget[]; closingText: ClosingText; capability: string; frameId: string };
@@ -132,9 +144,52 @@ export function matchPageContextQuery(
 }
 
 // Specialized routes (order history, meeting prep) handled before matchQuery.
-type SpecialFixtureRaw = { widgets: PageQueryWidget[]; closingText: ClosingText; frameId: string };
+type SpecialFixtureRaw = { widgets: PageQueryWidget[]; closingText: ClosingText; frameId: string; frameType?: string };
 
 const SPECIAL_ROUTES: { keywords: string[]; fixture: SpecialFixtureRaw }[] = [
+  // ── Operational queries (Audrey vDemo) ──────────────────────────────────────
+  // Inventory snapshot — simple 4-column table. Must come BEFORE catalog-health
+  // so 'inventory status' wins here instead of routing to the full dashboard.
+  {
+    keywords: ['inventory status', "what's my inventory", 'what is my inventory', 'status of my inventory', 'status of inventory', 'sku status', 'stock breakdown'],
+    fixture: inventoryStatusFixture as unknown as SpecialFixtureRaw,
+  },
+  // Recent order status across all customers (NOT scoped to one customer)
+  {
+    keywords: ['status of my orders', 'status of my recent orders', 'orders placed recently', 'recent order status', 'how are my orders'],
+    fixture: ordersRecentStatusFixture as unknown as SpecialFixtureRaw,
+  },
+  // Lead pipeline snapshot
+  {
+    keywords: ['status of my leads', 'my leads', 'how are my leads', 'lead status', 'leads status'],
+    fixture: leadsStatusFixture as unknown as SpecialFixtureRaw,
+  },
+  // Open orders — filtered to Open / Submitted / Pre-Book Confirmed / Shipped
+  {
+    keywords: ['list of open orders', 'open orders', 'show open orders', 'pending orders'],
+    fixture: openOrdersFixture as unknown as SpecialFixtureRaw,
+  },
+  // Customers by SKU — 3 hero SKUs; matched by SKU id OR product-name keyword
+  {
+    keywords: ['51gr1907', 'bird pot feet'],
+    fixture: skuBirdPotFeetFixture as unknown as SpecialFixtureRaw,
+  },
+  {
+    keywords: ['51gr1776-u', '51gr1776', 'cement bird feeder'],
+    fixture: skuCementBirdFeederFixture as unknown as SpecialFixtureRaw,
+  },
+  {
+    keywords: ['51gr1522-u', '51gr1522', 'blooming porch', 'a blooming porch', 'porch lead'],
+    fixture: skuBloomingPorchFixture as unknown as SpecialFixtureRaw,
+  },
+  // Order status clarification — emits an AW-006 clarification card (handled
+  // by spawnPageContextTurn below; the card's confirm callback spawns the
+  // per-order status follow-up via the order-status clarification handler).
+  {
+    keywords: ['current status of the order', 'status of the order', 'check order status', 'where is my order'],
+    fixture: orderStatusClarifyFixture as unknown as SpecialFixtureRaw,
+  },
+  // ── Existing routes ─────────────────────────────────────────────────────────
   {
     keywords: ['recent orders', 'order history', 'past orders', 'previous orders', "'s recent orders", 'show order history', 'orders for magnolia', 'magnolia orders', 'orders from magnolia', 'magnolia home orders'],
     fixture: orderHistoryFixture as unknown as SpecialFixtureRaw,
@@ -166,7 +221,7 @@ export function matchSpecialQuery(message: string): PageContextMatch | null {
     0,
   );
 
-  return { widgets: parsed, closingText: fixture.closingText };
+  return { widgets: parsed, closingText: fixture.closingText, frameType: fixture.frameType };
 }
 
 // ── Capability-chip groups (sr-2, sr-11, sr-14, sr-20, ad-1, ad-3, ad-17, ad-29) ──
@@ -229,7 +284,7 @@ const CAPABILITY_ROUTES: { keywords: string[]; useCase: CapabilityUseCase }[] = 
   { keywords: ['customer health', 'account health', 'customer dashboard', 'customer retention', 'dormant customer', 'churn dashboard', 'retention dashboard'], useCase: 'report-customer-health' },
   { keywords: ['pipeline', 'lead conversion', 'my pipeline', 'pipeline report', 'pipeline dashboard', 'pipeline health', 'open quotes', 'quote pipeline', 'deal pipeline', 'show pipeline'], useCase: 'report-pipeline' },
   { keywords: ['team performance', 'rep performance', 'team report'], useCase: 'report-team-performance' },
-  { keywords: ['catalog health', 'inventory status', 'stock levels', 'catalog report'], useCase: 'report-catalog-health' },
+  { keywords: ['catalog health', 'stock levels', 'catalog report'], useCase: 'report-catalog-health' },
 ];
 
 export function matchSpecialCapabilityQuery(message: string): { useCase: CapabilityUseCase } | null {

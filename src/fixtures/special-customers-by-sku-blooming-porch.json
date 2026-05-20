@@ -1,0 +1,48 @@
+{
+  "frameId": "f-special-sku-blooming-porch-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Searched 35 recent orders for SKU 51GR1522-U (A Blooming Porch lead SKU). 5 customers bought it in the last 15 days. Strongest sell-through in the Featured Collections bucket.",
+        "steps": [
+          { "step": 1, "action": "resolve_sku",        "result": "1 match: 51GR1522-U — A Blooming Porch lead SKU (featured_collections, In Stock)", "ms": 95 },
+          { "step": 2, "action": "search_orders_by_sku", "result": "5 orders since May 05, 2026", "ms": 220 }
+        ],
+        "mcpsAccessed": ["Inventory", "Orders"],
+        "totalMs": 315
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-004",
+      "highlights": [
+        { "fieldPath": "rows[0].units", "type": "positive", "message": "Magnolia — largest cluster, ordered the full A Blooming Porch look-book" },
+        { "fieldPath": "rows[4].units", "type": "info",     "message": "Sunflower & Sage is now on a 30-day reorder cadence for this SKU" }
+      ],
+      "data": {
+        "title": "Customers Who Bought 51GR1522-U (A Blooming Porch) — Last 15 Days",
+        "columns": [
+          { "key": "customer",   "label": "Customer",    "align": "left" },
+          { "key": "customerId", "label": "Customer ID", "align": "left" },
+          { "key": "orderId",    "label": "Order #",     "align": "left" },
+          { "key": "orderDate",  "label": "Order Date",  "align": "left" },
+          { "key": "units",      "label": "Units",       "align": "right" },
+          { "key": "rep",        "label": "Rep",         "align": "left" }
+        ],
+        "rows": [
+          { "customer": "Magnolia Home & Garden", "customerId": "C-8001", "orderId": "O-50050", "orderDate": "May 17, 2026", "units": 18, "rep": "Beth Calloway"  },
+          { "customer": "The Potting Shed",       "customerId": "C-8002", "orderId": "O-50003", "orderDate": "May 12, 2026", "units": 4,  "rep": "Beth Calloway"  },
+          { "customer": "Bloom & Basket",         "customerId": "C-8003", "orderId": "O-50005", "orderDate": "May 09, 2026", "units": 6,  "rep": "Marcus Rivera"  },
+          { "customer": "Seaside Gifts",          "customerId": "C-8004", "orderId": "O-50051", "orderDate": "May 07, 2026", "units": 8,  "rep": "Marcus Rivera"  },
+          { "customer": "Sunflower & Sage",       "customerId": "C-8007", "orderId": "O-50009", "orderDate": "May 06, 2026", "units": 4,  "rep": "Beth Calloway"  }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "5 customers, 40 units of A Blooming Porch lead SKU in 12 days — this is your spring catalyst. Magnolia's 18-unit order is the largest. Two of Beth's other Southeast accounts (Harbor Lane, Golden Meadow) haven't bought any A Blooming Porch yet — easy outreach target. Want me to draft a look-book email for those two?"
+  }
+}

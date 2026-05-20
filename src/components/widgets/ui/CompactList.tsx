@@ -122,9 +122,8 @@ function TaskRow({
             fontWeight: 600,
             color: 'var(--text)',
             marginBottom: 2,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
+            wordBreak: 'break-word',
+            lineHeight: 1.4,
             fontFamily: 'var(--sans)',
           }}>
             {item.title}
@@ -229,7 +228,8 @@ function ActivityRow({
         flex: 1, minWidth: 0,
         fontSize: 12.5, color: 'var(--text)',
         fontFamily: 'var(--sans)',
-        whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+        wordBreak: 'break-word',
+        lineHeight: 1.4,
       }}>
         {item.text}
       </div>

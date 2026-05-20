@@ -83,6 +83,7 @@ const USECASE_CHIP_KEY: Record<string, string> = {
   'ad29-test': '',
   'metric-clarification': '',
   'workflow-clarification': '',
+  'order-status-clarification': '',
   // Audrey vDemo — Cap 1–6 active chip groups
   'cap1-task-email': 'cap1-task-email',
   'cap1-email-draft': 'cap1-email-draft',
@@ -189,6 +190,7 @@ interface KaiTurn {
   | 'ad29-test'
   | 'metric-clarification'
   | 'workflow-clarification'
+  | 'order-status-clarification'
   // Audrey vDemo capabilities (Caps 1–6)
   | 'cap1-task-email'
   | 'cap1-email-draft'
@@ -247,6 +249,10 @@ interface KaiTurn {
     prompt: string;
     candidates: WorkflowId[];
   };
+  /** order-status-clarification turn: the parsed clarify fixture (widgets +
+   *  closingText). The order options live inside the AW-006 widget's `data`
+   *  and are fired back via WidgetActionContext.onClarificationConfirm. */
+  orderStatusClarification?: PageContextMatch;
   /** History restore: when set, the turn renders from a saved snapshot
    *  instead of going through the simulator + LLM hooks. */
   isRestored?: boolean;
@@ -1143,6 +1149,67 @@ function WorkflowClarificationTurnRenderer({
   );
 }
 
+// ── Order-status clarification turn (single-mode AW-006 from fixture) ────────
+// Spawned by matchSpecialQuery when the user asks "what is the current status
+// of the order" without naming one. The fixture (special-order-status-clarify)
+// already contains a UW-014 reasoning step + AW-006 picker. We wrap rendering
+// in a WidgetActionContext so the embedded AW-006 fires its confirm callback
+// back to ChatShell, which loads the per-order follow-up fixture.
+
+function OrderStatusClarificationTurnRenderer({
+  turn,
+  onStreamEnd,
+  onConfirmClarification,
+  onCancelClarification,
+}: {
+  turn: KaiTurn;
+  onStreamEnd: (closingText?: string) => void;
+  onConfirmClarification: (turnId: string, selectedOrderIds: string[]) => void;
+  onCancelClarification: (turnId: string) => void;
+}) {
+  const didEnd = useRef(false);
+  useEffect(() => {
+    if (!didEnd.current) {
+      didEnd.current = true;
+      onStreamEnd(turn.orderStatusClarification?.closingText?.text);
+    }
+  }, [onStreamEnd, turn.orderStatusClarification]);
+
+  const match = turn.orderStatusClarification;
+  if (!match) {
+    return (
+      <div className="flex justify-start mb-4 message-slide-in-left">
+        <div className="max-w-[85%] w-full bg-transparent px-4 py-3">
+          <p className="text-[13.5px] text-[var(--text2)] leading-relaxed font-sans">
+            I lost track of which orders to offer — try again.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Stamp turn id onto widget keys so they're unique across turns
+  const widgets = match.widgets.map((w) => ({ ...w, key: `${turn.id}:${w.key}` }));
+
+  const handlers: WidgetActionHandlers = {
+    onClarificationConfirm: (ids) => onConfirmClarification(turn.id, ids),
+    onClarificationCancel: () => onCancelClarification(turn.id),
+  };
+
+  return (
+    <WidgetActionContext.Provider value={handlers}>
+      <KaiResponse widgets={widgets} />
+      {match.closingText && (
+        <CanvasTextBlock
+          closingText={match.closingText}
+          streamingText=""
+          isStreaming={false}
+        />
+      )}
+    </WidgetActionContext.Provider>
+  );
+}
+
 // ── Restage turn (uc2 follow-up with patched fields) ─────────────────────────
 
 function RestageRenderer({
@@ -1818,6 +1885,8 @@ function KaiTurnRenderer({
   onClarificationCancel,
   onWorkflowClarificationConfirm,
   onWorkflowClarificationCancel,
+  onOrderStatusClarificationConfirm,
+  onOrderStatusClarificationCancel,
   generateCtx,
 }: {
   turn: KaiTurn;
@@ -1840,6 +1909,8 @@ function KaiTurnRenderer({
   onClarificationCancel?: (turnId: string) => void;
   onWorkflowClarificationConfirm?: (turnId: string, selectedIds: string[]) => void;
   onWorkflowClarificationCancel?: (turnId: string) => void;
+  onOrderStatusClarificationConfirm?: (turnId: string, selectedOrderIds: string[]) => void;
+  onOrderStatusClarificationCancel?: (turnId: string) => void;
   generateCtx: GenerateContext;
 }) {
   if (turn.isRestored) {
@@ -1886,6 +1957,16 @@ function KaiTurnRenderer({
         onStreamEnd={onStreamEnd}
         onConfirmClarification={onWorkflowClarificationConfirm ?? (() => { })}
         onCancelClarification={onWorkflowClarificationCancel ?? (() => { })}
+      />
+    );
+  }
+  if (turn.useCase === 'order-status-clarification') {
+    return (
+      <OrderStatusClarificationTurnRenderer
+        turn={turn}
+        onStreamEnd={onStreamEnd}
+        onConfirmClarification={onOrderStatusClarificationConfirm ?? (() => { })}
+        onCancelClarification={onOrderStatusClarificationCancel ?? (() => { })}
       />
     );
   }
@@ -2717,7 +2798,22 @@ export default function ChatShell() {
       const thinkMs = 1200;
       if (thinkingTimerRef.current) clearTimeout(thinkingTimerRef.current);
       thinkingTimerRef.current = setTimeout(() => {
-        spawnPageContextTurn(specialHit, fromChip);
+        // Clarification-frame specials (e.g. order-status picker) get their own
+        // turn type so we can wrap the embedded AW-006 in a WidgetActionContext.
+        if (specialHit.frameType === 'clarification') {
+          setIsThinking(false);
+          setThinkingMessage(undefined);
+          setKaiTurns((prev) => [...prev, {
+            id: (Date.now() + 1).toString(),
+            useCase: 'order-status-clarification' as const,
+            orderStatusClarification: specialHit,
+            ...(fromChip ? { fromChip: true } : {}),
+          }]);
+          setActiveStreams((n) => n + 1);
+          thinkingTimerRef.current = null;
+        } else {
+          spawnPageContextTurn(specialHit, fromChip);
+        }
       }, thinkMs);
       return;
     }
@@ -2884,6 +2980,28 @@ export default function ChatShell() {
         spawnTurn(emailUseCase, trimmed, undefined, fromChip);
       }, 800);
       return;
+    }
+
+    // Guard: SKU-lookup-shaped queries that don't name a known hero SKU
+    // would otherwise hit the LLM classifier and come back as uc1 (Magnolia
+    // 360). Short-circuit to unknown so the user sees a helpful "I don't have
+    // that SKU yet" reply instead of an unrelated customer card.
+    {
+      const looksLikeSkuLookup =
+        m.includes('purchased') ||
+        m.includes('who bought') ||
+        (m.includes('customers who') && (m.includes('bought') || m.includes('order')));
+      const namesKnownSku =
+        m.includes('51gr1907') || m.includes('bird pot feet') ||
+        m.includes('51gr1776') || m.includes('cement bird feeder') ||
+        m.includes('51gr1522') || m.includes('blooming porch') || m.includes('porch lead');
+      if (looksLikeSkuLookup && !namesKnownSku) {
+        if (thinkingTimerRef.current) clearTimeout(thinkingTimerRef.current);
+        thinkingTimerRef.current = setTimeout(() => {
+          spawnTurn('unknown', trimmed, undefined, fromChip);
+        }, 800);
+        return;
+      }
     }
 
     if (aiMode) {
@@ -3485,6 +3603,54 @@ export default function ChatShell() {
     setMessages((prev) => (prev.length > 1 ? prev.slice(0, -1) : prev));
   }, []);
 
+  // ── Order-status clarification handlers ────────────────────────────────────
+  // The clarification fixture renders an AW-006 picker of 5 recent orders.
+  // On confirm, dynamically import the per-order follow-up fixture and spawn
+  // it as a regular page-context turn (it's a result frame with a UW-003
+  // detail card + closing text).
+  const handleOrderStatusClarificationConfirm = useCallback(async (clarificationTurnId: string, selectedOrderIds: string[]) => {
+    const orderId = selectedOrderIds[0];
+    if (!orderId) return;
+
+    // Synthetic user-side bubble describing the pick
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: `Check status of ${orderId}`,
+      timestamp: Date.now(),
+    };
+    setMessages((prev) => [...prev, userMessage]);
+    setKaiTurns((prev) => prev.map((t) => (t.id === clarificationTurnId ? { ...t, isStale: true } : t)));
+
+    try {
+      const mod = await import(`@/fixtures/special-order-status-${orderId}.json`);
+      const fixture = mod.default as { widgets: Array<{ widgetType: string; data: Record<string, unknown>; config?: Record<string, unknown>; highlights?: unknown[] }>; closingText: { type: string; text: string }; frameId: string };
+      const parsed = parseFrame(
+        { frameId: fixture.frameId, frameType: 'result', widgets: fixture.widgets } as Parameters<typeof parseFrame>[0],
+        0,
+      );
+      const match: PageContextMatch = {
+        widgets: parsed,
+        closingText: fixture.closingText as PageContextMatch['closingText'],
+      };
+      spawnPageContextTurn(match, false);
+    } catch (err) {
+      console.error('[Kai] No status fixture for', orderId, err);
+      showToast(`I don't have detailed status for ${orderId} yet.`);
+    }
+  }, [spawnPageContextTurn, showToast]);
+
+  const handleOrderStatusClarificationCancel = useCallback((clarificationTurnId: string) => {
+    setKaiTurns((prev) => {
+      const idx = prev.findIndex((t) => t.id === clarificationTurnId);
+      if (idx === -1) return prev;
+      const next = [...prev];
+      next.splice(idx, 1);
+      return next;
+    });
+    setMessages((prev) => (prev.length > 1 ? prev.slice(0, -1) : prev));
+  }, []);
+
   const handleEditDashboard = useCallback((dashboardData: DashboardCompositeData) => {
     // Mark the last dashboard turn stale, then open DashboardFullView with no saved artifact ID
     setKaiTurns((prev) => prev.map((t, i) =>
@@ -3678,6 +3844,8 @@ export default function ChatShell() {
                       onClarificationCancel={handleClarificationCancel}
                       onWorkflowClarificationConfirm={handleWorkflowClarificationConfirm}
                       onWorkflowClarificationCancel={handleWorkflowClarificationCancel}
+                      onOrderStatusClarificationConfirm={handleOrderStatusClarificationConfirm}
+                      onOrderStatusClarificationCancel={handleOrderStatusClarificationCancel}
                       generateCtx={generateCtx}
                     />
                     {turn.isStale && <StaleOverlay />}

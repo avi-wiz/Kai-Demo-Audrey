@@ -1,0 +1,27 @@
+{
+  "frameId": "f-special-order-status-O-50034-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "order",
+        "title": "Order O-50034 — The Potting Shed",
+        "fields": [
+          { "label": "Status",       "value": "Open — awaiting submission" },
+          { "label": "Placed",       "value": "May 19, 2026 (1 day ago)" },
+          { "label": "Customer",     "value": "The Potting Shed (C-8002)" },
+          { "label": "Rep",          "value": "Beth Calloway" },
+          { "label": "Total",        "value": "$2,840" },
+          { "label": "Bucket",       "value": "atlanta_top_sellers" },
+          { "label": "Lines",        "value": "2 SKUs · 20 units" },
+          { "label": "Ship Window",  "value": "Immediate (ships within 3–5 days of submission)" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "O-50034 is sitting in Open state — Beth dropped it in yesterday but hasn't submitted yet. 20 units of Cement Bird Feeder (51GR1776-U) and a top-seller from the atlanta_top_sellers bucket. Once Beth hits submit, this ships in 3–5 days. Want me to nudge her to submit it?"
+  }
+}

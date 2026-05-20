@@ -86,7 +86,11 @@ export default function DataTable({ data: rawData, config, highlights, onAction 
         background: 'var(--surface)',
         border: '1px solid var(--border)',
         borderRadius: 12,
-        overflow: 'clip',
+        overflow: 'hidden',
+        // Constrain to parent width so the inner overflowX:auto can scroll.
+        // Without an explicit maxWidth, the card otherwise grows to fit
+        // `width:max-content` on the inner table and no scrollbar appears.
+        maxWidth: '100%',
       }}
     >
       {title && (
@@ -104,8 +108,8 @@ export default function DataTable({ data: rawData, config, highlights, onAction 
         </div>
       )}
 
-      <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-        <table style={{ width: '100%', minWidth: 420, borderCollapse: 'collapse' }}>
+      <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', maxWidth: '100%' }}>
+        <table style={{ width: 'max-content', minWidth: '100%', borderCollapse: 'collapse' }}>
           {/* Header */}
           <thead>
             <tr style={{ background: 'var(--surface2)' }}>

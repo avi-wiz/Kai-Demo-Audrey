@@ -1,0 +1,27 @@
+{
+  "frameId": "f-special-order-status-O-50007-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "order",
+        "title": "Order O-50007 — Copper Creek Trading",
+        "fields": [
+          { "label": "Status",       "value": "Submitted — picking in progress at the Atlanta DC" },
+          { "label": "Placed",       "value": "May 15, 2026 (5 days ago)" },
+          { "label": "Customer",     "value": "Copper Creek Trading (C-8005)" },
+          { "label": "Rep",          "value": "Hannah Cho" },
+          { "label": "Total",        "value": "$5,680" },
+          { "label": "Bucket",       "value": "featured_collections" },
+          { "label": "Lines",        "value": "2 SKUs · 24 units (Cement Planter Bunny + matching planter)" },
+          { "label": "Expected Ship", "value": "May 22, 2026" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "O-50007 has cleared the credit hold and is being picked at the Atlanta DC. Expected to ship May 22 — that's day 7 from submission, which is within Copper Creek's normal SLA. No customer-side action needed. Want me to send Hannah a quick heads-up so she can confirm with the buyer?"
+  }
+}

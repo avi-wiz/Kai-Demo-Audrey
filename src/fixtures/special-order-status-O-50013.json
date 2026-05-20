@@ -1,0 +1,27 @@
+{
+  "frameId": "f-special-order-status-O-50013-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "order",
+        "title": "Order O-50013 — Magnolia Home & Garden",
+        "fields": [
+          { "label": "Status",       "value": "Pre-Book Confirmed — locked for July 2026 release" },
+          { "label": "Placed",       "value": "May 10, 2026 (10 days ago)" },
+          { "label": "Customer",     "value": "Magnolia Home & Garden (C-8001)" },
+          { "label": "Rep",          "value": "Beth Calloway" },
+          { "label": "Total",        "value": "$6,840" },
+          { "label": "Bucket",       "value": "july_release" },
+          { "label": "Lines",        "value": "3 SKUs · 30 units — Pick Of The Patch lead SKUs" },
+          { "label": "Ship Window",  "value": "Sep 2026 (factory ETA confirmed)" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "O-50013 is Magnolia's biggest pre-book — 30 units of Pick Of The Patch lead SKUs, locked for the Sep 2026 ship window. Factory ETA from the supplier is confirmed. Nothing to do here except watch the inventory feed in late August. Want me to set a nudge for the week before the ship date?"
+  }
+}

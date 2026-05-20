@@ -1,0 +1,69 @@
+{
+  "frameId": "f-special-open-orders-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-014",
+      "data": {
+        "summary": "Filtered orders to anything that isn't Delivered. 26 orders are still in flight — biggest single bucket is Pre-Book Confirmed for the July 2026 release.",
+        "steps": [
+          { "step": 1, "action": "fetch_orders",   "result": "35 orders in the last 90 days", "ms": 145 },
+          { "step": 2, "action": "filter_by_state", "result": "26 open · 9 delivered (excluded)", "ms": 70 }
+        ],
+        "mcpsAccessed": ["Orders"],
+        "totalMs": 215
+      },
+      "config": { "collapsed": true }
+    },
+    {
+      "widgetType": "UW-002",
+      "data": {
+        "cards": [
+          { "label": "Open",               "value": "5", "format": "count" },
+          { "label": "Submitted",          "value": "8", "format": "count" },
+          { "label": "Pre-Book Confirmed", "value": "8", "format": "count" },
+          { "label": "Shipped",            "value": "5", "format": "count" }
+        ]
+      }
+    },
+    {
+      "widgetType": "UW-004",
+      "highlights": [
+        { "fieldPath": "rows[6].shipWindow", "type": "warning", "message": "Sep 2026 ship window — pre-book quantities should be locked by July 1" }
+      ],
+      "data": {
+        "title": "Open Orders",
+        "columns": [
+          { "key": "orderId",    "label": "Order #",     "align": "left" },
+          { "key": "date",       "label": "Placed",      "align": "left" },
+          { "key": "customer",   "label": "Customer",    "align": "left" },
+          { "key": "rep",        "label": "Rep",         "align": "left" },
+          { "key": "status",     "label": "Status",      "align": "left",  "format": "badge" },
+          { "key": "shipWindow", "label": "Ship Window", "align": "left" },
+          { "key": "total",      "label": "Total",       "align": "right", "format": "currency" }
+        ],
+        "rows": [
+          { "orderId": "O-50034", "date": "May 19, 2026", "customer": "The Potting Shed",       "rep": "Beth Calloway",  "status": "Open",               "shipWindow": "Immediate", "total": 2840 },
+          { "orderId": "O-50027", "date": "May 18, 2026", "customer": "Magnolia Home & Garden", "rep": "Beth Calloway",  "status": "Open",               "shipWindow": "Immediate", "total": 3120 },
+          { "orderId": "O-50035", "date": "May 17, 2026", "customer": "Copper Creek Trading",   "rep": "Hannah Cho",     "status": "Open",               "shipWindow": "Immediate", "total": 1860 },
+          { "orderId": "O-50028", "date": "May 16, 2026", "customer": "The Potting Shed",       "rep": "Beth Calloway",  "status": "Open",               "shipWindow": "Immediate", "total": 2240 },
+          { "orderId": "O-50007", "date": "May 15, 2026", "customer": "Copper Creek Trading",   "rep": "Hannah Cho",     "status": "Submitted",          "shipWindow": "Immediate", "total": 5680 },
+          { "orderId": "O-50029", "date": "May 14, 2026", "customer": "Copper Creek Trading",   "rep": "Hannah Cho",     "status": "Submitted",          "shipWindow": "Immediate", "total": 1420 },
+          { "orderId": "O-50017", "date": "May 13, 2026", "customer": "Copper Creek Trading",   "rep": "Hannah Cho",     "status": "Pre-Book Confirmed", "shipWindow": "Sep 2026",  "total": 2890 },
+          { "orderId": "O-50003", "date": "May 12, 2026", "customer": "The Potting Shed",       "rep": "Beth Calloway",  "status": "Submitted",          "shipWindow": "Immediate", "total": 4620 },
+          { "orderId": "O-50030", "date": "May 12, 2026", "customer": "Harbor Lane Boutique",   "rep": "Hannah Cho",     "status": "Open",               "shipWindow": "Immediate", "total": 3340 },
+          { "orderId": "O-50015", "date": "May 11, 2026", "customer": "Bloom & Basket",         "rep": "Marcus Rivera",  "status": "Pre-Book Confirmed", "shipWindow": "Oct 2026",  "total": 1980 },
+          { "orderId": "O-50013", "date": "May 10, 2026", "customer": "Magnolia Home & Garden", "rep": "Beth Calloway",  "status": "Pre-Book Confirmed", "shipWindow": "Sep 2026",  "total": 6840 },
+          { "orderId": "O-50031", "date": "May 10, 2026", "customer": "Sunflower & Sage",       "rep": "Beth Calloway",  "status": "Submitted",          "shipWindow": "Immediate", "total": 2280 },
+          { "orderId": "O-50018", "date": "May 09, 2026", "customer": "Sunflower & Sage",       "rep": "Beth Calloway",  "status": "Pre-Book Confirmed", "shipWindow": "Sep 2026",  "total": 2430 },
+          { "orderId": "O-50005", "date": "May 09, 2026", "customer": "Bloom & Basket",         "rep": "Marcus Rivera",  "status": "Submitted",          "shipWindow": "Immediate", "total": 5240 },
+          { "orderId": "O-50014", "date": "May 08, 2026", "customer": "The Potting Shed",       "rep": "Beth Calloway",  "status": "Pre-Book Confirmed", "shipWindow": "Sep 2026",  "total": 4960 }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "insight",
+    "text": "26 open orders worth ~$71K. 5 are still Open and need rep eyes; the 8 Pre-Book Confirmed orders are locked behind the July 2026 release. Three Pre-Book customers are missing their Dec 2026 commitments — want me to follow up on those?"
+  }
+}

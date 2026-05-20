@@ -1,0 +1,27 @@
+{
+  "frameId": "f-special-order-status-O-50001-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "order",
+        "title": "Order O-50001 — Magnolia Home & Garden",
+        "fields": [
+          { "label": "Status",       "value": "Shipped — on the truck (UPS Freight, tracking 1Z-AGT-…)" },
+          { "label": "Placed",       "value": "May 04, 2026 (16 days ago)" },
+          { "label": "Customer",     "value": "Magnolia Home & Garden (C-8001)" },
+          { "label": "Rep",          "value": "Beth Calloway" },
+          { "label": "Total",        "value": "$8,940" },
+          { "label": "Bucket",       "value": "featured_collections (A Blooming Porch)" },
+          { "label": "Lines",        "value": "3 SKUs · 40 units" },
+          { "label": "Expected Delivery", "value": "May 22, 2026" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "O-50001 left the Atlanta DC on Tuesday — all 40 units across the three A Blooming Porch SKUs are on the truck. UPS Freight ETA to Magnolia is May 22. Want me to drop Jennifer a heads-up email so she can have receiving ready?"
+  }
+}

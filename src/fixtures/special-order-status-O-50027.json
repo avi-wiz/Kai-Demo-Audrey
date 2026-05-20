@@ -1,0 +1,27 @@
+{
+  "frameId": "f-special-order-status-O-50027-001",
+  "frameType": "result",
+  "widgets": [
+    {
+      "widgetType": "UW-003",
+      "data": {
+        "entityType": "order",
+        "title": "Order O-50027 — Magnolia Home & Garden",
+        "fields": [
+          { "label": "Status",       "value": "Open — clearance order, awaiting submission" },
+          { "label": "Placed",       "value": "May 18, 2026 (2 days ago)" },
+          { "label": "Customer",     "value": "Magnolia Home & Garden (C-8001)" },
+          { "label": "Rep",          "value": "Beth Calloway" },
+          { "label": "Total",        "value": "$3,120" },
+          { "label": "Bucket",       "value": "sale_clearance (PhaseOut)" },
+          { "label": "Lines",        "value": "2 SKUs · 32 units — incl. 8 units of Bird Pot Feet (51GR1907)" },
+          { "label": "Ship Window",  "value": "Immediate (ships within 3–5 days of submission)" }
+        ]
+      }
+    }
+  ],
+  "closingText": {
+    "type": "description",
+    "text": "O-50027 is Magnolia's PhaseOut clearance pickup — 8 units of Bird Pot Feet (which is down to 16 units total) plus a Bird Garden Stake refill. Beth still has to submit it. Worth pushing today because the Bird Pot Feet inventory is about to run out. Want me to draft a ping to Beth?"
+  }
+}
