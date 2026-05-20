@@ -1,0 +1,80 @@
+/* ============================================================
+   Design Tokens
+   Generated from src/utils/theme.ts
+   ============================================================ */
+
+:root {
+	/* ---------- Brand / Primary ---------- */
+	--color-primary-500: #16885f;
+	--color-primary-600: #096645;
+
+	/* ---------- Base ---------- */
+	--color-white: #ffffff;
+	--color-black: #000000;
+	--color-red: #d74c10;
+
+	/* ---------- Text ---------- */
+	--color-text-50: #fafafa;
+	--color-text-400: #a3a3a3;
+	--color-text-900: #171717;
+	--color-secondary-text: rgba(0, 0, 0, 0.6); /* #00000099 */
+
+	/* ---------- Greys ---------- */
+	--color-grey-100: #f7f8f8;
+	--color-grey-200: #9aa0aa;
+	--color-grey-300: #eef1f7;
+	--color-grey-400: #d1d6dd;
+	--color-grey-500: #eef1f7;
+	--color-grey-600: #f7f8fa;
+	--color-grey-700: #737373;
+	--color-grey-800: #4f555e;
+	--color-grey-900: #25282d;
+	--color-selected-grey: #e0e0e0;
+	--color-light-grey: #cccdcf;
+
+	/* ---------- Black Alphas ---------- */
+	--color-black-8: rgba(0, 0, 0, 0.87);
+	--color-black-14: rgba(0, 0, 0, 0.08);  /* #00000014 */
+	--color-black-20: rgba(0, 0, 0, 0.2);   /* #00000033 */
+	--color-black-30: rgba(0, 0, 0, 0.3);   /* #0000004D */
+	--color-black-40: rgba(0, 0, 0, 0.4);   /* #00000066 */
+	--color-black-50: rgba(0, 0, 0, 0.5);   /* #00000080 */
+	--color-black-65: rgba(0, 0, 0, 0.65);  /* #000000A6 */
+
+	/* ---------- Semantic / Accents ---------- */
+	--color-warning: #eeb544;
+	--color-light-green: #eff3e1;
+	--color-light-yellow: #fef5e4;
+	--color-charcoal-black: #1f1f1f;
+	--color-dark-charcoal: #4f4b4b;
+	--color-dark-midnight-blue: rgba(0, 0, 0, 0.12); /* #0000001F */
+	--color-skeleton-bg: #f5f5f5;
+	--color-stepper-button-bg: #ebedd9;
+	--color-border-light: #dadde3;
+
+	/* ---------- Radii ---------- */
+	--radius-small: 8px;
+	--radius-large: 12px;
+
+	/* ---------- Font Families ---------- */
+	--font-family-base: 'Satoshi', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+	--font-satoshi-light: 'Satoshi-Light', var(--font-family-base);
+	--font-satoshi-light-italic: 'Satoshi-LightItalic', var(--font-family-base);
+	--font-satoshi-regular: 'Satoshi-Regular', var(--font-family-base);
+	--font-satoshi-regular-italic: 'Satoshi-RegularItalic', var(--font-family-base);
+	--font-satoshi-medium: 'Satoshi-Medium', var(--font-family-base);
+	--font-satoshi-medium-italic: 'Satoshi-MediumItalic', var(--font-family-base);
+	--font-satoshi-bold: 'Satoshi-Bold', var(--font-family-base);
+	--font-satoshi-bold-italic: 'Satoshi-BoldItalic', var(--font-family-base);
+
+	/* ---------- Font Weights ---------- */
+	--font-weight-light: 300;
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-bold: 700;
+
+	/* ---------- Root Font Size ----------
+	   App uses html { font-size: 10px } so 1rem = 10px.
+	   Components downstream rely on this base. */
+	--root-font-size: 10px;
+}

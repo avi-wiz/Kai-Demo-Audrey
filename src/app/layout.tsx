@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "./token.css";
 import "./globals.css";
 import { LayoutProvider } from '@/contexts/LayoutContext';
 import { PersonaProvider } from '@/contexts/PersonaContext';

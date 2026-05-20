@@ -1,0 +1,21 @@
+<svg width="156" height="153" viewBox="0 0 156 153" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="15.3355" y="60.5415" width="122.001" height="69.5498" rx="34.7749" fill="white" stroke="#CBDB9F" stroke-width="0.954192"/>
+<mask id="mask0_994_135260" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="14" y="60" width="124" height="71">
+<rect x="14.8584" y="60.0635" width="122.956" height="70.504" rx="35.252" fill="black"/>
+</mask>
+<g mask="url(#mask0_994_135260)">
+<ellipse cx="36.3234" cy="126.202" rx="21.9464" ry="28.6258" fill="#E5EDCF"/>
+<circle cx="36.8605" cy="88.1594" r="7.15644" fill="#E5EDCF"/>
+<ellipse cx="114.486" cy="125.25" rx="22.4235" ry="28.6258" fill="#CBDB9F"/>
+<circle cx="114.821" cy="86.1672" r="7.15644" fill="#CBDB9F"/>
+<ellipse cx="77.8434" cy="130.095" rx="22.4235" ry="28.6258" fill="#B1C96E"/>
+<circle cx="77.6252" cy="90.5119" r="7.15644" fill="#B1C96E"/>
+</g>
+<rect x="15.3355" y="60.5415" width="122.001" height="69.5498" rx="34.7749" stroke="#CBDB9F" stroke-width="0.954192"/>
+<rect x="58.2695" y="9.35645" width="36.1335" height="36.1335" rx="11.0312" fill="#F0AF30"/>
+<rect x="73.9258" y="14.125" width="5.21897" height="17.6598" rx="2.60949" fill="white"/>
+<circle cx="76.5555" cy="36.7154" r="2.57394" transform="rotate(103.735 76.5555 36.7154)" fill="white"/>
+<circle cx="76.8574" cy="130.569" r="9.01584" transform="rotate(43.7757 76.8574 130.569)" fill="#D74C10"/>
+<rect x="76.4336" y="126.215" width="1.02331" height="8.4432" rx="0.511656" transform="rotate(-0.693743 76.4336 126.215)" fill="white"/>
+<rect x="72.7812" y="130.993" width="1.02331" height="8.4432" rx="0.511656" transform="rotate(-90.6937 72.7812 130.993)" fill="white"/>
+</svg>

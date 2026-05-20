@@ -1,578 +1,145 @@
-@import "tailwindcss";
+/* ============================================================
+   Global Styles
+   Generated from src/App.css
+   Depends on tokens.css (load it first or @import below)
+   ============================================================ */
 
-@layer base {
-    :root {
-        color-scheme: light;
+@import './tokens.css';
 
-        /* ── FONT STACKS ──────────────────────────────────────────
-           Defined as literal stacks (identical to DS values) rather
-           than var(--font-sans) etc. to avoid a circular reference
-           when @theme below re-exposes them as --font-*. */
-        --sans: "General Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-        --display: "Recife", "Recife Display", Georgia, "Times New Roman", serif;
-        --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-
-        /* ── SURFACES ─────────────────────────────────────────────
-           DS surface-page is ink-50 (#FAFAF9).
-           Previous --bg was #FBF8F3 (slightly warmer paper tone). */
-        --bg: var(--surface-page);
-        /* ink-50  */
-        --surface: var(--surface-card);
-        /* ink-0   */
-        --surface2: var(--surface-sunken);
-        /* ink-100 */
-
-        /* ── BORDERS ──────────────────────────────────────────────*/
-        --border: var(--border-subtle);
-        /* ink-200 */
-        --border2: var(--border-default);
-        /* ink-300 */
-
-        /* ── TEXT ─────────────────────────────────────────────────*/
-        --text: var(--text-primary);
-        /* ink-900 */
-        --text2: var(--text-secondary);
-        /* ink-700 */
-        --text3: var(--text-muted);
-        /* ink-500 */
-
-        /* ── BRAND ORANGE ─────────────────────────────────────────
-           Mapped to the nearest DS step. The original used a slightly
-           different custom ramp; individual steps shift a few hex
-           counts where the ramps diverge.
-
-           Original step → DS token       [DS hex value]
-           --primary-10  #FFF5EC  →  wiz-orange-50    [#FFF4ED]
-           --primary-20  #FFE9D8  →  wiz-orange-100   [#FFE7D5]
-           --primary-30  #FFD4B5  →  wiz-orange-200   [#FFD0AC]
-           --primary-40  #FFBD94  →  wiz-orange-300   [#FFB180]
-           --primary-50  #FFA876  →  wiz-orange-400   [#FF9558]
-           --primary-60  #FF9861  →  wiz-orange-400   [#FF9558] (no exact DS step)
-           --primary-70  #FF9050  →  wiz-orange-500   [#FF8746]
-           --primary-80  #FF884C  →  wiz-orange        [#FF8746] main action
-           --primary-90  #F0701E  →  wiz-orange-strong [#FE7630] hover
-           --primary-100 #C95711  →  wiz-orange-700   [#D85913] press             */
-        --primary-10: var(--wiz-orange-50);
-        --primary-20: var(--wiz-orange-100);
-        --primary-30: var(--wiz-orange-200);
-        --primary-40: var(--wiz-orange-300);
-        --primary-50: var(--wiz-orange-400);
-        --primary-60: var(--wiz-orange-400);
-        --primary-70: var(--wiz-orange-500);
-        --primary-80: var(--wiz-orange);
-        --primary-90: var(--wiz-orange-strong);
-        --primary-100: var(--wiz-orange-700);
-
-        /* ── SEMANTIC STATUS ──────────────────────────────────────
-           DS policy: no semantic color. These remain as product-
-           specific additions for badge / status-chip components only.
-           Do NOT use outside that context — not for structural
-           backgrounds, borders, or body text. */
-        --success-80: #49A479;
-        --success-60: #72BB96;
-        --success-40: #A3D5BA;
-        --success-bg: #E8F3EC;
-
-        --warning-80: #D98A16;
-        --warning-60: #E8A83E;
-        --warning-40: #F2C87A;
-        --warning-bg: #FDF3E2;
-
-        --error-80: #C84A3A;
-        --error-60: #D97265;
-        --error-40: #E9A39B;
-        --error-bg: #FBE7E3;
-
-        --info-80: #2FA0B3;
-        --info-60: #62B9C8;
-        --info-40: #96D2DA;
-        --info-bg: #E1F1F4;
-
-        /* ── AI / AGENT ACCENT ────────────────────────────────────
-           Kai & Ella teal. No DS token equivalent.
-           Scope strictly to AI agent UI surfaces. */
-        --ai-accent: rgba(47, 160, 179, 1);
-        --ai-accent-bg: rgba(47, 160, 179, 0.05);
-        --ai-accent-border: rgba(47, 160, 179, 0.15);
-        --ai-accent-text: rgba(47, 160, 179, 0.9);
-        --ai-accent-step-bg: rgba(47, 160, 179, 0.15);
-
-        /* ── BADGE TOKENS ─────────────────────────────────────────
-           Alpha-on-color system; product-specific.
-           Neutral text → DS text-muted. Special text → DS lilac-800
-           (#5B3884, was #9B5FC4 which is a lighter lilac not in DS). */
-        --badge-success-bg: rgba(73, 164, 121, 0.12);
-        --badge-success-text: #2F7755;
-        --badge-success-border: rgba(73, 164, 121, 0.25);
-
-        --badge-warning-bg: rgba(217, 138, 22, 0.12);
-        --badge-warning-text: #D98A16;
-        --badge-warning-border: rgba(217, 138, 22, 0.25);
-
-        --badge-danger-bg: rgba(200, 74, 58, 0.12);
-        --badge-danger-text: #C84A3A;
-        --badge-danger-border: rgba(200, 74, 58, 0.25);
-
-        --badge-info-bg: rgba(47, 160, 179, 0.12);
-        --badge-info-text: #1F6F7C;
-        --badge-info-border: rgba(47, 160, 179, 0.25);
-
-        --badge-neutral-bg: rgba(117, 108, 96, 0.08);
-        --badge-neutral-text: var(--text-muted);
-        /* ink-500 */
-        --badge-neutral-border: rgba(117, 108, 96, 0.18);
-
-        --badge-special-bg: rgba(232, 189, 255, 0.20);
-        --badge-special-text: var(--lilac-800);
-        /* #5B3884 */
-        --badge-special-border: rgba(232, 189, 255, 0.45);
-
-        /* ── SHADOWS ──────────────────────────────────────────────*/
-        --shadow-card: var(--shadow-subtle);
-        /* cards at rest          */
-        --shadow-card-hover: var(--shadow-resting);
-        /* cards on hover/active  */
-        --shadow-chart: var(--shadow-resting);
-        --shadow-tooltip: var(--shadow-lifted);
-
-        /* ── RADII ────────────────────────────────────────────────
-           DS is square-first: 0 everywhere, pills for circles only.
-           card-lg / chart / inner stay at small non-zero values for
-           data-vis containers — no DS token covers them. */
-        --radius-card: 0;
-        --radius-card-lg: 2px;
-        /* data-vis containers only */
-        --radius-chart: 4px;
-        /* data-vis containers only */
-        --radius-inner: 2px;
-        /* chips / avatars in data-vis */
-        --radius-badge: var(--radius-pill);
-        /* 999px */
-        --radius-button: 0;
-
-        /* ── TRANSITIONS ──────────────────────────────────────────
-           Easing: cubic-bezier(0.2, 0.7, 0.2, 1) → var(--ease-standard)
-                   [cubic-bezier(0.2, 0.8, 0.2, 1)] — imperceptible difference.
-           Duration-default: 200ms → var(--duration-base) [220ms]. */
-        --transition-fast: all var(--duration-fast) var(--ease-standard);
-        --transition-default: all var(--duration-base) var(--ease-standard);
-    }
+/* ---------- Satoshi font-face ----------
+   Update url() paths to match where you place the font files
+   in the target project (e.g. /assets/fonts/...). */
+@font-face {
+	font-family: 'Satoshi';
+	src: url('../../public/assets/fonts/Satoshi-Light.woff2') format('woff2');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
 }
 
-/* ── TAILWIND THEME EXTENSIONS ────────────────────────────────── */
-@theme {
-    --font-sans: var(--sans);
-    --font-display: var(--display);
-    --font-mono: var(--mono);
-
-    --color-surface: var(--surface-card);
-    --color-surface-2: var(--surface-sunken);
-    --color-border: var(--border-subtle);
-    --color-border-2: var(--border-default);
-    --color-text-primary: var(--text-primary);
-    --color-text-secondary: var(--text-secondary);
-    --color-text-muted: var(--text-muted);
+@font-face {
+	font-family: 'Satoshi';
+	src: url('../../public/assets/fonts/Satoshi-Regular.otf') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
 }
 
-/* ── BASE BODY ─────────────────────────────────────────────────── */
+@font-face {
+	font-family: 'Satoshi';
+	src: url('../../public/assets/fonts/Satoshi-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Satoshi';
+	src: url('../../public/assets/fonts/Satoshi-Bold.otf') format('opentype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	/* 1rem = 10px (preserved from original App.css) */
+	font-size: var(--root-font-size);
+	height: 100%;
+	width: 100%;
+}
+
 body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+	height: 100%;
+	font-family: var(--font-family-base);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: var(--color-text-900);
+	background-color: var(--color-grey-600);
 }
 
-/* ── ANIMATIONS ────────────────────────────────────────────────── */
-/* Easing updated throughout: cubic-bezier(0.2,0.7,0.2,1)
-   → var(--ease-standard) [cubic-bezier(0.2,0.8,0.2,1)].
-   Duration literals kept where no DS token matches exactly
-   (320ms sits between --duration-base 220ms and --duration-slow 420ms). */
-
-@keyframes kai-entrance {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+#root {
+	height: 100%;
 }
 
-/* Logo pulse — uses brand orange */
-@keyframes logo-pulse {
-
-    0%,
-    100% {
-        text-shadow: 0 0 10px rgba(255, 136, 76, 0.4), 0 0 20px rgba(255, 136, 76, 0.2);
-        opacity: 1;
-    }
-
-    50% {
-        text-shadow: 0 0 20px rgba(255, 136, 76, 0.8), 0 0 40px rgba(255, 136, 76, 0.4);
-        opacity: 0.9;
-    }
+/* ---------- Typography defaults ---------- */
+p,
+span {
+	font-size: 1.4rem;
+	/* 14px with 10px root */
+	font-family: var(--font-family-base);
 }
 
-.logo-pulse {
-    animation: logo-pulse 3s ease-in-out infinite;
+.header-title {
+	font-weight: var(--font-weight-bold);
+	font-size: 16px;
+	line-height: 2.4rem;
 }
 
-/* Kai pulse — uses AI teal */
-@keyframes kai-pulse-subtle {
-
-    0%,
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(47, 160, 179, 0.4);
-    }
-
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 10px rgba(47, 160, 179, 0);
-    }
+.card-title {
+	color: var(--color-grey-800);
+	font-weight: var(--font-weight-regular);
+	font-size: 16px;
+	line-height: 2.4rem;
 }
 
-.kai-pulse-subtle {
-    animation: kai-pulse-subtle 2s infinite;
+/* ---------- Media / Misc ---------- */
+img {
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 }
 
-@keyframes kai-sparkle {
-    0% {
-        transform: scale(0) translateY(0);
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1) translateY(-20px);
-        opacity: 0;
-    }
+hr {
+	border: none;
+	border-top: 2px dotted var(--color-dark-midnight-blue);
+	color: var(--color-white);
+	height: 0.1rem;
+	width: 100%;
+	margin: 1rem 0;
 }
 
-.kai-sparkle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--ai-accent);
-    border-radius: 50%;
-    animation: kai-sparkle 1s var(--ease-standard) forwards;
+/* Remove number-input spinners */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
-.kai-entrance {
-    animation-name: kai-entrance;
-    animation-fill-mode: both;
-    animation-timing-function: var(--ease-standard);
-    animation-duration: 320ms;
+input[type='number'] {
+	-moz-appearance: textfield;
 }
 
-@keyframes message-slide-in-right {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* ---------- Links ---------- */
+a {
+	color: var(--color-primary-500);
+	text-decoration: none;
 }
 
-@keyframes message-slide-in-left {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+a:hover {
+	text-decoration: underline;
 }
 
-.message-slide-in-right {
-    animation: message-slide-in-right 320ms var(--ease-standard) both;
+/* ---------- Selection ---------- */
+::selection {
+	background-color: var(--color-primary-500);
+	color: var(--color-white);
 }
 
-.message-slide-in-left {
-    animation: message-slide-in-left 320ms var(--ease-standard) both;
+/* ---------- Scrollbar utility (opt-in) ---------- */
+.no-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
-@keyframes kai-shake {
-
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    15% {
-        transform: translateX(-5px);
-    }
-
-    30% {
-        transform: translateX(4px);
-    }
-
-    45% {
-        transform: translateX(-3px);
-    }
-
-    60% {
-        transform: translateX(3px);
-    }
-
-    75% {
-        transform: translateX(-2px);
-    }
-
-    90% {
-        transform: translateX(2px);
-    }
-}
-
-.kai-shake {
-    animation: kai-shake 320ms var(--ease-standard) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-    .kai-entrance,
-    .message-slide-in-right,
-    .message-slide-in-left,
-    .kai-shake {
-        animation-duration: 0ms !important;
-        animation-delay: 0ms !important;
-    }
-}
-
-/* ── UI POLISHING ANIMATIONS ────────────────────────────────────── */
-
-@keyframes draw-checkmark {
-    from {
-        stroke-dashoffset: 20;
-    }
-
-    to {
-        stroke-dashoffset: 0;
-    }
-}
-
-.animate-draw-checkmark {
-    stroke-dasharray: 20;
-    animation: draw-checkmark var(--duration-fast) var(--ease-standard) forwards;
-}
-
-@keyframes slide-in-fade-short {
-    from {
-        opacity: 0;
-        transform: translateX(-8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.animate-slide-in-fade {
-    animation: slide-in-fade-short var(--duration-fast) var(--ease-standard) both;
-}
-
-/* ── DASHBOARD & UI ANIMATIONS ──────────────────────────────────── */
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-.animate-fade-in {
-    animation: fade-in var(--duration-fast) var(--ease-standard) forwards;
-}
-
-@keyframes slide-in-right {
-    from {
-        transform: translateX(100%);
-    }
-
-    to {
-        transform: translateX(0);
-    }
-}
-
-.animate-slide-in-right {
-    animation: slide-in-right var(--duration-fast) var(--ease-standard) forwards;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.animate-spin-slow {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes draw-checkmark-large {
-    from {
-        stroke-dashoffset: 60;
-    }
-
-    to {
-        stroke-dashoffset: 0;
-    }
-}
-
-.animate-draw-checkmark-lg {
-    stroke-dasharray: 60;
-    animation: draw-checkmark-large 500ms var(--ease-standard) forwards;
-}
-
-@keyframes confetti-float {
-    0% {
-        transform: translateY(0) rotate(0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(-120px) rotate(45deg);
-        opacity: 0;
-    }
-}
-
-.animate-confetti {
-    animation: confetti-float 2s var(--ease-standard) forwards;
-}
-
-@keyframes chart-entrance {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-chart-entrance {
-    animation: chart-entrance 320ms var(--ease-standard) both;
-}
-
-@keyframes pulse-opacity {
-
-    0%,
-    100% {
-        opacity: 0.6;
-    }
-
-    50% {
-        opacity: 1;
-    }
-}
-
-.animate-pulse-opacity {
-    animation: pulse-opacity 1.5s ease-in-out infinite;
-}
-
-@keyframes progress-load {
-    from {
-        width: 0%;
-    }
-
-    to {
-        width: 100%;
-    }
-}
-
-.animate-progress-load {
-    animation: progress-load 1.5s linear forwards;
-}
-
-/* Stagger helpers — 30ms intervals (DS max) */
-.stagger-1 {
-    animation-delay: 30ms;
-}
-
-.stagger-2 {
-    animation-delay: 60ms;
-}
-
-.stagger-3 {
-    animation-delay: 90ms;
-}
-
-.stagger-4 {
-    animation-delay: 120ms;
-}
-
-/* Dashboard staggering */
-.dashboard-container>div>div {
-    animation: chart-entrance 320ms var(--ease-standard) both;
-}
-
-.dashboard-container>div>div:nth-child(1) {
-    animation-delay: 30ms;
-}
-
-.dashboard-container>div>div:nth-child(2) {
-    animation-delay: 60ms;
-}
-
-.dashboard-container>div>div:nth-child(3) {
-    animation-delay: 90ms;
-}
-
-.dashboard-container>div>div:nth-child(4) {
-    animation-delay: 120ms;
-}
-
-.dashboard-container>div>div:nth-child(5) {
-    animation-delay: 150ms;
-}
-
-.dashboard-container>div>div:nth-child(6) {
-    animation-delay: 180ms;
-}
-
-/* ── HIGHLIGHT POLISHING ─────────────────────────────────────────── */
-
-@keyframes highlight-fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(4px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.highlight-tooltip {
-    animation: highlight-fade-in var(--duration-fast) var(--ease-standard) forwards;
-}
-
-.highlight-action-chip {
-    transition: var(--transition-fast);
-    color: var(--text3) !important;
-    border-color: var(--border) !important;
-    background: var(--surface2) !important;
-}
-
-.highlight-action-chip:hover {
-    color: var(--primary-80) !important;
-    border-color: var(--primary-80) !important;
-    background: var(--primary-10) !important;
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
 }
