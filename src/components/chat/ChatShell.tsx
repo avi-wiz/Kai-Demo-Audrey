@@ -58,53 +58,53 @@ const ACTION_CHIPS_MAP = actionChipsMapRaw as {
 };
 
 const USECASE_CHIP_KEY: Record<string, string> = {
-  uc1:        'sr-13',
+  uc1: 'sr-13',
   'uc1-swap': 'sr-1',
-  uc2:        'sr-1',
-  'uc2-order':   'sr-1',
+  uc2: 'sr-1',
+  'uc2-order': 'sr-1',
   'uc2-restage': 'sr-1',
-  uc3:        'sr-13',
-  'docs-qa':         '',
-  'email-draft':     'email',
-  'email-shorter':   'email',
+  uc3: 'sr-13',
+  'docs-qa': '',
+  'email-draft': 'email',
+  'email-shorter': 'email',
   'dashboard-builder': 'dashboard-edit',
-  'sr2-reorder':   'sr-2',
-  'sr11-invoice':  'sr-11',
-  'sr14-brief':    'sr-14',
+  'sr2-reorder': 'sr-2',
+  'sr11-invoice': 'sr-11',
+  'sr14-brief': 'sr-14',
   'sr20-outreach': 'sr-20',
-  'ad1-approval':  'ad-1',
-  'ad3-handoff':   'ad-3',
-  'ad17-report':   'ad-17',
+  'ad1-approval': 'ad-1',
+  'ad3-handoff': 'ad-3',
+  'ad17-report': 'ad-17',
   'ad29-workflow': 'ad-29',
   // Chip-spawn useCases — terminal, no chip group
-  'sr2-compare':   '',
-  'ad1-approved':  '',
-  'ad1-flagged':   '',
-  'ad29-test':     '',
+  'sr2-compare': '',
+  'ad1-approved': '',
+  'ad1-flagged': '',
+  'ad29-test': '',
   'metric-clarification': '',
   'workflow-clarification': '',
   // Audrey vDemo — Cap 1–6 active chip groups
-  'cap1-task-email':     'cap1-task-email',
-  'cap1-email-draft':    'cap1-email-draft',
-  'cap2-lead-creation':  'cap2-lead-creation',
-  'cap3-lead-won':       'cap3-lead-won',
+  'cap1-task-email': 'cap1-task-email',
+  'cap1-email-draft': 'cap1-email-draft',
+  'cap2-lead-creation': 'cap2-lead-creation',
+  'cap3-lead-won': 'cap3-lead-won',
   'cap4-merge-customer': 'cap4-merge-customer',
-  'cap5-user-creation':  'cap5-user-creation',
-  'cap6-catalog-builder':'cap6-catalog-builder',
+  'cap5-user-creation': 'cap5-user-creation',
+  'cap6-catalog-builder': 'cap6-catalog-builder',
   // Audrey vDemo — chain / report useCases (terminal, no chip group)
-  'cap1-task-confirmed':       '',
-  'cap2-auto-task':            '',
+  'cap1-task-confirmed': '',
+  'cap2-auto-task': '',
   'cap3-conversion-confirmed': '',
-  'cap4-merge-confirmed':      '',
-  'cap5-user-confirmed':       '',
-  'cap6-catalog-confirmed':    '',
+  'cap4-merge-confirmed': '',
+  'cap5-user-confirmed': '',
+  'cap6-catalog-confirmed': '',
   'report-collection-performance': '',
-  'report-prebook-pacing':         '',
-  'report-customer-health':        '',
-  'report-pipeline':               '',
-  'report-team-performance':       '',
-  'report-catalog-health':         '',
-  unknown:           '',
+  'report-prebook-pacing': '',
+  'report-customer-health': '',
+  'report-pipeline': '',
+  'report-team-performance': '',
+  'report-catalog-health': '',
+  unknown: '',
 };
 
 const MAX_CHIP_CHAIN_DEPTH = 3;
@@ -118,11 +118,11 @@ type ReportFixture = {
 };
 const REPORT_FIXTURE_LOADERS: Record<string, () => Promise<ReportFixture>> = {
   'report-collection-performance': () => import('@/fixtures/report-collection-performance.json').then((m) => m.default as unknown as ReportFixture),
-  'report-prebook-pacing':         () => import('@/fixtures/report-prebook-pacing.json').then((m) => m.default as unknown as ReportFixture),
-  'report-customer-health':        () => import('@/fixtures/report-customer-health.json').then((m) => m.default as unknown as ReportFixture),
-  'report-pipeline':               () => import('@/fixtures/report-pipeline.json').then((m) => m.default as unknown as ReportFixture),
-  'report-team-performance':       () => import('@/fixtures/report-team-performance.json').then((m) => m.default as unknown as ReportFixture),
-  'report-catalog-health':         () => import('@/fixtures/report-catalog-health.json').then((m) => m.default as unknown as ReportFixture),
+  'report-prebook-pacing': () => import('@/fixtures/report-prebook-pacing.json').then((m) => m.default as unknown as ReportFixture),
+  'report-customer-health': () => import('@/fixtures/report-customer-health.json').then((m) => m.default as unknown as ReportFixture),
+  'report-pipeline': () => import('@/fixtures/report-pipeline.json').then((m) => m.default as unknown as ReportFixture),
+  'report-team-performance': () => import('@/fixtures/report-team-performance.json').then((m) => m.default as unknown as ReportFixture),
+  'report-catalog-health': () => import('@/fixtures/report-catalog-health.json').then((m) => m.default as unknown as ReportFixture),
 };
 
 // Module-level singleton so we don't churn Audio objects per turn.
@@ -136,7 +136,7 @@ function playNotifySound() {
       notifyAudio.preload = 'auto';
     }
     notifyAudio.currentTime = 0;
-    void notifyAudio.play().catch(() => {});
+    void notifyAudio.play().catch(() => { });
   } catch {
     // ignore — autoplay-block or missing asset
   }
@@ -166,50 +166,50 @@ export interface FormFieldSnapshot {
 interface KaiTurn {
   id: string;
   useCase:
-    | UseCase
-    | 'uc1-swap'
-    | 'uc2-restage'
-    | 'uc2-order'
-    | 'docs-qa'
-    | 'page-context'
-    | 'email-draft'
-    | 'email-shorter'
-    | 'dashboard-builder'
-    | 'sr2-reorder'
-    | 'sr2-compare'
-    | 'sr11-invoice'
-    | 'sr14-brief'
-    | 'sr20-outreach'
-    | 'ad1-approval'
-    | 'ad1-approved'
-    | 'ad1-flagged'
-    | 'ad3-handoff'
-    | 'ad17-report'
-    | 'ad29-workflow'
-    | 'ad29-test'
-    | 'metric-clarification'
-    | 'workflow-clarification'
-    // Audrey vDemo capabilities (Caps 1–6)
-    | 'cap1-task-email'
-    | 'cap1-email-draft'
-    | 'cap1-task-confirmed'
-    | 'cap2-lead-creation'
-    | 'cap2-auto-task'
-    | 'cap3-lead-won'
-    | 'cap3-conversion-confirmed'
-    | 'cap4-merge-customer'
-    | 'cap4-merge-confirmed'
-    | 'cap5-user-creation'
-    | 'cap5-user-confirmed'
-    | 'cap6-catalog-builder'
-    | 'cap6-catalog-confirmed'
-    // Audrey vDemo reports (Cap 7)
-    | 'report-collection-performance'
-    | 'report-prebook-pacing'
-    | 'report-customer-health'
-    | 'report-pipeline'
-    | 'report-team-performance'
-    | 'report-catalog-health';
+  | UseCase
+  | 'uc1-swap'
+  | 'uc2-restage'
+  | 'uc2-order'
+  | 'docs-qa'
+  | 'page-context'
+  | 'email-draft'
+  | 'email-shorter'
+  | 'dashboard-builder'
+  | 'sr2-reorder'
+  | 'sr2-compare'
+  | 'sr11-invoice'
+  | 'sr14-brief'
+  | 'sr20-outreach'
+  | 'ad1-approval'
+  | 'ad1-approved'
+  | 'ad1-flagged'
+  | 'ad3-handoff'
+  | 'ad17-report'
+  | 'ad29-workflow'
+  | 'ad29-test'
+  | 'metric-clarification'
+  | 'workflow-clarification'
+  // Audrey vDemo capabilities (Caps 1–6)
+  | 'cap1-task-email'
+  | 'cap1-email-draft'
+  | 'cap1-task-confirmed'
+  | 'cap2-lead-creation'
+  | 'cap2-auto-task'
+  | 'cap3-lead-won'
+  | 'cap3-conversion-confirmed'
+  | 'cap4-merge-customer'
+  | 'cap4-merge-confirmed'
+  | 'cap5-user-creation'
+  | 'cap5-user-confirmed'
+  | 'cap6-catalog-builder'
+  | 'cap6-catalog-confirmed'
+  // Audrey vDemo reports (Cap 7)
+  | 'report-collection-performance'
+  | 'report-prebook-pacing'
+  | 'report-customer-health'
+  | 'report-pipeline'
+  | 'report-team-performance'
+  | 'report-catalog-health';
   unknownReply?: string;
   aiClassification?: KaiClassification;
   isStale?: boolean;
@@ -279,18 +279,6 @@ interface GenerateContext {
   includeFinancial: boolean;
 }
 
-// ── Mode indicator ─────────────────────────────────────────────────────────────
-
-function ModeIndicator({ aiMode }: { aiMode: boolean }) {
-  return (
-    <div className="flex items-center gap-[6px]">
-      <span className={`w-[7px] h-[7px] rounded-full shrink-0 ${aiMode ? 'bg-[var(--primary-70)] shadow-[0_0_0_2px_var(--primary-10)]' : 'bg-[var(--text3)]'}`} />
-      <span className={`text-[12px] font-medium font-sans ${aiMode ? 'text-[var(--primary-80)]' : 'text-[var(--text3)]'}`}>
-        {aiMode ? 'AI Classification ON' : 'Demo Mode'}
-      </span>
-    </div>
-  );
-}
 
 // ── Consent turn (UC-2 / UC-3) ───────────────────────────────────────────────
 
@@ -428,9 +416,9 @@ function ConsentTurnRenderer({
     const removed = removedSkusRef.current;
     const enriched = removed.length > 0
       ? [
-          ...fields,
-          { fieldId: '_removedSkus', label: '_removedSkus', value: JSON.stringify(removed) } as import('@/hooks/useConsentFlow').FormField,
-        ]
+        ...fields,
+        { fieldId: '_removedSkus', label: '_removedSkus', value: JSON.stringify(removed) } as import('@/hooks/useConsentFlow').FormField,
+      ]
       : fields;
     onConfirmed?.(enriched);
     if (turn.useCase === 'ad29-workflow' && turn.workflowId && onWorkflowActivated) {
@@ -572,36 +560,36 @@ function ConsentTurnRenderer({
   const patchedWidgets: ParsedWidget[] = streamedWidgets
     .filter((w) => requireConfirmation || w.widgetType !== 'AW-012')
     .map((w) => {
-    if (w.widgetType === 'AW-004') {
-      const isConfirmed = consent.consentState === 'confirmed';
-      // Reflect any auto-recomputed values (e.g. subtotal) back into the
-      // displayed form so review mode shows the up-to-date numbers.
-      const stepsRaw = (w.data as Record<string, unknown>).steps as Array<{ stepTitle: string; fields: import('@/hooks/useConsentFlow').FormField[] }> | undefined;
-      const patchedSteps = stepsRaw && liveFormFields
-        ? stepsRaw.map((s, idx) => idx === 0 ? { ...s, fields: liveFormFields! } : s)
-        : stepsRaw;
-      return {
-        ...w,
-        data: { ...w.data, ...(patchedSteps ? { steps: patchedSteps } : {}) },
-        config: { ...w.config, mode: isConfirmed ? 'review' : consent.formMode, editable: !isConfirmed && consent.formMode === 'edit', onValuesChange: setEditedValues },
-      };
-    }
-    if (w.widgetType === 'UW-009') {
-      // In edit mode → show trash badges and listen for removal toggles.
-      return {
-        ...w,
-        config: {
-          ...w.config,
-          removeMode: consent.formMode === 'edit' && consent.consentState !== 'confirmed',
-          onRemovedChange: handleRemovedChange,
-        },
-      };
-    }
-    if (w.widgetType === 'UW-014' && turn.aiClassification) {
-      return injectClassificationStep(w, turn.aiClassification);
-    }
-    return w;
-  });
+      if (w.widgetType === 'AW-004') {
+        const isConfirmed = consent.consentState === 'confirmed';
+        // Reflect any auto-recomputed values (e.g. subtotal) back into the
+        // displayed form so review mode shows the up-to-date numbers.
+        const stepsRaw = (w.data as Record<string, unknown>).steps as Array<{ stepTitle: string; fields: import('@/hooks/useConsentFlow').FormField[] }> | undefined;
+        const patchedSteps = stepsRaw && liveFormFields
+          ? stepsRaw.map((s, idx) => idx === 0 ? { ...s, fields: liveFormFields! } : s)
+          : stepsRaw;
+        return {
+          ...w,
+          data: { ...w.data, ...(patchedSteps ? { steps: patchedSteps } : {}) },
+          config: { ...w.config, mode: isConfirmed ? 'review' : consent.formMode, editable: !isConfirmed && consent.formMode === 'edit', onValuesChange: setEditedValues },
+        };
+      }
+      if (w.widgetType === 'UW-009') {
+        // In edit mode → show trash badges and listen for removal toggles.
+        return {
+          ...w,
+          config: {
+            ...w.config,
+            removeMode: consent.formMode === 'edit' && consent.consentState !== 'confirmed',
+            onRemovedChange: handleRemovedChange,
+          },
+        };
+      }
+      if (w.widgetType === 'UW-014' && turn.aiClassification) {
+        return injectClassificationStep(w, turn.aiClassification);
+      }
+      return w;
+    });
 
   const consentHandlers: ConsentHandlers = {
     onConfirm: consent.onConfirm,
@@ -1241,8 +1229,8 @@ function RestageRenderer({
       onFormReady?.(fields);
     }, allWidgetsRef.current.length * STREAM_WIDGET_DELAY_MS));
     return () => timers.forEach(clearTimeout);
-  // onStreamEnd identity is stable; allWidgetsRef holds the initial widget list
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // onStreamEnd identity is stable; allWidgetsRef holds the initial widget list
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const closingText = {
@@ -1345,8 +1333,8 @@ function DocsQATurnRenderer({
       return () => clearTimeout(t2);
     }, STREAM_WIDGET_DELAY_MS);
     return () => clearTimeout(t);
-  // onStreamEnd is stable; reasoningWidget built from turn (stable)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // onStreamEnd is stable; reasoningWidget built from turn (stable)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // T8: augment the matched doc answer with LLM reformulation
@@ -1537,7 +1525,7 @@ function DashboardBuilderTurnRenderer({
     onCancel: () => {
       setDismissed(true);
     },
-    onResetEdit: () => {},
+    onResetEdit: () => { },
     isConfirming: false,
   };
 
@@ -1866,8 +1854,8 @@ function KaiTurnRenderer({
         isReading={isReading}
         onStreamComplete={onStreamComplete}
         onWidgetsReady={onWidgetsReady}
-        onSaveDashboard={onSaveDashboard ?? (() => {})}
-        onEditDashboard={onEditDashboard ?? (() => {})}
+        onSaveDashboard={onSaveDashboard ?? (() => { })}
+        onEditDashboard={onEditDashboard ?? (() => { })}
         generateCtx={generateCtx}
       />
     );
@@ -1886,8 +1874,8 @@ function KaiTurnRenderer({
       <MetricClarificationTurnRenderer
         turn={turn}
         onStreamEnd={onStreamEnd}
-        onConfirmClarification={onClarificationConfirm ?? (() => {})}
-        onCancelClarification={onClarificationCancel ?? (() => {})}
+        onConfirmClarification={onClarificationConfirm ?? (() => { })}
+        onCancelClarification={onClarificationCancel ?? (() => { })}
       />
     );
   }
@@ -1896,8 +1884,8 @@ function KaiTurnRenderer({
       <WorkflowClarificationTurnRenderer
         turn={turn}
         onStreamEnd={onStreamEnd}
-        onConfirmClarification={onWorkflowClarificationConfirm ?? (() => {})}
-        onCancelClarification={onWorkflowClarificationCancel ?? (() => {})}
+        onConfirmClarification={onWorkflowClarificationConfirm ?? (() => { })}
+        onCancelClarification={onWorkflowClarificationCancel ?? (() => { })}
       />
     );
   }
@@ -2131,9 +2119,9 @@ async function classifyWithAI(
 
 export default function ChatShell() {
   const searchParams = useSearchParams();
-  const aiMode = searchParams.get('ai') === 'true';
   const { pendingQuery, setPendingQuery, focusChatSignal, setView, currentView } = useLayout();
   const { mode: responseMode } = useResponseMode();
+  const aiMode = searchParams.get('ai') === 'true' || responseMode === 'text-widget';
   const { selectedPersonality } = usePersona();
   const { currentPage, pageData, pageActions, starterPrompts, proactiveBrief } = usePageContext();
   const {
@@ -2945,7 +2933,7 @@ export default function ChatShell() {
     if (!pendingQuery) {
       pendingQueryFiredRef.current = false;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pendingQuery]);
 
   // Tour prefill — load query into input box and focus, but do NOT auto-send
@@ -2954,7 +2942,7 @@ export default function ChatShell() {
     setInput(tourPrefill);
     clearTourPrefill();
     setTimeout(() => inputRef.current?.focus(), 50);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tourPrefill]);
 
   // Clear speaking indicator when TTS finishes naturally
@@ -2967,7 +2955,7 @@ export default function ChatShell() {
     if (focusChatSignal > 0) {
       setTimeout(() => inputRef.current?.focus(), 50);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusChatSignal]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -3346,7 +3334,7 @@ export default function ChatShell() {
       .then((llm) => {
         if (llm) updateSession(saved.id, { title: llm.title, subtext: llm.subtext, tag: llm.tag });
       })
-      .catch(() => {});
+      .catch(() => { });
     return true;
   }, [buildSessionScaffold, addSession, updateSession]);
 
@@ -3610,11 +3598,6 @@ export default function ChatShell() {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Mode indicator bar */}
-      <div className="shrink-0 flex justify-end px-8 pt-3 pb-0">
-        <ModeIndicator aiMode={aiMode} />
-      </div>
-
       <div
         ref={scrollRef}
         className="flex-1 overflow-y-auto px-8 py-8 scroll-smooth"

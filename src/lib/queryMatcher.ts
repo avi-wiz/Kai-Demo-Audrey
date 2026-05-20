@@ -268,7 +268,16 @@ export function matchQuery(message: string): UseCase {
     return 'uc2';
   }
 
-  if (m.includes('magnolia') || m.includes("how's") || m.includes('hows') || m.includes('doing') || m.includes('tell me about')) {
+  const isCustomerIntelQuery =
+    m.includes('magnolia') ||
+    ((m.includes("how's") || m.includes('hows') || m.includes('doing') || m.includes('tell me about')) &&
+      (m.includes('customer') || m.includes('account') || m.includes('client') ||
+       m.includes('c-8001') || m.includes('c-8002') || m.includes('c-8003') ||
+       m.includes('c-8004') || m.includes('c-8005') || m.includes('c-8006') ||
+       m.includes('c-8007') || m.includes('c-8008') ||
+       m.includes('potting shed') || m.includes('bloom') || m.includes('seaside') ||
+       m.includes('copper creek') || m.includes('harbor lane') || m.includes('sunflower') || m.includes('golden meadow')));
+  if (isCustomerIntelQuery) {
     return 'uc1';
   }
 

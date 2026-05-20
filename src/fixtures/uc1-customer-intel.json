@@ -5,12 +5,12 @@
         {
             "widgetType": "UW-014",
             "data": {
-                "summary": "Resolved 'Acme Corp' as Customer C-4201. Pulled 360 view from CRM, revenue from Reports, open tasks from CRM.",
+                "summary": "Resolved 'Magnolia Home & Garden' as Customer C-8001. Pulled 360 view from CRM, revenue from Reports, open tasks from CRM.",
                 "steps": [
                     {
                         "step": 1,
                         "action": "search_customers",
-                        "result": "1 match: C-4201 (Acme Corp)",
+                        "result": "1 match: C-8001 (Magnolia Home & Garden)",
                         "ms": 145
                     },
                     {
@@ -28,7 +28,7 @@
                     {
                         "step": 4,
                         "action": "fetch_open_tasks",
-                        "result": "4 open tasks",
+                        "result": "3 open tasks",
                         "ms": 95
                     }
                 ],
@@ -47,92 +47,92 @@
             "highlights": [
                 {
                     "fieldPath": "metrics.cards[1].value",
-                    "type": "warning",
-                    "message": "Balance is $18,200 — 24% of $75,000 credit limit",
-                    "action": { "label": "Send payment reminder", "query": "Draft a payment reminder email to Acme Corp about their outstanding balance", "icon": "email", "category": "suggested" }
+                    "type": "positive",
+                    "message": "Top-grossing account — $186K YTD with Beth Calloway as rep",
+                    "action": { "label": "View full orders", "query": "Show me all orders for Magnolia Home & Garden", "icon": "search", "category": "suggested" }
                 },
                 {
                     "fieldPath": "recentOrders[0].status",
                     "type": "info",
-                    "message": "Last order was 45 days ago — slightly above your 30-day VIP cadence",
-                    "action": { "label": "Check in with Acme", "query": "Draft a check-in email to Rachel at Acme Corp", "icon": "email", "category": "suggested" }
+                    "message": "Last order was 12 days ago — strong buying cadence",
+                    "action": { "label": "Check in with Magnolia", "query": "Draft a check-in email to Jennifer at Magnolia Home & Garden", "icon": "email", "category": "suggested" }
                 }
             ],
             "data": {
                 "entityType": "customer",
-                "entityId": "C-4201",
-                "displayName": "Acme Corp",
-                "contactPerson": "Rachel Martinez",
-                "email": "rachel@acmecorp.com",
-                "phone": "+1 (555) 234-5678",
-                "lifetimeRevenue": 482350,
-                "lastOrderDate": "2026-03-15",
-                "lastOrderAmount": 24500,
+                "entityId": "C-8001",
+                "displayName": "Magnolia Home & Garden",
+                "contactPerson": "Jennifer Holloway",
+                "email": "jennifer@magnoliahg.com",
+                "phone": "+1 (615) 402-8810",
+                "lifetimeRevenue": 186400,
+                "lastOrderDate": "2026-05-08",
+                "lastOrderAmount": 14200,
                 "paymentStatus": "Current",
-                "assignedRep": "Heman Bhullar",
+                "assignedRep": "Beth Calloway",
                 "tags": [
                     "VIP",
                     "Home Decor",
-                    "West Coast"
+                    "Southeast"
                 ],
-                "customerSince": "2022-06-10",
-                "openOrderCount": 2,
-                "creditLimit": 75000,
-                "currentBalance": 18200
+                "customerSince": "2023-02-14",
+                "openOrderCount": 3,
+                "creditLimit": 80000,
+                "currentBalance": 14200
             }
         },
         {
             "widgetType": "CH-001",
             "data": {
-                "title": "Revenue Trend - Acme Corp",
+                "title": "Revenue Trend - Magnolia Home & Garden",
                 "series": [
                     {
                         "month": "May 2025",
-                        "revenue": 32400
+                        "revenue": 11200
                     },
                     {
                         "month": "Jun 2025",
-                        "revenue": 28100
+                        "revenue": 9800
                     },
                     {
                         "month": "Jul 2025",
-                        "revenue": 41200
+                        "revenue": 15400
                     },
                     {
                         "month": "Aug 2025",
-                        "revenue": 35800
+                        "revenue": 13600
                     },
                     {
                         "month": "Sep 2025",
-                        "revenue": 44600
+                        "revenue": 18200
                     },
                     {
                         "month": "Oct 2025",
-                        "revenue": 38900
+                        "revenue": 16400
                     },
                     {
                         "month": "Nov 2025",
-                        "revenue": 52100
+                        "revenue": 21000
                     },
                     {
                         "month": "Dec 2025",
-                        "revenue": 48300
+                        "revenue": 19800
                     },
                     {
                         "month": "Jan 2026",
-                        "revenue": 39700
+                        "revenue": 14600
                     },
                     {
                         "month": "Feb 2026",
-                        "revenue": 43200
+                        "revenue": 16200
                     },
                     {
                         "month": "Mar 2026",
-                        "revenue": 51800
+                        "revenue": 20400
                     },
                     {
                         "month": "Apr 2026",
-                        "revenue": 46350
+                        "revenue": 14200
                     }
                 ],
                 "yAxisLabel": "Revenue ($)",
@@ -149,49 +149,41 @@
                 {
                     "fieldPath": "items[0].dueDate",
                     "type": "urgent",
-                    "message": "Overdue — was due April 28",
-                    "action": { "label": "Create follow-up", "query": "Create an urgent follow-up task for the Q2 catalog request for Acme Corp", "icon": "task", "category": "suggested" }
+                    "message": "Overdue — July pre-book window closes soon",
+                    "action": { "label": "Follow up on pre-book", "query": "Create a follow-up task for Magnolia Home & Garden's July pre-book order", "icon": "task", "category": "suggested" }
                 },
                 {
-                    "fieldPath": "items[3].dueDate",
+                    "fieldPath": "items[2].dueDate",
                     "type": "warning",
-                    "message": "Due tomorrow — claim review pending",
-                    "action": { "label": "Review claim", "query": "What's the status of claim CLM-0892 for Acme Corp?", "icon": "search", "category": "suggested" }
+                    "message": "Due this week — Spring refill quote pending approval",
+                    "action": { "label": "Send refill list", "query": "Build a refill list for Magnolia Home & Garden from Gardeners Grove", "icon": "search", "category": "suggested" }
                 }
             ],
             "data": {
-                "title": "Open Tasks for Acme Corp",
+                "title": "Open Tasks for Magnolia Home & Garden",
                 "items": [
                     {
-                        "id": "T-1001",
-                        "title": "Follow up on Q2 catalog request",
-                        "dueDate": "2026-04-28",
+                        "id": "T-2201",
+                        "title": "Confirm July 2026 pre-book quantities",
+                        "dueDate": "2026-05-15",
                         "priority": "High",
-                        "assignedTo": "Heman Bhullar",
+                        "assignedTo": "Beth Calloway",
                         "status": "Open"
                     },
                     {
-                        "id": "T-1002",
-                        "title": "Schedule site visit for new showroom",
-                        "dueDate": "2026-05-05",
+                        "id": "T-2202",
+                        "title": "Send A Blooming Porch look-book",
+                        "dueDate": "2026-05-22",
                         "priority": "Medium",
-                        "assignedTo": "Heman Bhullar",
+                        "assignedTo": "Beth Calloway",
                         "status": "In Progress"
                     },
                     {
-                        "id": "T-1003",
-                        "title": "Send updated price list (Summer 2026)",
-                        "dueDate": "2026-05-10",
+                        "id": "T-2203",
+                        "title": "Approve Spring refill quote",
+                        "dueDate": "2026-05-21",
                         "priority": "Medium",
-                        "assignedTo": "Sarah Kim",
-                        "status": "Open"
-                    },
-                    {
-                        "id": "T-1004",
-                        "title": "Review claim CLM-0892",
-                        "dueDate": "2026-04-30",
-                        "priority": "Low",
-                        "assignedTo": "Heman Bhullar",
+                        "assignedTo": "Beth Calloway",
                         "status": "Open"
                     }
                 ]
@@ -201,14 +193,14 @@
             "widgetType": "AW-001",
             "data": {
                 "label": "View Full Profile",
-                "url": "/customers/C-4201",
+                "url": "/customers/C-8001",
                 "style": "secondary"
             }
         }
     ],
     "closingText": {
         "type": "insight",
-        "text": "Acme Corp is trending up — revenue increased 12% QoQ and all 4 open tasks are on track. Consider scheduling a check-in to discuss the renewal before Q3."
+        "text": "Magnolia Home & Garden is your strongest account — $186K YTD and trending up. July pre-book confirmation is overdue; Beth should reach out this week to lock in quantities before the window closes."
     },
     "trace": {
         "traceId": "trc-uc1-demo-001",
