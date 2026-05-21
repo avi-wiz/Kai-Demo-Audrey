@@ -6,6 +6,7 @@ export interface AudreyDeal extends WizOrderDeal {
   repId: string;
   probability: number;
   notes?: string;
+  createdAt?: string;
 }
 
 export const DEALS: AudreyDeal[] = [
@@ -20,6 +21,7 @@ export const DEALS: AudreyDeal[] = [
     repId: 'R-001',
     probability: 35,
     closeDate: '2026-06-15',
+    createdAt: '2026-04-20',
     notes: 'Samples shipped. Sarah evaluating before confirming initial order.',
   },
   {
@@ -33,6 +35,7 @@ export const DEALS: AudreyDeal[] = [
     repId: 'R-002',
     probability: 20,
     closeDate: '2026-07-01',
+    createdAt: '2026-05-14',
     notes: 'New website lead. First outreach pending.',
   },
   {
@@ -46,6 +49,7 @@ export const DEALS: AudreyDeal[] = [
     repId: 'R-001',
     probability: 75,
     closeDate: '2026-05-30',
+    createdAt: '2026-04-28',
     notes: 'Pricing agreed. Awaiting credit terms acceptance to convert.',
   },
   {
@@ -59,6 +63,7 @@ export const DEALS: AudreyDeal[] = [
     repId: 'R-003',
     probability: 60,
     closeDate: '2026-06-20',
+    createdAt: '2026-05-05',
     notes: 'Custom catalog being built. Julia to review and order.',
   },
   {
@@ -72,6 +77,7 @@ export const DEALS: AudreyDeal[] = [
     repId: 'R-003',
     probability: 50,
     closeDate: '2026-06-05',
+    createdAt: '2026-04-15',
     notes: 'Held pending duplicate record merge.',
   },
   {
@@ -85,6 +91,7 @@ export const DEALS: AudreyDeal[] = [
     repId: 'R-001',
     probability: 70,
     closeDate: '2026-05-30',
+    createdAt: '2026-05-01',
     notes: 'July 2026 Virtual Release expanded allotment. Final quantity confirmation pending.',
   },
   {
@@ -98,6 +105,7 @@ export const DEALS: AudreyDeal[] = [
     repId: 'R-003',
     probability: 100,
     closeDate: '2026-05-15',
+    createdAt: '2026-04-10',
     notes: 'Shipped on schedule. Closed.',
   },
   {
@@ -111,6 +119,7 @@ export const DEALS: AudreyDeal[] = [
     repId: 'R-001',
     probability: 100,
     closeDate: '2026-05-06',
+    createdAt: '2026-04-22',
     notes: 'Collection-loyal account. Smooth close.',
   },
 ];

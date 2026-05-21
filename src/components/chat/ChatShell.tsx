@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useLayout } from '@/contexts/LayoutContext';
 import type { Message, UseCase, ResponseMode } from '@/lib/types';
-import { matchQuery, getUnknownReply, matchPageContextQuery, matchDashboardQuery, matchSpecialQuery, matchSpecialCapabilityQuery } from '@/lib/queryMatcher';
+import { matchQuery, getUnknownReply, matchPageContextQuery, matchDashboardQuery, matchSpecialQuery, matchSpecialCapabilityQuery, matchQueryWithConfidence } from '@/lib/queryMatcher';
 import type { PageContextMatch } from '@/lib/queryMatcher';
 import { extractTemplateVars, resolveChipQuery } from '@/lib/templateVars';
 import { STREAM_WIDGET_DELAY_MS } from '@/lib/constants';
@@ -18,6 +18,8 @@ import type { ParsedWidget, ConsentHandlers, WidgetActionHandlers } from '@/comp
 import { WidgetActionContext, parseFrame } from '@/components/engine/FrameParser';
 import { WORKFLOW_CATALOG, getWorkflow, inferWorkflowId, isVagueWorkflowRequest, type WorkflowId } from '@/lib/workflowCatalog';
 import { resolveWidget } from '@/components/engine/ComponentRegistry';
+import AgentReasoningCard from '@/components/widgets/ui/AgentReasoningCard';
+import PlannerFallbackCard from './PlannerFallbackCard';
 import MessageBubble from './MessageBubble';
 import ThinkingIndicator from './ThinkingIndicator';
 import SuggestedQueries from './SuggestedQueries';
@@ -211,7 +213,10 @@ interface KaiTurn {
   | 'report-customer-health'
   | 'report-pipeline'
   | 'report-team-performance'
-  | 'report-catalog-health';
+  | 'report-catalog-health'
+  // v1 planner: adjacent open-ended queries
+  | 'planning'
+  | 'planner-fallback';
   unknownReply?: string;
   aiClassification?: KaiClassification;
   isStale?: boolean;
@@ -264,6 +269,22 @@ interface KaiTurn {
    *  fired from a cap1-task-email confirmation) so the email can reference
    *  the exact task fields the user just confirmed. */
   priorContextWidgets?: ParsedWidget[];
+  /** v1 planner: parsed widgets + closing text from /api/kai/plan response. */
+  plannerMatch?: PageContextMatch;
+  /** v1 planner fallback: short reason code from the route (for debug). */
+  plannerFallbackReason?: string;
+  /** v1 planner: reasoning string emitted by the planner (shown in UW-014). */
+  plannerReasoning?: string;
+  /** v1 planner live streaming: current set of DAG nodes emitted via SSE. */
+  plannerLiveNodes?: Array<{ nodeId: string; action: string; status: string; ms?: number; result?: string; input?: string }>;
+  /** v1 planner: while true, the UW-014 stays expanded and shows a pulsing live indicator. */
+  plannerIsLive?: boolean;
+  /** v1 planner: closing text being streamed token-by-token while planner runs. */
+  plannerStreamingClosing?: string;
+  /** v1 planner: ms timestamp when the planner POST started (for "Thought for Ns" summary). */
+  plannerStartMs?: number;
+  /** v1 planner: final ms total once the planner completes. */
+  plannerTotalMs?: number;
 }
 
 // ── LLM generate context ──────────────────────────────────────────────────────
@@ -1524,6 +1545,172 @@ function PageContextTurnRenderer({
   );
 }
 
+// ── v1 Planner turn ───────────────────────────────────────────────────────────
+// Renders parsed widgets + closing text fetched from /api/kai/plan. Mirrors
+// PageContextTurnRenderer; only difference is the data source (live route vs
+// static fixture) and the optional planner reasoning string surfaced above.
+
+function PlannerTurnRenderer({
+  turn,
+  onStreamEnd,
+  onToggleTTS,
+  isReading,
+  onStreamComplete,
+  onWidgetsReady,
+  onSelect,
+  onSavePlannerArtifacts,
+}: {
+  turn: KaiTurn;
+  onStreamEnd: (closingText?: string) => void;
+  onToggleTTS?: (text: string) => void;
+  isReading?: boolean;
+  onStreamComplete?: (text: string) => void;
+  onWidgetsReady?: (widgets: ParsedWidget[]) => void;
+  onSelect: (q: string) => void;
+  onSavePlannerArtifacts?: (widgets: ParsedWidget[], userQuery: string) => void;
+}) {
+  const match = turn.plannerMatch;
+  const isLive = turn.plannerIsLive === true;
+  const liveNodes = turn.plannerLiveNodes ?? [];
+  const didEnd = useRef(false);
+  const didNotifyWidgets = useRef(false);
+  // Gate the closing block behind one paint after widgets render. Decision §9:
+  // closing text only streams after all widgets have hydrated.
+  const [widgetsHydrated, setWidgetsHydrated] = useState(false);
+
+  useEffect(() => {
+    if (match && !didNotifyWidgets.current) {
+      didNotifyWidgets.current = true;
+      onWidgetsReady?.(match.widgets);
+      // Defer one rAF so the widget commit paints before the closing block mounts.
+      const raf = requestAnimationFrame(() => setWidgetsHydrated(true));
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [match, onWidgetsReady]);
+
+  useEffect(() => {
+    // Only signal stream end once the planner is fully done (isLive flipped false)
+    if (!isLive && match && !didEnd.current) {
+      didEnd.current = true;
+      onStreamEnd(match.closingText?.text);
+    }
+  }, [isLive, match, onStreamEnd]);
+
+  // Build the UW-014 summary line
+  const elapsedSec = (() => {
+    if (turn.plannerTotalMs !== undefined) return (turn.plannerTotalMs / 1000).toFixed(1);
+    if (turn.plannerStartMs !== undefined) return ((Date.now() - turn.plannerStartMs) / 1000).toFixed(1);
+    return '0.0';
+  })();
+  const summary = isLive
+    ? (turn.plannerReasoning ?? 'Thinking…')
+    : `Thought for ${elapsedSec}s`;
+  const totalMs = turn.plannerTotalMs ?? (turn.plannerStartMs ? Date.now() - turn.plannerStartMs : 0);
+
+  const reasoningData = {
+    summary,
+    mcpsAccessed: [],
+    totalMs,
+    liveNodes,
+  } as unknown as Parameters<typeof AgentReasoningCard>[0]['data'];
+  const reasoningConfig = { collapsed: !isLive, isLive } as unknown as Parameters<typeof AgentReasoningCard>[0]['config'];
+
+  const widgets = (match?.widgets ?? []).map((w) => ({ ...w, key: `${turn.id}:${w.key}` }));
+
+  // Show streaming closing text only after frame is ready AND widgets have
+  // hydrated (one paint after frame_ready). Until then, tokens accumulate
+  // silently in turn.plannerStreamingClosing.
+  const showClosing = match !== undefined && widgetsHydrated;
+  const streamingClosing = turn.plannerStreamingClosing ?? '';
+  const finalClosing = match?.closingText;
+  const closingForDisplay = !isLive && finalClosing && finalClosing.text
+    ? (showClosing ? finalClosing : undefined)
+    : (showClosing && streamingClosing
+      ? { type: 'insight' as const, text: streamingClosing }
+      : undefined);
+
+  return (
+    <>
+      {(isLive || liveNodes.length > 0 || turn.plannerReasoning) && (
+        <div style={{ marginBottom: 12 }}>
+          <AgentReasoningCard data={reasoningData} config={reasoningConfig} />
+        </div>
+      )}
+      {match && <KaiResponse widgets={widgets} />}
+      {closingForDisplay && (
+        <CanvasTextBlock
+          closingText={closingForDisplay}
+          streamingText=""
+          isStreaming={isLive}
+          isReading={isReading}
+          onToggleTTS={onToggleTTS && finalClosing ? () => onToggleTTS(finalClosing.text) : undefined}
+          onStreamComplete={onStreamComplete}
+        />
+      )}
+      {!isLive && match && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
+          {onSavePlannerArtifacts && (
+            <button
+              onClick={() => onSavePlannerArtifacts(match.widgets, turn.userQuery ?? 'Planner result')}
+              style={{
+                padding: '6px 14px',
+                borderRadius: 999,
+                border: '1px solid var(--border2)',
+                background: 'var(--surface)',
+                color: 'var(--text)',
+                fontSize: 13,
+                cursor: 'pointer',
+              }}
+            >
+              Save to artifacts
+            </button>
+          )}
+          <button
+            onClick={() => onSelect(`Show me more results for: ${turn.userQuery ?? ''}`.trim())}
+            style={{
+              padding: '6px 14px',
+              borderRadius: 999,
+              border: '1px solid var(--border2)',
+              background: 'var(--surface)',
+              color: 'var(--text)',
+              fontSize: 13,
+              cursor: 'pointer',
+            }}
+          >
+            Show me more
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
+function PlannerFallbackTurnRenderer({
+  turn,
+  onSelect,
+  onStreamEnd,
+}: {
+  turn: KaiTurn;
+  onSelect: (q: string) => void;
+  onStreamEnd: (closingText?: string) => void;
+}) {
+  const didEnd = useRef(false);
+  useEffect(() => {
+    if (!didEnd.current) {
+      didEnd.current = true;
+      onStreamEnd();
+    }
+  }, [onStreamEnd]);
+
+  return (
+    <PlannerFallbackCard
+      reason={turn.plannerFallbackReason}
+      userQuery={turn.userQuery}
+      onSelect={onSelect}
+    />
+  );
+}
+
 // ── Dashboard-builder turn ────────────────────────────────────────────────────
 
 function DashboardBuilderTurnRenderer({
@@ -1887,6 +2074,7 @@ function KaiTurnRenderer({
   onWorkflowClarificationCancel,
   onOrderStatusClarificationConfirm,
   onOrderStatusClarificationCancel,
+  onSavePlannerArtifacts,
   generateCtx,
 }: {
   turn: KaiTurn;
@@ -1911,6 +2099,7 @@ function KaiTurnRenderer({
   onWorkflowClarificationCancel?: (turnId: string) => void;
   onOrderStatusClarificationConfirm?: (turnId: string, selectedOrderIds: string[]) => void;
   onOrderStatusClarificationCancel?: (turnId: string) => void;
+  onSavePlannerArtifacts?: (widgets: ParsedWidget[], userQuery: string) => void;
   generateCtx: GenerateContext;
 }) {
   if (turn.isRestored) {
@@ -1933,6 +2122,12 @@ function KaiTurnRenderer({
   }
   if (turn.useCase === 'page-context') {
     return <PageContextTurnRenderer turn={turn} onStreamEnd={onStreamEnd} onToggleTTS={onToggleTTS} isReading={isReading} onStreamComplete={onStreamComplete} onWidgetsReady={onWidgetsReady} generateCtx={generateCtx} />;
+  }
+  if (turn.useCase === 'planning') {
+    return <PlannerTurnRenderer turn={turn} onStreamEnd={onStreamEnd} onToggleTTS={onToggleTTS} isReading={isReading} onStreamComplete={onStreamComplete} onWidgetsReady={onWidgetsReady} onSelect={onSelect} onSavePlannerArtifacts={onSavePlannerArtifacts} />;
+  }
+  if (turn.useCase === 'planner-fallback') {
+    return <PlannerFallbackTurnRenderer turn={turn} onSelect={onSelect} onStreamEnd={onStreamEnd} />;
   }
   if (turn.useCase === 'docs-qa') {
     return <DocsQATurnRenderer turn={turn} onStreamEnd={onStreamEnd} onToggleTTS={onToggleTTS} isReading={isReading} onStreamComplete={onStreamComplete} generateCtx={generateCtx} />;
@@ -2378,6 +2573,193 @@ export default function ChatShell() {
     setActiveStreams((n) => n + 1);
     thinkingTimerRef.current = null;
   }, []);
+
+  // ── v1 planner: SSE stream from /api/kai/plan, spawn planning turn incrementally ─
+  const spawnPlannerTurn = useCallback(async (query: string, fromChip = false) => {
+    if (process.env.NEXT_PUBLIC_KAI_PLANNER_DISABLED === '1') {
+      if (typeof window !== 'undefined') {
+        const w = window as unknown as { lastPlannerRun?: unknown; lastPlannerRuns?: unknown[] };
+        const entry = { at: Date.now(), query, outcome: 'fail', reason: 'client_kill_switch' };
+        w.lastPlannerRun = entry;
+        w.lastPlannerRuns = [...(w.lastPlannerRuns ?? []), entry].slice(-10);
+      }
+      setIsThinking(false);
+      setThinkingMessage(undefined);
+      setKaiTurns((prev) => [...prev, {
+        id: (Date.now() + 1).toString(),
+        useCase: 'planner-fallback' as const,
+        plannerFallbackReason: 'client_kill_switch',
+        userQuery: query,
+        ...(fromChip ? { fromChip: true } : {}),
+      }]);
+      setActiveStreams((n) => n + 1);
+      return;
+    }
+
+    // Spawn the live turn immediately. The UW-014 will render in streaming mode.
+    const turnId = (Date.now() + 1).toString();
+    const startMs = Date.now();
+    setIsThinking(false);
+    setThinkingMessage(undefined);
+    setKaiTurns((prev) => [...prev, {
+      id: turnId,
+      useCase: 'planning' as const,
+      plannerIsLive: true,
+      plannerLiveNodes: [],
+      plannerStreamingClosing: '',
+      plannerStartMs: startMs,
+      userQuery: query,
+      ...(fromChip ? { fromChip: true } : {}),
+    }]);
+    setActiveStreams((n) => n + 1);
+
+    const updateTurn = (patch: (t: KaiTurn) => Partial<KaiTurn>) => {
+      setKaiTurns((prev) => prev.map((t) => (t.id === turnId ? { ...t, ...patch(t) } : t)));
+    };
+
+    // Decision §31: expose every planner run on window for in-DevTools
+    // inspection. `lastPlannerRun` always reflects the most recent run;
+    // `lastPlannerRuns` keeps a rolling history of the last 10.
+    const recordRun = (outcome: 'ok' | 'fail', payload: Record<string, unknown>) => {
+      if (typeof window === 'undefined') return;
+      const w = window as unknown as { lastPlannerRun?: unknown; lastPlannerRuns?: unknown[] };
+      const entry = { at: Date.now(), query, outcome, ...payload };
+      w.lastPlannerRun = entry;
+      w.lastPlannerRuns = [...(w.lastPlannerRuns ?? []), entry].slice(-10);
+    };
+
+    try {
+      const res = await fetch('/api/kai/plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: query }],
+          query,
+          persona: selectedPersonality.systemPromptSuffix,
+          customInstructions: customInstructions || undefined,
+          pageContext: currentPage
+            ? { page: currentPage, visibleData: Object.values(pageData).slice(0, 20) as unknown[] }
+            : undefined,
+        }),
+      });
+
+      const ct = res.headers.get('content-type') || '';
+      if (!ct.includes('text/event-stream')) {
+        // Server returned non-SSE (e.g. kill switch JSON). Parse as JSON.
+        const json = await res.json() as { ok: false; reason: string };
+        recordRun('fail', { reason: json.reason ?? 'unknown' });
+        setKaiTurns((prev) => prev.filter((t) => t.id !== turnId).concat({
+          id: turnId,
+          useCase: 'planner-fallback' as const,
+          plannerFallbackReason: json.reason ?? 'unknown',
+          userQuery: query,
+          ...(fromChip ? { fromChip: true } : {}),
+        }));
+        return;
+      }
+
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let buf = '';
+      let frameReceived = false;
+
+      const handleEvent = (event: string, data: unknown) => {
+        if (event === 'planning_started') {
+          updateTurn(() => ({ plannerIsLive: true }));
+        } else if (event === 'reasoning') {
+          const d = data as { reasoning: string };
+          updateTurn(() => ({ plannerReasoning: d.reasoning }));
+        } else if (event === 'node') {
+          const node = data as { nodeId: string; action: string; status: string; ms?: number; result?: string; input?: string };
+          updateTurn((t) => {
+            const nodes = [...(t.plannerLiveNodes ?? [])];
+            const idx = nodes.findIndex((n) => n.nodeId === node.nodeId);
+            if (idx >= 0) nodes[idx] = { ...nodes[idx], ...node };
+            else nodes.push(node);
+            return { plannerLiveNodes: nodes };
+          });
+        } else if (event === 'frame_ready') {
+          const d = data as { frame: import('@/lib/types').Frame };
+          frameReceived = true;
+          const widgets = parseFrame(d.frame as Parameters<typeof parseFrame>[0], 0);
+          const closingText = d.frame.closingText ?? { type: 'insight' as const, text: '' };
+          updateTurn(() => ({ plannerMatch: { widgets, closingText } }));
+        } else if (event === 'closing_delta') {
+          const d = data as { delta: string };
+          updateTurn((t) => ({ plannerStreamingClosing: (t.plannerStreamingClosing ?? '') + d.delta }));
+        } else if (event === 'done') {
+          const d = data as { ok: true; frame: import('@/lib/types').Frame; plannerRunLog?: unknown; latencyMs: number };
+          recordRun('ok', { runLog: d.plannerRunLog, latencyMs: d.latencyMs });
+          const widgets = parseFrame(d.frame as Parameters<typeof parseFrame>[0], 0);
+          const closingText = d.frame.closingText ?? { type: 'insight' as const, text: '' };
+          updateTurn(() => ({
+            plannerMatch: { widgets, closingText },
+            plannerIsLive: false,
+            plannerTotalMs: d.latencyMs,
+          }));
+        } else if (event === 'error') {
+          const d = data as { reason: string };
+          recordRun('fail', { reason: d.reason ?? 'unknown' });
+          setKaiTurns((prev) => prev.filter((t) => t.id !== turnId).concat({
+            id: turnId,
+            useCase: 'planner-fallback' as const,
+            plannerFallbackReason: d.reason ?? 'unknown',
+            userQuery: query,
+            ...(fromChip ? { fromChip: true } : {}),
+          }));
+        }
+      };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += decoder.decode(value, { stream: true });
+        const chunks = buf.split('\n\n');
+        buf = chunks.pop() ?? '';
+        for (const chunk of chunks) {
+          const lines = chunk.split('\n');
+          let evt = 'message';
+          let dataStr = '';
+          for (const line of lines) {
+            if (line.startsWith('event: ')) evt = line.slice(7).trim();
+            else if (line.startsWith('data: ')) dataStr += line.slice(6);
+          }
+          if (!dataStr) continue;
+          try {
+            handleEvent(evt, JSON.parse(dataStr));
+          } catch (err) {
+            console.warn('[ChatShell] failed to parse SSE chunk', err);
+          }
+        }
+      }
+
+      // If the stream closed without ever sending frame_ready, fall back.
+      if (!frameReceived) {
+        setKaiTurns((prev) => {
+          const existing = prev.find((t) => t.id === turnId);
+          if (existing && existing.useCase === 'planner-fallback') return prev;
+          recordRun('fail', { reason: 'stream_closed_early' });
+          return prev.filter((t) => t.id !== turnId).concat({
+            id: turnId,
+            useCase: 'planner-fallback' as const,
+            plannerFallbackReason: 'stream_closed_early',
+            userQuery: query,
+            ...(fromChip ? { fromChip: true } : {}),
+          });
+        });
+      }
+    } catch (err) {
+      console.warn('[ChatShell] planner stream failed', err);
+      recordRun('fail', { reason: 'network_error', error: String(err) });
+      setKaiTurns((prev) => prev.filter((t) => t.id !== turnId).concat({
+        id: turnId,
+        useCase: 'planner-fallback' as const,
+        plannerFallbackReason: 'network_error',
+        userQuery: query,
+        ...(fromChip ? { fromChip: true } : {}),
+      }));
+    }
+  }, [selectedPersonality.systemPromptSuffix, customInstructions, currentPage, pageData]);
 
   const spawnTurn = useCallback((useCase: UseCase | 'email-draft' | 'email-shorter', trimmed: string, aiClassification?: KaiClassification, fromChip = false) => {
     // Intercept unknown → docs Q&A before falling through to the generic unknown reply
@@ -2997,12 +3379,26 @@ export default function ChatShell() {
         m.includes('51gr1522') || m.includes('blooming porch') || m.includes('porch lead');
       if (looksLikeSkuLookup && !namesKnownSku) {
         if (thinkingTimerRef.current) clearTimeout(thinkingTimerRef.current);
-        thinkingTimerRef.current = setTimeout(() => {
-          spawnTurn('unknown', trimmed, undefined, fromChip);
-        }, 800);
+        // v1 planner: hand off to planner instead of terminating to 'unknown'.
+        // The planner can query products/customers/orders or render a clean
+        // "no SKU matched" — either way better than a hard stop.
+        spawnPlannerTurn(trimmed, fromChip);
         return;
       }
     }
+
+    // v1 planner: route weak/dimensional matches to the planner instead of
+    // force-firing the nearest wired uc1/2/3. Helper closes over `trimmed`.
+    const handleFallbackToPlanner = (useCase: UseCase) => {
+      // Confidence downgrade signals only matter for wired hits — pure 'unknown'
+      // always goes to the planner.
+      const { confidence } = matchQueryWithConfidence(trimmed);
+      if (useCase === 'unknown' || confidence === 'low') {
+        spawnPlannerTurn(trimmed, fromChip);
+        return true;
+      }
+      return false;
+    };
 
     if (aiMode) {
       const aiPageCtx = currentPage
@@ -3013,6 +3409,7 @@ export default function ChatShell() {
       if (timedOut) {
         showToast('AI classification timed out, using local matching.');
         const useCase = matchQuery(trimmed);
+        if (handleFallbackToPlanner(useCase)) return;
         spawnTurn(useCase, trimmed, undefined, fromChip);
         return;
       }
@@ -3020,6 +3417,7 @@ export default function ChatShell() {
       if (cls.error === 'retry_failed') {
         // Silent fallback — already logged
         const useCase = matchQuery(trimmed);
+        if (handleFallbackToPlanner(useCase)) return;
         spawnTurn(useCase, trimmed, undefined, fromChip);
         return;
       }
@@ -3027,17 +3425,19 @@ export default function ChatShell() {
       const useCase: UseCase = (['uc1', 'uc2', 'uc3', 'unknown'] as UseCase[]).includes(cls.useCase)
         ? cls.useCase
         : 'unknown';
+      if (handleFallbackToPlanner(useCase)) return;
       spawnTurn(useCase, trimmed, cls, fromChip);
     } else {
       // Keyword path: fixed delay then spawn
       const useCase = matchQuery(trimmed);
+      if (handleFallbackToPlanner(useCase)) return;
       const thinkMs = useCase === 'unknown' ? 800 : 2000;
       if (thinkingTimerRef.current) clearTimeout(thinkingTimerRef.current);
       thinkingTimerRef.current = setTimeout(() => {
         spawnTurn(useCase, trimmed, undefined, fromChip);
       }, thinkMs);
     }
-  }, [isBusy, shakeInput, showToast, aiMode, spawnTurn, spawnPageContextTurn, currentPage, currentRestageableFields, notifyTourQuerySent, handleAd17MetricsRequest, spawnAd29WorkflowTurn, spawnWorkflowClarificationTurn, customInstructions]);
+  }, [isBusy, shakeInput, showToast, aiMode, spawnTurn, spawnPageContextTurn, spawnPlannerTurn, currentPage, currentRestageableFields, notifyTourQuerySent, handleAd17MetricsRequest, spawnAd29WorkflowTurn, spawnWorkflowClarificationTurn, customInstructions]);
 
   const pendingQueryFiredRef = useRef(false);
   useEffect(() => {
@@ -3531,6 +3931,42 @@ export default function ChatShell() {
     });
   }, []);
 
+  // v1 planner: "Save to artifacts" chip — persists each chart/dashboard widget
+  // produced by the planner into My Artifacts so the user can revisit it later.
+  const handleSavePlannerArtifacts = useCallback((widgets: ParsedWidget[], userQuery: string) => {
+    let saved = 0;
+    for (const w of widgets) {
+      if (w.widgetType !== 'CH-001' && w.widgetType !== 'UW-030') continue;
+      const isDashboard = w.widgetType === 'UW-030';
+      const title = (w.data as { title?: string })?.title ?? userQuery ?? w.widgetType;
+      if (isDashboard) {
+        const savedDash: import('@/lib/types').SavedDashboard = {
+          id: `planner-${Date.now()}-${w.key}`,
+          type: 'chart',
+          category: 'Dashboards and Reports',
+          title,
+          description: userQuery || 'Saved from Kai planner',
+          savedAt: Date.now(),
+          sourceWidget: { widgetType: w.widgetType, data: w.data, config: w.config },
+          dashboardData: w.data as unknown as DashboardCompositeData,
+        };
+        addArtifact(savedDash);
+      } else {
+        addArtifact({
+          id: `planner-${Date.now()}-${w.key}`,
+          type: 'chart',
+          category: 'other',
+          title,
+          description: userQuery || 'Saved from Kai planner',
+          savedAt: Date.now(),
+          sourceWidget: { widgetType: w.widgetType, data: w.data, config: w.config },
+        });
+      }
+      saved += 1;
+    }
+    showToast(saved > 0 ? `Saved ${saved} item${saved === 1 ? '' : 's'} to My Artifacts` : 'No chart or dashboard widgets to save');
+  }, [addArtifact, showToast]);
+
   // ClarificationCard confirm → spawn an ad17-report turn with the chosen labels.
   // Marks the clarification turn stale so the user can't double-confirm.
   const handleClarificationConfirm = useCallback((clarificationTurnId: string, selectedLabels: string[]) => {
@@ -3846,6 +4282,7 @@ export default function ChatShell() {
                       onWorkflowClarificationCancel={handleWorkflowClarificationCancel}
                       onOrderStatusClarificationConfirm={handleOrderStatusClarificationConfirm}
                       onOrderStatusClarificationCancel={handleOrderStatusClarificationCancel}
+                      onSavePlannerArtifacts={handleSavePlannerArtifacts}
                       generateCtx={generateCtx}
                     />
                     {turn.isStale && <StaleOverlay />}

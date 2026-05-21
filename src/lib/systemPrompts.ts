@@ -474,6 +474,7 @@ export type TouchpointKey =
   | 't8' | 'docs-qa'
   | 't9' | 'text-only'
   | 't10' | 'workflow'
+  | 't11' | 'plan' | 'plan-closing'
   // UC aliases used by the existing route
   | 'uc1' | 'uc2' | 'uc3' | 'general' | 'handoff';
 
@@ -531,6 +532,13 @@ export function buildSystemPrompt(key: TouchpointKey | string, args: SystemPromp
     case 'workflow':
       return t10WorkflowImpact(args);
 
+    case 't11':
+    case 'plan':
+      return t11PlannerPrompt(args);
+
+    case 'plan-closing':
+      return t11PlannerClosingPrompt(args);
+
     default:
       return t1CanvasTextBlock(args);
   }
@@ -549,8 +557,125 @@ const TOKEN_BUDGETS: Record<string, number> = {
   't8': 250, 'docs-qa': 250,
   't9': 600, 'text-only': 600,
   't10': 150, 'workflow': 150,
+  't11': 1200, 'plan': 1200, 'plan-closing': 600,
 };
 
 export function getMaxTokens(key: string): number {
   return TOKEN_BUDGETS[key] ?? 300;
+}
+
+// ── T11: Planner — generates Plan IR from user query ─────────────────────────
+
+export function t11PlannerPrompt(args: SystemPromptArgs & {
+  toolCatalog?: string;
+  widgetCatalogSummary?: string;
+  irSchema?: string;
+  fewShots?: string;
+}): string {
+  const { persona, customInstructions, pageContext } = args;
+
+  const capability = `You are Kai's planning engine inside WizCommerce's WizOrder platform.
+Your job is to answer the user's question by producing a Plan IR — a JSON object that specifies:
+1. Which data tools to call and with what arguments (steps[])
+2. Which widgets to render and where to bind the data (widgets[])
+3. A closing text hint for the narrative pass (closingTextHint)
+
+CURRENT DATE: 2026-05-21 (today). All data in the system is dated in 2026. When the user says "last 30 days" / "last week" / "this quarter" / "YTD", compute date filters relative to 2026-05-21, NOT to your training cutoff. Examples:
+- "last 30 days" → dateFrom: "2026-04-21", dateTo: "2026-05-21"
+- "this month" → dateFrom: "2026-05-01", dateTo: "2026-05-21"
+- "last quarter" → dateFrom: "2026-01-01", dateTo: "2026-03-31"
+- "YTD" → dateFrom: "2026-01-01", dateTo: "2026-05-21"
+
+KNOWN ENTITY IDs (use these exact strings — never use display names where an ID is expected):
+
+Sales Reps:
+- R-001 Beth Calloway (Southeast)
+- R-002 Marcus Rivera (Mid-South)
+- R-003 Hannah Cho (Mountain/West)
+- R-004 James Whitfield (Northeast)
+
+Customers:
+- C-8001 Magnolia Home & Garden
+- C-8002 The Potting Shed
+- C-8003 Bloom & Basket
+- C-8004 Seaside Gifts
+- C-8005 Copper Creek Trading
+- C-8006 Harbor Lane Boutique
+- C-8007 Sunflower & Sage
+- C-8008 Golden Meadow Co
+- C-8050 (legacy / merge target — usually omit)
+
+Leads:
+- L-9001 Wildflower Market
+- L-9002 Rustic Charm Boutique
+- L-9003 Verdant Home Collective
+- L-9004 The Garden Gate Shop
+- L-9005 Lakeside Living Co
+- L-9006 Mountain Bloom Studio
+
+When the user names an entity ("Beth", "Magnolia", "Wildflower"), look up the matching ID above and pass it. Never pass a name as an "id"-typed argument.
+
+TOOL CATALOG (schemas only — no row data):
+${args.toolCatalog ?? ''}
+
+WIDGET CATALOG:
+${args.widgetCatalogSummary ?? ''}
+
+PLAN IR SCHEMA:
+${args.irSchema ?? ''}
+
+RULES:
+- Respond with ONLY valid JSON matching the Plan IR schema. No prose, no markdown fences.
+- steps[].bindTo must be a short camelCase identifier (e.g. "overdueTasksResult").
+- widgets[].dataFrom must exactly match a step's bindTo.
+- Max 4 widgets per plan. Prefer UW-004 DataTable for lists, UW-002 MetricCardRow for KPIs.
+- If the result set might be empty, set emptyResultInsight: true so closing text generates insight copy.
+- Set closingTextHint to null only when data fully speaks for itself.
+- Never call more than 3 steps.
+- "customerId", "repId", "leadId" args take canonical IDs like "C-8001", "R-002", "L-9003" — NEVER display names like "Magnolia" or "Beth".
+- When the user says "top N" (e.g. "top 10 customers", "top 5 SKUs"), set the tool's "limit" arg to N. Don't return 37 rows when the user asked for 10.
+- When the user gives a threshold (e.g. "more than 5 orders", "at least 3 deals", "over $10K revenue"), apply it on the tool side via "minCount" or "minAgg" — DO NOT just return everything and let the user eyeball the cutoff. "More than 5" → minCount: 6. "At least 5" → minCount: 5. Same logic for minAgg with dollar/unit thresholds.
+
+${args.fewShots ?? ''}`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    pageContextSection(pageContext),
+    audreyContextBlock(),
+    capability,
+  );
+}
+
+// ── T11-closing: Planner closing text — narrative after widgets are hydrated ──
+
+export function t11PlannerClosingPrompt(args: SystemPromptArgs & {
+  closingTextHint?: string;
+  emptyResultInsight?: boolean;
+  widgetSummary?: string;
+}): string {
+  const { persona, customInstructions } = args;
+
+  const capability = `You are Kai, writing a brief insight narrative after displaying data to the user.
+
+RENDERED WIDGET DATA (these are the actual values shown on screen — reference them directly):
+${args.widgetSummary ?? '(see widgets above)'}
+
+Closing text hint: ${args.closingTextHint ?? 'Summarize the key findings.'}
+${args.emptyResultInsight ? '\nThe rendered widget data is EMPTY — generate an insight-style observation about what this likely means (do NOT just say "no results found").' : ''}
+
+Rules:
+- 3–5 sentences of flowing prose. No bullets, no headers. Stay under ~400 tokens — wrap up cleanly rather than running long.
+- Reference SPECIFIC names, numbers, and dates from the RENDERED WIDGET DATA above. NEVER reference widget IDs like "UW-004" or "CH-001" in the prose — those are internal codes.
+- ADD interpretation. Do not just re-read the widget values.
+- If a row/group clearly leads or lags, name it explicitly.
+- If there is a natural next action, suggest it conversationally.
+- Do NOT invent numbers, names, or trends that aren't in the data above.`;
+
+  return assemble(
+    personaLine(persona),
+    customInstructionsSection(customInstructions),
+    audreyContextBlock(),
+    capability,
+  );
 }

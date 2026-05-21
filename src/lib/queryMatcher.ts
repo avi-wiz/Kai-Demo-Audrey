@@ -339,6 +339,64 @@ export function matchQuery(message: string): UseCase {
   return 'unknown';
 }
 
+// ── Confidence-gated wrapper around matchQuery ────────────────────────────────
+// v1 planner: dimensional signals (time qualifiers, group/sort qualifiers,
+// multi-entity, non-canonical entities) downgrade a strong uc1/uc2/uc3 match
+// to 'low' confidence, which routing code uses to hand off to the planner
+// instead of force-firing the wired capability.
+
+export type MatchConfidence = 'high' | 'medium' | 'low';
+
+const TIME_QUALIFIERS = [
+  'last month', 'last week', 'last quarter', 'last year', 'last 7 days', 'last 15 days', 'last 30 days', 'last 90 days',
+  'this month', 'this quarter', 'this year', 'this week',
+  'by month', 'by week', 'by quarter',
+  ' vs ', 'compared to', 'compare', 'since ', 'between ', 'over the last', 'in the past',
+];
+
+const GROUP_SORT_QUALIFIERS = [
+  ' by rep', ' by collection', ' by region', ' by status', ' by stage', ' by territory',
+  'grouped', 'group by',
+  'top ', 'bottom ', 'sorted by', 'sort by',
+];
+
+const KNOWN_REP_NAMES = ['beth', 'marcus', 'hannah', 'james'];
+
+function hasTimeQualifier(m: string): boolean {
+  return TIME_QUALIFIERS.some(q => m.includes(q));
+}
+
+function hasGroupSortQualifier(m: string): boolean {
+  return GROUP_SORT_QUALIFIERS.some(q => m.includes(q));
+}
+
+function multiEntityCount(m: string): number {
+  let n = 0;
+  for (const name of KNOWN_REP_NAMES) {
+    if (m.includes(name)) n++;
+  }
+  return n;
+}
+
+/**
+ * Wraps matchQuery with downgrade signals (Decision §25). A confident wired-cap
+ * match becomes 'low' when dimensional qualifiers appear, signalling the caller
+ * should hand off to the planner instead of firing the wired uc1/2/3.
+ */
+export function matchQueryWithConfidence(message: string): { useCase: UseCase; confidence: MatchConfidence } {
+  const useCase = matchQuery(message);
+  if (useCase === 'unknown') return { useCase, confidence: 'low' };
+
+  const m = message.toLowerCase();
+  let confidence: MatchConfidence = 'high';
+
+  if (hasTimeQualifier(m)) confidence = 'low';
+  else if (hasGroupSortQualifier(m)) confidence = 'low';
+  else if (multiEntityCount(m) >= 2) confidence = 'low';
+
+  return { useCase, confidence };
+}
+
 // Returns a tailored reply for unrecognised queries. Shown in place of widgets.
 export function getUnknownReply(message: string): string {
   const m = message.toLowerCase();

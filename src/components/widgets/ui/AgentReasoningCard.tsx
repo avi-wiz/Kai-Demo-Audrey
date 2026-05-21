@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { WidgetProps, AgentReasoningCardData, AgentReasoningCardConfig, DAGNode, DAGBranch } from '@/lib/types';
 import { useUserPreferences } from '@/contexts/UserPreferencesContext';
 
@@ -346,23 +346,124 @@ function StepTimeline({ data }: { data: AgentReasoningCardData }) {
   );
 }
 
+// ─── Live node list (planner streaming) ──────────────────────────────────────
+
+interface LiveNode {
+  nodeId: string;
+  action: string;
+  status: string;
+  ms?: number;
+  result?: string;
+  input?: string;
+}
+
+function LiveNodeList({ nodes }: { nodes: LiveNode[] }) {
+  return (
+    <div style={{ padding: '4px 0 12px', display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <style>{`
+        @keyframes kai-live-pulse {
+          0%, 100% { opacity: 0.45; }
+          50% { opacity: 1; }
+        }
+      `}</style>
+      {nodes.map((node) => {
+        const running = node.status === 'running';
+        const failed = node.status === 'failed';
+        const completed = node.status === 'completed';
+        return (
+          <div key={node.nodeId} style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '6px 10px',
+            background: 'var(--surface2)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-inner)',
+            animation: 'kai-node-in 250ms ease both',
+          }}>
+            <span style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>
+              {completed ? (
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--primary-70)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              ) : failed ? (
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--error-80)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              ) : (
+                <span style={{
+                  width: 9, height: 9, borderRadius: '50%',
+                  background: 'var(--ai-accent)',
+                  animation: running ? 'kai-live-pulse 1.2s ease-in-out infinite' : 'none',
+                  display: 'inline-block',
+                }} />
+              )}
+            </span>
+            <span style={{
+              fontFamily: 'var(--mono)', fontSize: '11.5px', fontWeight: 600,
+              color: 'var(--text-primary)', flex: 1,
+            }}>
+              {node.action}
+              {node.input && (
+                <span style={{ fontWeight: 400, color: 'var(--text3)', fontFamily: 'var(--sans)' }}>
+                  {' '}({node.input})
+                </span>
+              )}
+            </span>
+            {node.result && (
+              <span style={{
+                fontSize: 10, fontWeight: 700, fontFamily: 'var(--mono)',
+                color: 'var(--primary-80)', background: 'var(--primary-10)',
+                border: '1px solid var(--primary-20)', borderRadius: 4, padding: '1px 6px',
+              }}>
+                {node.result}
+              </span>
+            )}
+            {node.ms !== undefined && (
+              <span style={{
+                fontSize: 10, fontFamily: 'var(--mono)', color: 'var(--text3)',
+                background: 'var(--surface)', border: '1px solid var(--border)',
+                borderRadius: 4, padding: '1px 5px',
+              }}>
+                {node.ms}ms
+              </span>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function AgentReasoningCard({ data: rawData, config: rawConfig }: WidgetProps) {
-  const data = rawData as unknown as AgentReasoningCardData;
-  const config = rawConfig as AgentReasoningCardConfig | undefined;
+  const data = rawData as unknown as AgentReasoningCardData & { isLive?: boolean; liveNodes?: Array<{ nodeId: string; action: string; status: string; ms?: number; result?: string; input?: string }> };
+  const config = rawConfig as (AgentReasoningCardConfig & { isLive?: boolean }) | undefined;
   const { autoExpandReasoning } = useUserPreferences();
   const showDag = config?.showDag === true && !!data.dagPlan;
-  // User pref beats fixture default: if autoExpandReasoning is ON, always start expanded
-  const prefCollapsed = autoExpandReasoning ? false : (config?.collapsed !== false);
-  const [collapsed, setCollapsed] = useState(prefCollapsed);
+  const isLive = config?.isLive === true || data.isLive === true;
 
-  // Sync after localStorage hydrates (context starts with default false, then loads saved value)
+  // While live, force expanded. When live completes (isLive flips false), collapse.
+  const prefCollapsed = autoExpandReasoning ? false : (config?.collapsed !== false);
+  const [collapsed, setCollapsed] = useState(isLive ? false : prefCollapsed);
+  const wasLiveRef = useRef(isLive);
+
   useEffect(() => {
-    setCollapsed(autoExpandReasoning ? false : (config?.collapsed !== false));
-  }, [autoExpandReasoning, config?.collapsed]);
+    if (isLive) {
+      setCollapsed(false);
+      wasLiveRef.current = true;
+    } else if (wasLiveRef.current) {
+      // Live → done transition: collapse to "Thought for Ns" summary
+      setCollapsed(true);
+      wasLiveRef.current = false;
+    } else {
+      setCollapsed(autoExpandReasoning ? false : (config?.collapsed !== false));
+    }
+  }, [autoExpandReasoning, config?.collapsed, isLive]);
 
   const hasSteps = data.steps && data.steps.length > 0;
+  const hasLiveNodes = Array.isArray(data.liveNodes) && data.liveNodes.length > 0;
 
   return (
     <div style={{
@@ -427,11 +528,13 @@ export default function AgentReasoningCard({ data: rawData, config: rawConfig }:
         transition: 'max-height 300ms ease',
       }}>
         <div style={{ padding: '0 16px' }}>
-          {showDag
-            ? <DAGView data={data} />
-            : hasSteps
-              ? <StepTimeline data={data} />
-              : null
+          {hasLiveNodes
+            ? <LiveNodeList nodes={data.liveNodes!} />
+            : showDag
+              ? <DAGView data={data} />
+              : hasSteps
+                ? <StepTimeline data={data} />
+                : null
           }
         </div>
       </div>

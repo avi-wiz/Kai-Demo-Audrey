@@ -5,6 +5,8 @@ export interface AudreyTask extends WizOrderTask {
   leadId?: string;
   repId: string;
   notes?: string;
+  createdAt?: string;
+  completedAt?: string | null;
 }
 
 export const TASKS: AudreyTask[] = [
@@ -19,6 +21,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-001',
     status: 'Overdue',
     type: 'Follow Up',
+    createdAt: '2026-05-01',
     notes: 'Samples shipped 2026-04-20. Sarah wants to confirm before placing initial order.',
   },
   {
@@ -32,6 +35,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-003',
     status: 'Overdue',
     type: 'Schedule Call',
+    createdAt: '2026-05-06',
     notes: 'Last order 2026-03-29. Credit utilization at 93%. Status: Warning.',
   },
   {
@@ -45,6 +49,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-002',
     status: 'Overdue',
     type: 'Follow Up',
+    createdAt: '2026-05-07',
     notes: 'Dormant since 2026-02-19. Credit balance near limit. Status: Dormant.',
   },
   {
@@ -58,6 +63,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-001',
     status: 'Overdue',
     type: 'Email',
+    createdAt: '2026-05-05',
     notes: 'Marlene requested refill availability on Herb Garden tins after Atlanta market visit.',
   },
   {
@@ -71,6 +77,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-001',
     status: 'Open',
     type: 'Other',
+    createdAt: '2026-05-10',
     notes: 'Pricing agreed. Needs account setup, credit terms, and stage transition to Won.',
   },
   {
@@ -84,6 +91,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-003',
     status: 'Open',
     type: 'Other',
+    createdAt: '2026-05-10',
     notes: 'Potential duplicate of legacy record C-8050. Review and merge before activation.',
   },
   {
@@ -97,6 +105,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-002',
     status: 'Open',
     type: 'Other',
+    createdAt: '2026-05-12',
     notes: 'Rachel requested website access to browse catalog. Confirm pricelist before provisioning.',
   },
   {
@@ -110,6 +119,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-003',
     status: 'Open',
     type: 'Other',
+    createdAt: '2026-05-14',
     notes: 'Focus on Gardeners Grove and Garden Evergreen. Tailored selection for studio retail.',
   },
   {
@@ -123,6 +133,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-001',
     status: 'Open',
     type: 'Follow Up',
+    createdAt: '2026-05-14',
     notes: 'Pick Of The Patch / July Virtual Release pre-book finalization. Lillian to confirm allotments.',
   },
   {
@@ -136,6 +147,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-002',
     status: 'Open',
     type: 'Schedule Call',
+    createdAt: '2026-05-14',
     notes: 'New website signup 2026-05-14. No outreach yet. Introduce featured collections.',
   },
   {
@@ -149,6 +161,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-003',
     status: 'Open',
     type: 'Schedule Call',
+    createdAt: '2026-05-15',
     notes: 'Growing account. Holden open to expanded SKU range for fall season.',
   },
   {
@@ -162,6 +175,7 @@ export const TASKS: AudreyTask[] = [
     repId: 'R-002',
     status: 'Open',
     type: 'Email',
+    createdAt: '2026-05-15',
     notes: 'Easter restock opportunity. Carter is collection-loyal to Bunnies.',
   },
 ];

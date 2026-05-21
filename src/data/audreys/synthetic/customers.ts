@@ -32,6 +32,7 @@ export interface AudreyCustomer extends WizOrderCustomer {
   currentBalance: number;
   recentOrders: AudreyRecentOrder[];
   openTasks: AudreyOpenTask[];
+  createdAt?: string;
 }
 
 function line(sku: string, qty: number): AudreyOrderLine {
@@ -48,6 +49,7 @@ function order(orderId: string, date: string, lines: AudreyOrderLine[]): AudreyR
 export const CUSTOMERS: AudreyCustomer[] = [
   {
     id: 'C-8001',
+    createdAt: '2023-03-15',
     name: 'Magnolia Home & Garden',
     contact: 'Lillian Hayes',
     lifetimeRevenue: 142000,
@@ -74,6 +76,7 @@ export const CUSTOMERS: AudreyCustomer[] = [
   },
   {
     id: 'C-8002',
+    createdAt: '2023-06-20',
     name: 'The Potting Shed',
     contact: 'Marlene Whitfield',
     lifetimeRevenue: 98500,
@@ -100,6 +103,7 @@ export const CUSTOMERS: AudreyCustomer[] = [
   },
   {
     id: 'C-8003',
+    createdAt: '2023-09-04',
     name: 'Bloom & Basket',
     contact: 'Carter Ellis',
     lifetimeRevenue: 76200,
@@ -125,6 +129,7 @@ export const CUSTOMERS: AudreyCustomer[] = [
   },
   {
     id: 'C-8004',
+    createdAt: '2023-11-11',
     name: 'Seaside Gifts',
     contact: 'Wren Caldwell',
     lifetimeRevenue: 61000,
@@ -150,6 +155,7 @@ export const CUSTOMERS: AudreyCustomer[] = [
   },
   {
     id: 'C-8005',
+    createdAt: '2024-02-08',
     name: 'Copper Creek Trading',
     contact: 'Holden Briggs',
     lifetimeRevenue: 52800,
@@ -175,6 +181,7 @@ export const CUSTOMERS: AudreyCustomer[] = [
   },
   {
     id: 'C-8006',
+    createdAt: '2024-04-17',
     name: 'Harbor Lane Boutique',
     contact: 'Maeve Sutton',
     lifetimeRevenue: 44000,
@@ -201,6 +208,7 @@ export const CUSTOMERS: AudreyCustomer[] = [
   },
   {
     id: 'C-8007',
+    createdAt: '2024-01-22',
     name: 'Sunflower & Sage',
     contact: 'Imogen Park',
     lifetimeRevenue: 38500,
@@ -226,6 +234,7 @@ export const CUSTOMERS: AudreyCustomer[] = [
   },
   {
     id: 'C-8008',
+    createdAt: '2024-05-30',
     name: 'Golden Meadow Co',
     contact: 'Roland Pace',
     lifetimeRevenue: 28000,
@@ -252,6 +261,7 @@ export const CUSTOMERS: AudreyCustomer[] = [
   },
   {
     id: 'C-8050',
+    createdAt: '2022-11-03',
     name: 'Garden Gate',
     contact: 'David Park',
     lifetimeRevenue: 8200,
