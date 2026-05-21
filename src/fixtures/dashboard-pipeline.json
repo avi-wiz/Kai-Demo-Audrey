@@ -165,7 +165,7 @@
                             "rows": [
                                 {
                                     "quote": "QT-1192",
-                                    "customer": "Acme Corp",
+                                    "customer": "Magnolia Home & Garden",
                                     "amount": 8200,
                                     "expires": "Apr 30"
                                 },
@@ -202,6 +202,6 @@
     ],
     "closingText": {
         "type": "insight",
-        "text": "Your pipeline grew 22% this month, but conversion dropped 3.1%. The Acme Summer Collection quote ($8,200) expires tomorrow — that's your most time-sensitive deal. Pinnacle's $12,800 winter restock is in negotiation and likely to close."
+        "text": "Your pipeline grew 22% this month, but conversion dropped 3.1%. The Magnolia Summer Collection quote ($8,200) expires tomorrow — that's your most time-sensitive deal. Pinnacle's $12,800 winter restock is in negotiation and likely to close."
     }
 }

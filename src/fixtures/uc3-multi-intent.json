@@ -7,15 +7,15 @@
                 {
                     "widgetType": "UW-014",
                     "data": {
-                        "summary": "Detected 2 intents: [Surface] revenue lookup + [Act] task creation. Shared dependency: entity resolution for Acme Corp. Executing in parallel.",
+                        "summary": "Detected 2 intents: [Surface] revenue lookup + [Act] task creation. Shared dependency: entity resolution for Magnolia Home & Garden. Executing in parallel.",
                         "dagPlan": {
                             "sharedNodes": [
                                 {
                                     "nodeId": "n0",
                                     "action": "resolve_entity",
-                                    "input": "Acme Corp",
+                                    "input": "Magnolia Home & Garden",
                                     "status": "completed",
-                                    "result": "C-4201",
+                                    "result": "C-8001",
                                     "ms": 145
                                 }
                             ],
@@ -112,7 +112,7 @@
                             "fieldPath": "cards[2]",
                             "type": "warning",
                             "message": "Avg order value down 3.1% vs Q1 — consider pushing higher-margin SKUs",
-                            "action": { "label": "View top SKUs", "query": "Show me the top margin SKUs for Acme Corp", "icon": "search", "category": "suggested" }
+                            "action": { "label": "View top SKUs", "query": "Show me the top margin SKUs for Magnolia Home & Garden", "icon": "search", "category": "suggested" }
                         }
                     ],
                     "data": {
@@ -153,7 +153,7 @@
                 {
                     "widgetType": "CH-001",
                     "data": {
-                        "title": "Acme Corp - Q2 2026 Weekly Revenue",
+                        "title": "Magnolia Home & Garden - Q2 2026 Weekly Revenue",
                         "series": [
                             {
                                 "week": "W1 Apr",
@@ -192,7 +192,7 @@
             ],
             "closingText": {
                 "type": "insight",
-                "text": "Acme Corp's Q2 revenue is up 12.4% QoQ at $148,350 — order volume is strong but average order value dipped slightly. A good moment to push higher-margin SKUs."
+                "text": "Magnolia Home & Garden's Q2 revenue is up 12.4% QoQ at $148,350 — order volume is strong but average order value dipped slightly. A good moment to push higher-margin SKUs."
             }
         },
         {
@@ -204,12 +204,12 @@
                     "widgetType": "UW-003",
                     "data": {
                         "entityType": "task",
-                        "title": "Follow up with Acme Corp",
+                        "title": "Follow up with Magnolia Home & Garden",
                         "fields": [
                             {
                                 "label": "Customer",
-                                "value": "Acme Corp",
-                                "entityId": "C-4201"
+                                "value": "Magnolia Home & Garden",
+                                "entityId": "C-8001"
                             },
                             {
                                 "label": "Type",
@@ -242,8 +242,8 @@
                                         "fieldId": "customer",
                                         "type": "entity_search",
                                         "label": "Customer",
-                                        "value": "Acme Corp",
-                                        "resolvedId": "C-4201",
+                                        "value": "Magnolia Home & Garden",
+                                        "resolvedId": "C-8001",
                                         "required": true
                                     },
                                     {
@@ -264,7 +264,7 @@
                                         "fieldId": "title",
                                         "type": "text",
                                         "label": "Title",
-                                        "value": "Follow up with Acme Corp",
+                                        "value": "Follow up with Magnolia Home & Garden",
                                         "required": true
                                     },
                                     {
@@ -326,8 +326,8 @@
                     "mcp": "CRM",
                     "method": "createTask",
                     "payload": {
-                        "customerId": "C-4201",
-                        "title": "Follow up with Acme Corp",
+                        "customerId": "C-8001",
+                        "title": "Follow up with Magnolia Home & Garden",
                         "priority": "Medium",
                         "type": "Follow Up",
                         "status": "Open",

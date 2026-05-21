@@ -5,9 +5,9 @@
     {
       "widgetType": "UW-014",
       "data": {
-        "summary": "Resolved 'Acme Corp' as Customer C-4201. Pulled last 8 orders from Orders MCP.",
+        "summary": "Resolved 'Magnolia Home & Garden' as Customer C-8001. Pulled last 8 orders from Orders MCP.",
         "steps": [
-          { "step": 1, "action": "search_customers", "result": "1 match: C-4201 (Acme Corp)", "ms": 130 },
+          { "step": 1, "action": "search_customers", "result": "1 match: C-8001 (Magnolia Home & Garden)", "ms": 130 },
           { "step": 2, "action": "fetch_recent_orders", "result": "8 orders in last 6 months", "ms": 240 },
           { "step": 3, "action": "compute_aggregates", "result": "Total $186,420 across 8 orders", "ms": 60 }
         ],
@@ -34,17 +34,17 @@
           "fieldPath": "rows[0].status",
           "type": "info",
           "message": "Most recent order — 45 days ago, slightly above your 30-day VIP cadence",
-          "action": { "label": "Draft check-in email", "query": "Draft a check-in email to Rachel at Acme Corp", "icon": "email", "category": "suggested" }
+          "action": { "label": "Draft check-in email", "query": "Draft a check-in email to Rachel at Magnolia Home & Garden", "icon": "email", "category": "suggested" }
         },
         {
           "fieldPath": "rows[2].status",
           "type": "warning",
           "message": "Partial shipment — 3 SKUs still backordered",
-          "action": { "label": "Show backorder details", "query": "What's the backorder status on Acme's Feb order?", "icon": "search", "category": "suggested" }
+          "action": { "label": "Show backorder details", "query": "What's the backorder status on Magnolia's Feb order?", "icon": "search", "category": "suggested" }
         }
       ],
       "data": {
-        "title": "Recent Orders — Acme Corp",
+        "title": "Recent Orders — Magnolia Home & Garden",
         "columns": [
           { "key": "orderId", "label": "Order #", "align": "left", "mono": true },
           { "key": "date", "label": "Date", "align": "left", "mono": true },
@@ -70,14 +70,14 @@
     {
       "widgetType": "AW-001",
       "data": {
-        "label": "View All Orders for Acme Corp",
-        "url": "/customers/C-4201/orders",
+        "label": "View All Orders for Magnolia Home & Garden",
+        "url": "/customers/C-8001/orders",
         "style": "secondary"
       }
     }
   ],
   "closingText": {
     "type": "insight",
-    "text": "Acme has placed 8 orders ($186K) over the last 6 months — up 14% from the prior 6 months. Their cadence has slipped slightly though: last order was 45 days ago vs your typical 30-day VIP rhythm. Want me to draft a check-in to Rachel?"
+    "text": "Magnolia has placed 8 orders ($186K) over the last 6 months — up 14% from the prior 6 months. Their cadence has slipped slightly though: last order was 45 days ago vs your typical 30-day VIP rhythm. Want me to draft a check-in to Rachel?"
   }
 }

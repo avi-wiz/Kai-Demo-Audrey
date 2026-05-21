@@ -2,8 +2,8 @@
     "items": [
         {
             "id": "hist-001",
-            "title": "Acme Corp customer health check and revenue analysis",
-            "preview": "Pulled 360° view, revenue trend, and 4 open tasks for Acme Corp (C-4201).",
+            "title": "Magnolia Home & Garden customer health check and revenue analysis",
+            "preview": "Pulled 360° view, revenue trend, and 4 open tasks for Magnolia Home & Garden (C-8001).",
             "timestamp": "2026-04-29T14:30:00Z",
             "useCase": "uc1",
             "fixtureId": "uc1-customer-intel"
@@ -18,7 +18,7 @@
         },
         {
             "id": "hist-003",
-            "title": "Acme Corp Q2 revenue with follow-up task",
+            "title": "Magnolia Home & Garden Q2 revenue with follow-up task",
             "preview": "Multi-intent: surfaced Q2 revenue ($148,350) and staged a follow-up task due May 1.",
             "timestamp": "2026-04-28T16:45:00Z",
             "useCase": "uc3",

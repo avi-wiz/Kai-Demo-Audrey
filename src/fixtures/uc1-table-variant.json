@@ -31,10 +31,10 @@
             "widgetType": "UW-007",
             "data": {
                 "entityType": "customer",
-                "entityId": "C-4201",
-                "displayName": "Acme Corp",
-                "contactPerson": "Rachel Martinez",
-                "email": "rachel@acmecorp.com",
+                "entityId": "C-8001",
+                "displayName": "Magnolia Home & Garden",
+                "contactPerson": "Jennifer Holloway",
+                "email": "rachel@magnoliahg.com",
                 "phone": "+1 (555) 234-5678",
                 "lifetimeRevenue": 482350,
                 "lastOrderDate": "2026-03-15",
@@ -55,7 +55,7 @@
         {
             "widgetType": "UW-004",
             "data": {
-                "title": "Revenue Breakdown — Acme Corp",
+                "title": "Revenue Breakdown — Magnolia Home & Garden",
                 "columns": [
                     {
                         "key": "month",
@@ -130,7 +130,7 @@
         {
             "widgetType": "UW-011",
             "data": {
-                "title": "Open Tasks for Acme Corp",
+                "title": "Open Tasks for Magnolia Home & Garden",
                 "items": [
                     {
                         "id": "T-1001",
@@ -171,13 +171,13 @@
             "widgetType": "AW-001",
             "data": {
                 "label": "View Full Profile",
-                "url": "/customers/C-4201",
+                "url": "/customers/C-8001",
                 "style": "secondary"
             }
         }
     ],
     "closingText": {
         "type": "insight",
-        "text": "Here's the revenue data as a table. Total 12-month revenue for Acme Corp is $502,450. November was the strongest month at $52,100, while June was the softest at $28,100."
+        "text": "Here's the revenue data as a table. Total 12-month revenue for Magnolia Home & Garden is $502,450. November was the strongest month at $52,100, while June was the softest at $28,100."
     }
 }

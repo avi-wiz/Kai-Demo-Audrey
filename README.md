@@ -20,9 +20,9 @@ The POC demonstrates all three pillars across 3 chat use cases, a full Agent Sto
 
 | # | Query | What It Shows |
 |---|-------|---------------|
-| **UC-1** | *"How's Acme Corp doing?"* | One sentence replaces 4 screen navigations. Kai resolves the entity, pulls CRM + revenue + tasks, and renders a 5-widget panel progressively. |
+| **UC-1** | *"How's Magnolia Home & Garden doing?"* | One sentence replaces 4 screen navigations. Kai resolves the entity, pulls CRM + revenue + tasks, and renders a 5-widget panel progressively. |
 | **UC-2** | *"Create a high-priority task titled Send Catalogue for Shaw N Solutions, due March 27, assigned to Heman Bhullar"* | Kai parses free text into a pre-filled form, stages it for review, and waits for Confirm / Edit / Cancel before creating anything. |
-| **UC-3** | *"Show me Acme Corp's revenue this quarter, and also create a follow-up task for them due next Friday"* | Two intents, one sentence. Kai splits them into parallel branches (Surface + Act), streams results progressively, and handles consent per-branch. |
+| **UC-3** | *"Show me Magnolia Home & Garden's revenue this quarter, and also create a follow-up task for them due next Friday"* | Two intents, one sentence. Kai splits them into parallel branches (Surface + Act), streams results progressively, and handles consent per-branch. |
 
 Each use case is independently demoable — if one breaks, the other two still land.
 
@@ -202,9 +202,9 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ### Try These Queries
 
-- `How's Acme Corp doing?` → UC-1
+- `How's Magnolia Home & Garden doing?` → UC-1
 - `Create a high-priority task titled Send Catalogue for Shaw N Solutions, due March 27, assigned to Heman Bhullar` → UC-2
-- `Show me Acme Corp's revenue this quarter, and also create a follow-up task for them due next Friday` → UC-3
+- `Show me Magnolia Home & Garden's revenue this quarter, and also create a follow-up task for them due next Friday` → UC-3
 - `Show me NetSuite inventory` → graceful unknown-query fallback
 
 ---

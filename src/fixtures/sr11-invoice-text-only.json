@@ -6,7 +6,7 @@
     {
       "widgetType": "UW-014",
       "data": {
-        "summary": "Pulled overdue invoice INV-3382 for Acme Corp.",
+        "summary": "Pulled overdue invoice INV-3382 for Magnolia Home & Garden.",
         "steps": [
           { "step": 1, "action": "fetch_overdue_invoices", "result": "INV-3382", "ms": 165 }
         ],
@@ -17,6 +17,6 @@
   ],
   "closingText": {
     "type": "insight",
-    "text": "INV-3382 for Acme Corp is $18,200, 27 days overdue (31% of their AR). Two auto-reminders were sent and Heman left a voicemail May 2. Want me to draft a payment-reminder email or create a follow-up task?"
+    "text": "INV-3382 for Magnolia Home & Garden is $18,200, 27 days overdue (31% of their AR). Two auto-reminders were sent and Heman left a voicemail May 2. Want me to draft a payment-reminder email or create a follow-up task?"
   }
 }

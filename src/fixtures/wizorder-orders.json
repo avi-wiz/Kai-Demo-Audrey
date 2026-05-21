@@ -1,6 +1,6 @@
 {
   "orders": [
-    { "id": "ORD-2841", "customer": "Acme Corp", "total": 5640.19, "status": "Draft", "date": "2026-04-29", "rep": "Heman Bhullar", "items": 3 },
+    { "id": "ORD-2841", "customer": "Magnolia Home & Garden", "total": 5640.19, "status": "Draft", "date": "2026-04-29", "rep": "Heman Bhullar", "items": 3 },
     { "id": "ORD-2840", "customer": "Bay Area Boutiques", "total": 3200.00, "status": "Pending Approval", "date": "2026-04-29", "rep": "Heman Bhullar", "items": 5, "flagged": true },
     { "id": "ORD-2839", "customer": "Heritage Furniture Co", "total": 12400.00, "status": "Pending Approval", "date": "2026-04-28", "rep": "Sarah Kim", "items": 8, "flagged": true },
     { "id": "ORD-2838", "customer": "Pinnacle Retail", "total": 6850.00, "status": "Confirmed", "date": "2026-04-28", "rep": "Heman Bhullar", "items": 4 },
@@ -8,7 +8,7 @@
     { "id": "ORD-2836", "customer": "Coastal Living Stores", "total": 8900.00, "status": "Shipped", "date": "2026-04-26", "rep": "Sarah Kim", "items": 6 },
     { "id": "ORD-2835", "customer": "Pinnacle Retail", "total": 5100.00, "status": "Delivered", "date": "2026-04-25", "rep": "Heman Bhullar", "items": 4 },
     { "id": "ORD-2834", "customer": "Summit Home Décor", "total": 2800.00, "status": "Delivered", "date": "2026-04-24", "rep": "Mike Torres", "items": 2 },
-    { "id": "ORD-2833", "customer": "Acme Corp", "total": 7600.00, "status": "Delivered", "date": "2026-04-22", "rep": "Heman Bhullar", "items": 5 },
+    { "id": "ORD-2833", "customer": "Magnolia Home & Garden", "total": 7600.00, "status": "Delivered", "date": "2026-04-22", "rep": "Heman Bhullar", "items": 5 },
     { "id": "ORD-2832", "customer": "Beacon Home", "total": 3450.00, "status": "Delivered", "date": "2026-04-20", "rep": "Sarah Kim", "items": 3 }
   ]
 }

@@ -6,7 +6,7 @@
     {
       "widgetType": "UW-014",
       "data": {
-        "summary": "Drafted Q2 re-engagement outreach email for Acme Corp.",
+        "summary": "Drafted Q2 re-engagement outreach email for Magnolia Home & Garden.",
         "steps": [
           { "step": 1, "action": "generate_email_draft", "result": "5-sentence draft", "ms": 180 }
         ],
@@ -17,6 +17,6 @@
   ],
   "closingText": {
     "type": "description",
-    "text": "Outreach draft for Rachel at Acme Corp — leads with the Q2 lighting drop (23 new SKUs in their top category) and the VIP early-access angle. Want it shorter, more casual, or with a discount mention?"
+    "text": "Outreach draft for Rachel at Magnolia Home & Garden — leads with the Q2 lighting drop (23 new SKUs in their top category) and the VIP early-access angle. Want it shorter, more casual, or with a discount mention?"
   }
 }

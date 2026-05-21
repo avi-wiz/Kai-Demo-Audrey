@@ -5,7 +5,7 @@
     {
       "widgetType": "UW-014",
       "data": {
-        "summary": "Pulled overdue invoice INV-3382 for Acme Corp. Cross-referenced AR aging and reminder history.",
+        "summary": "Pulled overdue invoice INV-3382 for Magnolia Home & Garden. Cross-referenced AR aging and reminder history.",
         "steps": [
           { "step": 1, "action": "fetch_overdue_invoices", "result": "1 invoice: INV-3382", "ms": 165 },
           { "step": 2, "action": "fetch_ar_aging", "result": "27 days overdue, 31% of customer AR", "ms": 140 },
@@ -20,9 +20,9 @@
       "widgetType": "UW-003",
       "data": {
         "entityType": "invoice",
-        "title": "Invoice INV-3382 — Acme Corp",
+        "title": "Invoice INV-3382 — Magnolia Home & Garden",
         "fields": [
-          { "label": "Customer", "value": "Acme Corp (C-4201)", "entityId": "C-4201" },
+          { "label": "Customer", "value": "Magnolia Home & Garden (C-8001)", "entityId": "C-8001" },
           { "label": "Amount Due", "value": "$18,200.00" },
           { "label": "Issued", "value": "March 28, 2026" },
           { "label": "Due Date", "value": "April 11, 2026" },
@@ -60,6 +60,6 @@
   ],
   "closingText": {
     "type": "insight",
-    "text": "INV-3382 is 27 days overdue and represents 31% of Acme's outstanding AR. Two automated reminders went out and Heman called May 2 with no response. Recommend a personalized email or a follow-up task before escalating to credit hold."
+    "text": "INV-3382 is 27 days overdue and represents 31% of Magnolia's outstanding AR. Two automated reminders went out and Heman called May 2 with no response. Recommend a personalized email or a follow-up task before escalating to credit hold."
   }
 }

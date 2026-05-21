@@ -47,7 +47,7 @@
       "data": {
         "title": "Affected Accounts",
         "items": [
-          { "id": "C-4201", "title": "Acme Corp — VIP, $482K LTV, 2 open quotes", "dueDate": "VIP", "priority": "High", "assignedTo": "Top priority", "status": "Active" },
+          { "id": "C-8001", "title": "Magnolia Home & Garden — VIP, $482K LTV, 2 open quotes", "dueDate": "VIP", "priority": "High", "assignedTo": "Top priority", "status": "Active" },
           { "id": "C-3318", "title": "Pacific Goods — $312K LTV, discount override pending", "dueDate": "Active", "priority": "High", "assignedTo": "Watch AR", "status": "Active" },
           { "id": "C-2944", "title": "Riverstone LLC — $186K LTV, credit limit increase pending", "dueDate": "Active", "priority": "Medium", "assignedTo": "Coordinate w/ finance", "status": "Active" },
           { "id": "C-2811", "title": "BlueRidge Decor — $148K LTV, Q2 reorder due", "dueDate": "Active", "priority": "Medium", "assignedTo": "Reorder window", "status": "Active" },
@@ -58,6 +58,6 @@
   ],
   "closingText": {
     "type": "insight",
-    "text": "Handoff covers 12 accounts and $1.42M LTV. Top priority is Acme Corp — VIP status with two open quotes. Pacific Goods and Riverstone both have pending approvals worth coordinating with Sara before May 15. Want me to draft a handoff email or notify the affected customers?"
+    "text": "Handoff covers 12 accounts and $1.42M LTV. Top priority is Magnolia Home & Garden — VIP status with two open quotes. Pacific Goods and Riverstone both have pending approvals worth coordinating with Sara before May 15. Want me to draft a handoff email or notify the affected customers?"
   }
 }

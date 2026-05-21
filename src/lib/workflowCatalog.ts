@@ -108,7 +108,7 @@ export const WORKFLOW_CATALOG: CatalogWorkflow[] = [
       { label: 'At-Risk Value', value: '$28.8K', format: 'currency' },
     ],
     setupSummary: 'Drafted quote-expiry reminder workflow. Captures the 4 quotes expiring this week.',
-    setupClosing: 'Workflow drafted: 3-day pre-expiry reminder for open quotes. 4 quotes ($28.8K) would trigger this week — including Acme\'s Summer Collection ($8.2K) tomorrow. Test or activate?',
+    setupClosing: "Workflow drafted: 3-day pre-expiry reminder for open quotes. 4 quotes ($28.8K) would trigger this week — including Magnolia's Summer Collection ($8.2K) tomorrow. Test or activate?",
     testMetrics: [
       { label: 'Triggered', value: '11', format: 'count' },
       { label: 'Customer Reminded', value: '11', format: 'count' },
@@ -116,7 +116,7 @@ export const WORKFLOW_CATALOG: CatalogWorkflow[] = [
       { label: 'Closed Won', value: '6', format: 'count' },
     ],
     testRecords: [
-      { customer: 'Acme Corp', tier: 'VIP', detail: 'QT-1192 · $8,200', ltv: '$482,000', wouldDo: 'Email + Slack' },
+      { customer: 'Magnolia Home & Garden', tier: 'VIP', detail: 'QT-1192 · $8,200', ltv: '$482,000', wouldDo: 'Email + Slack' },
       { customer: 'Pinnacle Retail', tier: 'VIP', detail: 'QT-1198 · $12,800', ltv: '$386,000', wouldDo: 'Email + Slack' },
       { customer: 'Metro Design', tier: 'Standard', detail: 'QT-1210 · $5,600', ltv: '$74,000', wouldDo: 'Email + Slack + At-Risk Flag' },
       { customer: 'Coastal Living', tier: 'VIP', detail: 'QT-1186 · $9,400', ltv: '$254,000', wouldDo: 'Email + Slack' },
@@ -233,7 +233,7 @@ export const WORKFLOW_CATALOG: CatalogWorkflow[] = [
     ],
     testRecords: [
       { customer: 'Pinnacle Retail', tier: 'VIP', detail: 'ORD-3014 · $48,200', ltv: '$386,000', wouldDo: 'Gate + Slack + Auto-approve' },
-      { customer: 'Acme Corp', tier: 'VIP', detail: 'ORD-3022 · $32,100', ltv: '$482,000', wouldDo: 'Gate + Slack + Auto-approve' },
+      { customer: 'Magnolia Home & Garden', tier: 'VIP', detail: 'ORD-3022 · $32,100', ltv: '$482,000', wouldDo: 'Gate + Slack + Auto-approve' },
       { customer: 'Coastal Living', tier: 'VIP', detail: 'ORD-3027 · $28,800', ltv: '$254,000', wouldDo: 'Gate + Slack + Auto-approve' },
       { customer: 'Riverstone LLC', tier: 'Standard', detail: 'ORD-3038 · $44,600', ltv: '$186,000', wouldDo: 'Gate + Slack + Escalate' },
       { customer: 'Pacific Goods', tier: 'VIP', detail: 'ORD-3044 · $38,400', ltv: '$312,000', wouldDo: 'Gate + Slack + Auto-approve' },
@@ -271,7 +271,7 @@ export const WORKFLOW_CATALOG: CatalogWorkflow[] = [
       { label: 'Re-engaged', value: '8', format: 'count' },
     ],
     testRecords: [
-      { customer: 'Acme Corp', tier: 'VIP', detail: 'DEAL-204 · 18 days in Proposal Sent', ltv: '$482,000', wouldDo: 'Email rep' },
+      { customer: 'Magnolia Home & Garden', tier: 'VIP', detail: 'DEAL-204 · 18 days in Proposal Sent', ltv: '$482,000', wouldDo: 'Email rep' },
       { customer: 'Bay Area Boutiques', tier: 'Standard', detail: 'DEAL-215 · 23 days in Negotiation', ltv: '$108,200', wouldDo: 'Email rep + CC manager' },
       { customer: 'Hearth & Home', tier: 'Standard', detail: 'DEAL-222 · 16 days in Proposal Sent', ltv: '$72,400', wouldDo: 'Email rep' },
       { customer: 'Western Crafts', tier: 'VIP', detail: 'DEAL-228 · 25 days in Negotiation', ltv: '$102,400', wouldDo: 'Email rep + CC manager' },

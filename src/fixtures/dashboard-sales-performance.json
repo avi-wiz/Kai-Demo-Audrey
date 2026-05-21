@@ -292,7 +292,7 @@
                             "items": [
                                 {
                                     "id": "QT-1192",
-                                    "title": "Acme Corp — Summer Collection ($8,200)",
+                                    "title": "Magnolia Home & Garden — Summer Collection ($8,200)",
                                     "dueDate": "2026-04-30",
                                     "priority": "High",
                                     "assignedTo": "Heman Bhullar",
@@ -300,7 +300,7 @@
                                 },
                                 {
                                     "id": "QT-1205",
-                                    "title": "Acme Corp — Custom Brass Fixtures ($3,400)",
+                                    "title": "Magnolia Home & Garden — Custom Brass Fixtures ($3,400)",
                                     "dueDate": "2026-05-10",
                                     "priority": "Medium",
                                     "assignedTo": "Heman Bhullar",
@@ -343,6 +343,6 @@
     ],
     "closingText": {
         "type": "insight",
-        "text": "The dashboard shows Q2 is tracking 14% above Q1. Heman is leading in both revenue and conversion rate. One concern: quote conversion dropped 3.1% — might be worth reviewing the 4 open quotes in the pipeline, especially the Acme Summer Collection quote expiring tomorrow."
+        "text": "The dashboard shows Q2 is tracking 14% above Q1. Heman is leading in both revenue and conversion rate. One concern: quote conversion dropped 3.1% — might be worth reviewing the 4 open quotes in the pipeline, especially the Magnolia Summer Collection quote expiring tomorrow."
     }
 }

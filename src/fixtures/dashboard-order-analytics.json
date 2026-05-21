@@ -228,7 +228,7 @@
                             ],
                             "rows": [
                                 {
-                                    "customer": "Acme Corp",
+                                    "customer": "Magnolia Home & Garden",
                                     "orders": 8,
                                     "revenue": 48200,
                                     "avgValue": 6025
@@ -278,6 +278,6 @@
     ],
     "closingText": {
         "type": "insight",
-        "text": "Order volume is healthy at 67 this quarter, up 8.5%. But on-time delivery dropped to 78%, down 4 points from Q1. Thursday is consistently your busiest day — worth ensuring fulfillment capacity is staffed for it. Acme Corp leads with 8 orders and the highest average order value."
+        "text": "Order volume is healthy at 67 this quarter, up 8.5%. But on-time delivery dropped to 78%, down 4 points from Q1. Thursday is consistently your busiest day — worth ensuring fulfillment capacity is staffed for it. Magnolia Home & Garden leads with 8 orders and the highest average order value."
     }
 }

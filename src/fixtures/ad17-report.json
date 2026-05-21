@@ -59,7 +59,7 @@
           { "key": "growth", "label": "vs Q4" }
         ],
         "rows": [
-          { "customer": "Acme Corp", "orders": "8", "revenue": "$132,470", "growth": "+12%" },
+          { "customer": "Magnolia Home & Garden", "orders": "8", "revenue": "$132,470", "growth": "+12%" },
           { "customer": "Pacific Goods", "orders": "6", "revenue": "$98,200", "growth": "+24%" },
           { "customer": "BlueRidge Decor", "orders": "5", "revenue": "$84,100", "growth": "+8%" },
           { "customer": "Hearth & Home", "orders": "4", "revenue": "$71,500", "growth": "+5%" },

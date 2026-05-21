@@ -17,10 +17,10 @@
       "widgetType": "UW-003",
       "data": {
         "entityType": "email",
-        "title": "Follow-Up Email — Acme Corp (Shorter)",
+        "title": "Follow-Up Email — Magnolia Home & Garden (Shorter)",
         "fields": [
-          { "label": "To", "value": "Rachel Chen <rachel@acmecorp.com>" },
-          { "label": "Subject", "value": "Following up — Acme Corp" },
+          { "label": "To", "value": "Rachel Chen <rachel@magnoliahg.com>" },
+          { "label": "Subject", "value": "Following up — Magnolia Home & Garden" },
           { "label": "Body", "value": "Hi Rachel, just checking in on order ORD-LATEST and your open balance of $18,200 — let me know if there's anything I can help with.\n\nBest, Heman" }
         ]
       }

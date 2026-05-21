@@ -3133,7 +3133,7 @@ export default function ChatShell() {
         createdByKai: true,
         orderNumber: `ORD-K${Math.floor(Date.now() / 1000) % 100000}`,
         customer: fields.find((f) => f.fieldId === 'customer')?.value ?? 'Unknown',
-        customerId: 'C-4201',
+        customerId: 'C-8001',
         total,
         status: 'Confirmed',
         items: itemCount,

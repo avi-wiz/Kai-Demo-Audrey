@@ -203,7 +203,7 @@ const SPECIAL_ROUTES: { keywords: string[]; fixture: SpecialFixtureRaw }[] = [
 /**
  * Matches "show recent orders" and "prep for meeting" style queries before
  * the general matcher (which would otherwise classify them as uc1 because
- * they mention 'acme'). Returns parsed widgets + closingText, or null.
+ * they mention 'magnolia'). Returns parsed widgets + closingText, or null.
  */
 export function matchSpecialQuery(message: string): PageContextMatch | null {
   const m = message.toLowerCase();
@@ -317,8 +317,8 @@ export function matchQuery(message: string): UseCase {
     return 'uc3';
   }
 
-  // uc2 (create + task) checked BEFORE uc1's loose 'acme' match so that
-  // "Create a follow-up task for Acme Corp" routes to uc2, not uc1.
+  // uc2 (create + task) checked BEFORE uc1's loose 'magnolia' match so that
+  // "Create a follow-up task for Magnolia Home & Garden" routes to uc2, not uc1.
   if (m.includes('create') && m.includes('task')) {
     return 'uc2';
   }

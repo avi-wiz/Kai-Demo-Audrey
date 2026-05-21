@@ -39,7 +39,7 @@
           { "key": "flag", "label": "Flag" }
         ],
         "rows": [
-          { "id": "AP-1041", "type": "Discount Override", "customer": "Acme Corp", "amount": "$2,400", "policy": "Standard (≤10%)", "flag": "—" },
+          { "id": "AP-1041", "type": "Discount Override", "customer": "Magnolia Home & Garden", "amount": "$2,400", "policy": "Standard (≤10%)", "flag": "—" },
           { "id": "AP-1042", "type": "Order", "customer": "BlueRidge Decor", "amount": "$8,900", "policy": "Standard", "flag": "—" },
           { "id": "AP-1043", "type": "Quote", "customer": "Hearth & Home", "amount": "$14,200", "policy": "Standard", "flag": "—" },
           { "id": "AP-1044", "type": "Discount Override", "customer": "Pacific Goods", "amount": "$5,700", "policy": "Exceeds (18%)", "flag": "Over policy" },

@@ -8,9 +8,9 @@ import { STREAM_WIDGET_DELAY_MS, STREAM_FRAME_PAUSE_MS, UC3_FRAME_PAUSES_MS } fr
 const fixtureMap: Record<string, () => Promise<FrameBundle>> = {
   uc1: () => import('@/fixtures/uc1-customer-intel.json').then((m) => m.default as unknown as FrameBundle),
   uc2: () => import('@/fixtures/uc2-task-creation.json').then((m) => m.default as unknown as FrameBundle),
-  // uc2 variant — used when user query mentions Acme so the staged form
-  // pre-fills with Acme Corp data instead of the default Shaw N Solutions.
-  'uc2-acme': () => import('@/fixtures/uc2-task-creation-acme.json').then((m) => m.default as unknown as FrameBundle),
+  // uc2 variant — used when user query mentions Magnolia so the staged form
+  // pre-fills with Magnolia Home & Garden data instead of the default Shaw N Solutions.
+  'uc2-magnolia': () => import('@/fixtures/uc2-task-creation-magnolia.json').then((m) => m.default as unknown as FrameBundle),
   // uc2 variant — used when the task is being created from an invoice context
   // (sr-11 chip "Create task for this"). Pre-fills with INV-3382 metadata.
   'uc2-invoice': () => import('@/fixtures/uc2-task-creation-invoice.json').then((m) => m.default as unknown as FrameBundle),
@@ -99,8 +99,8 @@ import type { PersonalityId } from '@/lib/types';
 const CLOSING_TEXT_VARIANTS: Record<string, Record<PersonalityId, ClosingText>> = {
   uc1: {
     professional: { type: 'insight', text: 'Revenue up 12% QoQ. 4 tasks on track. Renewal due Q3. Recommend scheduling check-in.' },
-    friendly:     { type: 'insight', text: "Great news on Acme Corp! Revenue's climbing steadily — up 12% this quarter. All 4 tasks are moving along nicely. Maybe worth a quick check-in call before the Q3 renewal comes up? 😊" },
-    executive:    { type: 'insight', text: 'Acme Corp: strong trajectory. Revenue +12% QoQ signals expansion readiness. Recommend pre-renewal engagement to upsell premium tier. Risk: none flagged.' },
+    friendly:     { type: 'insight', text: "Great news on Magnolia Home & Garden! Revenue's climbing steadily — up 12% this quarter. All 4 tasks are moving along nicely. Maybe worth a quick check-in call before the Q3 renewal comes up? 😊" },
+    executive:    { type: 'insight', text: 'Magnolia Home & Garden: strong trajectory. Revenue +12% QoQ signals expansion readiness. Recommend pre-renewal engagement to upsell premium tier. Risk: none flagged.' },
   },
   uc2: {
     professional: { type: 'description', text: 'Task staged. Fields pre-filled from Lead record. Confirm to execute.' },
@@ -160,10 +160,10 @@ export function useStreamSimulator(
   personalityId: PersonalityId = 'friendly',
   userQuery?: string,
 ): StreamSimulatorResult {
-  // For uc2: when the user's query mentions Acme, swap in the Acme-prefilled
+  // For uc2: when the user's query mentions Magnolia, swap in the Magnolia-prefilled
   // fixture variant. Variant only affects the standard (text-widget) map;
   // text-only mode still uses the canonical Shaw N Solutions fixture.
-  const effectiveUseCase: typeof useCase | 'uc2-acme' | 'uc2-invoice' | 'uc2-brief' | 'email-handoff' | 'email-customer-notify' | 'email-handoff-casual' | 'email-customer-notify-casual' | 'email-report-summary' = (() => {
+  const effectiveUseCase: typeof useCase | 'uc2-magnolia' | 'uc2-invoice' | 'uc2-brief' | 'email-handoff' | 'email-customer-notify' | 'email-handoff-casual' | 'email-customer-notify-casual' | 'email-report-summary' = (() => {
     if (useCase === 'email-shorter' && responseMode !== 'text-only' && userQuery) {
       const q = userQuery.toLowerCase();
       if (q.includes('__handoff__')) return 'email-handoff-casual';
@@ -178,7 +178,7 @@ export function useStreamSimulator(
     if (useCase !== 'uc2' || responseMode === 'text-only' || !userQuery) return useCase;
     if (/invoice/i.test(userQuery)) return 'uc2-invoice';
     if (/from this brief|action items from/i.test(userQuery)) return 'uc2-brief';
-    if (/acme/i.test(userQuery)) return 'uc2-acme';
+    if (/magnolia/i.test(userQuery)) return 'uc2-magnolia';
     return useCase;
   })();
   const [widgets, setWidgets] = useState<ParsedWidget[]>([]);
@@ -237,13 +237,13 @@ export function useStreamSimulator(
       if (lastFrame.actions) setFrameActions(lastFrame.actions);
       if (lastFrame.textOnlyActions) setTextOnlyActions(lastFrame.textOnlyActions);
       // Persona variant overrides fixture closingText for uc1/uc2/uc3.
-      // uc2-acme reuses uc2's persona variants. uc2-order has no persona
+      // uc2-magnolia reuses uc2's persona variants. uc2-order has no persona
       // variant entry, so it falls through to its fixture closingText.
-      // uc2-acme reuses uc2's persona variants. uc2-invoice keeps the fixture's
+      // uc2-magnolia reuses uc2's persona variants. uc2-invoice keeps the fixture's
       // own closingText (which references the invoice) instead of falling back
       // to the generic uc2 persona text.
       const variantKey: string | null =
-        effectiveUseCase === 'uc2-acme'
+        effectiveUseCase === 'uc2-magnolia'
           ? 'uc2'
           : effectiveUseCase === 'uc2-invoice' || effectiveUseCase === 'uc2-brief'
             ? null

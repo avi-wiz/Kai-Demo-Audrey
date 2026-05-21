@@ -5,7 +5,7 @@
     {
       "widgetType": "UW-014",
       "data": {
-        "summary": "Generated post-meeting brief for Acme Corp Q3 catalog review. Extracted action items and next-step owners.",
+        "summary": "Generated post-meeting brief for Magnolia Home & Garden Q3 catalog review. Extracted action items and next-step owners.",
         "steps": [
           { "step": 1, "action": "fetch_meeting_transcript", "result": "Transcript loaded — 42 min", "ms": 220 },
           { "step": 2, "action": "extract_action_items", "result": "5 action items identified", "ms": 180 },
@@ -20,10 +20,10 @@
       "widgetType": "UW-003",
       "data": {
         "entityType": "meeting",
-        "title": "Meeting Brief — Acme Corp / Q3 Catalog Review",
+        "title": "Meeting Brief — Magnolia Home & Garden / Q3 Catalog Review",
         "fields": [
           { "label": "Date", "value": "May 7, 2026 — 2:00 PM PST" },
-          { "label": "Attendees", "value": "Rachel Martinez (Acme), Tom Chen (Acme), Heman Bhullar" },
+          { "label": "Attendees", "value": "Jennifer Holloway (Magnolia), Tom Chen (Magnolia), Heman Bhullar" },
           { "label": "Duration", "value": "42 minutes" },
           { "label": "Format", "value": "Video call (Zoom)" },
           { "label": "Outcome", "value": "Aligned on Q3 catalog timing; renewal on track for July 1" }
@@ -56,7 +56,7 @@
     },
     {
       "widgetType": "AW-001",
-      "data": { "label": "Open Acme Corp Profile", "url": "/customers/C-4201", "style": "secondary" }
+      "data": { "label": "Open Magnolia Home & Garden Profile", "url": "/customers/C-8001", "style": "secondary" }
     }
   ],
   "closingText": {

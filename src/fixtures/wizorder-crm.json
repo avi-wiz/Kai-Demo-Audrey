@@ -1,9 +1,9 @@
 {
   "tasks": [
-    { "id": "T-1001", "title": "Follow up on Q2 catalog request", "customer": "Acme Corp", "dueDate": "2026-04-28", "priority": "High", "assignedTo": "Heman Bhullar", "status": "Overdue", "type": "Follow Up" },
-    { "id": "T-1002", "title": "Schedule site visit for new showroom", "customer": "Acme Corp", "dueDate": "2026-05-05", "priority": "Medium", "assignedTo": "Heman Bhullar", "status": "Open", "type": "Site Visit" },
+    { "id": "T-1001", "title": "Follow up on Q2 catalog request", "customer": "Magnolia Home & Garden", "dueDate": "2026-04-28", "priority": "High", "assignedTo": "Heman Bhullar", "status": "Overdue", "type": "Follow Up" },
+    { "id": "T-1002", "title": "Schedule site visit for new showroom", "customer": "Magnolia Home & Garden", "dueDate": "2026-05-05", "priority": "Medium", "assignedTo": "Heman Bhullar", "status": "Open", "type": "Site Visit" },
     { "id": "T-1003", "title": "Send updated price list — Summer 2026", "customer": "Pinnacle Retail", "dueDate": "2026-05-10", "priority": "Medium", "assignedTo": "Sarah Kim", "status": "Open", "type": "Email" },
-    { "id": "T-1004", "title": "Review claim CLM-0892", "customer": "Acme Corp", "dueDate": "2026-04-30", "priority": "High", "assignedTo": "Heman Bhullar", "status": "Overdue", "type": "Other" },
+    { "id": "T-1004", "title": "Review claim CLM-0892", "customer": "Magnolia Home & Garden", "dueDate": "2026-04-30", "priority": "High", "assignedTo": "Heman Bhullar", "status": "Overdue", "type": "Other" },
     { "id": "T-1005", "title": "Canton Fair prep — booth materials", "customer": null, "dueDate": "2026-05-01", "priority": "High", "assignedTo": "Heman Bhullar", "status": "Open", "type": "Other" },
     { "id": "T-1006", "title": "Onboard Urban Nest Co", "customer": "Urban Nest Co", "dueDate": "2026-05-08", "priority": "Medium", "assignedTo": "Alex Chen", "status": "In Progress", "type": "Follow Up" },
     { "id": "T-1007", "title": "Quarterly review — Beacon Home", "customer": "Beacon Home", "dueDate": "2026-05-15", "priority": "Low", "assignedTo": "Sarah Kim", "status": "Open", "type": "Schedule Call" },
@@ -15,7 +15,7 @@
     { "id": "L-5695", "name": "Sunset Décor Studio", "contact": "Ryan Lee", "source": "Referral", "status": "Contacted", "assignedTo": "Sarah Kim", "createdDate": "2026-04-18", "lastContact": "2026-04-20" }
   ],
   "deals": [
-    { "id": "D-301", "name": "Acme Corp — Summer 2026 Collection", "value": 8200, "stage": "Proposal Sent", "customer": "Acme Corp", "rep": "Heman Bhullar", "closeDate": "2026-04-30" },
+    { "id": "D-301", "name": "Magnolia Home & Garden — Summer 2026 Collection", "value": 8200, "stage": "Proposal Sent", "customer": "Magnolia Home & Garden", "rep": "Heman Bhullar", "closeDate": "2026-04-30" },
     { "id": "D-302", "name": "Pinnacle Retail — Winter Restock", "value": 12800, "stage": "Negotiation", "customer": "Pinnacle Retail", "rep": "Sarah Kim", "closeDate": "2026-05-15" },
     { "id": "D-305", "name": "Urban Nest — First Order", "value": 4200, "stage": "Qualified", "customer": "Urban Nest Co", "rep": "Alex Chen", "closeDate": "2026-05-20" },
     { "id": "D-308", "name": "Metro Design — Lighting Upgrade", "value": 5600, "stage": "Proposal Sent", "customer": "Metro Design Group", "rep": "Heman Bhullar", "closeDate": "2026-05-10" }

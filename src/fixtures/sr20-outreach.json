@@ -5,10 +5,10 @@
     {
       "widgetType": "UW-014",
       "data": {
-        "summary": "Drafted outreach campaign email targeting dormant West Coast accounts. Personalized lead-in for Acme Corp.",
+        "summary": "Drafted outreach campaign email targeting dormant West Coast accounts. Personalized lead-in for Magnolia Home & Garden.",
         "steps": [
           { "step": 1, "action": "fetch_campaign_template", "result": "Q2 re-engagement template loaded", "ms": 90 },
-          { "step": 2, "action": "fetch_account_context", "result": "Acme Corp — 45 days since last order", "ms": 130 },
+          { "step": 2, "action": "fetch_account_context", "result": "Magnolia Home & Garden — 45 days since last order", "ms": 130 },
           { "step": 3, "action": "generate_email_draft", "result": "5-sentence draft, professional tone", "ms": 180 }
         ],
         "totalMs": 400
@@ -19,11 +19,11 @@
       "widgetType": "UW-003",
       "data": {
         "entityType": "email",
-        "title": "Outreach Email — Acme Corp (Q2 Re-engagement)",
+        "title": "Outreach Email — Magnolia Home & Garden (Q2 Re-engagement)",
         "fields": [
-          { "label": "To", "value": "Rachel Chen <rachel@acmecorp.com>" },
-          { "label": "Subject", "value": "New Q2 lighting drops — early access for Acme" },
-          { "label": "Body", "value": "Hi Rachel,\n\nI wanted to share a heads-up before our Q2 lighting collection goes live next week — 23 new SKUs in your best-selling category, including a few brass and matte-black accents that fit your buyer profile.\n\nGiven Acme's VIP tier, we can offer early-access ordering starting Monday with our standard 8% discount applied automatically.\n\nWant me to send over the look-book or set up a 15-minute walk-through call?\n\nBest,\nHeman Bhullar\nWizCommerce Sales" }
+          { "label": "To", "value": "Rachel Chen <rachel@magnoliahg.com>" },
+          { "label": "Subject", "value": "New Q2 lighting drops — early access for Magnolia Home & Garden" },
+          { "label": "Body", "value": "Hi Rachel,\n\nI wanted to share a heads-up before our Q2 lighting collection goes live next week — 23 new SKUs in your best-selling category, including a few brass and matte-black accents that fit your buyer profile.\n\nGiven Magnolia's VIP tier, we can offer early-access ordering starting Monday with our standard 8% discount applied automatically.\n\nWant me to send over the look-book or set up a 15-minute walk-through call?\n\nBest,\nHeman Bhullar\nWizCommerce Sales" }
         ]
       }
     },

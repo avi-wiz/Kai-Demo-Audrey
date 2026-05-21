@@ -11,7 +11,7 @@
                     {
                         "step": 1,
                         "action": "resolve_entity",
-                        "result": "C-4201 (Acme Corp)",
+                        "result": "C-8001 (Magnolia Home & Garden)",
                         "ms": 145
                     },
                     {
@@ -41,7 +41,7 @@
     ],
     "closingText": {
         "type": "insight",
-        "text": "Here's what I found for Acme Corp this quarter:\n\nQ2 revenue is at $148,350 across 23 orders, averaging $6,450 per order. Revenue is up 12.4% compared to Q1, though the average order value has dipped slightly (down 3.1%). Weekly performance peaked in Week 3 of April at $31,400.\n\nI've also staged a follow-up task:\n• Title: Follow up with Acme Corp\n• Type: Follow Up\n• Priority: Medium\n• Assigned to: Heman Bhullar\n• Due: May 1, 2026\n\nWould you like me to create this task, or would you prefer to adjust anything?"
+        "text": "Here's what I found for Magnolia Home & Garden this quarter:\n\nQ2 revenue is at $148,350 across 23 orders, averaging $6,450 per order. Revenue is up 12.4% compared to Q1, though the average order value has dipped slightly (down 3.1%). Weekly performance peaked in Week 3 of April at $31,400.\n\nI've also staged a follow-up task:\n• Title: Follow up with Magnolia Home & Garden\n• Type: Follow Up\n• Priority: Medium\n• Assigned to: Heman Bhullar\n• Due: May 1, 2026\n\nWould you like me to create this task, or would you prefer to adjust anything?"
     },
     "textOnlyActions": {
         "confirmText": "Yes, create the task",
