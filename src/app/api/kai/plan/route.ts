@@ -290,23 +290,86 @@ export async function POST(request: Request) {
         emit('node', { nodeId: 'closing', action: 'closing_text', status: 'running' });
         const closingStartMs = Date.now();
 
-        try {
-          let closingRaw = '';
-          const closingStream = await client.messages.create({
-            model: 'claude-sonnet-4-6',
+        // Run the closing-text stream once with a chosen model. Returns the
+        // accumulated text and the final stop reason. Throws if Anthropic
+        // returns an error.
+        const runClosingStream = async (model: string): Promise<{ text: string; stopReason: string | null | undefined }> => {
+          let raw = '';
+          let stop: string | null | undefined;
+          const s = await client.messages.create({
+            model,
             max_tokens: 600,
             system: closingSystemPrompt,
             messages: [{ role: 'user', content: query }],
             stream: true,
           });
-          for await (const event of closingStream) {
+          for await (const event of s) {
             if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-              closingRaw += event.delta.text;
+              raw += event.delta.text;
               emit('closing_delta', { delta: event.delta.text });
             }
+            if (event.type === 'message_delta' && event.delta.stop_reason) {
+              stop = event.delta.stop_reason;
+            }
           }
-          if (closingRaw.trim()) {
-            closingText = { type: 'insight', text: closingRaw.trim() };
+          return { text: raw, stopReason: stop };
+        };
+
+        // Anthropic occasionally returns transient overloaded_error (529).
+        // One retry after a short backoff almost always clears it.
+        const isRetryableUpstream = (err: unknown): boolean => {
+          const msg = err instanceof Error ? err.message : String(err);
+          return msg.includes('overloaded_error') || msg.includes('"type":"overloaded"') || msg.includes('529');
+        };
+
+        try {
+          let closingRaw = '';
+          let stopReason: string | null | undefined = undefined;
+          // Retry policy for transient overloads: try Sonnet twice with
+          // backoff, then fail over to Opus (separate capacity pool — usually
+          // available even when Sonnet is overloaded).
+          const attempts: Array<{ model: string; backoffMs: number }> = [
+            { model: 'claude-sonnet-4-6', backoffMs: 0 },
+            { model: 'claude-sonnet-4-6', backoffMs: 1200 },
+            { model: 'claude-opus-4-7', backoffMs: 2000 },
+          ];
+          let lastErr: unknown;
+          let success = false;
+          for (let i = 0; i < attempts.length; i += 1) {
+            const { model, backoffMs } = attempts[i];
+            if (backoffMs > 0) {
+              console.warn(`[api/kai/plan] closing text retry ${i} (${model}) after ${backoffMs}ms`);
+              await new Promise(r => setTimeout(r, backoffMs));
+            }
+            try {
+              const r = await runClosingStream(model);
+              closingRaw = r.text;
+              stopReason = r.stopReason;
+              success = true;
+              break;
+            } catch (err) {
+              lastErr = err;
+              if (!isRetryableUpstream(err)) throw err;
+            }
+          }
+          if (!success) throw lastErr;
+          const trimmed = closingRaw.trim();
+          if (trimmed) {
+            closingText = { type: 'insight', text: trimmed };
+            console.log('[api/kai/plan] closing ok', JSON.stringify({ chars: trimmed.length, stopReason, ms: Date.now() - closingStartMs }));
+          } else {
+            // Sonnet returned nothing — log details and synthesize a minimal
+            // fallback so the UI still shows insight context.
+            console.warn('[api/kai/plan] closing text empty', JSON.stringify({
+              stopReason,
+              promptLen: closingSystemPrompt.length,
+              widgetSummaryLen: widgetDataSummary.length,
+            }));
+            const fallback = plan.closingTextHint
+              ? `Here's what I found. ${plan.closingTextHint}`
+              : 'Here are the results — let me know if you want a deeper cut.';
+            closingText = { type: 'insight', text: fallback };
+            emit('closing_delta', { delta: fallback });
           }
           emit('node', {
             nodeId: 'closing',
@@ -315,7 +378,15 @@ export async function POST(request: Request) {
             ms: Date.now() - closingStartMs,
           });
         } catch (err) {
-          console.warn('[api/kai/plan] closing text error', err);
+          const message = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
+          console.warn('[api/kai/plan] closing text error:', message);
+          if (err instanceof Error && err.stack) console.warn(err.stack);
+          // Fallback so the user still sees a narrative, even if Sonnet failed.
+          const fallback = plan.closingTextHint
+            ? `Here's what I found. ${plan.closingTextHint}`
+            : 'Here are the results — let me know if you want a deeper cut.';
+          closingText = { type: 'insight', text: fallback };
+          emit('closing_delta', { delta: fallback });
           emit('node', {
             nodeId: 'closing',
             action: 'closing_text',
